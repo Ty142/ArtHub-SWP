@@ -1,8 +1,12 @@
 package dto;
 
-import java.util.Date;
+import lombok.Getter;
+import lombok.Setter;
 
-public class userDTO {
+import java.util.Date;
+@Setter
+@Getter
+public class UserDTO {
     private int userId;
     private String firstName;
     private String lastName;
@@ -11,11 +15,8 @@ public class userDTO {
     private String biography;
     private double coins;
     private String createdAt;
-    private int rankId;
-    private int roleId;
     private Date dateOfBirth;
     private Date lastLogin;
-    private int accountId;
     private String profilePicture;
     private String backgroundPicture;
     private int followCounts;

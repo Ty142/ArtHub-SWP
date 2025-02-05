@@ -1,7 +1,11 @@
 package repository;
 
+import dto.AccountDTO;
 import entity.Account;
 
 public interface AccountRepository {
-    public Integer getAccountToLogin(String username, String password);
+     Account getAccountIdTLogin(String username);
+     String changePassword(String oldPassword,String newPassword);
+     void addInformationForRegistration(AccountDTO accountDTO);
+
 }
