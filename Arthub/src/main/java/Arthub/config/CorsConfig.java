@@ -33,8 +33,7 @@ public class CorsConfig {
                 .cors(Customizer.withDefaults())
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(authz -> authz
-                        .requestMatchers("/api/Account",
-                                "/api/Role/**").permitAll()
+                        .requestMatchers("/**").permitAll()
                         .requestMatchers("/api/**").authenticated()
                         .anyRequest().authenticated()
                 )

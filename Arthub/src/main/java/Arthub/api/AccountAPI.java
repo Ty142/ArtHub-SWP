@@ -21,8 +21,4 @@ public class AccountAPI {
         return accountService.getAccounts();
     }
 
-    @PostMapping
-    public ResponseEntity<Account> createAccount(@RequestBody Account account) {
-        return new ResponseEntity<>(account, HttpStatus.CREATED);
-    }
 }
