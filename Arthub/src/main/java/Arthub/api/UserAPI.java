@@ -18,6 +18,7 @@ public class UserAPI {
 
     @PostMapping
     public ResponseEntity<Account> createAccount(@RequestBody Account account) {
+        
         return new ResponseEntity<>(account, HttpStatus.CREATED);
     }
 
