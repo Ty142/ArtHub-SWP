@@ -35,6 +35,8 @@ public class CorsConfig {
                 .authorizeHttpRequests(authz -> authz
                         .requestMatchers("/api/Account").permitAll()
                         .requestMatchers("/api/Account", "/api/Role/**").permitAll()
+                        .requestMatchers("/api/Account",
+                                "/api/Role/**").permitAll()
                         .requestMatchers("/api/**").authenticated()
                         .anyRequest().authenticated()
                 )
