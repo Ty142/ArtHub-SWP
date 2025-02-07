@@ -8,7 +8,7 @@ public class ConnectUtils {
     String driverName="com.microsoft.sqlserver.jdbc.SQLServerDriver";
     String url="jdbc:sqlserver://127.0.0.1:1433;databaseName=Arthub;encrypt=true;trustServerCertificate=true;";
     String user="sa";
-    String password = "123123";
+    String password = "minh280504";
 
     private static ConnectUtils instance;
 

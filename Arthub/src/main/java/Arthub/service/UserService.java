@@ -1,6 +1,7 @@
 package Arthub.service;
 
-public interface UserService {
-    boolean checkLogin(String username, String password);
+import Arthub.entity.User;
 
+public interface UserService {
+    User getUserByAccountId(int accountId); // Định nghĩa phương thức để lấy User theo AccountID
 }
