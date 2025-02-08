@@ -7,15 +7,13 @@ import org.springframework.stereotype.Service;
 import Arthub.repository.AccountRepository;
 import Arthub.repository.UserRepository;
 import Arthub.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
-
-    @Autowired
-    private AccountRepository accountRepository;
 
     @Autowired
     private UserRepository userRepository;
@@ -28,10 +26,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public ArrayList<User> getAllUsers() {
         return userRepository.getAllUsers();
-    }
 
-    @Override
-    public User getUserByIdAccount(int id) {
-        return userRepository.getUserByIdAccount(id);
     }
+    public User getUserByAccountId(int accountId) {
+        // Gọi UserRepository để lấy thông tin User
+        return userRepository.getUserByAccountId(accountId);
+        }
+
 }
