@@ -16,9 +16,22 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private AccountRepository accountRepository;
+
+    @Autowired
+    private UserRepository userRepository;
+
     @Override
     public boolean checkLogin(String username, String password) {
         return false;
     }
 
+    @Override
+    public ArrayList<User> getAllUsers() {
+        return userRepository.getAllUsers();
+    }
+
+    @Override
+    public User getUserByIdAccount(int id) {
+        return userRepository.getUserByIdAccount(id);
+    }
 }
