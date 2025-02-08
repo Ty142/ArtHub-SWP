@@ -3,11 +3,8 @@ package Arthub.repository.impl;
 import Arthub.converter.UserConverter;
 import Arthub.dto.UserDTO;
 import Arthub.entity.User;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import Arthub.repository.UserRepository;
-import org.springframework.stereotype.Repository;
 import utils.ConnectUtils;
 
 import java.sql.Connection;
@@ -24,7 +21,7 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public ArrayList<User> getAllUsers() {
         String sql = "SELECT * FROM [User]";
-        List<User> users = new ArrayList<>();
+            List<User> users = new ArrayList<>();
         ConnectUtils db = ConnectUtils.getInstance();
         try {
             Connection connection = db.openConection();
@@ -54,6 +51,7 @@ public class UserRepositoryImpl implements UserRepository {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return new ArrayList<>(users);
     }
 
     @Override
@@ -124,6 +122,5 @@ public class UserRepositoryImpl implements UserRepository {
         user.setAccountId(resultSet.getInt("AccountID"));
         return user;
     }
-}
 
 }

@@ -31,6 +31,6 @@ public class UserServiceImpl implements UserService {
     public User getUserByAccountId(int accountId) {
         // Gọi UserRepository để lấy thông tin User
         return userRepository.getUserByAccountId(accountId);
-        }
+    }
 
 }

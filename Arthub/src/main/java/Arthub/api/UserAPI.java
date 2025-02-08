@@ -29,23 +29,15 @@ public class UserAPI {
      * @param accountId ID của Account
      * @return Thông tin của User hoặc HTTP 404 nếu không tìm thấy
      */
-    @GetMapping("/{accountId}")
+
+        return new ResponseEntity<>(account, HttpStatus.CREATED);
+    }
     public ResponseEntity<User> getUserByAccountId(@PathVariable("accountId") int accountId) {
         System.out.println("🔍 Received request for User with Account ID: " + accountId);
 
         // Gọi UserService để lấy thông tin User
         User user = userService.getUserByAccountId(accountId);
 
-        return new ResponseEntity<>(account, HttpStatus.CREATED);
-    }
-    @GetMapping
-    public ArrayList<User> getAllUsers() {
-        return userService.getAllUsers();
-    }
-    @GetMapping("/{id}")
-    public User getUserById(@PathVariable int id) {
-        return userService.getUserByIdAccount(id);
-    }
         if (user == null) {
             System.out.println("⚠️ No user found for Account ID: " + accountId);
             return ResponseEntity.notFound().build(); // Trả về HTTP 404 nếu không tìm thấy
@@ -53,5 +45,13 @@ public class UserAPI {
 
         System.out.println("✅ User found: " + user);
         return ResponseEntity.ok(user); // Trả về HTTP 200 nếu tìm thấy
+    }
+    @GetMapping
+    public ArrayList<User> getAllUsers() {
+        return userService.getAllUsers();
+    }
+    @GetMapping("/{id}")
+    public User getUserById(@PathVariable int id) {
+        return userService.getUserByAccountId(id);
     }
 }
