@@ -7,7 +7,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public interface UserRepository {
-    public User getUserByIdAccount(int id);
     ArrayList<User> getAllUsers();
+
     void addUserAccount(UserDTO userDTO) throws SQLException;
+
+    User getUserByAccountId(int accountId); // Định nghĩa phương thức lấy User theo AccountID
 }
