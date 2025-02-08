@@ -33,11 +33,23 @@ public class UserRepositoryImpl implements UserRepository {
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                user.setUserId(resultSet.getInt("userid"));
-                user.setFirstName(resultSet.getString("firstname"));
-                user.setLastName(resultSet.getString("lastname"));
-                user.setCoins(resultSet.getDouble("coins"));
-                user.setAddress(resultSet.getString("address"));
+                user.setUserId(resultSet.getInt("UserID"));
+                user.setFirstName(resultSet.getString("FirstName"));
+                user.setLastName(resultSet.getString("LastName"));
+                user.setPhoneNumber(resultSet.getString("PhoneNumber"));
+                user.setAddress(resultSet.getString("Address"));
+                user.setBiography(resultSet.getString("Biography"));
+                user.setCoins(resultSet.getDouble("Coins"));
+                user.setCreatedAt(resultSet.getString("CreatedAt"));
+                user.setRankId(resultSet.getInt("RankID"));
+                user.setRoleId(resultSet.getInt("RoleID"));
+                user.setDateOfBirth(resultSet.getDate("DateOfBirth"));
+                user.setLastLogin(resultSet.getTimestamp("LastLogin"));
+                user.setAccountId(resultSet.getInt("AccountID"));
+                user.setProfilePicture(resultSet.getString("ProfilePicture"));
+                user.setBackgroundPicture(resultSet.getString("BackgroundPicture"));
+                user.setFollowCounts(resultSet.getInt("FollowCounts"));
+                user.setFollower(resultSet.getInt("FollowerCount"));
             }
         } catch (Exception e) {
             e.printStackTrace();
