@@ -1,6 +1,8 @@
 package Arthub.api;
 
 import Arthub.entity.Account;
+import Arthub.entity.User;
+import Arthub.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,12 +16,17 @@ public class UserAPI {
 
     @Autowired
     AccountService accountService;
-
+    @Autowired
+    private UserService userService;
 
     @PostMapping
     public ResponseEntity<Account> createAccount(@RequestBody Account account) {
-        
+
         return new ResponseEntity<>(account, HttpStatus.CREATED);
+    }
+    @GetMapping("/Creator/{id}")
+    public User getUserById(@PathVariable int id) {
+        return userService.getUserByIdAccount(id);
     }
 
 }
