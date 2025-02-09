@@ -5,13 +5,9 @@ import Arthub.entity.Account;
 import Arthub.repository.AccountRepository;
 import Arthub.service.EmailTokenService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import Arthub.service.AccountService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import Arthub.service.AccountService;
 
 import java.util.List;
 
@@ -19,17 +15,14 @@ import java.util.List;
 @RequestMapping("/api/Account")  // Đặt lại request mapping chuẩn
 public class AccountAPI {
 
-
-
     @Autowired
-    AccountService accountService;
-
-
+    private AccountService accountService;
 
     @Autowired
     private AccountRepository accountRepository;
 
     private final EmailTokenService emailTokenService;
+
     public AccountAPI(EmailTokenService emailTokenService) {
         this.emailTokenService = emailTokenService;
     }
@@ -51,7 +44,6 @@ public class AccountAPI {
         String email = accountDTO.getEmail();
         if (email == null || email.isEmpty()) {
             return ResponseEntity.badRequest().body("Email cannot be null or empty.");
-
         }
         String token = emailTokenService.generateAndSendToken(email);
         return ResponseEntity.ok(token);
@@ -62,7 +54,6 @@ public class AccountAPI {
         System.out.println("🔍 Received request for Account ID: " + accountId);
         Account account = accountService.getAccountById(accountId);
 
-
         if (account == null) {
             System.out.println("⚠️ Account not found for ID: " + accountId);
             return ResponseEntity.notFound().build(); // Trả về HTTP 404 nếu không tìm thấy
@@ -71,6 +62,14 @@ public class AccountAPI {
         System.out.println("✅ Found account: " + account);
         return ResponseEntity.ok(account); // HTTP 200
     }
+
+    @PostMapping("/CreateAccount")
+    public ResponseEntity<String> createAccount(@RequestBody AccountDTO accountDTO) {
+        boolean isCreated = accountService.createAccount(accountDTO);
+        if (isCreated) {
+            return ResponseEntity.ok("Account created successfully");
+        } else {
+            return ResponseEntity.badRequest().body("Failed to create account");
+        }
     }
-
-
+}
