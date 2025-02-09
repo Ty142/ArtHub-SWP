@@ -2,7 +2,6 @@ package Arthub.repository;
 
 import Arthub.dto.AccountDTO;
 import Arthub.entity.Account;
-
 import java.util.ArrayList;
 
 public interface AccountRepository {
@@ -12,4 +11,5 @@ public interface AccountRepository {
      ArrayList<Account> getAllAccounts();
      Account getAccountById(int id);
      Account getAccountByEmailAndPassword(String email, String password);
+     boolean createAccount(AccountDTO accountDTO);
 }

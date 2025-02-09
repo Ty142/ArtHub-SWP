@@ -186,5 +186,43 @@ public class AccountRepositoryImpl implements AccountRepository {
         }
     }
 
+    @Override
+    public boolean createAccount(AccountDTO accountDTO) {
+        try {
+            insertAccount(accountDTO);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public void insertAccount(AccountDTO accountDTO) {
+        if (accountDTO.getEmail() == null || accountDTO.getEmail().isEmpty()) {
+            throw new IllegalArgumentException("Email cannot be null or empty");
+        }
+
+        String userName = accountDTO.getEmail().split("@")[0];
+
+        String sql = "INSERT INTO Account (UserName, RoleID, Email, Password, Status) VALUES (?, ?, ?, ?, ?)";
+        ConnectUtils db = ConnectUtils.getInstance();
+        try (Connection connection = db.openConection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+
+            statement.setString(1, userName);
+            statement.setInt(2, 2);
+            statement.setString(3, accountDTO.getEmail());
+            statement.setString(4, hashPassword(accountDTO.getPassword()));
+            statement.setInt(5, 1);
+
+            statement.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+
 
 }
