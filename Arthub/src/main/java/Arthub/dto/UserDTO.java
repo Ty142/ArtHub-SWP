@@ -27,6 +27,17 @@ public class UserDTO {
     private int rankId;
     private int roleId;
 
+    public int getUserId() {
+        return userId;
+    }
+
+    public String getBase64data() {
+        return base64data;
+    }
+
+    public void setBase64data(String base64data) {
+        this.base64data = base64data;
+    }
 
     public void setUserId(int userId) { this.userId = userId; }
 
