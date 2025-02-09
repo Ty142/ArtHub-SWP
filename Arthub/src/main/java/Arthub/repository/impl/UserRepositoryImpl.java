@@ -21,7 +21,7 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public ArrayList<User> getAllUsers() {
         String sql = "SELECT * FROM [User]";
-            List<User> users = new ArrayList<>();
+        List<User> users = new ArrayList<>();
         ConnectUtils db = ConnectUtils.getInstance();
         try {
             Connection connection = db.openConection();
@@ -77,6 +77,9 @@ public class UserRepositoryImpl implements UserRepository {
         }
     }
 
+
+
+
     public User getUserByAccountId(int accountId) {
         String sql = "SELECT * FROM [User] WHERE AccountID = ?";
         ConnectUtils db = ConnectUtils.getInstance();
@@ -123,4 +126,64 @@ public class UserRepositoryImpl implements UserRepository {
         return user;
     }
 
+    public void updateAvatar(int id, String avatar) {
+        String sql = "UPDATE [dbo].[User] set ProfilePicture = ? WHERE UserId = ?";
+        try {
+            ConnectUtils db = ConnectUtils.getInstance();
+            Connection connection = db.openConection();
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, avatar);
+            statement.setInt(2, id);
+            statement.executeUpdate();
+            statement.close();
+            connection.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    public User getUserById(int id) {
+        String sql = "SELECT * FROM [dbo].[User] WHERE UserID = ?";
+        User user = null;
+        ConnectUtils db = ConnectUtils.getInstance();
+        try {
+            Connection connection = db.openConection();
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, id);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    user = new User();
+                    user.setUserId(resultSet.getInt("UserId"));
+                    user.setFirstName(resultSet.getString("FirstName"));
+                    user.setLastName(resultSet.getString("LastName"));
+                    user.setPhoneNumber(resultSet.getString("PhoneNumber"));
+                    user.setAddress(resultSet.getString("Address"));
+                    user.setBiography(resultSet.getString("Biography"));
+                    user.setCoins(resultSet.getDouble("Coins"));
+                    user.setCreatedAt(resultSet.getString("CreatedAt"));
+                    user.setRankId(resultSet.getInt("RankId"));
+                    user.setRoleId(resultSet.getInt("RoleId"));
+                    user.setDateOfBirth(resultSet.getDate("DateOfBirth"));
+                    user.setLastLogin(resultSet.getDate("LastLogin"));
+                    user.setAccountId(resultSet.getInt("AccountId"));
+                    user.setProfilePicture(resultSet.getString("ProfilePicture"));
+                    user.setBackgroundPicture(resultSet.getString("BackgroundPicture"));
+                    user.setFollowCounts(resultSet.getInt("FollowCounts"));
+                    user.setFollower(resultSet.getInt("FollowerCount"));
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Error fetching user by id", e);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        return user;
+    }
 }
+
+
+
