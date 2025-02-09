@@ -5,6 +5,10 @@ import Arthub.dto.UserDTO;
 import Arthub.entity.Account;
 import Arthub.entity.User;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class UserConverter {
     public User ConvertUserDTOToUserEntity(UserDTO userDTO) {
         User user = new User();
@@ -15,7 +19,7 @@ public class UserConverter {
         user.setAddress(userDTO.getAddress());
         user.setBiography(userDTO.getBiography());
         user.setCoins(userDTO.getCoins());
-        user.setCreatedAt(userDTO.getCreatedAt());
+        user.setCreatedAt(String.valueOf(userDTO.getCreatedAt()));
         user.setDateOfBirth(userDTO.getDateOfBirth());
         return user;
     }
@@ -29,7 +33,17 @@ public class UserConverter {
         userDTO.setAddress(user.getAddress());
         userDTO.setBiography(user.getBiography());
         userDTO.setCoins(user.getCoins());
-        userDTO.setCreatedAt(user.getCreatedAt());
+
+        // Chuyển đổi String createdAt thành Date trước khi gán vào UserDTO
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        try {
+            Date createdAtDate = formatter.parse(user.getCreatedAt());
+            userDTO.setCreatedAt(createdAtDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            userDTO.setCreatedAt(null); // Nếu lỗi, đặt giá trị null để tránh lỗi runtime
+        }
+
         userDTO.setDateOfBirth(user.getDateOfBirth());
         return userDTO;
     }
