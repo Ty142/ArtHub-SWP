@@ -1,6 +1,8 @@
 E:\Course\Sp25\SWP_301\ArtHub-SWP\Arthub\src\main\java\Arthub\api\AccountAPI.java
 E:\Course\Sp25\SWP_301\ArtHub-SWP\Arthub\src\main\java\Arthub\api\RoleAPI.java
+E:\Course\Sp25\SWP_301\ArtHub-SWP\Arthub\src\main\java\Arthub\api\UserApi.java
 E:\Course\Sp25\SWP_301\ArtHub-SWP\Arthub\src\main\java\Arthub\ArtHubApplication.java
+E:\Course\Sp25\SWP_301\ArtHub-SWP\Arthub\src\main\java\Arthub\config\CloudConfig.java
 E:\Course\Sp25\SWP_301\ArtHub-SWP\Arthub\src\main\java\Arthub\config\CorsConfig.java
 E:\Course\Sp25\SWP_301\ArtHub-SWP\Arthub\src\main\java\Arthub\controller\TestDB.java
 E:\Course\Sp25\SWP_301\ArtHub-SWP\Arthub\src\main\java\Arthub\converter\UserConverter.java

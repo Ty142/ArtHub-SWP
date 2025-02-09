@@ -1,7 +1,9 @@
+Arthub\api\UserApi.class
 Arthub\service\Impl\UserServiceImpl.class
 Arthub\repository\impl\AccountRepositoryImpl.class
 Arthub\controller\TestDB.class
 Arthub\service\UserService.class
+Arthub\config\CloudConfig.class
 utils\ConnectUtils.class
 Arthub\api\AccountAPI.class
 Arthub\service\Impl\RoleServiceImpl.class

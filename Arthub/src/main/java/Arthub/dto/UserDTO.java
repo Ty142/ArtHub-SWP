@@ -2,7 +2,6 @@ package Arthub.dto;
 
 
 import java.util.Date;
-
 public class UserDTO {
     private int userId;
     private String firstName;
@@ -18,6 +17,7 @@ public class UserDTO {
     private String backgroundPicture;
     private int followCounts;
     private int follower;
+    private String base64data;
 
     public int getUserId() {
         return userId;
@@ -91,43 +91,52 @@ public class UserDTO {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public Date getLastLogin() {
-        return lastLogin;
+//    public Date getLastLogin() {
+//        return lastLogin;
+//    }
+//
+//    public void setLastLogin(Date lastLogin) {
+//        this.lastLogin = lastLogin;
+//    }
+//
+//    public String getProfilePicture() {
+//        return profilePicture;
+//    }
+//
+//    public void setProfilePicture(String profilePicture) {
+//        this.profilePicture = profilePicture;
+//    }
+//
+//    public String getBackgroundPicture() {
+//        return backgroundPicture;
+//    }
+//
+//    public void setBackgroundPicture(String backgroundPicture) {
+//        this.backgroundPicture = backgroundPicture;
+//    }
+//
+//    public int getFollowCounts() {
+//        return followCounts;
+//    }
+//
+//    public void setFollowCounts(int followCounts) {
+//        this.followCounts = followCounts;
+//    }
+//
+//    public int getFollower() {
+//        return follower;
+//    }
+//
+//    public void setFollower(int follower) {
+//        this.follower = follower;
+//    }
+
+
+    public String getBase64data() {
+        return base64data;
     }
 
-    public void setLastLogin(Date lastLogin) {
-        this.lastLogin = lastLogin;
-    }
-
-    public String getProfilePicture() {
-        return profilePicture;
-    }
-
-    public void setProfilePicture(String profilePicture) {
-        this.profilePicture = profilePicture;
-    }
-
-    public String getBackgroundPicture() {
-        return backgroundPicture;
-    }
-
-    public void setBackgroundPicture(String backgroundPicture) {
-        this.backgroundPicture = backgroundPicture;
-    }
-
-    public int getFollowCounts() {
-        return followCounts;
-    }
-
-    public void setFollowCounts(int followCounts) {
-        this.followCounts = followCounts;
-    }
-
-    public int getFollower() {
-        return follower;
-    }
-
-    public void setFollower(int follower) {
-        this.follower = follower;
+    public void setBase64data(String base64data) {
+        this.base64data = base64data;
     }
 }
