@@ -10,4 +10,6 @@ public interface UserRepository {
     public User getUserByIdAccount(int id);
     ArrayList<User> getAllUsers();
     void addUserAccount(UserDTO userDTO) throws SQLException;
+    User getUserById(int id);
+    void updateAvatar(int id, String avatar);
 }
