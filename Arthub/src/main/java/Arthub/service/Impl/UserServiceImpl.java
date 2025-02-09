@@ -1,4 +1,4 @@
-package Arthub.service.impl;
+package Arthub.service.Impl;
 
 import Arthub.entity.User;
 import Arthub.repository.UserRepository;
