@@ -9,7 +9,6 @@ import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Base64;
-import java.util.List;
 
 import org.springframework.stereotype.Repository;
 import Arthub.repository.AccountRepository;
@@ -220,6 +219,24 @@ public class AccountRepositoryImpl implements AccountRepository {
             e.printStackTrace();
         }
     }
+
+    @Override
+    public boolean isEmailExist(String email) {
+        String sql = "SELECT COUNT(*) FROM Account WHERE Email = ?";
+        ConnectUtils db = ConnectUtils.getInstance();
+        try (Connection connection = db.openConection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, email);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getInt(1) > 0;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
 
 
 

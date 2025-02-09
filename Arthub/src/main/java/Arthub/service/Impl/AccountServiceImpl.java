@@ -45,4 +45,10 @@ public class AccountServiceImpl implements AccountService {
         }
     }
 
+    @Override
+    public boolean isEmailExist(String email) {
+        return accountRepository.isEmailExist(email);
+    }
+
+
 }

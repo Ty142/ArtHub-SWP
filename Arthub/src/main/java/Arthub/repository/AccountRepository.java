@@ -12,4 +12,5 @@ public interface AccountRepository {
      Account getAccountById(int id);
      Account getAccountByEmailAndPassword(String email, String password);
      boolean createAccount(AccountDTO accountDTO);
+     boolean isEmailExist(String email);
 }
