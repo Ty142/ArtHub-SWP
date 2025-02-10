@@ -6,6 +6,7 @@ import Arthub.entity.Account;
 import Arthub.entity.User;
 import Arthub.repository.UserRepository;
 import Arthub.service.UserService;
+import Arthub.utils.ImageUtils;
 import org.apache.tomcat.util.http.fileupload.FileUpload;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -33,6 +34,14 @@ public class UserAPI {
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    ImageUtils imageUtils;
+
+
+
+
+
+
     public ResponseEntity<User> getUserByAccountId(@PathVariable("accountId") int accountId) {
         System.out.println("🔍 Received request for User with Account ID: " + accountId);
 
@@ -57,25 +66,28 @@ public class UserAPI {
     }
 
     @PostMapping("/{userId}/avatar")
-    public ResponseEntity<String> uploadAvatar(@PathVariable Integer userId, @RequestBody FileUploadDTO uploadFileUploadDTO ) {
-        try {
-            String base64 = uploadFileUploadDTO.getBase64Data();
-            if (base64 == null || base64.trim().isEmpty()) {
-                return ResponseEntity.badRequest().body("Dữ liệu ảnh không được để trống");
-            }
-            if (base64.contains(",")) {
-                base64 = base64.split(",")[1];
-            }
+    public ResponseEntity<String> uploadAvatar(@PathVariable Integer userId,@RequestBody FileUploadDTO uploadFileAvatar) throws IOException {
 
-            byte[] fileUpload = Base64.getDecoder().decode(base64);
-            InputStream inputStream = new ByteArrayInputStream(fileUpload);
-            String uniqueFile = String.join(inputStream.toString(), "");
-            String avatarUrl = userService.uploadAvatar(fileUpload,uniqueFile);
+        try {
+            byte[] imgByte = imageUtils.decodeBase64(uploadFileAvatar.getBase64Data());
+            String avatarUrl = userService.uploadAvatar(imgByte, 1);
             userRepository.updateAvatar(userId, avatarUrl);
-            return ResponseEntity.ok("Upload thành công, URL: " + avatarUrl);
-        } catch (IOException e) {
-            e.printStackTrace();
-            return ResponseEntity.internalServerError().body("Lỗi khi upload ảnh");
+            return ResponseEntity.ok("Upload thành công, Avatar: " + avatarUrl);
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().body("Lỗi khi upload ảnh: " + e.getMessage());
+        }
+    }
+
+    @PostMapping("/{userId}/background")
+    public ResponseEntity<String> uploadBackground(@PathVariable Integer userId, @RequestBody FileUploadDTO uploadFileBackground) throws IOException {
+
+        try {
+            byte[] imgByte = imageUtils.decodeBase64(uploadFileBackground.getBase64Data());
+            String Background = userService.uploadAvatar(imgByte, 2);
+            userRepository.updateBackground(userId, Background);
+            return ResponseEntity.ok("Upload thành công, Background: " + Background);
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().body("Lỗi khi upload ảnh: " + e.getMessage());
         }
     }
 
