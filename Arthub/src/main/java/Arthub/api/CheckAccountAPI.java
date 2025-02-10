@@ -28,7 +28,7 @@ public class CheckAccountAPI {
         // Gọi service để kiểm tra thông tin tài khoản
         Account account = accountService.getAccountByEmailAndPassword(email, password);
 
-        if (account == null) {
+        if (account == null || account.getStatus()==0) {
             System.out.println("❌ Invalid Email or Password");
             return ResponseEntity.notFound().build(); // HTTP 404 nếu sai
         }
