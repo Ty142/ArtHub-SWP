@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project version="4">
-  <component name="dataSourceStorageLocal" created-in="IU-241.15989.150">
-    <data-source name="Arthub@localhost" uuid="625b31c5-3f3a-4c14-a7ff-06d52cd718be">
-      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" dbms="MSSQL" />
-      <schema-mapping />
-    </data-source>
-  </component>
-</project>
