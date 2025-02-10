@@ -4,12 +4,18 @@ import Arthub.dto.AccountDTO;
 import Arthub.entity.Account;
 import Arthub.repository.AccountRepository;
 import Arthub.service.EmailTokenService;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import Arthub.service.AccountService;
 
+import java.sql.SQLException;
 import java.util.List;
+
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
+
 
 @RestController
 @RequestMapping("/api/Account")  // Đặt lại request mapping chuẩn
@@ -71,5 +77,57 @@ public class AccountAPI {
         } else {
             return ResponseEntity.badRequest().body("Failed to create account");
         }
+    }
+
+
+
+    private static final Logger logger = LoggerFactory.getLogger(AccountAPI.class);
+
+
+    /**
+     * API để thay đổi mật khẩu dựa trên email
+     * @param requestBody JSON chứa email và mật khẩu mới
+     * @return ResponseEntity chứa thông báo kết quả
+     */
+    @PostMapping("/changepassword")
+    public ResponseEntity<String> changePassword(@RequestBody ChangePasswordRequest requestBody) {
+        logger.info("🔍 Received request to change password for email: {}", requestBody.getEmail());
+
+        try {
+            // Kiểm tra xem email có tồn tại không
+            Account account = accountRepository.getAccountByEmail(requestBody.getEmail());
+            if (account == null) {
+                logger.warn("⚠️ Email '{}' không tồn tại trong hệ thống.", requestBody.getEmail());
+                return ResponseEntity.badRequest().body("Email không tồn tại.");
+            }
+
+            // Cập nhật mật khẩu mới vào database
+            boolean isUpdated = accountRepository.changePasswordByEmail(requestBody.getEmail(), requestBody.getNewPassword());
+            if (isUpdated) {
+                logger.info("✅ Mật khẩu đã được thay đổi thành công cho email: {}", requestBody.getEmail());
+                return ResponseEntity.ok("Mật khẩu đã được cập nhật thành công.");
+            } else {
+                logger.error("❌ Lỗi khi cập nhật mật khẩu cho email: {}", requestBody.getEmail());
+                return ResponseEntity.internalServerError().body("Lỗi khi cập nhật mật khẩu.");
+            }
+        } catch (SQLException e) {
+            logger.error("❌ SQL Exception: {}", e.getMessage(), e);
+            return ResponseEntity.internalServerError().body("Lỗi hệ thống khi cập nhật mật khẩu.");
+        } catch (Exception e) {
+            logger.error("❌ Unexpected error: {}", e.getMessage(), e);
+            return ResponseEntity.internalServerError().body("Lỗi hệ thống.");
+        }
+    }
+
+    // DTO chứa request body của API
+    public static class ChangePasswordRequest {
+        private String newPassword;
+        private String email;
+
+        public String getNewPassword() { return newPassword; }
+        public void setNewPassword(String newPassword) { this.newPassword = newPassword; }
+
+        public String getEmail() { return email; }
+        public void setEmail(String email) { this.email = email; }
     }
 }

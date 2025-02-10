@@ -9,7 +9,6 @@ import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Base64;
-import java.util.List;
 
 import org.springframework.stereotype.Repository;
 import Arthub.repository.AccountRepository;
@@ -242,7 +241,26 @@ public class AccountRepositoryImpl implements AccountRepository {
         }
     }
 
+    @Override
+    public boolean changePasswordByEmail(String email, String newPassword) throws SQLException {
+        String sql = "UPDATE Account SET Password = ? WHERE Email = ?";
+        ConnectUtils db = ConnectUtils.getInstance();
 
+        try (Connection connection = db.openConection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+
+            statement.setString(1, hashPassword(newPassword));
+            statement.setString(2, email);
+
+            int affectedRows = statement.executeUpdate();
+            return affectedRows > 0; // Trả về true nếu cập nhật thành công
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw e;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 
 
