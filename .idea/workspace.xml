@@ -4,25 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b06664a1-3766-443a-8b79-1c1cb4605a69" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/utils/ImageUtils.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Arthub/target/classes/Arthub/utils/ImageUtils.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/api/UserAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/api/UserAPI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/controller/TestDB.java" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/controller/TestDB.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/dto/FileUploadDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/dto/FileUploadDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/repository/UserRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/repository/impl/UserRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/repository/impl/UserRepositoryImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/service/Impl/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/service/Impl/UserServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/service/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arthub/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/api/UserAPI.class" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/target/classes/Arthub/api/UserAPI.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/dto/FileUploadDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/target/classes/Arthub/dto/FileUploadDTO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/repository/UserRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/target/classes/Arthub/repository/UserRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/repository/impl/UserRepositoryImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/target/classes/Arthub/repository/impl/UserRepositoryImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/service/Impl/UserServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/target/classes/Arthub/service/Impl/UserServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/service/UserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/target/classes/Arthub/service/UserService.class" afterDir="false" />
-    </list>
+    <list default="true" id="b06664a1-3766-443a-8b79-1c1cb4605a69" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -69,7 +51,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "Spring Boot.ArtHubApplication.executor": "Run",
-    "git-widget-placeholder": "Merging Backend",
+    "git-widget-placeholder": "main",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
     "node.js.detected.package.eslint": "true",
@@ -166,7 +148,7 @@
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/Arthub/src/main/java/Arthub/api/UserAPI.java</url>
           <line>81</line>
-          <properties class="Arthub.api.UserAPI">
+          <properties class="Arthub.api.UserAPI" method="uploadBackground">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
           </properties>
@@ -175,7 +157,7 @@
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/Arthub/src/main/java/Arthub/api/UserAPI.java</url>
           <line>68</line>
-          <properties class="Arthub.api.UserAPI">
+          <properties class="Arthub.api.UserAPI" method="uploadAvatar">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
           </properties>
