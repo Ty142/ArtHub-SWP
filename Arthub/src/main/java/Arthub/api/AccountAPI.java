@@ -84,6 +84,18 @@ public class AccountAPI {
     private static final Logger logger = LoggerFactory.getLogger(AccountAPI.class);
 
 
+
+
+    public static class ChangePasswordRequest {
+        private String newPassword;
+        private String email;
+
+        public String getNewPassword() { return newPassword; }
+        public void setNewPassword(String newPassword) { this.newPassword = newPassword; }
+
+        public String getEmail() { return email; }
+        public void setEmail(String email) { this.email = email; }
+    }
     /**
      * API để thay đổi mật khẩu dựa trên email
      * @param requestBody JSON chứa email và mật khẩu mới
@@ -120,14 +132,5 @@ public class AccountAPI {
     }
 
     // DTO chứa request body của API
-    public static class ChangePasswordRequest {
-        private String newPassword;
-        private String email;
 
-        public String getNewPassword() { return newPassword; }
-        public void setNewPassword(String newPassword) { this.newPassword = newPassword; }
-
-        public String getEmail() { return email; }
-        public void setEmail(String email) { this.email = email; }
-    }
 }
