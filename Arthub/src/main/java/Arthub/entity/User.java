@@ -1,8 +1,5 @@
 package Arthub.entity;
 
-import lombok.Getter;
-import lombok.Setter;
-
 import java.util.Date;
 
 
@@ -22,6 +19,16 @@ public class User {
     private int accountId;
     private String profilePicture;
     private String backgroundPicture;
+    private String email;
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     private int followCounts;
     private int follower;
 

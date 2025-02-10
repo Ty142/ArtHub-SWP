@@ -1,6 +1,8 @@
 package Arthub.entity;
 
 
+import Arthub.repository.impl.AccountRepositoryImpl;
+
 public class Account {
     private int accountId;
     private String userName;
@@ -11,6 +13,14 @@ public class Account {
 
     public Account() {
     }
+
+//    public Account(int accountId, String userName, String password, String email, int status, int roleID) {
+//        this.accountId = accountId;
+//        this.userName = userName;
+//        this.password = password;
+//        this.email = email;
+//        this.status = status;
+//    }
 
     public int getRoleID() {
         return RoleID;
@@ -37,7 +47,7 @@ public class Account {
     }
 
     public String getPassword() {
-        return password;
+        return AccountRepositoryImpl.hashPassword(password);
     }
 
     public void setPassword(String password) {
@@ -68,4 +78,11 @@ public class Account {
                 ", status=" + status +
                 '}';
     }
+
+//    static Account account = new Account(1, "minh", "minhdeptrai2805", "minhdcde180378@gmail.com", 1, 1);
+//    static Account account2 = new Account(5, "mcdfinh", "minhdeptrai2805", "minhdcsdfdsfgde180378@gmail.com", 1, 1);
+//    public static void main(String[] args) {
+//        System.out.println(account.getPassword());
+//        System.out.println(account2.getPassword());
+//    }
 }

@@ -1,3 +1,4 @@
+
 package Arthub.repository.impl;
 
 import Arthub.dto.TagDTO;
@@ -21,8 +22,8 @@ public class TagRepositoryImpl implements TagRepository {
         utils.ConnectUtils db = utils.ConnectUtils.getInstance();
 
         try (Connection connection = db.openConection();
-        PreparedStatement statement = connection.prepareStatement(sql);
-        ResultSet resultSet = statement.executeQuery()) {
+             PreparedStatement statement = connection.prepareStatement(sql);
+             ResultSet resultSet = statement.executeQuery()) {
 
             while (resultSet.next()){
                 Tag tag = new Tag();
@@ -42,7 +43,7 @@ public class TagRepositoryImpl implements TagRepository {
         utils.ConnectUtils db = utils.ConnectUtils.getInstance();
 
         try (Connection connection = db.openConection();
-        PreparedStatement statement = connection.prepareStatement(sql)){
+             PreparedStatement statement = connection.prepareStatement(sql)){
             statement.setInt(1,id);
             try (ResultSet resultSet = statement.executeQuery()){
                 if (resultSet.next()){
