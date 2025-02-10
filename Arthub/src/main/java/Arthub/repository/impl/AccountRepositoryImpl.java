@@ -147,7 +147,7 @@ public class AccountRepositoryImpl implements AccountRepository {
              PreparedStatement statement = connection.prepareStatement(sql)) {
 
             statement.setString(1, email);
-            statement.setString(2, password);
+            statement.setString(2, hashPassword(password));
             ResultSet resultSet = statement.executeQuery();
 
             if (resultSet.next()) {
