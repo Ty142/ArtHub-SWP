@@ -103,9 +103,8 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public User saveUser(Account account) throws SQLException {
+    public User saveUser(Account account, User user) throws SQLException {
         ConnectUtils db = ConnectUtils.getInstance();
-        User user = new User();
 
         // 1️⃣ Kiểm tra xem AccountID có tồn tại trong bảng Account không
         String checkAccountSql = "SELECT COUNT(*) FROM [Account] WHERE AccountID = ?";
