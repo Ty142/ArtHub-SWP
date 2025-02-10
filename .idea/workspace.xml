@@ -6,13 +6,16 @@
   <component name="ChangeListManager">
     <list default="true" id="b06664a1-3766-443a-8b79-1c1cb4605a69" name="Changes" comment="">
       <change afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/utils/ImageUtils.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Arthub/target/classes/Arthub/utils/ImageUtils.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/api/UserAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/api/UserAPI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/controller/TestDB.java" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/controller/TestDB.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/dto/FileUploadDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/dto/FileUploadDTO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/repository/UserRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/repository/impl/UserRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/repository/impl/UserRepositoryImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/service/Impl/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/service/Impl/UserServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arthub/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/src/main/resources/application.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/api/UserAPI.class" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/target/classes/Arthub/api/UserAPI.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/dto/FileUploadDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/target/classes/Arthub/dto/FileUploadDTO.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/repository/UserRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/target/classes/Arthub/repository/UserRepository.class" afterDir="false" />
@@ -59,7 +62,6 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "Application.test.executor": "Run",
     "RequestMappingsPanelOrder0": "0",
     "RequestMappingsPanelOrder1": "1",
     "RequestMappingsPanelWidth0": "75",
@@ -67,7 +69,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "Spring Boot.ArtHubApplication.executor": "Run",
-    "git-widget-placeholder": "khang",
+    "git-widget-placeholder": "Merging Backend",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
     "node.js.detected.package.eslint": "true",
@@ -78,20 +80,7 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager" selected="Spring Boot.ArtHubApplication">
-    <configuration name="test" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Arthub.entity.test" />
-      <module name="ArtHub" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="Arthub.entity.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager">
     <configuration name="ArtHubApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="ArtHub" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="Arthub.ArtHubApplication" />
@@ -99,17 +88,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <recent_temporary>
-      <list>
-        <item itemvalue="Application.test" />
-      </list>
-    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9f38398b9061-39b83d9b5494-intellij.indexing.shared.core-IU-241.15989.150" />
-        <option value="bundled-js-predefined-1d06a55b98c1-91d5c284f522-JavaScript-IU-241.15989.150" />
+        <option value="bundled-jdk-9823dce3aa75-fdfe4dae3a2d-intellij.indexing.shared.core-IU-243.22562.145" />
+        <option value="bundled-js-predefined-d6986cc7102b-deb605915726-JavaScript-IU-243.22562.145" />
       </set>
     </attachedChunks>
   </component>
@@ -179,25 +163,10 @@
           <line>72</line>
           <option name="timeStamp" value="9" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/Arthub/src/main/java/Arthub/service/Impl/UserServiceImpl.java</url>
-          <line>56</line>
-          <option name="timeStamp" value="14" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/Arthub/src/main/java/Arthub/service/Impl/UserServiceImpl.java</url>
-          <line>57</line>
-          <option name="timeStamp" value="15" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/Arthub/src/main/java/Arthub/service/Impl/UserServiceImpl.java</url>
-          <line>58</line>
-          <option name="timeStamp" value="16" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/Arthub/src/main/java/Arthub/api/UserAPI.java</url>
           <line>81</line>
-          <properties class="Arthub.api.UserAPI" method="uploadBackground">
+          <properties class="Arthub.api.UserAPI">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
           </properties>
@@ -206,7 +175,7 @@
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/Arthub/src/main/java/Arthub/api/UserAPI.java</url>
           <line>68</line>
-          <properties class="Arthub.api.UserAPI" method="uploadAvatar">
+          <properties class="Arthub.api.UserAPI">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
           </properties>
