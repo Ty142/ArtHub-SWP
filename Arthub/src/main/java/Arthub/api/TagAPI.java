@@ -36,7 +36,7 @@ public class TagAPI {
 
     @GetMapping("/{id}")
     public ResponseEntity<Tag> getTagById(@PathVariable int id) {
-        Tag tag = tagService.getTagById(id);
+        Tag tag = tagRepository.getTagById(id);
 
         if (tag == null) {
             return ResponseEntity.notFound().build();

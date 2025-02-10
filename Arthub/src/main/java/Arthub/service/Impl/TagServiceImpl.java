@@ -10,14 +10,5 @@ import org.springframework.stereotype.Service;
 @Service
 public class TagServiceImpl implements TagService {
 
-    private final TagRepositoryImpl tagRepositoryImpl;
-
-    public TagServiceImpl() { this.tagRepositoryImpl = new TagRepositoryImpl(); }
-
-
-    public ArrayList<Tag> getAllTags() { return tagRepositoryImpl.getAllTags(); }
-
-    @Override
-    public Tag getTagById(int id) { return tagRepositoryImpl.getTagById(id); }
 
 }
