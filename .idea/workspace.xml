@@ -23,6 +23,7 @@
       <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/service/Impl/UserServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/target/classes/Arthub/service/Impl/UserServiceImpl.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/service/UserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/target/classes/Arthub/service/UserService.class" afterDir="false" />
     </list>
+    <list default="true" id="b06664a1-3766-443a-8b79-1c1cb4605a69" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -70,6 +71,7 @@
     "RunOnceActivity.git.unshallow": "true",
     "Spring Boot.ArtHubApplication.executor": "Run",
     "git-widget-placeholder": "Merging Backend",
+    "git-widget-placeholder": "Main",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
     "node.js.detected.package.eslint": "true",
@@ -113,6 +115,7 @@
       <workItem from="1739110120622" duration="118000" />
       <workItem from="1739175373188" duration="587000" />
       <workItem from="1739189224986" duration="8935000" />
+      <workItem from="1739209773831" duration="342000" />
     </task>
     <servers />
   </component>
