@@ -181,6 +181,23 @@ public class UserRepositoryImpl implements UserRepository {
         return createdUser;
     }
 
+    @Override
+    public void updateBackground(int id, String background) {
+        String sql = "UPDATE [dbo].[User] set BackgroundPicture = ?  WHERE UserId = ? ";
+        try {
+            ConnectUtils db = ConnectUtils.getInstance();
+            Connection connection = db.openConection();
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, background);
+            statement.setInt(2, id);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     /**
      * Hàm ánh xạ `ResultSet` sang đối tượng `User`.
      */
@@ -207,7 +224,7 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     public void updateAvatar(int id, String avatar) {
-        String sql = "UPDATE [dbo].[User] set ProfilePicture = ? WHERE UserId = ?";
+        String sql = "UPDATE [dbo].[User] set ProfilePicture = ?  WHERE UserId = ?";
         try {
             ConnectUtils db = ConnectUtils.getInstance();
             Connection connection = db.openConection();

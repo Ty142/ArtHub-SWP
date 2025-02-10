@@ -16,5 +16,5 @@ public interface UserService {
     ArrayList<User> getAllUsers();
     User getUserByAccountId(int accountId); // Định nghĩa phương thức để lấy User theo AccountID
     User saveUser(User user) throws SQLException;
-    String uploadAvatar(byte[] imgByte,String uniqueFile) throws IOException;
+    String uploadAvatar(byte[] imgByte, int type) throws IOException;
 }
