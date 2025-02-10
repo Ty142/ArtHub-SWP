@@ -16,7 +16,7 @@ public class TestDB {
         dataSource.setDriverClassName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
         dataSource.setUrl("jdbc:sqlserver://127.0.0.1:1433;databaseName=Arthub;encrypt=true;trustServerCertificate=true;");
         dataSource.setUsername("sa");
-        dataSource.setPassword("1234");
+        dataSource.setPassword("minh280504");
         return dataSource;
     }
 }

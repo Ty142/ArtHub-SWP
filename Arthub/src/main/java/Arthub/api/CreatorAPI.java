@@ -1,6 +1,9 @@
 package Arthub.api;
 
+import Arthub.entity.Account;
 import Arthub.entity.User;
+import Arthub.repository.AccountRepository;
+import Arthub.repository.impl.AccountRepositoryImpl;
 import Arthub.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,13 +20,15 @@ public class CreatorAPI {
 
     /**
      * API để tạo User mới trong database
-     * @param user Dữ liệu User từ request body
+     * @param account Dữ liệu User từ request body
      * @return ResponseEntity chứa User vừa tạo hoặc lỗi
      */
     @PostMapping("/")
-    public ResponseEntity<User> createUser(@RequestBody User user) {
+    public ResponseEntity<User> createUser(@RequestBody Account account, User user) {
+        AccountRepository accountRepository = new AccountRepositoryImpl();
+        Account accToUser = accountRepository.getAccountByEmail(account.getEmail());
         try {
-            User createdUser = userService.saveUser(user);
+            User createdUser = userService.saveUser(accToUser);
             return ResponseEntity.ok(createdUser);
         } catch (SQLException e) {
             e.printStackTrace();

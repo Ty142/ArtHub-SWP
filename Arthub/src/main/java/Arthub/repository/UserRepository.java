@@ -1,6 +1,7 @@
 package Arthub.repository;
 
 import Arthub.dto.UserDTO;
+import Arthub.entity.Account;
 import Arthub.entity.User;
 
 import java.sql.SQLException;
@@ -13,5 +14,5 @@ public interface UserRepository {
     void updateAvatar(int id, String avatar);
 
     User getUserByAccountId(int accountId); // Định nghĩa phương thức lấy User theo AccountID
-    User saveUser(User user) throws SQLException;
+    User saveUser(Account account) throws SQLException;
 }

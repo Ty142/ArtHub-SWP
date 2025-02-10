@@ -197,6 +197,27 @@ public class AccountRepositoryImpl implements AccountRepository {
         }
     }
 
+    @Override
+    public Account getAccountByEmail(String email) {
+        String sql = "SELECT * FROM Account WHERE Email = ?";
+        ConnectUtils db = ConnectUtils.getInstance();
+        Account account = null;
+        try (Connection connection = db.openConection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+
+            statement.setString(1, email);
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                account = mapResultSetToAccount(resultSet);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return account;
+    }
+
     public void insertAccount(AccountDTO accountDTO) {
         if (accountDTO.getEmail() == null || accountDTO.getEmail().isEmpty()) {
             throw new IllegalArgumentException("Email cannot be null or empty");

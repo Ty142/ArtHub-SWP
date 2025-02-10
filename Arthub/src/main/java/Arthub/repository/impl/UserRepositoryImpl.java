@@ -2,6 +2,7 @@ package Arthub.repository.impl;
 
 import Arthub.converter.UserConverter;
 import Arthub.dto.UserDTO;
+import Arthub.entity.Account;
 import Arthub.entity.User;
 import org.springframework.stereotype.Repository;
 import Arthub.repository.UserRepository;
@@ -102,15 +103,16 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public User saveUser(User user) throws SQLException {
+    public User saveUser(Account account) throws SQLException {
         ConnectUtils db = ConnectUtils.getInstance();
+        User user = new User();
 
         // 1️⃣ Kiểm tra xem AccountID có tồn tại trong bảng Account không
         String checkAccountSql = "SELECT COUNT(*) FROM [Account] WHERE AccountID = ?";
         try (Connection connection = db.openConection();
              PreparedStatement checkAccountStmt = connection.prepareStatement(checkAccountSql)) {
 
-            checkAccountStmt.setInt(1, user.getAccountId());
+            checkAccountStmt.setInt(1, account.getAccountId());
             ResultSet accountResult = checkAccountStmt.executeQuery();
 
             if (accountResult.next() && accountResult.getInt(1) == 0) {
@@ -147,11 +149,11 @@ public class UserRepositoryImpl implements UserRepository {
             statement.setString(4, user.getAddress());                     // Address
             statement.setString(5, user.getBiography());                   // Biography
             statement.setDouble(6, user.getCoins());                       // Coins
-            statement.setInt(7, user.getRankId());                         // RankID
-            statement.setInt(8, user.getRoleId());                         // RoleID
+            statement.setInt(7, 1);                         // RankID
+            statement.setInt(8, account.getRoleID());                         // RoleID
             statement.setDate(9, user.getDateOfBirth() != null ? new java.sql.Date(user.getDateOfBirth().getTime()) : null);  // DateOfBirth
             statement.setTimestamp(10, user.getLastLogin() != null ? new java.sql.Timestamp(user.getLastLogin().getTime()) : null);  // LastLogin
-            statement.setInt(11, user.getAccountId());                     // AccountID
+            statement.setInt(11, account.getAccountId());                     // AccountID
             statement.setString(12, user.getProfilePicture());             // ProfilePicture
             statement.setString(13, user.getBackgroundPicture());          // BackgroundPicture
             statement.setInt(14, user.getFollowCounts());                  // FollowCounts
