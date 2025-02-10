@@ -33,18 +33,6 @@ public class UserAPI {
     @Autowired
     UserRepository userRepository;
 
-    @PostMapping
-    public ResponseEntity<Account> createAccount(@RequestBody Account account) {
-    /**
-     * API trả về thông tin user theo `accountId`.
-     *
-     * @param accountId ID của Account
-     * @return Thông tin của User hoặc HTTP 404 nếu không tìm thấy
-     */
-    UserService cloudinaryService;
-
-        return new ResponseEntity<>(account, HttpStatus.CREATED);
-    }
     public ResponseEntity<User> getUserByAccountId(@PathVariable("accountId") int accountId) {
         System.out.println("🔍 Received request for User with Account ID: " + accountId);
 
@@ -81,7 +69,7 @@ public class UserAPI {
 
             byte[] fileUpload = Base64.getDecoder().decode(base64);
             InputStream inputStream = new ByteArrayInputStream(fileUpload);
-            String uniqueFile = String.join(inputStream.toString(), ".jpg");
+            String uniqueFile = String.join(inputStream.toString(), "");
             String avatarUrl = userService.uploadAvatar(fileUpload,uniqueFile);
             userRepository.updateAvatar(userId, avatarUrl);
             return ResponseEntity.ok("Upload thành công, URL: " + avatarUrl);
@@ -93,7 +81,7 @@ public class UserAPI {
 
 
     // API Lấy thông tin User
-    @GetMapping("/{userId}")
+    @GetMapping("/userID/{userId}")
     public ResponseEntity<User> getUser(@PathVariable Integer userId) {
         try {
             User user = userRepository.getUserById(userId);

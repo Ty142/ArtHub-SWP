@@ -12,6 +12,7 @@ import Arthub.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.SQLException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
@@ -56,7 +57,12 @@ public class UserServiceImpl implements UserService {
 
         return uploadAvatar.get("secure_url").toString();
     }
+    @Override
+    public User saveUser(User user) throws SQLException {
+        return userRepository.saveUser(user);
+    }
 
 }
+
 
 

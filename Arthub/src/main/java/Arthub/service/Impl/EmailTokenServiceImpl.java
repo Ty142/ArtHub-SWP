@@ -51,6 +51,7 @@ public class EmailTokenServiceImpl implements EmailTokenService {
     }
 
     private String buildEmailContent(String token) {
+
         return "<html>"
                 + "<head>"
                 + "<style>"

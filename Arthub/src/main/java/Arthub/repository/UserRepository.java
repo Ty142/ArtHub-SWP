@@ -13,4 +13,5 @@ public interface UserRepository {
     void updateAvatar(int id, String avatar);
 
     User getUserByAccountId(int accountId); // Định nghĩa phương thức lấy User theo AccountID
+    User saveUser(User user) throws SQLException;
 }
