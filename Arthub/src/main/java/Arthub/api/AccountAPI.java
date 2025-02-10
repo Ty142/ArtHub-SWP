@@ -86,16 +86,7 @@ public class AccountAPI {
 
 
 
-    public static class ChangePasswordRequest {
-        private String newPassword;
-        private String email;
 
-        public String getNewPassword() { return newPassword; }
-        public void setNewPassword(String newPassword) { this.newPassword = newPassword; }
-
-        public String getEmail() { return email; }
-        public void setEmail(String email) { this.email = email; }
-    }
     /**
      * API để thay đổi mật khẩu dựa trên email
      * @param requestBody JSON chứa email và mật khẩu mới
@@ -110,14 +101,14 @@ public class AccountAPI {
             Account account = accountRepository.getAccountByEmail(requestBody.getEmail());
             if (account == null) {
                 logger.warn("⚠️ Email '{}' không tồn tại trong hệ thống.", requestBody.getEmail());
-                return ResponseEntity.badRequest().body("Email không tồn tại.");
+                return ResponseEntity.badRequest().body("2");
             }
 
             // Cập nhật mật khẩu mới vào database
             boolean isUpdated = accountRepository.changePasswordByEmail(requestBody.getEmail(), requestBody.getNewPassword());
             if (isUpdated) {
                 logger.info("✅ Mật khẩu đã được thay đổi thành công cho email: {}", requestBody.getEmail());
-                return ResponseEntity.ok("Mật khẩu đã được cập nhật thành công.");
+                return ResponseEntity.ok("1");
             } else {
                 logger.error("❌ Lỗi khi cập nhật mật khẩu cho email: {}", requestBody.getEmail());
                 return ResponseEntity.internalServerError().body("Lỗi khi cập nhật mật khẩu.");
@@ -132,5 +123,14 @@ public class AccountAPI {
     }
 
     // DTO chứa request body của API
+    public static class ChangePasswordRequest {
+        private String newPassword;
+        private String email;
 
+        public String getNewPassword() { return newPassword; }
+        public void setNewPassword(String newPassword) { this.newPassword = newPassword; }
+
+        public String getEmail() { return email; }
+        public void setEmail(String email) { this.email = email; }
+    }
 }
