@@ -105,6 +105,33 @@ public class AccountRepositoryImpl implements AccountRepository {
         return accounts;
     }
 
-
+//    @Override
+//    public Account getAccountById(int accountId) {
+//        String sql = "SELECT * FROM Account WHERE AccountID = ?";
+//        ConnectUtils db = ConnectUtils.getInstance();
+//        Account account = null;
+//
+//        try (Connection connection = db.openConection();
+//             PreparedStatement statement = connection.prepareStatement(sql)) {
+//
+//            statement.setInt(1, accountId);
+//            ResultSet resultSet = statement.executeQuery();
+//
+//            if (resultSet.next()) {
+//                account = new Account();
+//                account.setAccountId(resultSet.getInt("AccountID"));
+//                account.setUserName(resultSet.getString("UserName"));
+//                account.setPassword(resultSet.getString("Password"));
+//                account.setEmail(resultSet.getString("Email"));
+//                account.setStatus(resultSet.getInt("Status"));
+//                account.setRoleID(resultSet.getInt("RoleID"));
+//            }
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        return account;
+//    }
+//
 
 }
