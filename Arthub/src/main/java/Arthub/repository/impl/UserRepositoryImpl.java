@@ -183,14 +183,14 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public void updateBackground(int id, String background) {
-        String sql = "UPDATE [dbo].[User] set BackgroundPicture = ?  WHERE UserId = ? ";
+    public void updateBackground(int accountId, String background) {
+        String sql = "UPDATE [dbo].[User] set BackgroundPicture = ?  WHERE AccountID = ? ";
         try {
             ConnectUtils db = ConnectUtils.getInstance();
             Connection connection = db.openConection();
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, background);
-            statement.setInt(2, id);
+            statement.setInt(2, accountId);
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -224,14 +224,14 @@ public class UserRepositoryImpl implements UserRepository {
         return user;
     }
 
-    public void updateAvatar(int id, String avatar) {
-        String sql = "UPDATE [dbo].[User] set ProfilePicture = ?  WHERE UserId = ?";
+    public void updateAvatar(int accountId, String avatar) {
+        String sql = "UPDATE [dbo].[User] set ProfilePicture = ?  WHERE AccountID = ?";
         try {
             ConnectUtils db = ConnectUtils.getInstance();
             Connection connection = db.openConection();
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, avatar);
-            statement.setInt(2, id);
+            statement.setInt(2, accountId);
             statement.executeUpdate();
             statement.close();
             connection.close();

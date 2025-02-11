@@ -71,6 +71,9 @@ public class AccountAPI {
 
     @PostMapping("/CreateAccount")
     public ResponseEntity<String> createAccount(@RequestBody AccountDTO accountDTO) {
+        if (accountService.isEmailExist(accountDTO.getEmail())) {
+            return ResponseEntity.ok("");
+        }
         boolean isCreated = accountService.createAccount(accountDTO);
         if (isCreated) {
             return ResponseEntity.ok("Account created successfully");

@@ -54,26 +54,26 @@ public class UserAPI {
         return userService.getUserByAccountId(id);
     }
 
-    @PostMapping("/{userId}/avatar")
-    public ResponseEntity<String> uploadAvatar(@PathVariable Integer userId,@RequestBody FileUploadDTO uploadFileAvatar) throws IOException {
+    @PostMapping("/{accountId}/avatar")
+    public ResponseEntity<String> uploadAvatar(@PathVariable Integer accountId,@RequestBody FileUploadDTO uploadFileAvatar) throws IOException {
 
         try {
-            byte[] imgByte = imageUtils.decodeBase64(uploadFileAvatar.getBase64Data());
+            byte[] imgByte = imageUtils.decodeBase64(uploadFileAvatar.getImageFile());
             String avatarUrl = userService.uploadAvatar(imgByte, 1);
-            userRepository.updateAvatar(userId, avatarUrl);
+            userRepository.updateAvatar(accountId, avatarUrl);
             return ResponseEntity.ok("Upload thành công, Avatar: " + avatarUrl);
         } catch (Exception e) {
             return ResponseEntity.internalServerError().body("Lỗi khi upload ảnh: " + e.getMessage());
         }
     }
 
-    @PostMapping("/{userId}/background")
-    public ResponseEntity<String> uploadBackground(@PathVariable Integer userId, @RequestBody FileUploadDTO uploadFileBackground) throws IOException {
+    @PostMapping("/{accountId}/background")
+    public ResponseEntity<String> uploadBackground(@PathVariable Integer accountId, @RequestBody FileUploadDTO uploadFileBackground) throws IOException {
 
         try {
-            byte[] imgByte = imageUtils.decodeBase64(uploadFileBackground.getBase64Data());
+            byte[] imgByte = imageUtils.decodeBase64(uploadFileBackground.getImageFile());
             String Background = userService.uploadAvatar(imgByte, 2);
-            userRepository.updateBackground(userId, Background);
+            userRepository.updateBackground(accountId, Background);
             return ResponseEntity.ok("Upload thành công, Background: " + Background);
         } catch (Exception e) {
             return ResponseEntity.internalServerError().body("Lỗi khi upload ảnh: " + e.getMessage());
