@@ -9,7 +9,6 @@ import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Base64;
-import java.util.List;
 
 import org.springframework.stereotype.Repository;
 import Arthub.repository.AccountRepository;
@@ -18,6 +17,8 @@ import utils.ConnectUtils;
 
 @Repository
 public class AccountRepositoryImpl implements AccountRepository {
+
+
 
 
     @Override
@@ -148,7 +149,7 @@ public class AccountRepositoryImpl implements AccountRepository {
              PreparedStatement statement = connection.prepareStatement(sql)) {
 
             statement.setString(1, email);
-            statement.setString(2, password);
+            statement.setString(2, hashPassword(password));
             ResultSet resultSet = statement.executeQuery();
 
             if (resultSet.next()) {
@@ -197,6 +198,27 @@ public class AccountRepositoryImpl implements AccountRepository {
         }
     }
 
+    @Override
+    public Account getAccountByEmail(String email) {
+        String sql = "SELECT * FROM Account WHERE Email = ?";
+        ConnectUtils db = ConnectUtils.getInstance();
+        Account account = null;
+        try (Connection connection = db.openConection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+
+            statement.setString(1, email);
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                account = mapResultSetToAccount(resultSet);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return account;
+    }
+
     public void insertAccount(AccountDTO accountDTO) {
         if (accountDTO.getEmail() == null || accountDTO.getEmail().isEmpty()) {
             throw new IllegalArgumentException("Email cannot be null or empty");
@@ -221,8 +243,43 @@ public class AccountRepositoryImpl implements AccountRepository {
         }
     }
 
+    @Override
+    public boolean changePasswordByEmail(String email, String newPassword) throws SQLException {
+        String sql = "UPDATE Account SET Password = ? WHERE Email = ?";
+        ConnectUtils db = ConnectUtils.getInstance();
 
+        try (Connection connection = db.openConection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
 
+            statement.setString(1, hashPassword(newPassword));
+            statement.setString(2, email);
+
+            int affectedRows = statement.executeUpdate();
+            return affectedRows > 0; // Trả về true nếu cập nhật thành công
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw e;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public boolean isEmailExist(String email) {
+        String sql = "SELECT COUNT(*) FROM Account WHERE Email = ?";
+        ConnectUtils db = ConnectUtils.getInstance();
+        try (Connection connection = db.openConection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, email);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getInt(1) > 0;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 
 
 }

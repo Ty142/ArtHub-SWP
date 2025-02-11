@@ -66,8 +66,8 @@ public class UserServiceImpl implements UserService {
         return uploadAvatar.get("secure_url").toString();
     }
     @Override
-    public User saveUser(User user) throws SQLException {
-        return userRepository.saveUser(user);
+    public User saveUser(Account account, User user) throws SQLException {
+        return userRepository.saveUser(account, user);
     }
 
 }

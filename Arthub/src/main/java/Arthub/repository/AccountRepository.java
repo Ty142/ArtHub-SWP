@@ -2,6 +2,8 @@ package Arthub.repository;
 
 import Arthub.dto.AccountDTO;
 import Arthub.entity.Account;
+
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public interface AccountRepository {
@@ -12,4 +14,7 @@ public interface AccountRepository {
      Account getAccountById(int id);
      Account getAccountByEmailAndPassword(String email, String password);
      boolean createAccount(AccountDTO accountDTO);
+     Account getAccountByEmail(String email);
+     boolean changePasswordByEmail(String email, String newPassword) throws SQLException;
+     boolean isEmailExist(String email);
 }
