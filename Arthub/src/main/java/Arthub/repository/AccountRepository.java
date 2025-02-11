@@ -16,4 +16,5 @@ public interface AccountRepository {
      boolean createAccount(AccountDTO accountDTO);
      Account getAccountByEmail(String email);
      boolean changePasswordByEmail(String email, String newPassword) throws SQLException;
+     boolean isEmailExist(String email);
 }
