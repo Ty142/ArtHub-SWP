@@ -19,6 +19,8 @@ import utils.ConnectUtils;
 public class AccountRepositoryImpl implements AccountRepository {
 
 
+
+
     @Override
     public Account getAccountIdTLogin(String username) {
         String sql = "SELECT a.accountId From Account a where a.UserName like ?";
@@ -262,6 +264,22 @@ public class AccountRepositoryImpl implements AccountRepository {
         }
     }
 
+    @Override
+    public boolean isEmailExist(String email) {
+        String sql = "SELECT COUNT(*) FROM Account WHERE Email = ?";
+        ConnectUtils db = ConnectUtils.getInstance();
+        try (Connection connection = db.openConection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, email);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getInt(1) > 0;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 
 
 }

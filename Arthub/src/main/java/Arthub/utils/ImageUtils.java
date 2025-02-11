@@ -1,4 +1,4 @@
-package Arthub.utils;
+package utils;
 
 import org.springframework.stereotype.Component;
 
