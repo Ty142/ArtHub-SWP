@@ -9,5 +9,5 @@ public interface AccountService {
     Account getAccountById(int accountId);
     Account getAccountByEmailAndPassword(String email, String password);
     boolean createAccount(AccountDTO accountDTO);
-    boolean isEmailExist(String email);
+    public boolean isEmailExist(String email);
 }

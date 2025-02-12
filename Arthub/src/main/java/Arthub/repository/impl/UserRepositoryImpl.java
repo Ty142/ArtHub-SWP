@@ -2,6 +2,7 @@ package Arthub.repository.impl;
 
 import Arthub.converter.UserConverter;
 import Arthub.dto.UserDTO;
+import Arthub.entity.Account;
 import Arthub.entity.User;
 import org.springframework.stereotype.Repository;
 import Arthub.repository.UserRepository;
@@ -101,6 +102,103 @@ public class UserRepositoryImpl implements UserRepository {
         return user;
     }
 
+    @Override
+    public User saveUser(Account account, User user) throws SQLException {
+        ConnectUtils db = ConnectUtils.getInstance();
+
+        // 1️⃣ Kiểm tra xem AccountID có tồn tại trong bảng Account không
+        String checkAccountSql = "SELECT COUNT(*) FROM [Account] WHERE AccountID = ?";
+        try (Connection connection = db.openConection();
+             PreparedStatement checkAccountStmt = connection.prepareStatement(checkAccountSql)) {
+
+            checkAccountStmt.setInt(1, account.getAccountId());
+            ResultSet accountResult = checkAccountStmt.executeQuery();
+
+            if (accountResult.next() && accountResult.getInt(1) == 0) {
+                // 🔴 AccountID không tồn tại -> Trả về lỗi
+                throw new SQLException("AccountID không hợp lệ: " + user.getAccountId());
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new SQLException("Lỗi khi kiểm tra AccountID: " + e.getMessage());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        // 2️⃣ Kiểm tra xem User đã tồn tại với AccountID này chưa
+        User existingUser = getUserByAccountId(user.getAccountId());
+        if (existingUser != null) {
+            System.out.println("User đã tồn tại với AccountID: " + user.getAccountId());
+            return existingUser; // Nếu đã tồn tại, trả về thông tin User cũ
+        }
+
+        // 3️⃣ Nếu AccountID hợp lệ và User chưa tồn tại, tiến hành thêm mới vào database
+        String sql = "INSERT INTO [User] (FirstName, LastName, PhoneNumber, Address, Biography, Coins, CreatedAt, RankID, RoleID, " +
+                "DateOfBirth, LastLogin, AccountID, ProfilePicture, BackgroundPicture, FollowCounts, FollowerCount) " +
+                "VALUES (?, ?, ?, ?, ?, ?, GETDATE(), ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+        User createdUser = null;
+        try (Connection connection = db.openConection();
+             PreparedStatement statement = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
+
+            // Set các giá trị theo đúng thứ tự của bảng [User]
+            statement.setString(1, user.getFirstName());                   // FirstName
+            statement.setString(2, user.getLastName());                    // LastName
+            statement.setString(3, user.getPhoneNumber());                 // PhoneNumber
+            statement.setString(4, user.getAddress());                     // Address
+            statement.setString(5, user.getBiography());                   // Biography
+            statement.setDouble(6, user.getCoins());                       // Coins
+            statement.setInt(7, 1);                         // RankID
+            statement.setInt(8, account.getRoleID());                         // RoleID
+            statement.setDate(9, user.getDateOfBirth() != null ? new java.sql.Date(user.getDateOfBirth().getTime()) : null);  // DateOfBirth
+            statement.setTimestamp(10, user.getLastLogin() != null ? new java.sql.Timestamp(user.getLastLogin().getTime()) : null);  // LastLogin
+            statement.setInt(11, account.getAccountId());                     // AccountID
+            statement.setString(12, user.getProfilePicture());             // ProfilePicture
+            statement.setString(13, user.getBackgroundPicture());          // BackgroundPicture
+            statement.setInt(14, user.getFollowCounts());                  // FollowCounts
+            statement.setInt(15, user.getFollower());                      // FollowerCount
+
+            // Thực thi câu lệnh SQL
+            int affectedRows = statement.executeUpdate();
+            if (affectedRows == 0) {
+                throw new SQLException("Creating user failed, no rows affected.");
+            }
+
+            // Lấy UserID vừa được tạo
+            try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    user.setUserId(generatedKeys.getInt(1));
+                    createdUser = user;
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new SQLException("Lỗi khi lưu User vào database: " + e.getMessage());
+        } catch (Exception e) {
+            throw new RuntimeException("Lỗi không xác định khi lưu User: " + e.getMessage());
+        }
+
+        return createdUser;
+    }
+
+    @Override
+    public void updateBackground(int accountId, String background) {
+        String sql = "UPDATE [dbo].[User] set BackgroundPicture = ?  WHERE AccountID = ? ";
+        try {
+            ConnectUtils db = ConnectUtils.getInstance();
+            Connection connection = db.openConection();
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, background);
+            statement.setInt(2, accountId);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     /**
      * Hàm ánh xạ `ResultSet` sang đối tượng `User`.
      */
@@ -126,14 +224,14 @@ public class UserRepositoryImpl implements UserRepository {
         return user;
     }
 
-    public void updateAvatar(int id, String avatar) {
-        String sql = "UPDATE [dbo].[User] set ProfilePicture = ? WHERE UserId = ?";
+    public void updateAvatar(int accountId, String avatar) {
+        String sql = "UPDATE [dbo].[User] set ProfilePicture = ?  WHERE AccountID = ?";
         try {
             ConnectUtils db = ConnectUtils.getInstance();
             Connection connection = db.openConection();
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, avatar);
-            statement.setInt(2, id);
+            statement.setInt(2, accountId);
             statement.executeUpdate();
             statement.close();
             connection.close();

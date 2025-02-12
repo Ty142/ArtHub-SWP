@@ -5,16 +5,17 @@ public class AccountDTO {
     private String userName;
     private String password;
     private String email;
-    private int status;
-    private String oldPassword;
+    private boolean status;
+    private int roleID;
 
-    public AccountDTO(int accountId, String userName, String password, String email, int status, String oldPassword) {
+
+    public AccountDTO(int accountId, String userName, String password, String email, boolean status, int roleID) {
         this.accountId = accountId;
         this.userName = userName;
         this.password = password;
         this.email = email;
         this.status = status;
-        this.oldPassword = oldPassword;
+        this.roleID = roleID;
     }
 
 
@@ -54,19 +55,19 @@ public class AccountDTO {
         this.email = email;
     }
 
-    public int getStatus() {
+    public boolean getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(boolean status) {
         this.status = status;
     }
 
-    public String getOldPassword() {
-        return oldPassword;
+    public int getRoleID() {
+        return roleID;
     }
 
-    public void setOldPassword(String oldPassword) {
-        this.oldPassword = oldPassword;
+    public void setRoleID(int roleID) {
+        this.roleID = roleID;
     }
 }

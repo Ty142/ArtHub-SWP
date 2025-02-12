@@ -25,7 +25,7 @@ public class EmailTokenServiceImpl implements EmailTokenService {
     @Override
     public String generateAndSendToken(String email) {
 
-        String token = String.valueOf(100000+secureRandom.nextInt(999999)) ;
+        String token = String.valueOf(100000+secureRandom.nextInt(900000)) ;
 
         String subject = "Your Verification Token";
         String body = buildEmailContent(token);
@@ -51,6 +51,7 @@ public class EmailTokenServiceImpl implements EmailTokenService {
     }
 
     private String buildEmailContent(String token) {
+
         return "<html>"
                 + "<head>"
                 + "<style>"

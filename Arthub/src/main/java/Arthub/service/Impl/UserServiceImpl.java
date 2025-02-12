@@ -12,9 +12,12 @@ import Arthub.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.SQLException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -25,6 +28,8 @@ public class UserServiceImpl implements UserService {
         this.cloudinary = cloudinary;
     }
 
+
+    
     @Autowired
     private UserRepository userRepository;
 
@@ -44,17 +49,28 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String uploadAvatar(byte[] imgByte, String uniqueFileName) throws IOException {
-
+    public String uploadAvatar(byte[] imgByte,int type) throws IOException {
+        Map<Integer,String> attributes = new HashMap<Integer,String>();
+        attributes.put(1, "avatar");
+        attributes.put(2, "background");
+        attributes.put(3, "Artwork");
+        String folderName = attributes.get(type);
+        String uniqueFileName = UUID.randomUUID().toString();
         Map<?, ?> uploadAvatar = cloudinary.uploader().upload(imgByte, ObjectUtils.asMap(
-                "folder", "avatar",
+                "folder", folderName,
                 "public_id", uniqueFileName,
+                "overwrite", true,
                 "resource_type", "image"
         ));
 
         return uploadAvatar.get("secure_url").toString();
     }
+    @Override
+    public User saveUser(Account account, User user) throws SQLException {
+        return userRepository.saveUser(account, user);
+    }
 
 }
+
 
 
