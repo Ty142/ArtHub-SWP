@@ -54,7 +54,7 @@ public class UserAPI {
         return userService.getUserByAccountId(id);
     }
 
-    @PostMapping("/{accountId}/avatar")
+    @PutMapping("/{accountId}/avatar")
     public ResponseEntity<String> uploadAvatar(@PathVariable Integer accountId,@RequestBody FileUploadDTO uploadFileAvatar) throws IOException {
 
         try {
@@ -67,8 +67,9 @@ public class UserAPI {
         }
     }
 
-    @PostMapping("/{accountId}/background")
-    public ResponseEntity<String> uploadBackground(@PathVariable Integer accountId, @RequestBody FileUploadDTO uploadFileBackground) throws IOException {
+    @PutMapping("/{accountId}/background")
+    public ResponseEntity<String> uploadBackground(@PathVariable("accountId") Integer accountId,
+                                                   @RequestBody FileUploadDTO uploadFileBackground) throws IOException {
 
         try {
             byte[] imgByte = imageUtils.decodeBase64(uploadFileBackground.getImageFile());

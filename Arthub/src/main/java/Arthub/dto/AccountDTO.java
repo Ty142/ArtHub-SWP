@@ -7,6 +7,7 @@ public class AccountDTO {
     private String email;
     private boolean status;
     private int roleID;
+    private String newpass;
 
 
     public AccountDTO(int accountId, String userName, String password, String email, boolean status, int roleID) {
