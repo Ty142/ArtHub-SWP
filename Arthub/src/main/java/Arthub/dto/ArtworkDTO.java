@@ -1,5 +1,9 @@
 package Arthub.dto;
 
+import Arthub.entity.TagArt;
+
+import java.util.List;
+
 public class ArtworkDTO {
     private int artworkID;
     private String artworkName;
@@ -11,6 +15,7 @@ public class ArtworkDTO {
     private int userID;
     private int libraryID;
     private int status;
+    private List<TagArt> tags;
 
     public int getArtworkID() {
         return artworkID;
