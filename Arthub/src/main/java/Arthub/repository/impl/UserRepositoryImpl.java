@@ -155,7 +155,7 @@ public class UserRepositoryImpl implements UserRepository {
             statement.setInt(11, account.getAccountId());                     // AccountID
             statement.setString(12, user.getProfilePicture());             // ProfilePicture
             statement.setString(13, user.getBackgroundPicture());          // BackgroundPicture
-            statement.setInt(14, user.getFollowCounts());                  // FollowCounts
+            statement.setInt(14, user.getFollowCounts());                   // FollowCounts
             statement.setInt(15, user.getFollower());                      // FollowerCount
 
             // Thực thi câu lệnh SQL

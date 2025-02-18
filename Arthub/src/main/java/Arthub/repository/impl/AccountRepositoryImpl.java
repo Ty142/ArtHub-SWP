@@ -153,14 +153,47 @@ public class AccountRepositoryImpl implements AccountRepository {
             ResultSet resultSet = statement.executeQuery();
 
             if (resultSet.next()) {
-                account = mapResultSetToAccount(resultSet);
+                account = new Account();
+                account.setAccountId(resultSet.getInt("AccountID"));
+                account.setUserName(resultSet.getString("UserName"));
+                account.setPassword(resultSet.getString("Password"));
+                account.setEmail(resultSet.getString("Email"));
+                account.setStatus(resultSet.getInt("Status"));
+
+                // ✅ Nếu đăng nhập thành công -> Cập nhật LastLogin
+                updateLastLogin(account.getAccountId());
             }
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
+            throw new RuntimeException("❌ Lỗi khi kiểm tra tài khoản: " + e.getMessage());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
         return account;
     }
+
+    private void updateLastLogin(int accountId) {
+        String sql = "UPDATE [User] SET LastLogin = CURRENT_TIMESTAMP WHERE AccountID = ?";
+        try (Connection connection = ConnectUtils.getInstance().openConection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+
+            statement.setInt(1, accountId);
+            int rowsUpdated = statement.executeUpdate();
+            if (rowsUpdated > 0) {
+                System.out.println("✅ LastLogin đã cập nhật thành công cho AccountID: " + accountId);
+            } else {
+                System.out.println("⚠️ Không tìm thấy User với AccountID: " + accountId);
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("❌ Lỗi khi cập nhật LastLogin: " + e.getMessage(), e);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
 
     /**
      * Hàm ánh xạ `ResultSet` sang đối tượng `Account`.

@@ -80,6 +80,19 @@ public class UserAPI {
         }
     }
 
+    @PutMapping("/{accountId}/background")
+    public ResponseEntity<String> uploadArtwork(@PathVariable Integer accountId, @RequestBody FileUploadDTO uploadFileBackground) throws IOException {
+
+        try {
+            byte[] imgByte = imageUtils.decodeBase64(uploadFileBackground.getImageFile());
+            String Background = userService.uploadAvatar(imgByte, 3);
+            userRepository.updateBackground(accountId, Background);
+            return ResponseEntity.ok("Upload thành công, Background: " + Background);
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().body("Lỗi khi upload ảnh: " + e.getMessage());
+        }
+    }
+
 
     // API Lấy thông tin User
     @GetMapping("/userID/{userId}")
