@@ -1,5 +1,8 @@
 package Arthub.entity;
 
+import java.time.LocalDateTime;
+import java.util.Date;
+
 public class Artwork {
         private int artworkID;
         private String artworkName;
@@ -10,6 +13,7 @@ public class Artwork {
         private String imageFile;
         private int userID;
         private int libraryID;
+        private LocalDateTime dateCreated;
         private int status;
 
         // Constructor
@@ -95,5 +99,13 @@ public class Artwork {
 
         public void setStatus(int status) {
                 this.status = status;
+        }
+
+        public LocalDateTime getDateCreated(LocalDateTime now) {
+                return dateCreated;
+        }
+
+        public void setDateCreated(LocalDateTime dateCreated) {
+                this.dateCreated = dateCreated;
         }
 }

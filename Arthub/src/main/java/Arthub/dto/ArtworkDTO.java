@@ -2,6 +2,8 @@ package Arthub.dto;
 
 import Arthub.entity.TagArt;
 
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 public class ArtworkDTO {
@@ -15,6 +17,7 @@ public class ArtworkDTO {
     private int userID;
     private int libraryID;
     private int status;
+    private LocalDateTime DateCreated;
     private List<TagArt> tags;
 
     public int getArtworkID() {
@@ -95,5 +98,21 @@ public class ArtworkDTO {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public List<TagArt> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<TagArt> tags) {
+        this.tags = tags;
+    }
+
+    public LocalDateTime getDateCreated() {
+        return DateCreated;
+    }
+
+    public void setDateCreated(LocalDateTime dateCreated) {
+        this.DateCreated = dateCreated;
     }
 }

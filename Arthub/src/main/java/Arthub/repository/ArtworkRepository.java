@@ -9,7 +9,7 @@ public interface ArtworkRepository {
 
     void saveArtPicture(int id, String Artwork);
 
-    void addArtwork(ArtworkDTO artworkDTO);
+    void addArtwork(Artwork artwork);
 
     List<Artwork> getArtworks();
 }

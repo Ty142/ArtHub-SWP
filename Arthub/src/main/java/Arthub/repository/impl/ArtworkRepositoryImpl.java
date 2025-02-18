@@ -42,9 +42,8 @@ public class ArtworkRepositoryImpl implements ArtworkRepository {
     }
 
     @Override
-    public void addArtwork(ArtworkDTO artworkDTO) {
+    public void addArtwork(Artwork artwork) {
         String sql = "Insert into Artworks values ([ArtworkID],[ArtworkName],[Description],[Purchasable],[Price],[ImageFile],[UserID],[Status])";
-        Artwork artwork = artworkConverter.convertArtworkDTOToArtworkEntity(artworkDTO);
         try{
             ConnectUtils db = ConnectUtils.getInstance();
             Connection connection = db.openConection();
@@ -54,8 +53,9 @@ public class ArtworkRepositoryImpl implements ArtworkRepository {
             statement.setString(3, artwork.getDescription());
             statement.setBoolean(4, artwork.isPurchasable());
             statement.setDouble(5, artwork.getPrice());
-            statement.setInt(6, artwork.getUserID());
-            statement.setInt(7, artwork.getStatus());
+            statement.setString(6, artwork.getImageFile());
+            statement.setInt(7, artwork.getUserID());
+            statement.setInt(8, artwork.getStatus());
             statement.executeUpdate();
             connection.close();
             statement.close();
