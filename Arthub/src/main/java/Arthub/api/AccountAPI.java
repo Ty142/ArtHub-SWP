@@ -95,7 +95,7 @@ public class AccountAPI {
      * @param requestBody JSON chứa email và mật khẩu mới
      * @return ResponseEntity chứa thông báo kết quả
      */
-    @PostMapping("/changepassword")
+    @PutMapping("/changepassword")
     public ResponseEntity<String> changePassword(@RequestBody ChangePasswordRequest requestBody) {
         logger.info("🔍 Received request to change password for email: {}", requestBody.getEmail());
 
@@ -108,7 +108,7 @@ public class AccountAPI {
             }
 
             // Cập nhật mật khẩu mới vào database
-            boolean isUpdated = accountRepository.changePasswordByEmail(requestBody.getEmail(), requestBody.getNewPassword());
+            boolean isUpdated = accountRepository.changePasswordByEmail(requestBody.getEmail(),requestBody.oldPassword,requestBody.getNewPassword());
             if (isUpdated) {
                 logger.info("✅ Mật khẩu đã được thay đổi thành công cho email: {}", requestBody.getEmail());
                 return ResponseEntity.ok("1");
@@ -128,10 +128,14 @@ public class AccountAPI {
     // DTO chứa request body của API
     public static class ChangePasswordRequest {
         private String newPassword;
+        private String oldPassword;
         private String email;
 
         public String getNewPassword() { return newPassword; }
         public void setNewPassword(String newPassword) { this.newPassword = newPassword; }
+
+        public String getOldPassword() { return oldPassword; }
+        public void setOldPassword(String oldPassword) { this.oldPassword = oldPassword; }
 
         public String getEmail() { return email; }
         public void setEmail(String email) { this.email = email; }

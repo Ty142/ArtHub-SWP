@@ -1,14 +1,14 @@
 package Arthub.entity;
-
 import java.sql.Timestamp;
 import java.util.List;
+
 
 public class Artwork {
     private int artworkID;
     private int creatorID;
     private String artworkName;
     private String description;
-    private Timestamp dateCreated;
+    private String dateCreated;
     private int likes;
     private int views;
     private int comments;
@@ -17,13 +17,14 @@ public class Artwork {
     private double price;
     private String imageFile;
     private List<ArtworkTag> artworkTags;
+    private int status;
 
     // Constructor không tham số
     public Artwork() {}
 
     // Constructor đầy đủ
     public Artwork(int artworkID, int creatorID, String artworkName, String description,
-                   Timestamp dateCreated, int likes, int views, int comments, int favorites,
+                   String dateCreated, int likes, int views, int comments, int favorites,
                    boolean purchasable, double price, String imageFile, List<ArtworkTag> artworkTags) {
         this.artworkID = artworkID;
         this.creatorID = creatorID;
@@ -53,8 +54,8 @@ public class Artwork {
     public String getDescription() { return description; }
     public void setDescription(String description) { this.description = description; }
 
-    public Timestamp getDateCreated() { return dateCreated; }
-    public void setDateCreated(Timestamp dateCreated) { this.dateCreated = dateCreated; }
+    public String getDateCreated() { return dateCreated; }
+    public void setDateCreated(String dateCreated) { this.dateCreated = dateCreated; }
 
     public int getLikes() { return likes; }
     public void setLikes(int likes) { this.likes = likes; }
@@ -79,4 +80,12 @@ public class Artwork {
 
     public List<ArtworkTag> getArtworkTags() { return artworkTags; }
     public void setArtworkTags(List<ArtworkTag> artworkTags) { this.artworkTags = artworkTags; }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
 }
