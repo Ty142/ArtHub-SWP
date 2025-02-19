@@ -96,7 +96,7 @@ public class AccountAPI {
      * @return ResponseEntity chứa thông báo kết quả
      */
     @PostMapping("/changepassword")
-    public ResponseEntity<String> changePassword(@RequestBody ChangePasswordRequest requestBody) {
+    public ResponseEntity<String> resetPassword(@RequestBody ChangePasswordRequest requestBody) {
         logger.info("🔍 Received request to change password for email: {}", requestBody.getEmail());
 
         try {
@@ -125,15 +125,51 @@ public class AccountAPI {
         }
     }
 
+
+    @PutMapping("/changepassword")
+    public ResponseEntity<String> changePassword(@RequestBody ChangePasswordRequest requestBody) {
+        logger.info("🔍 Received request to change password for email: {}", requestBody.getEmail());
+
+        try {
+            // Kiểm tra xem email va password có tồn tại không
+            Account account = accountRepository.getAccountByEmailAndPassword(requestBody.getEmail(), requestBody.getOldPassword());
+            if (account == null) {
+                logger.warn("⚠️ Email '{}' gửi thông tin sai khi đổi mật khẩu.", requestBody.getEmail());
+                return ResponseEntity.badRequest().body("2");
+            }
+
+            // Cập nhật mật khẩu mới vào database
+            boolean isUpdated = accountRepository.changePasswordByEmail(requestBody.getEmail(), requestBody.getNewPassword());
+            if (isUpdated) {
+                logger.info("✅ Mật khẩu đã được thay đổi thành công cho email: {} | old {} | new {} ", requestBody.getEmail()
+                , requestBody.getOldPassword(), requestBody.getNewPassword());
+
+                return ResponseEntity.ok("1");
+            } else {
+                logger.error("❌ Lỗi khi cập nhật mật khẩu cho email: {}", requestBody.getEmail());
+                return ResponseEntity.internalServerError().body("Lỗi khi cập nhật mật khẩu.");
+            }
+        } catch (SQLException e) {
+            logger.error("❌ SQL Exception: {}", e.getMessage(), e);
+            return ResponseEntity.internalServerError().body("Lỗi hệ thống khi cập nhật mật khẩu.");
+        } catch (Exception e) {
+            logger.error("❌ Unexpected error: {}", e.getMessage(), e);
+            return ResponseEntity.internalServerError().body("Lỗi hệ thống.");
+        }
+    }
     // DTO chứa request body của API
     public static class ChangePasswordRequest {
         private String newPassword;
         private String email;
+        private String oldPassword;
 
         public String getNewPassword() { return newPassword; }
         public void setNewPassword(String newPassword) { this.newPassword = newPassword; }
 
         public String getEmail() { return email; }
         public void setEmail(String email) { this.email = email; }
+        public String getOldPassword() { return oldPassword; }
+        public void setOldPassword(String oldPassword) { this.oldPassword = oldPassword; }
+
     }
 }
