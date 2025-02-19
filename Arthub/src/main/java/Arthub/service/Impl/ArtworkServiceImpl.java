@@ -35,4 +35,15 @@ public class ArtworkServiceImpl implements ArtworkService {
     public Optional<Artwork> getArtworkById(int id) {
         return artworkRepository.getArtworkById(id);
     }
+
+
+    public ArtworkServiceImpl(ArtworkRepository artworkRepository) {
+        this.artworkRepository = artworkRepository;
+    }
+
+    @Override
+    public List<Artwork> getTop10LikedArtworks() {
+        return artworkRepository.getTop10LikedArtworks();
+    }
 }
+

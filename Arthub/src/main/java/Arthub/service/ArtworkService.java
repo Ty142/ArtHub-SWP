@@ -13,4 +13,5 @@ public interface ArtworkService {
 
     List<Artwork> getArtworks();
     Optional<Artwork> getArtworkById(int id);
+    List<Artwork> getTop10LikedArtworks();
 }

@@ -1,109 +1,91 @@
 package Arthub.entity;
+import java.sql.Timestamp;
+import java.util.List;
 
-import java.sql.Date;
 
 public class Artwork {
-        private int artworkID;
-        private String artworkName;
-        private String description;
-        private int likes;
-        private boolean purchasable;
-        private double price;
-        private String imageFile;
-        private int userID;
-        private int libraryID;
-        private int status;
-        private Date dateCreated; // Sử dụng java.sql.Date để tương thích với database
+    private int artworkID;
+    private int creatorID;
+    private String artworkName;
+    private String description;
+    private String dateCreated;
+    private int likes;
+    private int views;
+    private int comments;
+    private int favorites;
+    private boolean purchasable;
+    private double price;
+    private String imageFile;
+    private List<ArtworkTag> artworkTags;
+    private int status;
 
-        // Constructor
-        public Artwork() {
-        }
+    // Constructor không tham số
+    public Artwork() {}
 
-        public int getArtworkID() {
-                return artworkID;
-        }
+    // Constructor đầy đủ
+    public Artwork(int artworkID, int creatorID, String artworkName, String description,
+                   String dateCreated, int likes, int views, int comments, int favorites,
+                   boolean purchasable, double price, String imageFile, List<ArtworkTag> artworkTags) {
+        this.artworkID = artworkID;
+        this.creatorID = creatorID;
+        this.artworkName = artworkName;
+        this.description = description;
+        this.dateCreated = dateCreated;
+        this.likes = likes;
+        this.views = views;
+        this.comments = comments;
+        this.favorites = favorites;
+        this.purchasable = purchasable;
+        this.price = price;
+        this.imageFile = imageFile;
+        this.artworkTags = artworkTags;
+    }
 
-        public void setArtworkID(int artworkID) {
-                this.artworkID = artworkID;
-        }
+    // Getters & Setters
+    public int getArtworkID() { return artworkID; }
+    public void setArtworkID(int artworkID) { this.artworkID = artworkID; }
 
-        public String getArtworkName() {
-                return artworkName;
-        }
+    public int getCreatorID() { return creatorID; }
+    public void setCreatorID(int creatorID) { this.creatorID = creatorID; }
 
-        public void setArtworkName(String artworkName) {
-                this.artworkName = artworkName;
-        }
+    public String getArtworkName() { return artworkName; }
+    public void setArtworkName(String artworkName) { this.artworkName = artworkName; }
 
-        public String getDescription() {
-                return description;
-        }
+    public String getDescription() { return description; }
+    public void setDescription(String description) { this.description = description; }
 
-        public void setDescription(String description) {
-                this.description = description;
-        }
+    public String getDateCreated() { return dateCreated; }
+    public void setDateCreated(String dateCreated) { this.dateCreated = dateCreated; }
 
-        public int getLikes() {
-                return likes;
-        }
+    public int getLikes() { return likes; }
+    public void setLikes(int likes) { this.likes = likes; }
 
-        public void setLikes(int likes) {
-                this.likes = likes;
-        }
+    public int getViews() { return views; }
+    public void setViews(int views) { this.views = views; }
 
-        public boolean isPurchasable() {
-                return purchasable;
-        }
+    public int getComments() { return comments; }
+    public void setComments(int comments) { this.comments = comments; }
 
-        public void setPurchasable(boolean purchasable) {
-                this.purchasable = purchasable;
-        }
+    public int getFavorites() { return favorites; }
+    public void setFavorites(int favorites) { this.favorites = favorites; }
 
-        public double getPrice() {
-                return price;
-        }
+    public boolean isPurchasable() { return purchasable; }
+    public void setPurchasable(boolean purchasable) { this.purchasable = purchasable; }
 
-        public void setPrice(double price) {
-                this.price = price;
-        }
+    public double getPrice() { return price; }
+    public void setPrice(double price) { this.price = price; }
 
-        public String getImageFile() {
-                return imageFile;
-        }
+    public String getImageFile() { return imageFile; }
+    public void setImageFile(String imageFile) { this.imageFile = imageFile; }
 
-        public void setImageFile(String imageFile) {
-                this.imageFile = imageFile;
-        }
+    public List<ArtworkTag> getArtworkTags() { return artworkTags; }
+    public void setArtworkTags(List<ArtworkTag> artworkTags) { this.artworkTags = artworkTags; }
 
-        public int getUserID() {
-                return userID;
-        }
+    public int getStatus() {
+        return status;
+    }
 
-        public void setUserID(int userID) {
-                this.userID = userID;
-        }
-
-        public int getLibraryID() {
-                return libraryID;
-        }
-
-        public void setLibraryID(int libraryID) {
-                this.libraryID = libraryID;
-        }
-
-        public int getStatus() {
-                return status;
-        }
-
-        public void setStatus(int status) {
-                this.status = status;
-        }
-
-        public Date getDateCreated() {
-                return dateCreated;
-        }
-
-        public void setDateCreated(Date dateCreated) {
-                this.dateCreated = dateCreated;
-        }
+    public void setStatus(int status) {
+        this.status = status;
+    }
 }

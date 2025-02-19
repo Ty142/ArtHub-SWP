@@ -1,93 +1,65 @@
 package Arthub.dto;
 
-import Arthub.entity.TagArt;
-
+import java.util.Date;
 import java.util.List;
 
 public class ArtworkDTO {
     private int artworkID;
+    private int creatorID;
     private String artworkName;
     private String description;
+    private String dateCreated;
     private int likes;
+    private int views;
+    private int comments;
+    private int favorites;
     private boolean purchasable;
     private double price;
     private String imageFile;
-    private int userID;
-    private int libraryID;
+    private List<ArtworkTagDTO> artworkTags;
     private int status;
-    private List<TagArt> tags;
 
-    public int getArtworkID() {
-        return artworkID;
-    }
+    public ArtworkDTO() {}
 
-    public void setArtworkID(int artworkID) {
-        this.artworkID = artworkID;
-    }
+    // Getters & Setters
+    public int getArtworkID() { return artworkID; }
+    public void setArtworkID(int artworkID) { this.artworkID = artworkID; }
 
-    public String getArtworkName() {
-        return artworkName;
-    }
+    public int getCreatorID() { return creatorID; }
+    public void setCreatorID(int creatorID) { this.creatorID = creatorID; }
 
-    public void setArtworkName(String artworkName) {
-        this.artworkName = artworkName;
-    }
+    public String getArtworkName() { return artworkName; }
+    public void setArtworkName(String artworkName) { this.artworkName = artworkName; }
 
-    public String getDescription() {
-        return description;
-    }
+    public String getDescription() { return description; }
+    public void setDescription(String description) { this.description = description; }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+    public String getDateCreated() { return dateCreated; }
+    public void setDateCreated(String dateCreated) { this.dateCreated = dateCreated; }
 
-    public int getLikes() {
-        return likes;
-    }
+    public int getLikes() { return likes; }
+    public void setLikes(int likes) { this.likes = likes; }
 
-    public void setLikes(int likes) {
-        this.likes = likes;
-    }
+    public int getViews() { return views; }
+    public void setViews(int views) { this.views = views; }
 
-    public boolean isPurchasable() {
-        return purchasable;
-    }
+    public int getComments() { return comments; }
+    public void setComments(int comments) { this.comments = comments; }
 
-    public void setPurchasable(boolean purchasable) {
-        this.purchasable = purchasable;
-    }
+    public int getFavorites() { return favorites; }
+    public void setFavorites(int favorites) { this.favorites = favorites; }
 
-    public double getPrice() {
-        return price;
-    }
+    public boolean isPurchasable() { return purchasable; }
+    public void setPurchasable(boolean purchasable) { this.purchasable = purchasable; }
 
-    public void setPrice(double price) {
-        this.price = price;
-    }
+    public double getPrice() { return price; }
+    public void setPrice(double price) { this.price = price; }
 
-    public String getImageFile() {
-        return imageFile;
-    }
+    public String getImageFile() { return imageFile; }
+    public void setImageFile(String imageFile) { this.imageFile = imageFile; }
 
-    public void setImageFile(String imageFile) {
-        this.imageFile = imageFile;
-    }
-
-    public int getUserID() {
-        return userID;
-    }
-
-    public void setUserID(int userID) {
-        this.userID = userID;
-    }
-
-    public int getLibraryID() {
-        return libraryID;
-    }
-
-    public void setLibraryID(int libraryID) {
-        this.libraryID = libraryID;
-    }
+    public List<ArtworkTagDTO> getArtworkTags() { return artworkTags; }
+    public void setArtworkTags(List<ArtworkTagDTO> artworkTags) { this.artworkTags = artworkTags; }
 
     public int getStatus() {
         return status;

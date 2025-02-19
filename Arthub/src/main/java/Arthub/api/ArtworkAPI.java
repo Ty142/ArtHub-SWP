@@ -12,9 +12,14 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/artworks") // Base URL cho API
 public class ArtworkAPI {
-
     @Autowired
     private ArtworkService artworkService;
+
+        /**
+         * API để lấy tất cả Artwork từ database
+         * @return Danh sách Artwork dưới dạng JSON
+         */
+
 
     /**
      * API để lấy tất cả Artwork từ database
@@ -51,5 +56,13 @@ public class ArtworkAPI {
             System.out.println("❌ Không tìm thấy artwork với ID: " + id);
             return ResponseEntity.notFound().build();
         }
+
+    }
+
+    @GetMapping("/Top10Liked")
+    public ResponseEntity<List<Artwork>> getTop10LikedArtworks() {
+        List<Artwork> artworks = artworkService.getTop10LikedArtworks();
+            System.out.println("⚠ API /api/Artworks/Top10Liked: None artwork.");
+            return ResponseEntity.noContent().build();
     }
 }
