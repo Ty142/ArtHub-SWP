@@ -299,6 +299,28 @@ public class AccountRepositoryImpl implements AccountRepository {
     }
 
     @Override
+    public boolean resetPassword(String email, String newPassword) {
+        if (email == null || newPassword == null || email.isEmpty() || newPassword.isEmpty()) {
+            throw new IllegalArgumentException("Email và mật khẩu không được để trống!");
+        }
+        String sql = "UPDATE Account SET Password = ? WHERE Email = ?";
+        ConnectUtils db = ConnectUtils.getInstance();
+        try (Connection connection = db.openConection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, hashPassword(newPassword));
+            statement.setString(2, email);
+            int affectedRows = statement.executeUpdate();
+            return affectedRows > 0;
+        } catch (SQLException e) {
+            System.err.println("Lỗi khi đặt lại mật khẩu: " + e.getMessage()); // Log lỗi thay vì in stack trace
+            return false;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+    @Override
     public boolean isEmailExist(String email) {
         String sql = "SELECT COUNT(*) FROM Account WHERE Email = ?";
         ConnectUtils db = ConnectUtils.getInstance();
