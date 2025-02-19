@@ -17,7 +17,7 @@ import Arthub.entity.Tag;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/Tag")
+@RequestMapping("/api/Tag/")
 public class TagAPI {
 
     @Autowired
