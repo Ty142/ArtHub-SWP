@@ -2,7 +2,9 @@ package Arthub.api;
 
 import Arthub.dto.FileUploadDTO;
 import Arthub.entity.User;
+import Arthub.repository.ArtworkRepository;
 import Arthub.repository.UserRepository;
+import Arthub.repository.impl.ArtworkRepositoryImpl;
 import Arthub.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +25,8 @@ public class UserAPI {
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    ArtworkRepository artworkRepository;
 
     ImageUtils imageUtils = new ImageUtils();
 
@@ -80,19 +84,6 @@ public class UserAPI {
         }
     }
 
-    @PutMapping("/{accountId}/background")
-    public ResponseEntity<String> uploadArtwork(@PathVariable Integer accountId, @RequestBody FileUploadDTO uploadFileBackground) throws IOException {
-
-        try {
-            byte[] imgByte = imageUtils.decodeBase64(uploadFileBackground.getImageFile());
-            String Background = userService.uploadAvatar(imgByte, 3);
-            userRepository.updateBackground(accountId, Background);
-            return ResponseEntity.ok("Upload thành công, Background: " + Background);
-        } catch (Exception e) {
-            return ResponseEntity.internalServerError().body("Lỗi khi upload ảnh: " + e.getMessage());
-        }
-    }
-
 
     // API Lấy thông tin User
     @GetMapping("/userID/{userId}")
@@ -102,6 +93,19 @@ public class UserAPI {
             return ResponseEntity.ok(user);
         } catch (Exception e) {
             return ResponseEntity.notFound().build();
+        }
+    }
+
+    @PostMapping("{ArtworkId}/picture")
+    public ResponseEntity<String> createArtImg(@PathVariable("ArtworkId") Integer artId,@RequestBody FileUploadDTO uploadFileAvatar) {
+
+        try {
+            byte[] imgByte = imageUtils.decodeBase64(uploadFileAvatar.getImageFile());
+            String avatarUrl = userService.uploadAvatar(imgByte, 3);
+            artworkRepository.saveArtPicture(artId, avatarUrl);
+            return ResponseEntity.ok("Upload thành công, Avatar: " + avatarUrl);
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().body("Lỗi khi upload ảnh: " + e.getMessage());
         }
     }
 }
