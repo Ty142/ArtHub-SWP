@@ -17,8 +17,11 @@ public class ArtworkDTO {
     private int userID;
     private int libraryID;
     private int status;
-    private LocalDateTime DateCreated;
-    private List<TagArt> tags;
+    private String DateCreated;
+    private List<TagArt> artworkTag;
+    private int comment;
+    private int view;
+    private int favorites;
 
     public int getArtworkID() {
         return artworkID;
@@ -100,19 +103,43 @@ public class ArtworkDTO {
         this.status = status;
     }
 
-    public List<TagArt> getTags() {
-        return tags;
+    public List<TagArt> getArtworkTag() {
+        return artworkTag;
     }
 
-    public void setTags(List<TagArt> tags) {
-        this.tags = tags;
+    public void setArtworkTag(List<TagArt> artworkTag) {
+        this.artworkTag = artworkTag;
     }
 
-    public LocalDateTime getDateCreated() {
+    public String getDateCreated() {
         return DateCreated;
     }
 
-    public void setDateCreated(LocalDateTime dateCreated) {
+    public void setDateCreated(String dateCreated) {
         this.DateCreated = dateCreated;
+    }
+
+    public int getFavorites() {
+        return favorites;
+    }
+
+    public void setFavorites(int favorites) {
+        this.favorites = favorites;
+    }
+
+    public int getView() {
+        return view;
+    }
+
+    public void setView(int view) {
+        this.view = view;
+    }
+
+    public int getComment() {
+        return comment;
+    }
+
+    public void setComment(int comment) {
+        this.comment = comment;
     }
 }

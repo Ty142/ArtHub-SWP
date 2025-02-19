@@ -2,6 +2,7 @@ package Arthub.entity;
 
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 
 public class Artwork {
         private int artworkID;
@@ -13,8 +14,13 @@ public class Artwork {
         private String imageFile;
         private int userID;
         private int libraryID;
-        private LocalDateTime dateCreated;
+        private String dateCreated;
         private int status;
+        private int comment;
+        private int view;
+        private int favorites;
+        private List<TagArt> tags;
+
 
         // Constructor
         public Artwork() {
@@ -101,11 +107,45 @@ public class Artwork {
                 this.status = status;
         }
 
-        public LocalDateTime getDateCreated(LocalDateTime now) {
+
+
+        public void setDateCreated(String dateCreated) {
+                this.dateCreated = dateCreated;
+        }
+
+        public String getDateCreated() {
                 return dateCreated;
         }
 
-        public void setDateCreated(LocalDateTime dateCreated) {
-                this.dateCreated = dateCreated;
+        public int getComment() {
+                return comment;
+        }
+
+        public void setComment(int comment) {
+                this.comment = comment;
+        }
+
+        public int getView() {
+                return view;
+        }
+
+        public void setView(int view) {
+                this.view = view;
+        }
+
+        public int getFavorites() {
+                return favorites;
+        }
+
+        public void setFavorites(int favorites) {
+                this.favorites = favorites;
+        }
+
+        public List<TagArt> getTags() {
+                return tags;
+        }
+
+        public void setTags(List<TagArt> tags) {
+                this.tags = tags;
         }
 }

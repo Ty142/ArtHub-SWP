@@ -9,10 +9,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 import utils.ConnectUtils;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,21 +39,27 @@ public class ArtworkRepositoryImpl implements ArtworkRepository {
     }
 
     @Override
-    public void addArtwork(Artwork artwork) {
-        String sql = "Insert into Artworks values ([ArtworkID],[ArtworkName],[Description],[Purchasable],[Price],[ImageFile],[UserID],[Status])";
+    public int addArtwork(Artwork artwork) {
+        String sql = "Insert into Artworks([ArtworkName],[Description],[Purchasable],[Price],[ImageFile],[UserID],[Status],[DateCreated]) values (?,?,?,?,?,?,?,?)";
+        int generatedID = -1;
         try{
             ConnectUtils db = ConnectUtils.getInstance();
             Connection connection = db.openConection();
-            PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setInt(1, artwork.getArtworkID());
-            statement.setString(2, artwork.getArtworkName());
-            statement.setString(3, artwork.getDescription());
-            statement.setBoolean(4, artwork.isPurchasable());
-            statement.setDouble(5, artwork.getPrice());
-            statement.setString(6, artwork.getImageFile());
-            statement.setInt(7, artwork.getUserID());
-            statement.setInt(8, artwork.getStatus());
+            PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            statement.setString(1, artwork.getArtworkName());
+            statement.setString(2, artwork.getDescription());
+            statement.setBoolean(3, artwork.isPurchasable());
+            statement.setDouble(4, artwork.getPrice());
+            statement.setString(5, artwork.getImageFile());
+            statement.setInt(6, artwork.getUserID());
+            statement.setInt(7, artwork.getStatus());
+            statement.setString(8, artwork.getDateCreated());
             statement.executeUpdate();
+            ResultSet rs = statement.getGeneratedKeys();
+            if (rs.next()) {
+                generatedID = rs.getInt(1);
+            }
+            rs.close();
             connection.close();
             statement.close();
         } catch (SQLException e) {
@@ -64,6 +67,7 @@ public class ArtworkRepositoryImpl implements ArtworkRepository {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+        return generatedID;
     }
 
     @Override
