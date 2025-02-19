@@ -18,10 +18,8 @@ public class Artwork {
     private String imageFile;
     private List<ArtworkTag> artworkTags;
 
-    // Constructor không tham số
     public Artwork() {}
 
-    // Constructor đầy đủ
     public Artwork(int artworkID, int creatorID, String artworkName, String description,
                    Timestamp dateCreated, int likes, int views, int comments, int favorites,
                    boolean purchasable, double price, String imageFile, List<ArtworkTag> artworkTags) {
@@ -40,7 +38,6 @@ public class Artwork {
         this.artworkTags = artworkTags;
     }
 
-    // Getters & Setters
     public int getArtworkID() { return artworkID; }
     public void setArtworkID(int artworkID) { this.artworkID = artworkID; }
 
