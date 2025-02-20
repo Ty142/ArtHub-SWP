@@ -183,8 +183,6 @@ public class ArtworkRepositoryImpl implements ArtworkRepository {
                 }
 
 
-
-
             }
 
         } catch (Exception e) {
