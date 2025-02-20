@@ -1,3 +1,4 @@
+
 package Arthub.api;
 
 import Arthub.repository.TagRepository;
@@ -11,16 +12,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 import Arthub.entity.Tag;
-import Arthub.service.TagService;
+
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/Tag")
+@RequestMapping("/api/Tag/")
 public class TagAPI {
-
-    @Autowired
-    TagService tagService;
 
     @Autowired
     TagRepository tagRepository;
@@ -34,7 +32,7 @@ public class TagAPI {
         return ResponseEntity.ok(tags);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("{id}")
     public ResponseEntity<Tag> getTagById(@PathVariable int id) {
         Tag tag = tagRepository.getTagById(id);
 
