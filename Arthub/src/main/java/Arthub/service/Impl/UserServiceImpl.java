@@ -6,11 +6,8 @@ import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import Arthub.repository.AccountRepository;
 import Arthub.repository.UserRepository;
 import Arthub.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.sql.SQLException;
 import java.io.IOException;
@@ -20,7 +17,7 @@ import java.util.Map;
 import java.util.UUID;
 
 @Service
-public class UserServiceImpl implements UserService {
+    public class UserServiceImpl implements UserService {
 
     private Cloudinary cloudinary;
 
@@ -49,12 +46,20 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String uploadAvatar(byte[] imgByte,int type) throws IOException {
+    public String uploadAvatar(byte[] imgByte, int type, String oldPublicId) throws IOException {
         Map<Integer,String> attributes = new HashMap<Integer,String>();
         attributes.put(1, "avatar");
         attributes.put(2, "background");
         attributes.put(3, "Artwork");
+        attributes.put(4, "test");
         String folderName = attributes.get(type);
+
+        if (oldPublicId != null && !oldPublicId.trim().isEmpty()) {
+            Map<String, Object> options = ObjectUtils.asMap("invalidate", true);
+            Map<?, ?> deleteResult = cloudinary.uploader().destroy(oldPublicId, options);
+            System.out.println("Delete result: " + deleteResult);
+        }
+
         String uniqueFileName = UUID.randomUUID().toString();
         Map<?, ?> uploadAvatar = cloudinary.uploader().upload(imgByte, ObjectUtils.asMap(
                 "folder", folderName,

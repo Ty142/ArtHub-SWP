@@ -10,10 +10,14 @@ public interface ArtworkRepository {
 
     void saveArtPicture(int id, String Artwork);
 
-    void addArtwork(ArtworkDTO artworkDTO);
+    int addArtwork(Artwork artwork);
 
     List<Artwork> getArtworks();
+
     Optional<Artwork> getArtworkById(int id);
-    List<Artwork> getArtworkByAccountId(int id);
+
     List<Artwork> getTop10LikedArtworks();
+
+    String findArtworkPictureByArtworkId(int id);
+    List<Artwork> getArtworkByAccountId(int id);
 }

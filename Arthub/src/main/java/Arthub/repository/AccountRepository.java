@@ -18,4 +18,5 @@ public interface AccountRepository {
      boolean changePasswordByEmail(String email,String oldPassword ,String newPassword) throws SQLException;
      boolean resetPassword(String email,String newPassword);
      boolean isEmailExist(String email);
+
 }

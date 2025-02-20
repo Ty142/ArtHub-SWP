@@ -1,7 +1,12 @@
 package Arthub.repository;
 
+import Arthub.entity.TagArt;
+
+import java.util.List;
+
+
 public interface TagArtRepository {
-    void addTagArtUserIdAndTagId(int ArtworkId, int tagId);
+    void addTagArtUserIdAndTagId(List<TagArt> tagArtList,int artworkId);
 
     int getTagIdByArtId(int ArtworkId);
 }
