@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/artworks")
+@RequestMapping("/api/artworks") // Base URL cho API
 public class ArtworkAPI {
 
     @Autowired
@@ -84,17 +84,30 @@ public class ArtworkAPI {
         }
 
     }
-    @GetMapping("/Top10Liked")
-    public ResponseEntity<List<Artwork>> getTop10LikedArtworks() {
-        List<Artwork> artworks = artworkService.getTop10LikedArtworks();
+
+    @GetMapping("/accountID/{id}")
+    public ResponseEntity<List<Artwork>> getArtworkByAccountId(@PathVariable int id) {
+        System.out.println("📥 Nhận yêu cầu lấy artwork với ID: " + id);
+
+        List<Artwork> artworks = artworkService.getArtworkByAccountId(id);
         if (artworks.isEmpty()) {
             System.out.println("⚠️ Không tìm thấy artworks!");
-            return ResponseEntity.noContent().build(); // Trả về HTTP 204 nếu rỗng
+            return ResponseEntity.noContent().build(); // Trả về HTTP 204 nếu không có dữ liệu
         }
 
         System.out.println("✅ Trả về " + artworks.size() + " artworks.");
         return ResponseEntity.ok(artworks);
     }
+
+
+    @GetMapping("/Top10Liked")
+    public ResponseEntity<List<Artwork>> getTop10LikedArtworks() {
+        List<Artwork> artworks = artworkService.getTop10LikedArtworks();
+        if (artworks.isEmpty()) {
+            System.out.println("⚠ API /api/Artworks/Top10Liked: None artwork.");
+            return ResponseEntity.noContent().build();
+        }
+        System.out.println("✅ Trả về " + artworks.size() + " artworks.");
+        return ResponseEntity.ok(artworks);
+    }
 }
-
-
