@@ -1,7 +1,8 @@
 package Arthub.entity;
-import java.sql.Timestamp;
-import java.util.List;
 
+import java.time.LocalDateTime;
+import java.util.Date;
+import java.util.List;
 
 public class Artwork {
     private int artworkID;
@@ -16,7 +17,7 @@ public class Artwork {
     private boolean purchasable;
     private double price;
     private String imageFile;
-    private List<ArtworkTag> artworkTags;
+    private List<TagArt> artworkTags;
     private int status;
 
     // Constructor không tham số
@@ -25,7 +26,7 @@ public class Artwork {
     // Constructor đầy đủ
     public Artwork(int artworkID, int creatorID, String artworkName, String description,
                    String dateCreated, int likes, int views, int comments, int favorites,
-                   boolean purchasable, double price, String imageFile, List<ArtworkTag> artworkTags) {
+                   boolean purchasable, double price, String imageFile, List<TagArt> artworkTags) {
         this.artworkID = artworkID;
         this.creatorID = creatorID;
         this.artworkName = artworkName;
@@ -78,8 +79,8 @@ public class Artwork {
     public String getImageFile() { return imageFile; }
     public void setImageFile(String imageFile) { this.imageFile = imageFile; }
 
-    public List<ArtworkTag> getArtworkTags() { return artworkTags; }
-    public void setArtworkTags(List<ArtworkTag> artworkTags) { this.artworkTags = artworkTags; }
+    public List<TagArt> getArtworkTags() { return artworkTags; }
+    public void setArtworkTags(List<TagArt> artworkTags) { this.artworkTags = artworkTags; }
 
     public int getStatus() {
         return status;

@@ -160,7 +160,6 @@ public class AccountRepositoryImpl implements AccountRepository {
                 account.setEmail(resultSet.getString("Email"));
                 account.setStatus(resultSet.getInt("Status"));
                 account.setRoleID(resultSet.getInt("RoleID"));
-
                 // ✅ Nếu đăng nhập thành công -> Cập nhật LastLogin
                 updateLastLogin(account.getAccountId());
             }

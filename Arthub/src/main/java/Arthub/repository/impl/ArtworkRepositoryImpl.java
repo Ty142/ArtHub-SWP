@@ -3,8 +3,7 @@ package Arthub.repository.impl;
 import Arthub.converter.ArtworkConverter;
 import Arthub.dto.ArtworkDTO;
 import Arthub.entity.Artwork;
-import Arthub.entity.ArtworkTag;
-import Arthub.entity.Tag;
+import Arthub.entity.TagArt;
 import Arthub.repository.ArtworkRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -21,13 +20,13 @@ public class ArtworkRepositoryImpl implements ArtworkRepository {
 
     @Override
     public void saveArtPicture(int id, String Artwork) {
-        String sql = "UPDATE Artworks SET ImageFile = ? where ArtworkID = ?";
+        String sql = "UPDATE Artworks SET ImageFile where id = ?";
         try{
             ConnectUtils db = ConnectUtils.getInstance();
             Connection connection = db.openConection();
             PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setString(1, Artwork);
-            statement.setInt(2, id);
+            statement.setInt(1, id);
+            statement.setString(2, Artwork);
             statement.executeUpdate();
             connection.close();
             statement.close();
@@ -40,21 +39,27 @@ public class ArtworkRepositoryImpl implements ArtworkRepository {
     }
 
     @Override
-    public void addArtwork(ArtworkDTO artworkDTO) {
-        String sql = "Insert into Artworks values ([ArtworkID],[ArtworkName],[Description],[Purchasable],[Price],[ImageFile],[UserID],[Status])";
-        Artwork artwork = artworkConverter.convertArtworkDTOToArtworkEntity(artworkDTO);
+    public int addArtwork(Artwork artwork) {
+        String sql = "Insert into Artworks([ArtworkName],[Description],[Purchasable],[Price],[ImageFile],[UserID],[Status],[DateCreated]) values (?,?,?,?,?,?,?,?)";
+        int generatedID = -1;
         try{
             ConnectUtils db = ConnectUtils.getInstance();
             Connection connection = db.openConection();
-            PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setInt(1, artwork.getArtworkID());
-            statement.setString(2, artwork.getArtworkName());
-            statement.setString(3, artwork.getDescription());
-            statement.setBoolean(4, artwork.isPurchasable());
-            statement.setDouble(5, artwork.getPrice());
+            PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            statement.setString(1, artwork.getArtworkName());
+            statement.setString(2, artwork.getDescription());
+            statement.setBoolean(3, artwork.isPurchasable());
+            statement.setDouble(4, artwork.getPrice());
+            statement.setString(5, artwork.getImageFile());
             statement.setInt(6, artwork.getCreatorID());
             statement.setInt(7, artwork.getStatus());
+            statement.setString(8, artwork.getDateCreated());
             statement.executeUpdate();
+            ResultSet rs = statement.getGeneratedKeys();
+            if (rs.next()) {
+                generatedID = rs.getInt(1);
+            }
+            rs.close();
             connection.close();
             statement.close();
         } catch (SQLException e) {
@@ -62,11 +67,13 @@ public class ArtworkRepositoryImpl implements ArtworkRepository {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+        return generatedID;
     }
+
 
     @Override
     public List<Artwork> getArtworks() {
-        List<Artwork> artworks = new ArrayList<>();
+        List<Artwork> artworks = new ArrayList<Artwork>();
         String sql = "SELECT * FROM Artworks";
         try {
             ConnectUtils db = ConnectUtils.getInstance();
@@ -116,7 +123,7 @@ public class ArtworkRepositoryImpl implements ArtworkRepository {
             connection.close();
             statement.close();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new    RuntimeException(e);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -160,7 +167,7 @@ public class ArtworkRepositoryImpl implements ArtworkRepository {
                 if (!artworkMap.containsKey(artworkID)) {
                     Artwork artwork = new Artwork();
                     artwork.setArtworkID(artworkID);
-                    artwork.setCreatorID(resultSet.getInt("CreatorID"));
+                    artwork.setCreatorID(resultSet.getInt("UserID"));
                     artwork.setArtworkName(resultSet.getString("ArtworkName"));
                     artwork.setDescription(resultSet.getString("Description"));
                     artwork.setDateCreated(resultSet.getString("DateCreated"));
@@ -178,7 +185,7 @@ public class ArtworkRepositoryImpl implements ArtworkRepository {
                 int tagId = resultSet.getInt("TagID");
 
                 if (tagId > 0) {
-                    ArtworkTag artworkTag = new ArtworkTag(resultSet.getInt("TagArtID"), artworkID, tagId);
+                    TagArt artworkTag = new TagArt(resultSet.getInt("TagArtID"), artworkID, tagId);
                     artworkMap.get(artworkID).getArtworkTags().add(artworkTag);
                 }
 
@@ -192,5 +199,61 @@ public class ArtworkRepositoryImpl implements ArtworkRepository {
         }
         return new ArrayList<>(artworkMap.values());
     }
+
+    @Override
+    public String findArtworkPictureByArtworkId(int id) {
+        String sql = "SELECT ImageFile FROM Artworks WHERE ArtworkID =?";
+        try {
+            ConnectUtils db = ConnectUtils.getInstance();
+            Connection connection = db.openConection();
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, id);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getString("ImageFile");
+            }
+            connection.close();
+            statement.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return "";
+    }
+
+    @Override
+    public List<Artwork> getArtworkByAccountId(int id) {
+            List<Artwork> artworks = new ArrayList<>();
+            String sql = "SELECT A.* FROM Artworks A JOIN [User] U ON A.UserID = U.UserID WHERE U.AccountID = ?";
+            try {
+                ConnectUtils db = ConnectUtils.getInstance();
+                Connection connection = db.openConection();
+                PreparedStatement statement = connection.prepareStatement(sql);
+                statement.setInt(1, id);
+                ResultSet resultSet = statement.executeQuery();
+                if (resultSet.next()) {
+                    Artwork artwork = new Artwork();
+                    artwork.setArtworkID(resultSet.getInt("ArtworkID"));
+                    artwork.setArtworkName(resultSet.getString("ArtworkName"));
+                    artwork.setDescription(resultSet.getString("Description"));
+                    artwork.setPurchasable(resultSet.getBoolean("Purchasable"));
+                    artwork.setPrice(resultSet.getDouble("Price"));
+                    artwork.setCreatorID(resultSet.getInt("UserID"));
+                    artwork.setImageFile(resultSet.getString("ImageFile"));
+                    artwork.setLikes(resultSet.getInt("Likes"));
+                    artwork.setDateCreated(resultSet.getString("DateCreated"));
+                    artworks.add(artwork);
+                }
+                connection.close();
+                statement.close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+            return artworks;
+        }
+
 
 }

@@ -32,7 +32,7 @@ public class TagAPI {
         return ResponseEntity.ok(tags);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("{id}")
     public ResponseEntity<Tag> getTagById(@PathVariable int id) {
         Tag tag = tagRepository.getTagById(id);
 
