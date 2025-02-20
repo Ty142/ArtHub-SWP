@@ -17,7 +17,7 @@ import Arthub.entity.Tag;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/Tag")
+@RequestMapping("/api/Tag/")
 public class TagAPI {
 
     @Autowired
@@ -32,7 +32,7 @@ public class TagAPI {
         return ResponseEntity.ok(tags);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("{id}")
     public ResponseEntity<Tag> getTagById(@PathVariable int id) {
         Tag tag = tagRepository.getTagById(id);
 

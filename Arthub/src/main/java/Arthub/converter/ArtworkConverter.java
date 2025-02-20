@@ -14,23 +14,29 @@ import java.util.stream.Collectors;
 
 @Component
 public class ArtworkConverter {
-    public Artwork convertArtworkDTOToArtworkEntity(ArtworkDTO artworkDTO) {
-        Artwork artwork = new Artwork();
-        artwork.setArtworkID(artworkDTO.getArtworkID());
-        artwork.setArtworkName(artworkDTO.getArtworkName());
-        artwork.setDescription(artworkDTO.getDescription());
-        artwork.setPurchasable(artworkDTO.isPurchasable());
-        artwork.setPrice(artworkDTO.getPrice());
-        artwork.setImageFile(artworkDTO.getImageFile());
-        artwork.setCreatorID(artworkDTO.getCreatorID());
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        String formattedDate = LocalDateTime.now().format(formatter);
-        artwork.setDateCreated(formattedDate); // Giả sử DateCreated trong Artwork là String
+        public Artwork convertArtworkDTOToArtworkEntity(ArtworkDTO artworkDTO) {
+            Artwork artwork = new Artwork();
+            artwork.setArtworkID(artworkDTO.getArtworkID());
+            artwork.setArtworkName(artworkDTO.getArtworkName());
+            artwork.setDescription(artworkDTO.getDescription());
+            artwork.setPurchasable(artworkDTO.isPurchasable());
+            artwork.setPrice(artworkDTO.getPrice());
+            artwork.setImageFile(artworkDTO.getImageFile());
+            artwork.setCreatorID(artworkDTO.getCreatorID());
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            String formattedDate = LocalDateTime.now().format(formatter);
+            artwork.setDateCreated(formattedDate); // Giả sử DateCreated trong Artwork là String
 
-        artwork.setStatus(1);
-        artwork.setFavorites(artworkDTO.getFavorites());
-        return artwork;
-    }
+            artwork.setStatus(1);
+            artwork.setComments(artwork.getComments());
+            artwork.setFavorites(artworkDTO.getFavorites());
+
+
+            if (artworkDTO.getArtworkTag() != null) {
+                artwork.setArtworkTags(artworkDTO.getArtworkTag());
+            }
+            return artwork;
+        }
 
     public ArtworkDTO convertArtworkEntityToArtworkDTO(Artwork artwork,List<TagArt> tagArtList) {
         ArtworkDTO artworkDTO = new ArtworkDTO();
