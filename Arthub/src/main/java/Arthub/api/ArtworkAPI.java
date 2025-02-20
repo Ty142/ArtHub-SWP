@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/artworks") // Base URL cho API
+@RequestMapping("/api/artworks")
 public class ArtworkAPI {
 
     @Autowired
@@ -100,6 +100,7 @@ public class ArtworkAPI {
     }
 
 
+
     @GetMapping("/Top10Liked")
     public ResponseEntity<List<Artwork>> getTop10LikedArtworks() {
         List<Artwork> artworks = artworkService.getTop10LikedArtworks();
@@ -107,7 +108,10 @@ public class ArtworkAPI {
             System.out.println("⚠ API /api/Artworks/Top10Liked: None artwork.");
             return ResponseEntity.noContent().build();
         }
+
         System.out.println("✅ Trả về " + artworks.size() + " artworks.");
         return ResponseEntity.ok(artworks);
     }
 }
+
+
