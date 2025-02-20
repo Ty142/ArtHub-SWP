@@ -153,14 +153,47 @@ public class AccountRepositoryImpl implements AccountRepository {
             ResultSet resultSet = statement.executeQuery();
 
             if (resultSet.next()) {
-                account = mapResultSetToAccount(resultSet);
+                account = new Account();
+                account.setAccountId(resultSet.getInt("AccountID"));
+                account.setUserName(resultSet.getString("UserName"));
+                account.setPassword(resultSet.getString("Password"));
+                account.setEmail(resultSet.getString("Email"));
+                account.setStatus(resultSet.getInt("Status"));
+
+                // ✅ Nếu đăng nhập thành công -> Cập nhật LastLogin
+                updateLastLogin(account.getAccountId());
             }
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
+            throw new RuntimeException("❌ Lỗi khi kiểm tra tài khoản: " + e.getMessage());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
         return account;
     }
+
+    private void updateLastLogin(int accountId) {
+        String sql = "UPDATE [User] SET LastLogin = CURRENT_TIMESTAMP WHERE AccountID = ?";
+        try (Connection connection = ConnectUtils.getInstance().openConection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+
+            statement.setInt(1, accountId);
+            int rowsUpdated = statement.executeUpdate();
+            if (rowsUpdated > 0) {
+                System.out.println("✅ LastLogin đã cập nhật thành công cho AccountID: " + accountId);
+            } else {
+                System.out.println("⚠️ Không tìm thấy User với AccountID: " + accountId);
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("❌ Lỗi khi cập nhật LastLogin: " + e.getMessage(), e);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
 
     /**
      * Hàm ánh xạ `ResultSet` sang đối tượng `Account`.
@@ -244,8 +277,8 @@ public class AccountRepositoryImpl implements AccountRepository {
     }
 
     @Override
-    public boolean changePasswordByEmail(String email, String newPassword) throws SQLException {
-        String sql = "UPDATE Account SET Password = ? WHERE Email = ?";
+    public boolean changePasswordByEmail(String email,String oldPassword,String newPassword) throws SQLException {
+        String sql = "UPDATE Account SET Password = ? WHERE (Email = ? and Password = ?)";
         ConnectUtils db = ConnectUtils.getInstance();
 
         try (Connection connection = db.openConection();
@@ -253,6 +286,7 @@ public class AccountRepositoryImpl implements AccountRepository {
 
             statement.setString(1, hashPassword(newPassword));
             statement.setString(2, email);
+            statement.setString(3, hashPassword(oldPassword));
 
             int affectedRows = statement.executeUpdate();
             return affectedRows > 0; // Trả về true nếu cập nhật thành công
@@ -263,6 +297,28 @@ public class AccountRepositoryImpl implements AccountRepository {
             throw new RuntimeException(e);
         }
     }
+
+    @Override
+    public boolean resetPassword(String email, String newPassword) {
+        if (email == null || newPassword == null || email.isEmpty() || newPassword.isEmpty()) {
+            throw new IllegalArgumentException("Email và mật khẩu không được để trống!");
+        }
+        String sql = "UPDATE Account SET Password = ? WHERE Email = ?";
+        ConnectUtils db = ConnectUtils.getInstance();
+        try (Connection connection = db.openConection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, hashPassword(newPassword));
+            statement.setString(2, email);
+            int affectedRows = statement.executeUpdate();
+            return affectedRows > 0;
+        } catch (SQLException e) {
+            System.err.println("Lỗi khi đặt lại mật khẩu: " + e.getMessage()); // Log lỗi thay vì in stack trace
+            return false;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
     @Override
     public boolean isEmailExist(String email) {

@@ -8,7 +8,7 @@ public class ArtworkDTO {
     private int creatorID;
     private String artworkName;
     private String description;
-    private Date dateCreated;
+    private String dateCreated;
     private int likes;
     private int views;
     private int comments;
@@ -17,10 +17,10 @@ public class ArtworkDTO {
     private double price;
     private String imageFile;
     private List<ArtworkTagDTO> artworkTags;
+    private int status;
 
     public ArtworkDTO() {}
 
-    // Getters & Setters
     public int getArtworkID() { return artworkID; }
     public void setArtworkID(int artworkID) { this.artworkID = artworkID; }
 
@@ -33,8 +33,8 @@ public class ArtworkDTO {
     public String getDescription() { return description; }
     public void setDescription(String description) { this.description = description; }
 
-    public Date getDateCreated() { return dateCreated; }
-    public void setDateCreated(Date dateCreated) { this.dateCreated = dateCreated; }
+    public String getDateCreated() { return dateCreated; }
+    public void setDateCreated(String dateCreated) { this.dateCreated = dateCreated; }
 
     public int getLikes() { return likes; }
     public void setLikes(int likes) { this.likes = likes; }
@@ -59,4 +59,12 @@ public class ArtworkDTO {
 
     public List<ArtworkTagDTO> getArtworkTags() { return artworkTags; }
     public void setArtworkTags(List<ArtworkTagDTO> artworkTags) { this.artworkTags = artworkTags; }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
 }
