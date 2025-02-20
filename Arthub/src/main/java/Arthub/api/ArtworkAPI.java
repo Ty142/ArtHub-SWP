@@ -1,7 +1,14 @@
 package Arthub.api;
 
+import Arthub.converter.ArtworkConverter;
+import Arthub.dto.ArtworkDTO;
+import Arthub.converter.ArtworkConverter;
+import Arthub.dto.ArtworkDTO;
 import Arthub.entity.Artwork;
+import Arthub.repository.ArtworkRepository;
+import Arthub.repository.TagArtRepository;
 import Arthub.service.ArtworkService;
+import Arthub.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,19 +19,38 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/artworks") // Base URL cho API
 public class ArtworkAPI {
+
     @Autowired
-    private ArtworkService artworkService;
+     ArtworkService artworkService;
+    @Autowired
+    UserService userService;
+    @Autowired
+    ArtworkRepository artworkRepository;
+    @Autowired
+    ArtworkConverter artworkConverter;
+    @Autowired
+    TagArtRepository tagArtRepository;
 
-        /**
-         * API để lấy tất cả Artwork từ database
-         * @return Danh sách Artwork dưới dạng JSON
-         */
+    utils.ImageUtils imageUtils = new utils.ImageUtils();
 
-
-    /**
-     * API để lấy tất cả Artwork từ database
-     * @return Danh sách Artwork dưới dạng JSON
-     */
+    @PostMapping("/")
+    public Artwork createArtImg(@RequestBody ArtworkDTO artworkDTO) {
+        Artwork artwork = artworkConverter.convertArtworkDTOToArtworkEntity(artworkDTO);
+        try {
+            byte[] imgByte = imageUtils.decodeBase64(artwork.getImageFile());
+            artwork.setImageFile(userService.uploadAvatar(imgByte, 3,""));
+            int id = artworkRepository.addArtwork(artwork);
+            tagArtRepository.addTagArtUserIdAndTagId(artwork.getArtworkTags(), id);
+            Optional<Artwork> artworkOpt = artworkRepository.getArtworkById(id);
+            if (artworkOpt.isPresent()) {
+                return artworkOpt.get();
+            } else {
+                throw new RuntimeException("Artwork không được tìm thấy sau khi tạo");
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("Lỗi khi upload ảnh: " + e.getMessage(), e);
+        }
+    }
     @GetMapping("/")
     public ResponseEntity<List<Artwork>> getAllArtworks() {
         System.out.println("📥 Nhận yêu cầu lấy tất cả artworks...");

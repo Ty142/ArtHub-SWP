@@ -2,7 +2,7 @@ package Arthub.api;
 
 import Arthub.dto.FileUploadDTO;
 import Arthub.entity.User;
-import Arthub.repository.ArtworkRepository;
+import Arthub.repository.AccountRepository;
 import Arthub.repository.UserRepository;
 import Arthub.repository.impl.ArtworkRepositoryImpl;
 import Arthub.service.UserService;
@@ -25,13 +25,8 @@ public class UserAPI {
     @Autowired
     UserRepository userRepository;
 
-    @Autowired
-    ArtworkRepository artworkRepository;
 
     ImageUtils imageUtils = new ImageUtils();
-
-
-
 
 
 
@@ -63,7 +58,9 @@ public class UserAPI {
 
         try {
             byte[] imgByte = imageUtils.decodeBase64(uploadFileAvatar.getImageFile());
-            String avatarUrl = userService.uploadAvatar(imgByte, 1);
+            String avatar = userRepository.findAvatarByAccountId(accountId);
+            String idAvatar = imageUtils.extractPublicId(avatar);
+            String avatarUrl = userService.uploadAvatar(imgByte, 1, idAvatar);
             userRepository.updateAvatar(accountId, avatarUrl);
             return ResponseEntity.ok("Upload thành công, Avatar: " + avatarUrl);
         } catch (Exception e) {
@@ -74,10 +71,11 @@ public class UserAPI {
     @PutMapping("/{accountId}/background")
     public ResponseEntity<String> uploadBackground(@PathVariable("accountId") Integer accountId,
                                                    @RequestBody FileUploadDTO uploadFileBackground) throws IOException {
-
         try {
             byte[] imgByte = imageUtils.decodeBase64(uploadFileBackground.getImageFile());
-            String Background = userService.uploadAvatar(imgByte, 2);
+            String background = userRepository.findBackgroundByAccountId(accountId);
+            String idBackground = imageUtils.extractPublicId(background);
+            String Background = userService.uploadAvatar(imgByte, 2,idBackground);
             userRepository.updateBackground(accountId, Background);
             return ResponseEntity.ok("Upload thành công, Background: " + Background);
         } catch (Exception e) {
@@ -97,16 +95,4 @@ public class UserAPI {
         }
     }
 
-    @PostMapping("{ArtworkId}/picture")
-    public ResponseEntity<String> createArtImg(@PathVariable("ArtworkId") Integer artId,@RequestBody FileUploadDTO uploadFileAvatar) {
-
-        try {
-            byte[] imgByte = imageUtils.decodeBase64(uploadFileAvatar.getImageFile());
-            String avatarUrl = userService.uploadAvatar(imgByte, 3);
-            artworkRepository.saveArtPicture(artId, avatarUrl);
-            return ResponseEntity.ok("Upload thành công, Avatar: " + avatarUrl);
-        } catch (Exception e) {
-            return ResponseEntity.internalServerError().body("Lỗi khi upload ảnh: " + e.getMessage());
-        }
-    }
 }
