@@ -5,6 +5,7 @@ import Arthub.dto.ArtworkDTO;
 import Arthub.converter.ArtworkConverter;
 import Arthub.dto.ArtworkDTO;
 import Arthub.entity.Artwork;
+import Arthub.entity.Tag;
 import Arthub.repository.ArtworkRepository;
 import Arthub.repository.TagArtRepository;
 import Arthub.service.ArtworkService;
@@ -110,4 +111,31 @@ public class ArtworkAPI {
         System.out.println("✅ Trả về " + artworks.size() + " artworks.");
         return ResponseEntity.ok(artworks);
     }
+
+    @GetMapping("/{id}/tags")
+    public ResponseEntity<List<Tag>> getAllTagArtByArtworkId(@PathVariable int id) {
+        List<Tag> tags = tagArtRepository.getAllTagArtByArtworkId(id);
+        if (tags.isEmpty()) {
+            System.out.println("⚠️ Không tìm thấy Tag");
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(tags);
+
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteArtworkById(@PathVariable int id) {
+        System.out.println("�� Nhận yêu cầu xóa artwork với ID: " + id);
+
+        Optional<Artwork> artwork = artworkService.getArtworkById(id);
+        if (artwork.isPresent()) {
+            artworkService.DeleteArtwork(id);
+            System.out.println("�� Xóa artwork với ID: " + id + " thành công.");
+            return ResponseEntity.noContent().build();
+        } else {
+            System.out.println("�� Không tìm thấy artwork với ID: " + id);
+            return ResponseEntity.notFound().build();
+        }
+    }
+
 }

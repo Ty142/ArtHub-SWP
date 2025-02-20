@@ -3,6 +3,7 @@ package Arthub.service.Impl;
 import Arthub.entity.Artwork;
 import Arthub.entity.TagArt;
 import Arthub.repository.ArtworkRepository;
+import Arthub.repository.TagArtRepository;
 import Arthub.service.ArtworkService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,8 +15,9 @@ import java.util.Optional;
 public class ArtworkServiceImpl implements ArtworkService {
 
     @Autowired
-    private ArtworkRepository artworkRepository;
-
+     ArtworkRepository artworkRepository;
+    @Autowired
+    TagArtRepository tagArtRepository;
     @Override
     public void PushArtwork(Artwork artwork, TagArt tagArt) {
 
@@ -48,6 +50,12 @@ public class ArtworkServiceImpl implements ArtworkService {
     @Override
     public List<Artwork> getTop10LikedArtworks() {
         return artworkRepository.getTop10LikedArtworks();
+    }
+
+    @Override
+    public void DeleteArtwork(int id) {
+        tagArtRepository.deleteTagArtByArtId( id);
+        artworkRepository.deleteArtworkByArtworkId(id);
     }
 }
 

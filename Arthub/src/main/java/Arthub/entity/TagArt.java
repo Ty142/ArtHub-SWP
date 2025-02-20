@@ -6,6 +6,7 @@ public class TagArt {
     private int tagID;
 
     public TagArt() {
+
     }
 
     public TagArt(int tagArtID, int artworkID, int tagId) {

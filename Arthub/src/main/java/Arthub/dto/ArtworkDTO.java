@@ -25,14 +25,6 @@ public class ArtworkDTO {
     private int view;
     private int favorites;
 
-    public int getArtworkID() {
-        return artworkID;
-    }
-
-    public void setArtworkID(int artworkID) {
-        this.artworkID = artworkID;
-    }
-
     public String getArtworkName() {
         return artworkName;
     }
@@ -41,6 +33,8 @@ public class ArtworkDTO {
         this.artworkName = artworkName;
     }
 
+    public int getArtworkID() { return artworkID; }
+    public void setArtworkID(int artworkID) { this.artworkID = artworkID; }
     public String getDescription() {
         return description;
     }
