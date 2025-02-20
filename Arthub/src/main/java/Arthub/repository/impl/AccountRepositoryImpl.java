@@ -67,7 +67,7 @@ public class AccountRepositoryImpl implements AccountRepository {
 
 
     public void addInformationForRegistration(AccountDTO accountDTO) {
-        String sql = "INSERT INTO Account values(?,?,?,?)";
+        String sql = "INSERT INTO account values(?,?,?,?)";
         Account account = new UserConverter().ConvertAccountDTOtoAccountEntity(accountDTO);
         ConnectUtils db = ConnectUtils.getInstance();
         try {

@@ -1,12 +1,13 @@
 package Arthub.repository.impl;
 
-import Arthub.entity.Artwork;
+import Arthub.entity.Tag;
 import Arthub.entity.TagArt;
 import Arthub.repository.TagArtRepository;
 import org.springframework.stereotype.Repository;
 import utils.ConnectUtils;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -30,7 +31,7 @@ public class TagArtRepositoryImpl implements TagArtRepository {
 
     @Override
     public int getTagIdByArtId(int ArtworkId) {
-        String sql = "SELECT t.[TagArtID] FROM TagArt t WHERE t.[ArtworkID] = ?";
+        String sql = "SELECT t.[TagID] FROM TagArt t WHERE t.[ArtworkID] = ?";
         try {
             ConnectUtils db = ConnectUtils.getInstance();
             Connection conn = db.openConection();
@@ -38,7 +39,7 @@ public class TagArtRepositoryImpl implements TagArtRepository {
             statement.setInt(1, ArtworkId);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                return resultSet.getInt("TagArtID");
+                return resultSet.getInt("TagID");
             } else {
                 return -1;
             }
@@ -49,4 +50,34 @@ public class TagArtRepositoryImpl implements TagArtRepository {
         }
 
     }
+
+    @Override
+    public ArrayList<Tag> getAllTagArtByArtworkId(int artworkId) {
+        String sql = "SELECT t.TagID, tg.TagName " +
+                "FROM TagArt t " +
+                "JOIN Tag tg ON t.TagID = tg.TagID " +
+                "WHERE t.ArtworkID = ?";  // Đặt giá trị cho tham số ?
+
+        ArrayList<Tag> tags = new ArrayList<>();
+        utils.ConnectUtils db = utils.ConnectUtils.getInstance();
+
+        try (Connection connection = db.openConection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+
+            statement.setInt(1, artworkId); // Gán giá trị tham số ?
+
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    Tag tag = new Tag();
+                    tag.setTagId(resultSet.getInt("TagID"));
+                    tag.setTagName(resultSet.getString("TagName"));
+                    tags.add(tag);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return tags;
+    }
+
 }
