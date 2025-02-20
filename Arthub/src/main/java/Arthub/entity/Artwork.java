@@ -12,14 +12,14 @@ public class Artwork {
         private boolean purchasable;
         private double price;
         private String imageFile;
-        private int userID;
+        private int CreatorID;
         private int libraryID;
         private String dateCreated;
         private int status;
-        private int comment;
-        private int view;
+        private int comments;
+        private int views;
         private int favorites;
-        private List<TagArt> tags;
+        private List<TagArt> artworkTags;
 
 
         // Constructor
@@ -83,12 +83,12 @@ public class Artwork {
                 this.imageFile = imageFile;
         }
 
-        public int getUserID() {
-                return userID;
+        public int getCreatorID() {
+                return CreatorID;
         }
 
-        public void setUserID(int userID) {
-                this.userID = userID;
+        public void setCreatorID(int creatorID) {
+                CreatorID = creatorID;
         }
 
         public int getLibraryID() {
@@ -117,20 +117,20 @@ public class Artwork {
                 return dateCreated;
         }
 
-        public int getComment() {
-                return comment;
+        public int getComments() {
+                return comments;
         }
 
-        public void setComment(int comment) {
-                this.comment = comment;
+        public void setComments(int comments) {
+                this.comments = comments;
         }
 
-        public int getView() {
-                return view;
+        public int getViews() {
+                return views;
         }
 
-        public void setView(int view) {
-                this.view = view;
+        public void setViews(int views) {
+                this.views = views;
         }
 
         public int getFavorites() {
@@ -141,11 +141,11 @@ public class Artwork {
                 this.favorites = favorites;
         }
 
-        public List<TagArt> getTags() {
-                return tags;
+        public List<TagArt> getArtworkTags() {
+                return artworkTags;
         }
 
-        public void setTags(List<TagArt> tags) {
-                this.tags = tags;
+        public void setArtworkTags(List<TagArt> artworkTags) {
+                this.artworkTags = artworkTags;
         }
 }

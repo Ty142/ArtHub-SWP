@@ -199,6 +199,46 @@ public class UserRepositoryImpl implements UserRepository {
         }
     }
 
+    @Override
+    public String findAvatarByAccountId(int AccountId) {
+            String sql = "SELECT ProfilePicture FROM [dbo].[User] WHERE AccountID = ?";
+            try (Connection connection = ConnectUtils.getInstance().openConection();
+                 PreparedStatement statement = connection.prepareStatement(sql)) {
+                statement.setInt(1, AccountId);
+                ResultSet resultSet = statement.executeQuery();
+                if (resultSet.next()) {
+                    return resultSet.getString("ProfilePicture");
+                }
+
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+            return "";
+        }
+
+    @Override
+    public String findBackgroundByAccountId(int AccountId) {
+        String sql = "SELECT BackgroundPicture FROM [dbo].[User] WHERE AccountID = ?";
+        try (Connection connection = ConnectUtils.getInstance().openConection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, AccountId);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getString("BackgroundPicture");
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return "";
+
+    }
+
+
     /**
      * Hàm ánh xạ `ResultSet` sang đối tượng `User`.
      */

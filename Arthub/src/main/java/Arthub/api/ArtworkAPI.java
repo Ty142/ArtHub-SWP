@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @RestController
 @RequestMapping("/api/Artworks")
 public class ArtworkAPI {
@@ -24,19 +26,25 @@ public class ArtworkAPI {
     TagArtRepository tagArtRepository;
 
     utils.ImageUtils imageUtils = new utils.ImageUtils();
+
     @PostMapping("/")
-    public ResponseEntity<String> createArtImg(@RequestBody ArtworkDTO artworkDTO) {
-            Artwork artwork = artworkConverter.convertArtworkDTOToArtworkEntity(artworkDTO);
-            try {
-                byte[] imgByte = imageUtils.decodeBase64(artwork.getImageFile());
-                artwork.setImageFile( userService.uploadAvatar(imgByte, 3));
-                int id = artworkRepository.addArtwork(artwork);
-                tagArtRepository.addTagArtUserIdAndTagId(artwork.getTags(), id);
-                return ResponseEntity.ok("Upload Artwork Successfull: ");
-            } catch (Exception e) {
-                return ResponseEntity.internalServerError().body("Lỗi khi upload ảnh: " + e.getMessage());
+    public Artwork createArtImg(@RequestBody ArtworkDTO artworkDTO) {
+        Artwork artwork = artworkConverter.convertArtworkDTOToArtworkEntity(artworkDTO);
+        try {
+            byte[] imgByte = imageUtils.decodeBase64(artwork.getImageFile());
+            artwork.setImageFile(userService.uploadAvatar(imgByte, 3,""));
+            int id = artworkRepository.addArtwork(artwork);
+            tagArtRepository.addTagArtUserIdAndTagId(artwork.getArtworkTags(), id);
+            Optional<Artwork> artworkOpt = artworkRepository.getArtworkById(id);
+            if (artworkOpt.isPresent()) {
+                return artworkOpt.get();
+            } else {
+                throw new RuntimeException("Artwork không được tìm thấy sau khi tạo");
             }
+        } catch (Exception e) {
+            throw new RuntimeException("Lỗi khi upload ảnh: " + e.getMessage(), e);
         }
     }
+}
 
 

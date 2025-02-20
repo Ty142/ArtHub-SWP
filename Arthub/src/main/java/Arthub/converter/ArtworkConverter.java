@@ -22,18 +22,18 @@ public class ArtworkConverter {
             artwork.setPurchasable(artworkDTO.isPurchasable());
             artwork.setPrice(artworkDTO.getPrice());
             artwork.setImageFile(artworkDTO.getImageFile());
-            artwork.setUserID(artworkDTO.getUserID());
+            artwork.setCreatorID(artworkDTO.getCreatorID());
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
             String formattedDate = LocalDateTime.now().format(formatter);
             artwork.setDateCreated(formattedDate); // Giả sử DateCreated trong Artwork là String
 
             artwork.setStatus(1);
-            artwork.setComment(artwork.getComment());
+            artwork.setComments(artwork.getComments());
             artwork.setFavorites(artworkDTO.getFavorites());
 
 
             if (artworkDTO.getArtworkTag() != null) {
-                artwork.setTags(artworkDTO.getArtworkTag());
+                artwork.setArtworkTags(artworkDTO.getArtworkTag());
             }
             return artwork;
         }

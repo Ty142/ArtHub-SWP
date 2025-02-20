@@ -1,6 +1,7 @@
 package Arthub.dto;
 
 import Arthub.entity.TagArt;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -14,7 +15,8 @@ public class ArtworkDTO {
     private boolean purchasable;
     private double price;
     private String imageFile;
-    private int userID;
+    @JsonProperty("CreatorID")
+    private int CreatorID;
     private int libraryID;
     private int status;
     private String DateCreated;
@@ -79,12 +81,12 @@ public class ArtworkDTO {
         this.imageFile = imageFile;
     }
 
-    public int getUserID() {
-        return userID;
+    public int getCreatorID() {
+        return CreatorID;
     }
 
-    public void setUserID(int userID) {
-        this.userID = userID;
+    public void setCreatorID(int creatorID) {
+        CreatorID = creatorID;
     }
 
     public int getLibraryID() {

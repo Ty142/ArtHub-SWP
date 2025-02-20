@@ -2,6 +2,7 @@ package Arthub.api;
 
 import Arthub.dto.FileUploadDTO;
 import Arthub.entity.User;
+import Arthub.repository.AccountRepository;
 import Arthub.repository.UserRepository;
 import Arthub.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,8 @@ public class UserAPI {
     AccountService accountService;
     @Autowired
      UserService userService;
-
+    @Autowired
+    AccountRepository accountRepository;
     @Autowired
     UserRepository userRepository;
 
@@ -59,7 +61,9 @@ public class UserAPI {
 
         try {
             byte[] imgByte = imageUtils.decodeBase64(uploadFileAvatar.getImageFile());
-            String avatarUrl = userService.uploadAvatar(imgByte, 1);
+            String avatar = userRepository.findAvatarByAccountId(accountId);
+            String idAvatar = imageUtils.extractPublicId(avatar);
+            String avatarUrl = userService.uploadAvatar(imgByte, 1, idAvatar);
             userRepository.updateAvatar(accountId, avatarUrl);
             return ResponseEntity.ok("Upload thành công, Avatar: " + avatarUrl);
         } catch (Exception e) {
@@ -70,10 +74,11 @@ public class UserAPI {
     @PutMapping("/{accountId}/background")
     public ResponseEntity<String> uploadBackground(@PathVariable("accountId") Integer accountId,
                                                    @RequestBody FileUploadDTO uploadFileBackground) throws IOException {
-
         try {
             byte[] imgByte = imageUtils.decodeBase64(uploadFileBackground.getImageFile());
-            String Background = userService.uploadAvatar(imgByte, 2);
+            String background = userRepository.findBackgroundByAccountId(accountId);
+            String idBackground = imageUtils.extractPublicId(background);
+            String Background = userService.uploadAvatar(imgByte, 2,idBackground);
             userRepository.updateBackground(accountId, Background);
             return ResponseEntity.ok("Upload thành công, Background: " + Background);
         } catch (Exception e) {
