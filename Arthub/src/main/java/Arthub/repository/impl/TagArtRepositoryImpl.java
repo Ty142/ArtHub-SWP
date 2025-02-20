@@ -49,4 +49,22 @@ public class TagArtRepositoryImpl implements TagArtRepository {
         }
 
     }
+
+    @Override
+    public void deleteTagArtByArtId(int artworkId) {
+        String sql = "DELETE FROM TagArt WHERE ArtworkID = ?";
+        try {
+            ConnectUtils db = ConnectUtils.getInstance();
+            Connection conn = db.openConection();
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setInt(1, artworkId);
+            statement.executeUpdate();
+            statement.close();
+            conn.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

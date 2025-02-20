@@ -15,4 +15,5 @@ public interface ArtworkService {
     Optional<Artwork> getArtworkById(int id);
     List<Artwork> getArtworkByAccountId(int id);
     List<Artwork> getTop10LikedArtworks();
+    void DeleteArtwork(int id);
 }
