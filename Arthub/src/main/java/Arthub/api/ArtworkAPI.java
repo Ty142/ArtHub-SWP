@@ -5,6 +5,7 @@ import Arthub.dto.ArtworkDTO;
 import Arthub.converter.ArtworkConverter;
 import Arthub.dto.ArtworkDTO;
 import Arthub.entity.Artwork;
+import Arthub.entity.Tag;
 import Arthub.repository.ArtworkRepository;
 import Arthub.repository.TagArtRepository;
 import Arthub.service.ArtworkService;

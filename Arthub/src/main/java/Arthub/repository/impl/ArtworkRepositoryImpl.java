@@ -147,14 +147,18 @@ public class ArtworkRepositoryImpl implements ArtworkRepository {
 
     @Override
     public List<Artwork> getTop10LikedArtworks() {
-        String sql = "SELECT TOP 10 a.*, ta.TagArtID, ta.TagID " +
+        String sql = "SELECT a.ArtworkID, a.UserID, a.ArtworkName, a.Description, " +
+                "FORMAT(a.DateCreated, 'yyyy-MM-dd HH:mm:ss') AS DateCreated, a.Likes, " +
+                "a.Views, a.Comments, a.Favorites, a.Purchasable, a.Price, a.ImageFile, " +
+                "STUFF((SELECT ',' + CAST(ta.TagID AS VARCHAR) " +
+                "       FROM TagArt ta WHERE ta.ArtworkID = a.ArtworkID " +
+                "       FOR XML PATH(''), TYPE).value('.', 'NVARCHAR(MAX)'), 1, 1, '') AS TagIDs " +
                 "FROM Artworks a " +
-                "LEFT JOIN TagArt ta ON a.ArtworkID = ta.ArtworkID " +
                 "ORDER BY (COALESCE(a.Views, 0) * 0.5 + COALESCE(a.Likes, 0) * 1 " +
-                "+ COALESCE(a.Comments, 0) * 1.25 + COALESCE(a.Favorites, 0) * 1.5) DESC";
+                "+ COALESCE(a.Comments, 0) * 1.25 + COALESCE(a.Favorites, 0) * 1.5) DESC " +
+                "OFFSET 0 ROWS FETCH NEXT 10 ROWS ONLY";
 
         List<Artwork> artworks = new ArrayList<>();
-        Map<Integer, Artwork> artworkMap = new HashMap<>();
         ConnectUtils db = ConnectUtils.getInstance();
 
         try (Connection connection = db.openConection();
@@ -162,43 +166,42 @@ public class ArtworkRepositoryImpl implements ArtworkRepository {
              ResultSet resultSet = statement.executeQuery()) {
 
             while (resultSet.next()) {
-                int artworkID = resultSet.getInt("ArtworkID");
+                Artwork artwork = new Artwork();
+                artwork.setArtworkID(resultSet.getInt("ArtworkID"));
+                artwork.setCreatorID(resultSet.getInt("UserID"));
+                artwork.setArtworkName(resultSet.getString("ArtworkName"));
+                artwork.setDescription(resultSet.getString("Description"));
+                artwork.setDateCreated(resultSet.getString("DateCreated"));
+                artwork.setLikes(resultSet.getInt("Likes"));
+                artwork.setViews(resultSet.getInt("Views"));
+                artwork.setComments(resultSet.getInt("Comments"));
+                artwork.setFavorites(resultSet.getInt("Favorites"));
+                artwork.setPurchasable(resultSet.getBoolean("Purchasable"));
+                artwork.setPrice(resultSet.getDouble("Price"));
+                artwork.setImageFile(resultSet.getString("ImageFile"));
 
-                if (!artworkMap.containsKey(artworkID)) {
-                    Artwork artwork = new Artwork();
-                    artwork.setArtworkID(artworkID);
-                    artwork.setCreatorID(resultSet.getInt("CreatorID"));
-                    artwork.setArtworkName(resultSet.getString("ArtworkName"));
-                    artwork.setDescription(resultSet.getString("Description"));
-                    artwork.setDateCreated(resultSet.getString("DateCreated"));
-                    artwork.setLikes(resultSet.getInt("Likes"));
-                    artwork.setViews(resultSet.getInt("Views"));
-                    artwork.setComments(resultSet.getInt("Comments"));
-                    artwork.setFavorites(resultSet.getInt("Favorites"));
-                    artwork.setPurchasable(resultSet.getBoolean("Purchasable"));
-                    artwork.setPrice(resultSet.getDouble("Price"));
-                    artwork.setImageFile(resultSet.getString("ImageFile"));
+                String tagIdsString = resultSet.getString("TagIDs");
+                if (tagIdsString != null && !tagIdsString.isEmpty()) {
+                    List<TagArt> tagArts = new ArrayList<>();
+                    for (String tagId : tagIdsString.split(",")) {
+                        TagArt tagArt = new TagArt();
+                        tagArt.setTagID(Integer.parseInt(tagId.trim()));
+                        tagArts.add(tagArt);
+                    }
+                    artwork.setArtworkTags(tagArts);
+                } else {
                     artwork.setArtworkTags(new ArrayList<>());
                     artworkMap.put(artworkID, artwork);
                 }
 
-                int tagId = resultSet.getInt("TagID");
-
-                if (tagId > 0) {
-                    TagArt artworkTag = new TagArt(resultSet.getInt("TagArtID"), artworkID, tagId);
-                    artworkMap.get(artworkID).getArtworkTags().add(artworkTag);
-                }
-
-
-
-
+                artworks.add(artwork);
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return new ArrayList<>(artworkMap.values());
+        return artworks;
     }
+
 
     @Override
     public String findArtworkPictureByArtworkId(int id) {
@@ -232,7 +235,7 @@ public class ArtworkRepositoryImpl implements ArtworkRepository {
                 PreparedStatement statement = connection.prepareStatement(sql);
                 statement.setInt(1, id);
                 ResultSet resultSet = statement.executeQuery();
-                if (resultSet.next()) {
+                while (resultSet.next()) {
                     Artwork artwork = new Artwork();
                     artwork.setArtworkID(resultSet.getInt("ArtworkID"));
                     artwork.setArtworkName(resultSet.getString("ArtworkName"));
