@@ -87,8 +87,13 @@ public class ArtworkAPI {
     @GetMapping("/Top10Liked")
     public ResponseEntity<List<Artwork>> getTop10LikedArtworks() {
         List<Artwork> artworks = artworkService.getTop10LikedArtworks();
-        System.out.println("⚠ API /api/Artworks/Top10Liked: None artwork.");
-        return ResponseEntity.noContent().build();
+        if (artworks.isEmpty()) {
+            System.out.println("⚠️ Không tìm thấy artworks!");
+            return ResponseEntity.noContent().build(); // Trả về HTTP 204 nếu rỗng
+        }
+
+        System.out.println("✅ Trả về " + artworks.size() + " artworks.");
+        return ResponseEntity.ok(artworks);
     }
 }
 
