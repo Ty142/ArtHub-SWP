@@ -234,7 +234,7 @@ public class ArtworkRepositoryImpl implements ArtworkRepository {
                 PreparedStatement statement = connection.prepareStatement(sql);
                 statement.setInt(1, id);
                 ResultSet resultSet = statement.executeQuery();
-                if (resultSet.next()) {
+                while (resultSet.next()) {
                     Artwork artwork = new Artwork();
                     artwork.setArtworkID(resultSet.getInt("ArtworkID"));
                     artwork.setArtworkName(resultSet.getString("ArtworkName"));
