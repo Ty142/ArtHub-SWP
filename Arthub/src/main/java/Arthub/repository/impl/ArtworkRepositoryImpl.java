@@ -257,5 +257,23 @@ public class ArtworkRepositoryImpl implements ArtworkRepository {
             return artworks;
         }
 
+    @Override
+    public void deleteArtworkByArtworkId(int artworkId) {
+    String sql = "DELETE FROM Artworks WHERE ArtworkID =?";
+    try {
+        ConnectUtils db = ConnectUtils.getInstance();
+        Connection connection = db.openConection();
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setInt(1, artworkId);
+        statement.executeUpdate();
+        connection.close();
+        statement.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
 }

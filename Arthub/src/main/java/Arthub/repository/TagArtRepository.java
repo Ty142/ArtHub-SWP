@@ -13,4 +13,6 @@ public interface TagArtRepository {
     int getTagIdByArtId(int ArtworkId);
 
     ArrayList<Tag> getAllTagArtByArtworkId(int artworkId);
+
+    void deleteTagArtByArtId(int artworkId);
 }
