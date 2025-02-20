@@ -5,6 +5,9 @@ public class TagArt {
     private int artworkID;
     private int tagID;
 
+    public TagArt() {
+    }
+
     public TagArt(int tagArtID, int artworkID, int tagId) {
         this.tagArtID = tagArtID;
         this.artworkID = artworkID;
