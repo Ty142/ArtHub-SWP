@@ -72,7 +72,8 @@ public class UserAPI {
     }
 
     @PutMapping("/{accountId}/background")
-    public ResponseEntity<String> uploadBackground(@PathVariable Integer accountId, @RequestBody FileUploadDTO uploadFileBackground) throws IOException {
+    public ResponseEntity<String> uploadBackground(@PathVariable("accountId") Integer accountId,
+                                                   @RequestBody FileUploadDTO uploadFileBackground) throws IOException {
 
         try {
             byte[] imgByte = imageUtils.decodeBase64(uploadFileBackground.getImageFile());

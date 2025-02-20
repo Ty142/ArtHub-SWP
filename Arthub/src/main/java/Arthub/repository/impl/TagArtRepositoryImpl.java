@@ -21,10 +21,25 @@ public class TagArtRepositoryImpl implements TagArtRepository {
         }
     }
 
-//    @Override
-//    public int getTagIdByArtId(int ArtworkId) {
-//        String sql = "SELECT t.[TagArtID] FROM TagArt t WHERE t.[ArtworkID] = ?";
-//
-//
-//    }
+    @Override
+    public int getTagIdByArtId(int ArtworkId) {
+        String sql = "SELECT t.[TagArtID] FROM TagArt t WHERE t.[ArtworkID] = ?";
+        try {
+            ConnectUtils db = ConnectUtils.getInstance();
+            Connection conn = db.openConection();
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setInt(1, ArtworkId);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getInt("TagArtID");
+            } else {
+                return -1;
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+    }
 }
