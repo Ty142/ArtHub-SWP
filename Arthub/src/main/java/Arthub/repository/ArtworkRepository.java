@@ -14,6 +14,6 @@ public interface ArtworkRepository {
 
     List<Artwork> getArtworks();
     Optional<Artwork> getArtworkById(int id);
-
+    List<Artwork> getArtworkByAccountId(int id);
     List<Artwork> getTop10LikedArtworks();
 }

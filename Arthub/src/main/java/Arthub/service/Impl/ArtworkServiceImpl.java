@@ -36,6 +36,10 @@ public class ArtworkServiceImpl implements ArtworkService {
         return artworkRepository.getArtworkById(id);
     }
 
+    @Override
+    public List<Artwork> getArtworkByAccountId(int id) {
+        return artworkRepository.getArtworkByAccountId(id);
+    }
 
     public ArtworkServiceImpl(ArtworkRepository artworkRepository) {
         this.artworkRepository = artworkRepository;

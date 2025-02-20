@@ -59,6 +59,21 @@ public class ArtworkAPI {
 
     }
 
+    @GetMapping("/accountID/{id}")
+    public ResponseEntity<List<Artwork>> getArtworkByAccountId(@PathVariable int id) {
+        System.out.println("📥 Nhận yêu cầu lấy artwork với ID: " + id);
+
+        List<Artwork> artworks = artworkService.getArtworkByAccountId(id);
+        if (artworks.isEmpty()) {
+            System.out.println("⚠️ Không tìm thấy artworks!");
+            return ResponseEntity.noContent().build(); // Trả về HTTP 204 nếu không có dữ liệu
+        }
+
+        System.out.println("✅ Trả về " + artworks.size() + " artworks.");
+        return ResponseEntity.ok(artworks);
+    }
+
+
     @GetMapping("/Top10Liked")
     public ResponseEntity<List<Artwork>> getTop10LikedArtworks() {
         List<Artwork> artworks = artworkService.getTop10LikedArtworks();

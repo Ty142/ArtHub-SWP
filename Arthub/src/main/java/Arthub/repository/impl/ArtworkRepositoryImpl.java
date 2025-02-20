@@ -123,6 +123,39 @@ public class ArtworkRepositoryImpl implements ArtworkRepository {
         return Optional.empty();
     }
 
+    @Override
+    public List<Artwork> getArtworkByAccountId(int id) {
+        List<Artwork> artworks = new ArrayList<>();
+        String sql = "SELECT A.* FROM Artworks A JOIN [User] U ON A.UserID = U.UserID WHERE U.AccountID = ?";
+        try {
+            ConnectUtils db = ConnectUtils.getInstance();
+            Connection connection = db.openConection();
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, id);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                Artwork artwork = new Artwork();
+                artwork.setArtworkID(resultSet.getInt("ArtworkID"));
+                artwork.setArtworkName(resultSet.getString("ArtworkName"));
+                artwork.setDescription(resultSet.getString("Description"));
+                artwork.setPurchasable(resultSet.getBoolean("Purchasable"));
+                artwork.setPrice(resultSet.getDouble("Price"));
+                artwork.setCreatorID(resultSet.getInt("UserID"));
+                artwork.setImageFile(resultSet.getString("ImageFile"));
+                artwork.setLikes(resultSet.getInt("Likes"));
+                artwork.setDateCreated(resultSet.getString("DateCreated"));
+                artworks.add(artwork);
+            }
+            connection.close();
+            statement.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return artworks;
+    }
+
     private Artwork mapResultSetToArtwork(ResultSet resultSet) throws SQLException {
         Artwork artwork = new Artwork();
         artwork.setArtworkID(resultSet.getInt("ArtworkID"));
