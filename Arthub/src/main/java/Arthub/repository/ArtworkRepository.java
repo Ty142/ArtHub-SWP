@@ -20,4 +20,6 @@ public interface ArtworkRepository {
 
     String findArtworkPictureByArtworkId(int id);
     List<Artwork> getArtworkByAccountId(int id);
+
+    void deleteArtworkByArtworkId(int artworkId);
 }
