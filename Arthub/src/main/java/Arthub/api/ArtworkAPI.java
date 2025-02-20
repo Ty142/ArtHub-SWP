@@ -2,9 +2,8 @@ package Arthub.api;
 
 import Arthub.converter.ArtworkConverter;
 import Arthub.dto.ArtworkDTO;
-import Arthub.converter.ArtworkConverter;
-import Arthub.dto.ArtworkDTO;
 import Arthub.entity.Artwork;
+import Arthub.entity.Tag;
 import Arthub.repository.ArtworkRepository;
 import Arthub.repository.TagArtRepository;
 import Arthub.service.ArtworkService;
@@ -30,6 +29,8 @@ public class ArtworkAPI {
     ArtworkConverter artworkConverter;
     @Autowired
     TagArtRepository tagArtRepository;
+
+
 
     utils.ImageUtils imageUtils = new utils.ImageUtils();
 
@@ -95,6 +96,19 @@ public class ArtworkAPI {
         System.out.println("✅ Trả về " + artworks.size() + " artworks.");
         return ResponseEntity.ok(artworks);
     }
+
+    @GetMapping("/{id}/tags")
+    public ResponseEntity<List<Tag>> getAllTagArtByArtworkId(@PathVariable int id) {
+        List<Tag> tags = tagArtRepository.getAllTagArtByArtworkId(id);
+        if (tags.isEmpty()) {
+            System.out.println("⚠️ Không tìm thấy Tag");
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(tags);
+
+    }
+
+
 }
 
 
