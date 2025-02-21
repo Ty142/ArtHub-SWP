@@ -1,7 +1,6 @@
 package Arthub.api;
 
 import Arthub.service.InteractService;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,8 +21,8 @@ public class InteractAPI {
         int userID = requestData.get("userID");
         int artworkID = requestData.get("artworkID");
 
-        boolean isFavourited = interactService.toggleFavourite(userID, artworkID);
-        if (isFavourited) {
+        boolean isFavourite = interactService.toggleFavourite(userID, artworkID);
+        if (isFavourite) {
             return ResponseEntity.ok("Added to favourites successfully!");
         } else {
             return ResponseEntity.ok("Removed from favourites!");
@@ -35,4 +34,12 @@ public class InteractAPI {
         List<Integer> favourites = interactService.getFavouriteArtworks(userID);
         return ResponseEntity.ok(favourites);
     }
+
+    @GetMapping("/favourite/status/{userID}/{artworkID}")
+    public ResponseEntity<Boolean> isFavourite(@PathVariable int userID, @PathVariable int artworkID) {
+        boolean isFavourite = interactService.isFavourite(userID, artworkID);
+        return ResponseEntity.ok(isFavourite);
+    }
+
+
 }

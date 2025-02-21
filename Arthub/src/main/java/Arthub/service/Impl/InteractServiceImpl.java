@@ -20,6 +20,11 @@ public class InteractServiceImpl implements InteractService {
     }
 
     @Override
+    public boolean isFavourite(int userID, int artworkID) {
+        return interactRepository.isFavourite(userID, artworkID);
+    }
+
+    @Override
     public List<Integer> getFavouriteArtworks(int userID) {
         return interactRepository.getFavouriteArtworks(userID);
     }

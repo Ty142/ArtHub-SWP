@@ -14,51 +14,66 @@ public class InteractRepositoryImpl implements InteractRepository {
 
     @Override
     public boolean toggleFavourite(int userID, int artworkID) {
-        String checkExistSQL = "SELECT COUNT(*) FROM Interact WHERE UserID = ? AND ArtworkID = ? AND ActivityId = 1";
         String deleteSQL = "DELETE FROM Interact WHERE UserID = ? AND ArtworkID = ? AND ActivityId = 1";
         String insertSQL = "INSERT INTO Interact (UserID, ArtworkID, ActivityId, DateOfInteract) VALUES (?, ?, 1, GETDATE())";
-        String increaseFavouriteSQL = "UPDATE Artworks SET Favorites = Favorites + 1 WHERE ArtworkID = ?";
-        String decreaseFavouriteSQL = "UPDATE Artworks SET Favorites = Favorites - 1 WHERE ArtworkID = ?";
+        String updateFavouriteSQL = "UPDATE Artworks SET Favorites = Favorites + ? WHERE ArtworkID = ?";
 
+        ConnectUtils db = ConnectUtils.getInstance();
+
+        try (Connection connection = db.openConection()) {
+            if (isFavourite(userID, artworkID)) {
+                // Nếu đã favourite -> Unfavourite
+                try (PreparedStatement deleteStatement = connection.prepareStatement(deleteSQL);
+                     PreparedStatement updateFavouriteStatement = connection.prepareStatement(updateFavouriteSQL)) {
+                    deleteStatement.setInt(1, userID);
+                    deleteStatement.setInt(2, artworkID);
+                    deleteStatement.executeUpdate();
+
+                    updateFavouriteStatement.setInt(1, -1); // Giảm 1 Favourite
+                    updateFavouriteStatement.setInt(2, artworkID);
+                    updateFavouriteStatement.executeUpdate();
+                }
+                return false; // Đã Unfavourite
+            } else {
+                // Nếu chưa favourite -> Favourite
+                try (PreparedStatement insertStatement = connection.prepareStatement(insertSQL);
+                     PreparedStatement updateFavouriteStatement = connection.prepareStatement(updateFavouriteSQL)) {
+                    insertStatement.setInt(1, userID);
+                    insertStatement.setInt(2, artworkID);
+                    insertStatement.executeUpdate();
+
+                    updateFavouriteStatement.setInt(1, 1); // Tăng 1 Favourite
+                    updateFavouriteStatement.setInt(2, artworkID);
+                    updateFavouriteStatement.executeUpdate();
+                }
+                return true; // Đã Favourite
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+
+    @Override
+    public boolean isFavourite(int userID, int artworkID) {
+        String checkExistSQL = "SELECT COUNT(*) FROM Interact WHERE UserID = ? AND ArtworkID = ? AND ActivityId = 1";
         ConnectUtils db = ConnectUtils.getInstance();
 
         try (Connection connection = db.openConection();
              PreparedStatement checkStatement = connection.prepareStatement(checkExistSQL)) {
 
-            // Kiểm tra xem artwork đã được favourite chưa
             checkStatement.setInt(1, userID);
             checkStatement.setInt(2, artworkID);
             ResultSet resultSet = checkStatement.executeQuery();
-            if (resultSet.next() && resultSet.getInt(1) > 0) {
-                // Nếu đã favourite -> Unfavourite (xóa khỏi Interact + giảm Favourites)
-                try (PreparedStatement deleteStatement = connection.prepareStatement(deleteSQL);
-                     PreparedStatement decreaseFavouriteStatement = connection.prepareStatement(decreaseFavouriteSQL)) {
-                    deleteStatement.setInt(1, userID);
-                    deleteStatement.setInt(2, artworkID);
-                    deleteStatement.executeUpdate();
 
-                    decreaseFavouriteStatement.setInt(1, artworkID);
-                    decreaseFavouriteStatement.executeUpdate();
-                }
-                return false; // Đã xóa khỏi favourite (Unfavourite)
-            } else {
-                // Nếu chưa favourite -> Favourite (thêm vào Interact + tăng Favourites)
-                try (PreparedStatement insertStatement = connection.prepareStatement(insertSQL);
-                     PreparedStatement increaseFavouriteStatement = connection.prepareStatement(increaseFavouriteSQL)) {
-                    insertStatement.setInt(1, userID);
-                    insertStatement.setInt(2, artworkID);
-                    insertStatement.executeUpdate();
-
-                    increaseFavouriteStatement.setInt(1, artworkID);
-                    increaseFavouriteStatement.executeUpdate();
-                }
-                return true;
+            if (resultSet.next()) {
+                return resultSet.getInt(1) > 0; // Trả về true nếu đã Favourite, false nếu chưa
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return false;
+        return false; // Trả về false nếu có lỗi
     }
 
 
