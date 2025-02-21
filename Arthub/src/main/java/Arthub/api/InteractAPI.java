@@ -1,5 +1,6 @@
 package Arthub.api;
 
+import Arthub.entity.Artwork;
 import Arthub.service.InteractService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -30,8 +31,8 @@ public class InteractAPI {
     }
 
     @GetMapping("/favourite/{userID}")
-    public ResponseEntity<List<Integer>> getFavouriteArtworks(@PathVariable int userID) {
-        List<Integer> favourites = interactService.getFavouriteArtworks(userID);
+    public ResponseEntity<List<Artwork>> getFavouriteArtworks(@PathVariable int userID) {
+        List<Artwork> favourites = interactService.getFavouriteArtworks(userID);
         return ResponseEntity.ok(favourites);
     }
 

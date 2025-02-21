@@ -1,5 +1,6 @@
 package Arthub.service.Impl;
 
+import Arthub.entity.Artwork;
 import Arthub.repository.InteractRepository;
 import Arthub.service.InteractService;
 import org.springframework.stereotype.Service;
@@ -25,7 +26,7 @@ public class InteractServiceImpl implements InteractService {
     }
 
     @Override
-    public List<Integer> getFavouriteArtworks(int userID) {
+    public List<Artwork> getFavouriteArtworks(int userID) {
         return interactRepository.getFavouriteArtworks(userID);
     }
 }

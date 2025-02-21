@@ -1,6 +1,7 @@
 package Arthub.repository.impl;
 
 import Arthub.repository.InteractRepository;
+import Arthub.entity.Artwork;
 import org.springframework.stereotype.Repository;
 import utils.ConnectUtils;
 
@@ -78,22 +79,41 @@ public class InteractRepositoryImpl implements InteractRepository {
 
 
     @Override
-    public List<Integer> getFavouriteArtworks(int userID) {
-        List<Integer> favourites = new ArrayList<>();
-        String sql = "SELECT ArtworkID FROM Interact WHERE UserID = ? AND ActivityID = ?";
-        try (Connection conn = ConnectUtils.getInstance().openConection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+    public List<Artwork> getFavouriteArtworks(int userID) {
+        String sql = "SELECT a.* FROM Artworks a " +
+                "JOIN Interact i ON a.ArtworkID = i.ArtworkID " +
+                "WHERE i.UserID = ? AND i.ActivityId = 1"; // ActivityID = 1 là Favourite
 
-            stmt.setInt(1, userID);
-            stmt.setInt(2, FAVOURITE_ACTIVITY_ID);
-            ResultSet rs = stmt.executeQuery();
+        List<Artwork> favouriteArtworks = new ArrayList<>();
+        ConnectUtils db = ConnectUtils.getInstance();
 
-            while (rs.next()) {
-                favourites.add(rs.getInt("ArtworkID"));
+        try (Connection connection = db.openConection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+
+            statement.setInt(1, userID);
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                Artwork artwork = new Artwork();
+                artwork.setArtworkID(resultSet.getInt("ArtworkID"));
+                artwork.setCreatorID(resultSet.getInt("CreatorID"));
+                artwork.setArtworkName(resultSet.getString("ArtworkName"));
+                artwork.setDescription(resultSet.getString("Description"));
+                artwork.setDateCreated(resultSet.getString("DateCreated"));
+                artwork.setLikes(resultSet.getInt("Likes"));
+                artwork.setViews(resultSet.getInt("Views"));
+                artwork.setComments(resultSet.getInt("Comments"));
+                artwork.setFavorites(resultSet.getInt("Favorites"));
+                artwork.setPurchasable(resultSet.getBoolean("Purchasable"));
+                artwork.setPrice(resultSet.getDouble("Price"));
+                artwork.setImageFile(resultSet.getString("ImageFile"));
+                favouriteArtworks.add(artwork);
             }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return favourites;
+        return favouriteArtworks;
     }
+
 }
