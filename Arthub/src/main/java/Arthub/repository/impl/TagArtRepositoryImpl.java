@@ -31,7 +31,7 @@ public class TagArtRepositoryImpl implements TagArtRepository {
 
     @Override
     public int getTagIdByArtId(int ArtworkId) {
-        String sql = "SELECT t.[TagID] FROM TagArt t WHERE t.[ArtworkID] = ?";
+        String sql = "SELECT t.[TagArtID] FROM TagArt t WHERE t.[ArtworkID] = ?";
         try {
             ConnectUtils db = ConnectUtils.getInstance();
             Connection conn = db.openConection();
@@ -39,7 +39,7 @@ public class TagArtRepositoryImpl implements TagArtRepository {
             statement.setInt(1, ArtworkId);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                return resultSet.getInt("TagID");
+                return resultSet.getInt("TagArtID");
             } else {
                 return -1;
             }
@@ -49,6 +49,24 @@ public class TagArtRepositoryImpl implements TagArtRepository {
             throw new RuntimeException(e);
         }
 
+    }
+
+    @Override
+    public void deleteTagArtByArtId(int artworkId) {
+        String sql = "DELETE FROM TagArt WHERE ArtworkID = ?";
+        try {
+            ConnectUtils db = ConnectUtils.getInstance();
+            Connection conn = db.openConection();
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setInt(1, artworkId);
+            statement.executeUpdate();
+            statement.close();
+            conn.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override

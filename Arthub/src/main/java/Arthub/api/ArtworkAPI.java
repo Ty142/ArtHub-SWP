@@ -2,6 +2,8 @@ package Arthub.api;
 
 import Arthub.converter.ArtworkConverter;
 import Arthub.dto.ArtworkDTO;
+import Arthub.converter.ArtworkConverter;
+import Arthub.dto.ArtworkDTO;
 import Arthub.entity.Artwork;
 import Arthub.entity.Tag;
 import Arthub.repository.ArtworkRepository;
@@ -16,7 +18,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/artworks")
+@RequestMapping("/api/artworks") // Base URL cho API
 public class ArtworkAPI {
 
     @Autowired
@@ -29,8 +31,6 @@ public class ArtworkAPI {
     ArtworkConverter artworkConverter;
     @Autowired
     TagArtRepository tagArtRepository;
-
-
 
     utils.ImageUtils imageUtils = new utils.ImageUtils();
 
@@ -85,14 +85,29 @@ public class ArtworkAPI {
         }
 
     }
+
+    @GetMapping("/accountID/{id}")
+    public ResponseEntity<List<Artwork>> getArtworkByAccountId(@PathVariable int id) {
+        System.out.println("📥 Nhận yêu cầu lấy artwork với ID: " + id);
+
+        List<Artwork> artworks = artworkService.getArtworkByAccountId(id);
+        if (artworks.isEmpty()) {
+            System.out.println("⚠️ Không tìm thấy artworks!");
+            return ResponseEntity.noContent().build(); // Trả về HTTP 204 nếu không có dữ liệu
+        }
+
+        System.out.println("✅ Trả về " + artworks.size() + " artworks.");
+        return ResponseEntity.ok(artworks);
+    }
+
+
     @GetMapping("/Top10Liked")
     public ResponseEntity<List<Artwork>> getTop10LikedArtworks() {
         List<Artwork> artworks = artworkService.getTop10LikedArtworks();
         if (artworks.isEmpty()) {
-            System.out.println("⚠️ Không tìm thấy artworks!");
-            return ResponseEntity.noContent().build(); // Trả về HTTP 204 nếu rỗng
+            System.out.println("⚠ API /api/Artworks/Top10Liked: None artwork.");
+            return ResponseEntity.noContent().build();
         }
-
         System.out.println("✅ Trả về " + artworks.size() + " artworks.");
         return ResponseEntity.ok(artworks);
     }
@@ -108,7 +123,19 @@ public class ArtworkAPI {
 
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteArtworkById(@PathVariable int id) {
+        System.out.println("�� Nhận yêu cầu xóa artwork với ID: " + id);
+
+        Optional<Artwork> artwork = artworkService.getArtworkById(id);
+        if (artwork.isPresent()) {
+            artworkService.DeleteArtwork(id);
+            System.out.println("�� Xóa artwork với ID: " + id + " thành công.");
+            return ResponseEntity.noContent().build();
+        } else {
+            System.out.println("�� Không tìm thấy artwork với ID: " + id);
+            return ResponseEntity.notFound().build();
+        }
+    }
 
 }
-
-

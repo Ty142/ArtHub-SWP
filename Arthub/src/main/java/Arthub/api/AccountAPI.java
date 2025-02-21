@@ -16,9 +16,9 @@ import java.util.List;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
 
-
 @RestController
-@RequestMapping("/api/Account")  // Đặt lại request mapping chuẩn
+@RequestMapping("/api/Account")
+
 public class AccountAPI {
 
     @Autowired
@@ -29,6 +29,7 @@ public class AccountAPI {
 
     private final EmailTokenService emailTokenService;
 
+    @Autowired
     public AccountAPI(EmailTokenService emailTokenService) {
         this.emailTokenService = emailTokenService;
     }
@@ -48,6 +49,7 @@ public class AccountAPI {
     @PostMapping("/send-token")
     public ResponseEntity<String> sendTokenToEmail(@RequestBody AccountDTO accountDTO) {
         String email = accountDTO.getEmail();
+
         if (email == null || email.isEmpty()) {
             return ResponseEntity.badRequest().body("Email cannot be null or empty.");
         }

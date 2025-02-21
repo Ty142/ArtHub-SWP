@@ -1,5 +1,7 @@
 package Arthub.api;
 
+import Arthub.dto.RankDTO;
+import Arthub.entity.Rank;
 import Arthub.entity.TypeOfRank;
 import Arthub.repository.TypeOfRankRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,7 @@ public class RankAPI {
     @Autowired
     TypeOfRankRepository typeOfRankRepository;
 
+
     @GetMapping
     public ResponseEntity<List<TypeOfRank>> getRanks() {
         List<TypeOfRank> typeOfRanks = typeOfRankRepository.getAllTypeOfRanks();
@@ -37,4 +40,14 @@ public class RankAPI {
         }
         return ResponseEntity.ok(typeOfRank);
     }
+
+    @GetMapping("/Current/{accountId}")
+    public ResponseEntity<RankDTO> getCurrentRankByAccountId(@PathVariable int accountId) {
+        RankDTO rankdto = typeOfRankRepository.getCurrentRankByAccountId(accountId);
+        if (rankdto == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(rankdto);
+    }
+
 }

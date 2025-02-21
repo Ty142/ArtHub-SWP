@@ -1,5 +1,7 @@
 package Arthub.entity;
 
+import Arthub.repository.impl.TagRepositoryImpl;
+
 public class Tag {
     private int tagId;
     private String tagName;
