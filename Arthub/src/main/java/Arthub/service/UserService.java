@@ -1,5 +1,6 @@
 package Arthub.service;
 
+import Arthub.dto.UserDTO;
 import Arthub.entity.Account;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -10,6 +11,7 @@ import Arthub.entity.User;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 
 public interface UserService {
@@ -21,4 +23,6 @@ public interface UserService {
 
     User saveUser(Account account, User user) throws SQLException;
 //    String uploadAvatar(byte[] imgByte,int type) throws IOException;
+
+    List<UserDTO> getTop10PopularUsers();
 }

@@ -26,6 +26,8 @@ public class UserDTO {
     private String email;
     private int rankId;
     private int roleId;
+    private int totalLikes;
+    private double popularity;
 
     public int getUserId() {
         return userId;
@@ -95,4 +97,11 @@ public class UserDTO {
 
     public int getRoleId() { return roleId; }
     public void setRoleId(int roleId) { this.roleId = roleId; }
+
+    public int getTotalLikes() {return totalLikes;}
+    public void setTotalLikes(int totalLikes) {this.totalLikes = totalLikes;}
+
+    public double getPopularity() {return popularity;}
+    public void setPopularity(double popularity) {this.popularity = popularity;}
+
 }

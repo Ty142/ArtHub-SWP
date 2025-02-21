@@ -321,6 +321,52 @@ public class UserRepositoryImpl implements UserRepository {
 
         return user;
     }
+
+    @Override
+    public List<UserDTO> getTop10PopularUsers() {
+        String sql = """
+        SELECT TOP 10 
+               u.UserID, 
+               u.FirstName, 
+               u.LastName, 
+               u.FollowCounts, 
+               u.FollowerCount, 
+               COALESCE(SUM(a.Likes), 0) AS totalLikes,
+               (CAST(u.FollowerCount AS FLOAT) * 0.5 + COALESCE(SUM(a.Likes), 0) * 0.75) AS popularity
+        FROM [User] u
+        LEFT JOIN Artworks a ON u.UserID = a.CreatorID
+        GROUP BY u.UserID, u.FirstName, u.LastName, u.FollowCounts, u.FollowerCount
+        ORDER BY popularity DESC;
+    """;
+        List<UserDTO> users = new ArrayList<>();
+        ConnectUtils db = ConnectUtils.getInstance();
+
+        try (Connection connection = db.openConection();
+             PreparedStatement statement = connection.prepareStatement(sql);
+             ResultSet resultSet = statement.executeQuery()) {
+
+            while (resultSet.next()) {
+                UserDTO user = new UserDTO();
+                user.setUserId(resultSet.getInt("UserID"));
+                user.setFirstName(resultSet.getString("FirstName"));
+                user.setLastName(resultSet.getString("LastName"));
+//                user.setProfilePicture(resultSet.getString("ProfilePicture"));
+                user.setFollowCounts(resultSet.getInt("FollowCounts"));
+                user.setFollowerCount(resultSet.getInt("FollowerCount"));
+                user.setTotalLikes(resultSet.getInt("totalLikes"));
+                user.setPopularity(resultSet.getDouble("popularity"));
+
+                users.add(user);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return users;
+    }
+
+
 }
 
 

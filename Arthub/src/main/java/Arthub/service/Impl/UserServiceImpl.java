@@ -1,5 +1,6 @@
 package Arthub.service.Impl;
 
+import Arthub.dto.UserDTO;
 import Arthub.entity.Account;
 import Arthub.entity.User;
 import com.cloudinary.Cloudinary;
@@ -11,10 +12,7 @@ import Arthub.service.UserService;
 
 import java.sql.SQLException;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 @Service
     public class UserServiceImpl implements UserService {
@@ -73,6 +71,11 @@ import java.util.UUID;
     @Override
     public User saveUser(Account account, User user) throws SQLException {
         return userRepository.saveUser(account, user);
+    }
+
+    @Override
+    public List<UserDTO> getTop10PopularUsers() {
+        return userRepository.getTop10PopularUsers();
     }
 
 }
