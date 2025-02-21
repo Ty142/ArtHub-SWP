@@ -32,4 +32,9 @@ public class ReplyCommentRepositoryImpl implements ReplyCommentRepository {
         jdbcTemplate.update(sql, replyComment.getCommentID(), replyComment.getReplierID(), replyComment.getCommentDetail(), replyComment.getDateOfInteract());
         return replyComment;
     }
+
+    public List<ReplyComment> findAll() {
+        String sql = "SELECT * FROM ReplyComment";
+        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(ReplyComment.class));
+    }
 }

@@ -6,6 +6,7 @@ import Arthub.repository.ArtworkRepository;
 import Arthub.repository.TagArtRepository;
 import Arthub.service.ArtworkService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,7 +16,7 @@ import java.util.Optional;
 public class ArtworkServiceImpl implements ArtworkService {
 
     @Autowired
-     ArtworkRepository artworkRepository;
+    ArtworkRepository artworkRepository;
     @Autowired
     TagArtRepository tagArtRepository;
     @Override
@@ -56,6 +57,20 @@ public class ArtworkServiceImpl implements ArtworkService {
     public void DeleteArtwork(int id) {
         tagArtRepository.deleteTagArtByArtId( id);
         artworkRepository.deleteArtworkByArtworkId(id);
+    }
+
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
+
+    public void updateCommentCountForArtworks() {
+        String sql = "UPDATE dbo.Artworks SET Comments = ("
+                + "SELECT COUNT(*) FROM dbo.Comment WHERE Comment.ArtworkID = Artworks.ArtworkID"
+                + ") + ("
+                + "SELECT COUNT(*) FROM dbo.ReplyComment WHERE ReplyComment.CommentID IN ("
+                + "SELECT CommentID FROM dbo.Comment WHERE Comment.ArtworkID = Artworks.ArtworkID"
+                + "))";
+
+        jdbcTemplate.update(sql);
     }
 }
 

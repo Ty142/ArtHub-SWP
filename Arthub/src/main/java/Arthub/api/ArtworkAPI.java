@@ -138,4 +138,11 @@ public class ArtworkAPI {
         }
     }
 
+
+    @PutMapping("/update-comments-count")
+    public ResponseEntity<String> updateCommentCount() {
+        artworkService.updateCommentCountForArtworks();
+        return ResponseEntity.ok("Comments count updated successfully.");
+    }
+
 }

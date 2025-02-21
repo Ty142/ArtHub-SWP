@@ -32,4 +32,10 @@ public class CommentRepositoryImpl implements CommentRepository {
         String sql = "SELECT * FROM Comment WHERE artworkID = ?";
         return jdbcTemplate.query(sql, new Object[]{artworkID}, new BeanPropertyRowMapper<>(Comment.class));
     }
+
+    // Hàm lấy tất cả comment
+    public List<Comment> findAll() {
+        String sql = "SELECT * FROM Comment";
+        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Comment.class));
+    }
 }
