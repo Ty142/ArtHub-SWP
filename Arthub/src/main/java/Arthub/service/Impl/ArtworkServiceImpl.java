@@ -9,6 +9,7 @@ import Arthub.service.UserService;
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -18,12 +19,7 @@ import java.util.Optional;
 @Service
 public class ArtworkServiceImpl implements ArtworkService {
 
-    private Cloudinary cloudinary;
 
-    @Autowired
-    public ArtworkServiceImpl(Cloudinary cloudinary) {
-        this.cloudinary = cloudinary;
-    }
     @Autowired
      ArtworkRepository artworkRepository;
     @Autowired
@@ -73,6 +69,25 @@ public class ArtworkServiceImpl implements ArtworkService {
         userService.deleteArtworkAtCloudinary(idArtworks);
         tagArtRepository.deleteTagArtByArtId( id);
         artworkRepository.deleteArtworkByArtworkId(id);
+    }
+
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
+
+    public void updateCommentCountForArtworks() {
+        String sql = "UPDATE dbo.Artworks SET Comments = ("
+                + "SELECT COUNT(*) FROM dbo.Comment WHERE Comment.ArtworkID = Artworks.ArtworkID"
+                + ") + ("
+                + "SELECT COUNT(*) FROM dbo.ReplyComment WHERE ReplyComment.CommentID IN ("
+                + "SELECT CommentID FROM dbo.Comment WHERE Comment.ArtworkID = Artworks.ArtworkID"
+                + "))";
+
+        jdbcTemplate.update(sql);
+    }
+
+    @Override
+    public void incrementViewCount(int artworkId) {
+        artworkRepository.incrementViewCount(artworkId);
     }
 }
 

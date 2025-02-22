@@ -296,6 +296,23 @@ public class ArtworkRepositoryImpl implements ArtworkRepository {
             throw new RuntimeException(e);
         }
     }
+    @Override
+    public void incrementViewCount(int artworkId) {
+        String sql = "UPDATE Artworks SET Views = Views + 1 WHERE ArtworkID = ?";
+        try {
+            ConnectUtils db = ConnectUtils.getInstance();
+            Connection connection = db.openConection();
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, artworkId);
+            statement.executeUpdate();
 
+            statement.close();
+            connection.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 }
