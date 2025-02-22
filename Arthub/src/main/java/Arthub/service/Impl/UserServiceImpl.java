@@ -75,6 +75,11 @@ import java.util.UUID;
         return userRepository.saveUser(account, user);
     }
 
+    @Override
+    public boolean updateUser(User user){
+        return userRepository.updateUser(user);
+    }
+
 }
 
 

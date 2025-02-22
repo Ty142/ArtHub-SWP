@@ -95,4 +95,15 @@ public class UserAPI {
         }
     }
 
+
+    @PutMapping("/update-user")
+    public ResponseEntity<String> updateUser(@RequestBody User user) throws IOException {
+        try {
+            boolean _res = userService.updateUser(user);
+            System.out.println("Update user: " + _res);
+            return ResponseEntity.ok("1");
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().body("2");
+        }
+    }
 }

@@ -18,5 +18,5 @@ public interface UserRepository {
     void updateBackground(int accountId, String background);
     String findAvatarByAccountId(int AccountId);
     String findBackgroundByAccountId(int AccountId);
-
+    boolean updateUser(User user);
 }

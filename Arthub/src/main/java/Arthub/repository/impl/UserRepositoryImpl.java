@@ -8,11 +8,12 @@ import org.springframework.stereotype.Repository;
 import Arthub.repository.UserRepository;
 import utils.ConnectUtils;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import javax.swing.text.DateFormatter;
+import java.sql.*;
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -40,7 +41,10 @@ public class UserRepositoryImpl implements UserRepository {
                 user.setCreatedAt(resultSet.getString("CreatedAt"));
                 user.setRankId(resultSet.getInt("RankID"));
                 user.setRoleId(resultSet.getInt("RoleID"));
-                user.setDateOfBirth(resultSet.getDate("DateOfBirth"));
+
+                Date sqlDate = resultSet.getDate("DateOfBirth");
+                user.setDateOfBirth(sqlDate != null ? ((java.sql.Date) sqlDate).toLocalDate() : null);
+
                 user.setLastLogin(resultSet.getTimestamp("LastLogin"));
                 user.setAccountId(resultSet.getInt("AccountID"));
                 user.setProfilePicture(resultSet.getString("ProfilePicture"));
@@ -150,7 +154,9 @@ public class UserRepositoryImpl implements UserRepository {
             statement.setDouble(6, user.getCoins());                       // Coins
             statement.setInt(7, 1);                         // RankID
             statement.setInt(8, account.getRoleID());                         // RoleID
-            statement.setDate(9, user.getDateOfBirth() != null ? new java.sql.Date(user.getDateOfBirth().getTime()) : null);  // DateOfBirth
+            statement.setDate(9, user.getDateOfBirth() != null
+                    ? java.sql.Date.valueOf(user.getDateOfBirth())
+                    : null); // DateOfBirth
             statement.setTimestamp(10, user.getLastLogin() != null ? new java.sql.Timestamp(user.getLastLogin().getTime()) : null);  // LastLogin
             statement.setInt(11, account.getAccountId());                     // AccountID
             statement.setString(12, user.getProfilePicture());             // ProfilePicture
@@ -238,6 +244,37 @@ public class UserRepositoryImpl implements UserRepository {
 
     }
 
+    @Override
+    public boolean updateUser(User user) {
+        String sql = "UPDATE [Arthub].[dbo].[User] SET " +
+                "    FirstName = ?, LastName = ?, [Address]= ?, Biography = ?, DateOfBirth = ?, " +
+                "    PhoneNumber = ? WHERE AccountID = ?";
+        ConnectUtils db = ConnectUtils.getInstance();
+        try {
+            Connection connection = db.openConection();
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, user.getFirstName());
+            statement.setString(2, user.getLastName());
+            statement.setString(3, user.getAddress());
+            statement.setString(4, user.getBiography());
+            if (user.getDateOfBirth() != null) {
+                statement.setDate(5, java.sql.Date.valueOf(user.getDateOfBirth()));
+            } else {
+                statement.setNull(5, Types.DATE);
+            }
+
+            statement.setString(6, user.getPhoneNumber());
+            statement.setInt(7, user.getAccountId());
+            int rowAffected = statement.executeUpdate();
+
+            return rowAffected > 0;
+        } catch (Exception e) {
+            e.printStackTrace(); // In lỗi chi tiết ra console
+            return false; // Trả về false để báo lỗi
+        }
+    }
+
+
 
     /**
      * Hàm ánh xạ `ResultSet` sang đối tượng `User`.
@@ -254,7 +291,10 @@ public class UserRepositoryImpl implements UserRepository {
         user.setCreatedAt(resultSet.getString("CreatedAt"));
         user.setRankId(resultSet.getInt("RankID"));
         user.setRoleId(resultSet.getInt("RoleID"));
-        user.setDateOfBirth(resultSet.getDate("DateOfBirth"));
+
+        Date sqlDate = resultSet.getDate("DateOfBirth");
+        user.setDateOfBirth(sqlDate != null ? ((java.sql.Date) sqlDate).toLocalDate() : null);
+
         user.setLastLogin(resultSet.getDate("LastLogin"));
         user.setProfilePicture(resultSet.getString("ProfilePicture"));
         user.setBackgroundPicture(resultSet.getString("BackgroundPicture"));
@@ -304,7 +344,7 @@ public class UserRepositoryImpl implements UserRepository {
                     user.setCreatedAt(resultSet.getString("CreatedAt"));
                     user.setRankId(resultSet.getInt("RankId"));
                     user.setRoleId(resultSet.getInt("RoleId"));
-                    user.setDateOfBirth(resultSet.getDate("DateOfBirth"));
+                    user.setDateOfBirth(resultSet.getDate("DateOfBirth").toLocalDate());
                     user.setLastLogin(resultSet.getDate("LastLogin"));
                     user.setAccountId(resultSet.getInt("AccountId"));
                     user.setProfilePicture(resultSet.getString("ProfilePicture"));
