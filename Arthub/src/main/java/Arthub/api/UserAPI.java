@@ -1,6 +1,7 @@
 package Arthub.api;
 
 import Arthub.dto.FileUploadDTO;
+import Arthub.dto.UserDTO;
 import Arthub.entity.User;
 import Arthub.repository.AccountRepository;
 import Arthub.repository.UserRepository;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.*;
 import Arthub.service.AccountService;
 import java.util.ArrayList;
 import java.io.IOException;
+import java.util.List;
+
 import utils.ImageUtils;
 
 @RestController
@@ -93,6 +96,12 @@ public class UserAPI {
         } catch (Exception e) {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @GetMapping("/top-popular")
+    public ResponseEntity<List<User>> getTop10PopularUsers() {
+        List<User> users = userService.getTop10PopularUsers();
+        return ResponseEntity.ok(users);
     }
 
 }

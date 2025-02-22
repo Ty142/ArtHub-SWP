@@ -46,7 +46,7 @@ public class UserRepositoryImpl implements UserRepository {
                 user.setProfilePicture(resultSet.getString("ProfilePicture"));
                 user.setBackgroundPicture(resultSet.getString("BackgroundPicture"));
                 user.setFollowCounts(resultSet.getInt("FollowCounts"));
-                user.setFollower(resultSet.getInt("FollowerCount"));
+                user.setFollowerCount(resultSet.getInt("FollowerCount"));
                 users.add(user);
             }
         } catch (Exception e) {
@@ -156,7 +156,7 @@ public class UserRepositoryImpl implements UserRepository {
             statement.setString(12, user.getProfilePicture());             // ProfilePicture
             statement.setString(13, user.getBackgroundPicture());          // BackgroundPicture
             statement.setInt(14, user.getFollowCounts());                   // FollowCounts
-            statement.setInt(15, user.getFollower());                      // FollowerCount
+            statement.setInt(15, user.getFollowerCount());                      // FollowerCount
 
             // Thực thi câu lệnh SQL
             int affectedRows = statement.executeUpdate();
@@ -259,7 +259,7 @@ public class UserRepositoryImpl implements UserRepository {
         user.setProfilePicture(resultSet.getString("ProfilePicture"));
         user.setBackgroundPicture(resultSet.getString("BackgroundPicture"));
         user.setFollowCounts(resultSet.getInt("FollowCounts"));
-        user.setFollower(resultSet.getInt("FollowerCount"));
+        user.setFollowerCount(resultSet.getInt("FollowerCount"));
         user.setAccountId(resultSet.getInt("AccountID"));
         return user;
     }
@@ -310,7 +310,7 @@ public class UserRepositoryImpl implements UserRepository {
                     user.setProfilePicture(resultSet.getString("ProfilePicture"));
                     user.setBackgroundPicture(resultSet.getString("BackgroundPicture"));
                     user.setFollowCounts(resultSet.getInt("FollowCounts"));
-                    user.setFollower(resultSet.getInt("FollowerCount"));
+                    user.setFollowerCount(resultSet.getInt("FollowerCount"));
                 }
             }
         } catch (SQLException e) {
@@ -321,6 +321,59 @@ public class UserRepositoryImpl implements UserRepository {
 
         return user;
     }
+
+    @Override
+    public List<User> getTop10PopularUsers() {
+        String sql = """
+        SELECT TOP 10 u.*,
+        COALESCE((SELECT SUM(a.Likes)
+        FROM Artworks a
+        WHERE a.CreatorID = u.UserID), 0) AS totalLikes,
+        (CAST(u.FollowerCount AS FLOAT) * 0.5 +
+        COALESCE((SELECT SUM(a.Likes) FROM Artworks a WHERE a.CreatorID = u.UserID), 0) * 0.75) AS popularity
+        FROM [User] u
+        ORDER BY popularity DESC;
+    """;
+
+        List<User> users = new ArrayList<>();
+        ConnectUtils db = ConnectUtils.getInstance();
+
+        try (Connection connection = db.openConection();
+             PreparedStatement statement = connection.prepareStatement(sql);
+             ResultSet resultSet = statement.executeQuery()) {
+
+            while (resultSet.next()) {
+                User user = new User();
+                user.setUserId(resultSet.getInt("UserID"));
+                user.setAccountId(resultSet.getInt("AccountID"));
+                user.setFirstName(resultSet.getString("FirstName"));
+                user.setLastName(resultSet.getString("LastName"));
+                user.setFollowCounts(resultSet.getInt("FollowCounts"));
+                user.setFollowerCount(resultSet.getInt("FollowerCount"));
+                user.setCoins(resultSet.getDouble("Coins"));
+                user.setProfilePicture(resultSet.getString("ProfilePicture"));
+                user.setBackgroundPicture(resultSet.getString("BackgroundPicture"));
+                user.setRankId(resultSet.getInt("RankId"));
+                user.setRoleId(resultSet.getInt("RoleId"));
+                user.setBiography(resultSet.getString("Biography"));
+                user.setAddress(resultSet.getString("Address"));
+                user.setPhoneNumber(resultSet.getString("PhoneNumber"));
+                user.setDateOfBirth(resultSet.getDate("DateOfBirth"));
+                user.setLastLogin(resultSet.getDate("LastLogin"));
+                user.setCreatedAt(resultSet.getString("CreatedAt"));
+                user.setTotalLikes(resultSet.getInt("totalLikes"));
+                user.setPopularity(resultSet.getDouble("popularity"));
+
+                users.add(user);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return users;
+    }
+
 }
 
 

@@ -54,7 +54,7 @@ public class CreatorAPI {
             newUser.setProfilePicture(userDTO.getProfilePicture());
             newUser.setBackgroundPicture(userDTO.getBackgroundPicture());
             newUser.setFollowCounts(userDTO.getFollowCounts());
-            newUser.setFollower(userDTO.getFollowerCount());
+            newUser.setFollowerCount(userDTO.getFollowerCount());
             newUser.setRankId(userDTO.getRankId());
             newUser.setRoleId(userDTO.getRoleId());
             newUser.setDateOfBirth(userDTO.getDateOfBirth());
@@ -102,7 +102,7 @@ public class CreatorAPI {
             newUser.setProfilePicture(userDTO.getProfilePicture());
             newUser.setBackgroundPicture(userDTO.getBackgroundPicture());
             newUser.setFollowCounts(userDTO.getFollowCounts());
-            newUser.setFollower(userDTO.getFollowerCount());
+            newUser.setFollowerCount(userDTO.getFollowerCount());
             newUser.setRankId(userDTO.getRankId());
             newUser.setRoleId(userDTO.getRoleId());
             newUser.setDateOfBirth(userDTO.getDateOfBirth());
