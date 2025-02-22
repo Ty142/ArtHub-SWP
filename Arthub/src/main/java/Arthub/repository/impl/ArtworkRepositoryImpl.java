@@ -234,7 +234,7 @@ public class ArtworkRepositoryImpl implements ArtworkRepository {
                 PreparedStatement statement = connection.prepareStatement(sql);
                 statement.setInt(1, id);
                 ResultSet resultSet = statement.executeQuery();
-                if (resultSet.next()) {
+                while (resultSet.next()) {
                     Artwork artwork = new Artwork();
                     artwork.setArtworkID(resultSet.getInt("ArtworkID"));
                     artwork.setArtworkName(resultSet.getString("ArtworkName"));
@@ -270,6 +270,28 @@ public class ArtworkRepositoryImpl implements ArtworkRepository {
         statement.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public void UpdateArtwork(Artwork artwork) throws SQLException {
+        String sql = "UPDATE Artworks SET [ArtworkName]=?,[Description]=?, [Purchasable]=?,[Price]=?, [DateCreated]=?";
+        String where = " WHERE artworkID = ?" ;
+        sql += where;
+        try (Connection connection = ConnectUtils.getInstance().openConection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, artwork.getArtworkName());
+            statement.setString(2, artwork.getDescription());
+            statement.setBoolean(3, artwork.isPurchasable());
+            statement.setDouble(4, artwork.getPrice());
+            statement.setString(5, artwork.getDateCreated());
+            statement.setInt(6, artwork.getArtworkID());
+            statement.executeUpdate();
+            statement.close();
+            connection.close();
+
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
