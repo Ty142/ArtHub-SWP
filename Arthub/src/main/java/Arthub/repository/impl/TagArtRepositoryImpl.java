@@ -1,6 +1,7 @@
 package Arthub.repository.impl;
 
 import Arthub.entity.Tag;
+import Arthub.entity.Artwork;
 import Arthub.entity.TagArt;
 import Arthub.repository.TagArtRepository;
 import org.springframework.stereotype.Repository;
