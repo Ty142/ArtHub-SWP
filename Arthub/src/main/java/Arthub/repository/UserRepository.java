@@ -20,4 +20,5 @@ public interface UserRepository {
     String findAvatarByAccountId(int AccountId);
     String findBackgroundByAccountId(int AccountId);
     List<User> getTop10PopularUsers();
+    boolean updateUser(User user);
 }

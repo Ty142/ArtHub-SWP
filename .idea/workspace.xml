@@ -5,98 +5,28 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6d276f43-2b7c-4037-965e-bdcca837b8ed" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/api/CommentAPI.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/api/ReplyCommentAPI.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/entity/Comment.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/entity/ReplyComment.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/repository/CommentRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/repository/ReplyCommentRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/repository/impl/CommentRepositoryImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/repository/impl/ReplyCommentRepositoryImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/service/CommentService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/service/Impl/CommentServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/service/Impl/ReplyCommentServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/service/ReplyCommentService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Arthub/target/classes/Arthub/api/CommentAPI.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Arthub/target/classes/Arthub/api/ReplyCommentAPI.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Arthub/target/classes/Arthub/entity/Comment.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Arthub/target/classes/Arthub/entity/ReplyComment.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Arthub/target/classes/Arthub/repository/CommentRepository.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Arthub/target/classes/Arthub/repository/ReplyCommentRepository.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Arthub/target/classes/Arthub/repository/impl/CommentRepositoryImpl.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Arthub/target/classes/Arthub/repository/impl/ReplyCommentRepositoryImpl.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Arthub/target/classes/Arthub/service/CommentService.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Arthub/target/classes/Arthub/service/Impl/CommentServiceImpl.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Arthub/target/classes/Arthub/service/Impl/ReplyCommentServiceImpl.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Arthub/target/classes/Arthub/service/ReplyCommentService.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/api/ArtworkAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/api/ArtworkAPI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/api/InteractAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/api/InteractAPI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/entity/Artwork.java" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/entity/Artwork.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/entity/Interact.java" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/entity/Interact.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/repository/ArtworkRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/repository/ArtworkRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/repository/InteractRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/repository/InteractRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/repository/impl/AccountRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/repository/impl/AccountRepositoryImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/repository/impl/ArtworkRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/repository/impl/ArtworkRepositoryImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/repository/impl/InteractRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/repository/impl/InteractRepositoryImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/service/ArtworkService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/service/ArtworkService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/service/Impl/ArtworkServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/service/Impl/ArtworkServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/service/Impl/InteractServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/service/Impl/InteractServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/service/InteractService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/service/InteractService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/api/ArtworkAPI.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/api/CreatorAPI.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/api/InteractAPI.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/api/RankAPI.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/api/TagAPI.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/api/UserAPI.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/config/CorsConfig$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/config/CorsConfig.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/config/ZaloOaClient.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/controller/ZaloController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/converter/ArtworkConverter.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/dto/ArtworkDTO.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/dto/ArtworkTagDTO.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/dto/RankDTO.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/dto/TagDTO.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/dto/TypeOfRankDTO.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/dto/UserDTO.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/entity/Artwork.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/entity/ArtworkTag.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/entity/Interact.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/entity/Rank.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/entity/Tag.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/entity/TagArt.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/entity/TypeOfRank.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/entity/User.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/repository/ArtworkRepository.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/repository/InteractRepository.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/repository/TagArtRepository.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/repository/TagRepository.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/repository/TypeOfRankRepository.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/repository/UserRepository.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/repository/impl/AccountRepositoryImpl.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/repository/impl/ArtworkRepositoryImpl.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/repository/impl/InteractRepositoryImpl.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/repository/impl/TagArtRepositoryImpl.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/repository/impl/TagRepositoryImpl.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/repository/impl/TypeOffRankRepositoryImpl.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/repository/impl/UserRepositoryImpl.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/service/ArtworkService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/service/Impl/AccountServiceImpl.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/service/Impl/ArtworkServiceImpl.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/service/Impl/EmailTokenServiceImpl.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/service/Impl/InteractServiceImpl.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/service/Impl/TagServiceImpl.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/service/Impl/UserServiceImpl.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/service/InteractService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/service/TagService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/service/UserService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/utils/APIConfig.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/utils/APIException.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/utils/EndPoint.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/utils/ZaloBaseClient.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/utils/ConnectUtils.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/utils/ImageUtils.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/ArtHubApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/ArtHubApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/api/CreatorAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/api/CreatorAPI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/api/UserAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/api/UserAPI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/converter/UserConverter.java" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/converter/UserConverter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/dto/UserDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/dto/UserDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/entity/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/entity/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/repository/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/repository/impl/UserRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/repository/impl/UserRepositoryImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/service/Impl/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/service/Impl/UserServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arthub/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/ArtHubApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/target/classes/Arthub/ArtHubApplication.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/api/CreatorAPI.class" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/target/classes/Arthub/api/CreatorAPI.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/api/UserAPI.class" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/target/classes/Arthub/api/UserAPI.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/converter/UserConverter.class" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/target/classes/Arthub/converter/UserConverter.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/dto/UserDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/target/classes/Arthub/dto/UserDTO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/repository/UserRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/target/classes/Arthub/repository/UserRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/repository/impl/UserRepositoryImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/target/classes/Arthub/repository/impl/UserRepositoryImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/service/Impl/UserServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/target/classes/Arthub/service/Impl/UserServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/service/UserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/target/classes/Arthub/service/UserService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/target/classes/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -134,25 +64,25 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;Spring Boot.ArtHubApplication.executor&quot;: &quot;Run&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;Merging Backend&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "Spring Boot.ArtHubApplication.executor": "Run",
+    "git-widget-placeholder": "Merging Backend",
+    "kotlin-language-version-configured": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RunManager">
     <configuration name="ArtHubApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="ArtHub" />

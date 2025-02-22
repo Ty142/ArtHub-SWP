@@ -20,7 +20,6 @@ public class UserConverter {
         user.setBiography(userDTO.getBiography());
         user.setCoins(userDTO.getCoins());
         user.setCreatedAt(String.valueOf(userDTO.getCreatedAt()));
-        user.setDateOfBirth(userDTO.getDateOfBirth());
         return user;
     }
 
@@ -44,7 +43,6 @@ public class UserConverter {
             userDTO.setCreatedAt(null); // Nếu lỗi, đặt giá trị null để tránh lỗi runtime
         }
 
-        userDTO.setDateOfBirth(user.getDateOfBirth());
         return userDTO;
     }
 

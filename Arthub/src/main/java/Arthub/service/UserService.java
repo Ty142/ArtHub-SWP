@@ -25,4 +25,5 @@ public interface UserService {
      void deleteArtworkAtCloudinary(String idPicture) throws IOException;
 
     List<User> getTop10PopularUsers();
+    boolean updateUser(User user) throws SQLException;
 }

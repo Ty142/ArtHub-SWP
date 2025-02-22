@@ -85,6 +85,11 @@ import java.util.*;
             System.out.println("Delete result: " + deleteResult);
         }
     }
+    @Override
+    public boolean updateUser(User user){
+        return userRepository.updateUser(user);
+    }
+
 }
 
 
