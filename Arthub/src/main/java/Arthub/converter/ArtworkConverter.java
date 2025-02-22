@@ -47,6 +47,7 @@ public class ArtworkConverter {
         artworkDTO.setPrice(artwork.getPrice());
         artworkDTO.setImageFile(artwork.getImageFile());
         artworkDTO.setStatus(artwork.getStatus());
+        artworkDTO.setArtworkTag(tagArtList);
 
 //        if (tagArtList != null) {
 //            List<Integer> tagIDs = tagArtList.stream()

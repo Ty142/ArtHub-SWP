@@ -144,7 +144,8 @@ public class ArtworkAPI {
     @PutMapping("/update")
     public ResponseEntity<Artwork> updateArtwork(@RequestBody ArtworkDTO artworkDTO) throws SQLException {
             Artwork updatedArtwork = artworkConverter.convertArtworkDTOToArtworkEntity(artworkDTO);
-            artworkRepository.UpdateArtwork(updatedArtwork);
+        tagArtRepository.deleteTagArtByArtId(updatedArtwork.getArtworkID());
+        artworkRepository.UpdateArtwork(updatedArtwork);
             tagArtRepository.addTagArtUserIdAndTagId(updatedArtwork.getArtworkTags(), updatedArtwork.getArtworkID());
             return ResponseEntity.ok(updatedArtwork);
 
