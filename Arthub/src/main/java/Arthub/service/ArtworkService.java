@@ -12,9 +12,16 @@ public interface ArtworkService {
     void PushArtwork(Artwork artwork);
 
     List<Artwork> getArtworks();
+
     Optional<Artwork> getArtworkById(int id);
+
     List<Artwork> getArtworkByAccountId(int id);
+
     List<Artwork> getTop10LikedArtworks();
+
     void DeleteArtwork(int id);
+
     void updateCommentCountForArtworks();
+
+    void incrementViewCount(int artworkId);
 }

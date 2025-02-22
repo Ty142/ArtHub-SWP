@@ -19,6 +19,7 @@ public class ArtworkServiceImpl implements ArtworkService {
     ArtworkRepository artworkRepository;
     @Autowired
     TagArtRepository tagArtRepository;
+
     @Override
     public void PushArtwork(Artwork artwork, TagArt tagArt) {
 
@@ -55,7 +56,7 @@ public class ArtworkServiceImpl implements ArtworkService {
 
     @Override
     public void DeleteArtwork(int id) {
-        tagArtRepository.deleteTagArtByArtId( id);
+        tagArtRepository.deleteTagArtByArtId(id);
         artworkRepository.deleteArtworkByArtworkId(id);
     }
 
@@ -71,6 +72,11 @@ public class ArtworkServiceImpl implements ArtworkService {
                 + "))";
 
         jdbcTemplate.update(sql);
+    }
+
+    @Override
+    public void incrementViewCount(int artworkId) {
+        artworkRepository.incrementViewCount(artworkId);
     }
 }
 

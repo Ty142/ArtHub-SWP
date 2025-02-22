@@ -19,7 +19,10 @@ public interface ArtworkRepository {
     List<Artwork> getTop10LikedArtworks();
 
     String findArtworkPictureByArtworkId(int id);
+
     List<Artwork> getArtworkByAccountId(int id);
 
     void deleteArtworkByArtworkId(int artworkId);
+
+    void incrementViewCount(int artworkId);
 }

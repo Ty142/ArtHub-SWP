@@ -22,7 +22,7 @@ import java.util.Optional;
 public class ArtworkAPI {
 
     @Autowired
-     ArtworkService artworkService;
+    ArtworkService artworkService;
     @Autowired
     UserService userService;
     @Autowired
@@ -39,7 +39,7 @@ public class ArtworkAPI {
         Artwork artwork = artworkConverter.convertArtworkDTOToArtworkEntity(artworkDTO);
         try {
             byte[] imgByte = imageUtils.decodeBase64(artwork.getImageFile());
-            artwork.setImageFile(userService.uploadAvatar(imgByte, 3,""));
+            artwork.setImageFile(userService.uploadAvatar(imgByte, 3, ""));
             int id = artworkRepository.addArtwork(artwork);
             tagArtRepository.addTagArtUserIdAndTagId(artwork.getArtworkTags(), id);
             Optional<Artwork> artworkOpt = artworkRepository.getArtworkById(id);
@@ -52,6 +52,7 @@ public class ArtworkAPI {
             throw new RuntimeException("Lỗi khi upload ảnh: " + e.getMessage(), e);
         }
     }
+
     @GetMapping("/")
     public ResponseEntity<List<Artwork>> getAllArtworks() {
         System.out.println("📥 Nhận yêu cầu lấy tất cả artworks...");
@@ -68,6 +69,7 @@ public class ArtworkAPI {
 
     /**
      * API lấy thông tin chi tiết của một artwork theo ID
+     *
      * @param id ID của artwork cần lấy thông tin
      * @return Thông tin artwork hoặc HTTP 404 nếu không tìm thấy
      */
@@ -143,6 +145,30 @@ public class ArtworkAPI {
     public ResponseEntity<String> updateCommentCount() {
         artworkService.updateCommentCountForArtworks();
         return ResponseEntity.ok("Comments count updated successfully.");
+    }
+
+    @PutMapping("/increment-views/{artworkId}/{currentUserId}")
+    public ResponseEntity<Void> incrementViews(
+            @PathVariable int artworkId,
+            @PathVariable int currentUserId
+    ) {
+        // Lấy artwork theo ID
+        Optional<Artwork> optionalArtwork = artworkService.getArtworkById(artworkId);
+
+        if (!optionalArtwork.isPresent()) {
+            return ResponseEntity.notFound().build(); // Artwork không tồn tại
+        }
+
+        Artwork artwork = optionalArtwork.get();
+
+        // Kiểm tra nếu creatorID của artwork khác với currentUserId
+        if (artwork.getCreatorID() != currentUserId) {
+            // Nếu khác, tăng view
+            artworkService.incrementViewCount(artworkId);
+        }
+        // Nếu giống nhau (chính chủ), không tăng view
+
+        return ResponseEntity.noContent().build();
     }
 
 }
