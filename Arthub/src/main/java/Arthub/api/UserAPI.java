@@ -99,8 +99,8 @@ public class UserAPI {
     }
 
     @GetMapping("/top-popular")
-    public ResponseEntity<List<UserDTO>> getTop10PopularUsers() {
-        List<UserDTO> users = userService.getTop10PopularUsers();
+    public ResponseEntity<List<User>> getTop10PopularUsers() {
+        List<User> users = userService.getTop10PopularUsers();
         return ResponseEntity.ok(users);
     }
 

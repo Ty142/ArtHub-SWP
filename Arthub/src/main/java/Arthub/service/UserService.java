@@ -24,5 +24,5 @@ public interface UserService {
     User saveUser(Account account, User user) throws SQLException;
 //    String uploadAvatar(byte[] imgByte,int type) throws IOException;
 
-    List<UserDTO> getTop10PopularUsers();
+    List<User> getTop10PopularUsers();
 }

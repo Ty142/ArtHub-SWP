@@ -74,7 +74,7 @@ import java.util.*;
     }
 
     @Override
-    public List<UserDTO> getTop10PopularUsers() {
+    public List<User> getTop10PopularUsers() {
         return userRepository.getTop10PopularUsers();
     }
 

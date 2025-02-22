@@ -19,5 +19,5 @@ public interface UserRepository {
     void updateBackground(int accountId, String background);
     String findAvatarByAccountId(int AccountId);
     String findBackgroundByAccountId(int AccountId);
-    List<UserDTO> getTop10PopularUsers();
+    List<User> getTop10PopularUsers();
 }
