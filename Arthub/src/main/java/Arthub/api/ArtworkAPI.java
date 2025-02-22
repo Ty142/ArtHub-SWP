@@ -14,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
@@ -113,7 +115,7 @@ public class ArtworkAPI {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteArtworkById(@PathVariable int id) {
+    public ResponseEntity<Void> deleteArtworkById(@PathVariable int id) throws Exception {
         System.out.println("�� Nhận yêu cầu xóa artwork với ID: " + id);
 
         Optional<Artwork> artwork = artworkService.getArtworkById(id);
@@ -126,5 +128,14 @@ public class ArtworkAPI {
             return ResponseEntity.notFound().build();
         }
     }
+
+    @PutMapping("/update")
+    public ResponseEntity<Artwork> updateArtwork(@RequestBody ArtworkDTO artworkDTO) throws SQLException {
+            Artwork updatedArtwork = artworkConverter.convertArtworkDTOToArtworkEntity(artworkDTO);
+            artworkRepository.UpdateArtwork(updatedArtwork);
+            return ResponseEntity.ok(updatedArtwork);
+
+    }
+
 
 }

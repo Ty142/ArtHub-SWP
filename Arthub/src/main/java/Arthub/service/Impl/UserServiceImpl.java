@@ -19,7 +19,7 @@ import java.util.UUID;
 @Service
     public class UserServiceImpl implements UserService {
 
-    private Cloudinary cloudinary;
+    private final Cloudinary cloudinary;
 
     public UserServiceImpl(Cloudinary cloudinary) {
         this.cloudinary = cloudinary;
@@ -74,7 +74,13 @@ import java.util.UUID;
     public User saveUser(Account account, User user) throws SQLException {
         return userRepository.saveUser(account, user);
     }
-
+    public void deleteArtworkAtCloudinary(String idPicture) throws IOException {
+        if (idPicture != null && !idPicture.trim().isEmpty()) {
+            Map<String, Object> options = ObjectUtils.asMap("invalidate", true);
+            Map<?, ?> deleteResult = cloudinary.uploader().destroy(idPicture, options);
+            System.out.println("Delete result: " + deleteResult);
+        }
+    }
 }
 
 
