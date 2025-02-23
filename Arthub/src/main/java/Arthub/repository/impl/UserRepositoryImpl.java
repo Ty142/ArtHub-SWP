@@ -8,12 +8,15 @@ import org.springframework.stereotype.Repository;
 import Arthub.repository.UserRepository;
 import utils.ConnectUtils;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import javax.swing.text.DateFormatter;
+import java.sql.*;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.time.LocalDate;
 
 @Repository
 public class UserRepositoryImpl implements UserRepository {
@@ -40,13 +43,15 @@ public class UserRepositoryImpl implements UserRepository {
                 user.setCreatedAt(resultSet.getString("CreatedAt"));
                 user.setRankId(resultSet.getInt("RankID"));
                 user.setRoleId(resultSet.getInt("RoleID"));
+
                 user.setDateOfBirth(resultSet.getDate("DateOfBirth"));
+
                 user.setLastLogin(resultSet.getTimestamp("LastLogin"));
                 user.setAccountId(resultSet.getInt("AccountID"));
                 user.setProfilePicture(resultSet.getString("ProfilePicture"));
                 user.setBackgroundPicture(resultSet.getString("BackgroundPicture"));
                 user.setFollowCounts(resultSet.getInt("FollowCounts"));
-                user.setFollower(resultSet.getInt("FollowerCount"));
+                user.setFollowerCount(resultSet.getInt("FollowerCount"));
                 users.add(user);
             }
         } catch (Exception e) {
@@ -102,7 +107,6 @@ public class UserRepositoryImpl implements UserRepository {
         return user;
     }
 
-    @Override
     public User saveUser(Account account, User user) throws SQLException {
         ConnectUtils db = ConnectUtils.getInstance();
 
@@ -156,7 +160,7 @@ public class UserRepositoryImpl implements UserRepository {
             statement.setString(12, user.getProfilePicture());             // ProfilePicture
             statement.setString(13, user.getBackgroundPicture());          // BackgroundPicture
             statement.setInt(14, user.getFollowCounts());                   // FollowCounts
-            statement.setInt(15, user.getFollower());                      // FollowerCount
+            statement.setInt(15, user.getFollowerCount());                      // FollowerCount
 
             // Thực thi câu lệnh SQL
             int affectedRows = statement.executeUpdate();
@@ -238,6 +242,37 @@ public class UserRepositoryImpl implements UserRepository {
 
     }
 
+    @Override
+    public boolean updateUser(User user) {
+        String sql = "UPDATE [Arthub].[dbo].[User] SET " +
+                "    FirstName = ?, LastName = ?, [Address]= ?, Biography = ?, DateOfBirth = ?, " +
+                "    PhoneNumber = ? WHERE AccountID = ?";
+        ConnectUtils db = ConnectUtils.getInstance();
+        try {
+            Connection connection = db.openConection();
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, user.getFirstName());
+            statement.setString(2, user.getLastName());
+            statement.setString(3, user.getAddress());
+            statement.setString(4, user.getBiography());
+            if (user.getDateOfBirth() != null) {
+                statement.setDate(5, user.getDateOfBirth() != null ? new java.sql.Date(user.getDateOfBirth().getTime()) : null);  // DateOfBirth
+            } else {
+                statement.setNull(5, Types.DATE);
+            }
+
+            statement.setString(6, user.getPhoneNumber());
+            statement.setInt(7, user.getAccountId());
+            int rowAffected = statement.executeUpdate();
+
+            return rowAffected > 0;
+        } catch (Exception e) {
+            e.printStackTrace(); // In lỗi chi tiết ra console
+            return false; // Trả về false để báo lỗi
+        }
+    }
+
+
 
     /**
      * Hàm ánh xạ `ResultSet` sang đối tượng `User`.
@@ -254,12 +289,15 @@ public class UserRepositoryImpl implements UserRepository {
         user.setCreatedAt(resultSet.getString("CreatedAt"));
         user.setRankId(resultSet.getInt("RankID"));
         user.setRoleId(resultSet.getInt("RoleID"));
+
         user.setDateOfBirth(resultSet.getDate("DateOfBirth"));
+
+
         user.setLastLogin(resultSet.getDate("LastLogin"));
         user.setProfilePicture(resultSet.getString("ProfilePicture"));
         user.setBackgroundPicture(resultSet.getString("BackgroundPicture"));
         user.setFollowCounts(resultSet.getInt("FollowCounts"));
-        user.setFollower(resultSet.getInt("FollowerCount"));
+        user.setFollowerCount(resultSet.getInt("FollowerCount"));
         user.setAccountId(resultSet.getInt("AccountID"));
         return user;
     }
@@ -304,13 +342,15 @@ public class UserRepositoryImpl implements UserRepository {
                     user.setCreatedAt(resultSet.getString("CreatedAt"));
                     user.setRankId(resultSet.getInt("RankId"));
                     user.setRoleId(resultSet.getInt("RoleId"));
+//                    user.setDateOfBirth(resultSet.getDate("DateOfBirth").toLocalDate());
                     user.setDateOfBirth(resultSet.getDate("DateOfBirth"));
+
                     user.setLastLogin(resultSet.getDate("LastLogin"));
                     user.setAccountId(resultSet.getInt("AccountId"));
                     user.setProfilePicture(resultSet.getString("ProfilePicture"));
                     user.setBackgroundPicture(resultSet.getString("BackgroundPicture"));
                     user.setFollowCounts(resultSet.getInt("FollowCounts"));
-                    user.setFollower(resultSet.getInt("FollowerCount"));
+                    user.setFollowerCount(resultSet.getInt("FollowerCount"));
                 }
             }
         } catch (SQLException e) {
@@ -321,6 +361,59 @@ public class UserRepositoryImpl implements UserRepository {
 
         return user;
     }
+
+    @Override
+    public List<User> getTop10PopularUsers() {
+        String sql = """
+        SELECT TOP 10 u.*,
+        COALESCE((SELECT SUM(a.Likes)
+        FROM Artworks a
+        WHERE a.CreatorID = u.UserID), 0) AS totalLikes,
+        (CAST(u.FollowerCount AS FLOAT) * 0.5 +
+        COALESCE((SELECT SUM(a.Likes) FROM Artworks a WHERE a.CreatorID = u.UserID), 0) * 0.75) AS popularity
+        FROM [User] u
+        ORDER BY popularity DESC;
+    """;
+
+        List<User> users = new ArrayList<>();
+        ConnectUtils db = ConnectUtils.getInstance();
+
+        try (Connection connection = db.openConection();
+             PreparedStatement statement = connection.prepareStatement(sql);
+             ResultSet resultSet = statement.executeQuery()) {
+
+            while (resultSet.next()) {
+                User user = new User();
+                user.setUserId(resultSet.getInt("UserID"));
+                user.setAccountId(resultSet.getInt("AccountID"));
+                user.setFirstName(resultSet.getString("FirstName"));
+                user.setLastName(resultSet.getString("LastName"));
+                user.setFollowCounts(resultSet.getInt("FollowCounts"));
+                user.setFollowerCount(resultSet.getInt("FollowerCount"));
+                user.setCoins(resultSet.getDouble("Coins"));
+                user.setProfilePicture(resultSet.getString("ProfilePicture"));
+                user.setBackgroundPicture(resultSet.getString("BackgroundPicture"));
+                user.setRankId(resultSet.getInt("RankId"));
+                user.setRoleId(resultSet.getInt("RoleId"));
+                user.setBiography(resultSet.getString("Biography"));
+                user.setAddress(resultSet.getString("Address"));
+                user.setPhoneNumber(resultSet.getString("PhoneNumber"));
+                user.setDateOfBirth(resultSet.getDate("DateOfBirth"));
+                user.setLastLogin(resultSet.getDate("LastLogin"));
+                user.setCreatedAt(resultSet.getString("CreatedAt"));
+                user.setTotalLikes(resultSet.getInt("totalLikes"));
+                user.setPopularity(resultSet.getDouble("popularity"));
+
+                users.add(user);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return users;
+    }
+
 }
 
 

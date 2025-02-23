@@ -19,7 +19,12 @@ public class User {
     private int accountId;
     private String profilePicture;
     private String backgroundPicture;
+    private int followCounts;
+    private int followerCount;
     private String email;
+    private int totalLikes;
+    private double popularity;
+
 
     public String getEmail() {
         return email;
@@ -28,9 +33,6 @@ public class User {
     public void setEmail(String email) {
         this.email = email;
     }
-
-    private int followCounts;
-    private int follower;
 
     public int getUserId() {
         return userId;
@@ -160,11 +162,27 @@ public class User {
         this.followCounts = followCounts;
     }
 
-    public int getFollower() {
-        return follower;
+    public int getFollowerCount() {
+        return followerCount;
     }
 
-    public void setFollower(int follower) {
-        this.follower = follower;
+    public void setFollowerCount(int followerCount) {
+        this.followerCount = followerCount;
+    }
+
+    public int getTotalLikes() {
+        return totalLikes;
+    }
+
+    public void setTotalLikes(int totalLikes) {
+        this.totalLikes = totalLikes;
+    }
+
+    public double getPopularity() {
+        return popularity;
+    }
+
+    public void setPopularity(double popularity) {
+        this.popularity = popularity;
     }
 }

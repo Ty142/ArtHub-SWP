@@ -2,6 +2,7 @@ package Arthub.dto;
 
 
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class UserDTO {
@@ -18,7 +19,7 @@ public class UserDTO {
     private String phoneNumber;
     private Date lastLogin;
     private Date createdAt;
-    private Date dateOfBirth;
+    private LocalDate dateOfBirth;
     private String biography;
     private int followCounts;
     private String base64data;
@@ -26,6 +27,8 @@ public class UserDTO {
     private String email;
     private int rankId;
     private int roleId;
+    private int totalLikes;
+    private double popularity;
 
     public int getUserId() {
         return userId;
@@ -75,8 +78,8 @@ public class UserDTO {
     public Date getCreatedAt() { return createdAt; }
     public void setCreatedAt(Date createdAt) { this.createdAt = createdAt; }
 
-    public Date getDateOfBirth() { return dateOfBirth; }
-    public void setDateOfBirth(Date dateOfBirth) { this.dateOfBirth = dateOfBirth; }
+    public LocalDate  getDateOfBirth() { return dateOfBirth; }
+    public void setDateOfBirth(LocalDate  dateOfBirth) { this.dateOfBirth = dateOfBirth; }
 
     public String getBiography() { return biography; }
     public void setBiography(String biography) { this.biography = biography; }
@@ -95,4 +98,11 @@ public class UserDTO {
 
     public int getRoleId() { return roleId; }
     public void setRoleId(int roleId) { this.roleId = roleId; }
+
+    public int getTotalLikes() {return totalLikes;}
+    public void setTotalLikes(int totalLikes) {this.totalLikes = totalLikes;}
+
+    public double getPopularity() {return popularity;}
+    public void setPopularity(double popularity) {this.popularity = popularity;}
+
 }

@@ -54,6 +54,7 @@ public class ArtworkAPI {
             throw new RuntimeException("Lỗi khi upload ảnh: " + e.getMessage(), e);
         }
     }
+
     @GetMapping("/")
     public ResponseEntity<List<Artwork>> getAllArtworks() {
         System.out.println("📥 Nhận yêu cầu lấy tất cả artworks...");
@@ -143,11 +144,43 @@ public class ArtworkAPI {
     @PutMapping("/update")
     public ResponseEntity<Artwork> updateArtwork(@RequestBody ArtworkDTO artworkDTO) throws SQLException {
             Artwork updatedArtwork = artworkConverter.convertArtworkDTOToArtworkEntity(artworkDTO);
-            artworkRepository.UpdateArtwork(updatedArtwork);
+        tagArtRepository.deleteTagArtByArtId(updatedArtwork.getArtworkID());
+        artworkRepository.UpdateArtwork(updatedArtwork);
             tagArtRepository.addTagArtUserIdAndTagId(updatedArtwork.getArtworkTags(), updatedArtwork.getArtworkID());
             return ResponseEntity.ok(updatedArtwork);
 
     }
 
+
+
+    @PutMapping("/update-comments-count")
+    public ResponseEntity<String> updateCommentCount() {
+        artworkService.updateCommentCountForArtworks();
+        return ResponseEntity.ok("Comments count updated successfully.");
+    }
+
+    @PutMapping("/increment-views/{artworkId}/{currentUserId}")
+    public ResponseEntity<Void> incrementViews(
+            @PathVariable int artworkId,
+            @PathVariable int currentUserId
+    ) {
+        // Lấy artwork theo ID
+        Optional<Artwork> optionalArtwork = artworkService.getArtworkById(artworkId);
+
+        if (!optionalArtwork.isPresent()) {
+            return ResponseEntity.notFound().build(); // Artwork không tồn tại
+        }
+
+        Artwork artwork = optionalArtwork.get();
+
+        // Kiểm tra nếu creatorID của artwork khác với currentUserId
+        if (artwork.getCreatorID() != currentUserId) {
+            // Nếu khác, tăng view
+            artworkService.incrementViewCount(artworkId);
+        }
+        // Nếu giống nhau (chính chủ), không tăng view
+
+        return ResponseEntity.noContent().build();
+    }
 
 }

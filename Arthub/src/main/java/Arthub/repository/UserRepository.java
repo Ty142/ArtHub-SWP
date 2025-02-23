@@ -6,6 +6,7 @@ import Arthub.entity.User;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 public interface UserRepository {
     ArrayList<User> getAllUsers();
@@ -18,5 +19,6 @@ public interface UserRepository {
     void updateBackground(int accountId, String background);
     String findAvatarByAccountId(int AccountId);
     String findBackgroundByAccountId(int AccountId);
-
+    List<User> getTop10PopularUsers();
+    boolean updateUser(User user);
 }

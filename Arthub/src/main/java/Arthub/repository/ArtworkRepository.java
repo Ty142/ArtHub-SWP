@@ -20,9 +20,12 @@ public interface ArtworkRepository {
     List<Artwork> getTop10LikedArtworks();
 
     String findArtworkPictureByArtworkId(int id);
+
     List<Artwork> getArtworkByAccountId(int id);
 
     void deleteArtworkByArtworkId(int artworkId);
 
     void UpdateArtwork(Artwork artwork) throws SQLException;
+
+    void incrementViewCount(int artworkId);
 }

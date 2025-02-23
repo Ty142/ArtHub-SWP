@@ -22,7 +22,8 @@ public class Artwork {
     private int status;
 
     // Constructor không tham số
-    public Artwork() {}
+    public Artwork() {
+    }
 
     // Constructor đầy đủ
     public Artwork(int artworkID, int creatorID, String artworkName, String description,
@@ -44,44 +45,109 @@ public class Artwork {
     }
 
     // Getters & Setters
-    public int getArtworkID() { return artworkID; }
-    public void setArtworkID(int artworkID) { this.artworkID = artworkID; }
+    public int getArtworkID() {
+        return artworkID;
+    }
 
-    public int getCreatorID() { return creatorID; }
-    public void setCreatorID(int creatorID) { this.creatorID = creatorID; }
+    public void setArtworkID(int artworkID) {
+        this.artworkID = artworkID;
+    }
 
-    public String getArtworkName() { return artworkName; }
-    public void setArtworkName(String artworkName) { this.artworkName = artworkName; }
+    public int getCreatorID() {
+        return creatorID;
+    }
 
-    public String getDescription() { return description; }
-    public void setDescription(String description) { this.description = description; }
+    public void setCreatorID(int creatorID) {
+        this.creatorID = creatorID;
+    }
 
-    public String getDateCreated() { return dateCreated; }
-    public void setDateCreated(String dateCreated) { this.dateCreated = dateCreated; }
+    public String getArtworkName() {
+        return artworkName;
+    }
 
-    public int getLikes() { return likes; }
-    public void setLikes(int likes) { this.likes = likes; }
+    public void setArtworkName(String artworkName) {
+        this.artworkName = artworkName;
+    }
 
-    public int getViews() { return views; }
-    public void setViews(int views) { this.views = views; }
+    public String getDescription() {
+        return description;
+    }
 
-    public int getComments() { return comments; }
-    public void setComments(int comments) { this.comments = comments; }
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-    public int getFavorites() { return favorites; }
-    public void setFavorites(int favorites) { this.favorites = favorites; }
+    public String getDateCreated() {
+        return dateCreated;
+    }
 
-    public boolean isPurchasable() { return purchasable; }
-    public void setPurchasable(boolean purchasable) { this.purchasable = purchasable; }
+    public void setDateCreated(String dateCreated) {
+        this.dateCreated = dateCreated;
+    }
 
-    public double getPrice() { return price; }
-    public void setPrice(double price) { this.price = price; }
+    public int getLikes() {
+        return likes;
+    }
 
-    public String getImageFile() { return imageFile; }
-    public void setImageFile(String imageFile) { this.imageFile = imageFile; }
+    public void setLikes(int likes) {
+        this.likes = likes;
+    }
 
-    public List<TagArt> getArtworkTags() { return artworkTags; }
-    public void setArtworkTags(List<TagArt> artworkTags) { this.artworkTags = artworkTags; }
+    public int getViews() {
+        return views;
+    }
+
+    public void setViews(int views) {
+        this.views = views;
+    }
+
+    public int getComments() {
+        return comments;
+    }
+
+    public void setComments(int comments) {
+        this.comments = comments;
+    }
+
+    public int getFavorites() {
+        return favorites;
+    }
+
+    public void setFavorites(int favorites) {
+        this.favorites = favorites;
+    }
+
+    public boolean isPurchasable() {
+        return purchasable;
+    }
+
+    public void setPurchasable(boolean purchasable) {
+        this.purchasable = purchasable;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public String getImageFile() {
+        return imageFile;
+    }
+
+    public void setImageFile(String imageFile) {
+        this.imageFile = imageFile;
+    }
+
+    public List<TagArt> getArtworkTags() {
+        return artworkTags;
+    }
+
+    public void setArtworkTags(List<TagArt> artworkTags) {
+        this.artworkTags = artworkTags;
+    }
 
     public int getStatus() {
         return status;
