@@ -5,20 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5dd1d0b4-2181-4dcf-b181-378057d02305" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/api/ReportAPI.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/dto/ReportDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/entity/Report.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/repository/ReportRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/repository/impl/ReportRepositoryImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/service/Impl/ReportServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/service/ReportService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arthub/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/config/ZaloOaClient.class" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/target/classes/Arthub/config/ZaloOaClient.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/entity/Follow.class" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/target/classes/Arthub/entity/Follow.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/entity/Payment.class" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/target/classes/Arthub/entity/Payment.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arthub/target/test-classes/com/example/arthub/ArtHubApplicationTests.class" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/target/test-classes/com/example/arthub/ArtHubApplicationTests.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -68,6 +55,7 @@
     "RequestMappingsPanelWidth1": "75",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Spring Boot.ArtHub.executor": "Run",
     "Spring Boot.ArtHubApplication.executor": "Run",
     "git-widget-placeholder": "Nson",
     "kotlin-language-version-configured": "true",
@@ -81,6 +69,13 @@
   <component name="RunManager">
     <configuration default="true" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="Arthub.ArtHubApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ArtHub" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="ArtHub" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="Arthub.ArtHubApplication" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -104,6 +99,8 @@
       <updated>1740216726245</updated>
       <workItem from="1740216728450" duration="4237000" />
       <workItem from="1740222283982" duration="7177000" />
+      <workItem from="1740242191591" duration="71000" />
+      <workItem from="1740303790603" duration="2186000" />
     </task>
     <servers />
   </component>
