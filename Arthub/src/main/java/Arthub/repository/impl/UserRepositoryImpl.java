@@ -388,9 +388,9 @@ public class UserRepositoryImpl implements UserRepository {
         SELECT TOP 10 u.*,
         COALESCE((SELECT SUM(a.Likes)
         FROM Artworks a
-        WHERE a.CreatorID = u.UserID), 0) AS totalLikes,
+        WHERE a.UserID = u.UserID), 0) AS totalLikes,
         (CAST(u.FollowerCount AS FLOAT) * 0.5 +
-        COALESCE((SELECT SUM(a.Likes) FROM Artworks a WHERE a.CreatorID = u.UserID), 0) * 0.75) AS popularity
+        COALESCE((SELECT SUM(a.Likes) FROM Artworks a WHERE a.UserID = u.UserID), 0) * 0.75) AS popularity
         FROM [User] u
         ORDER BY popularity DESC;
     """;
