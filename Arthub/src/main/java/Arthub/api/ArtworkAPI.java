@@ -65,7 +65,7 @@ public class ArtworkAPI {
         List<Artwork> artworks = artworkService.getArtworks();
         if (artworks.isEmpty()) {
             System.out.println("⚠️ Không tìm thấy artworks!");
-            return ResponseEntity.noContent().build(); // Trả về HTTP 204 nếu rỗng
+            return ResponseEntity.noContent().build();
         }
 
         System.out.println("✅ Trả về " + artworks.size() + " artworks.");
@@ -99,7 +99,7 @@ public class ArtworkAPI {
         List<Artwork> artworks = artworkService.getArtworkByAccountId(id);
         if (artworks.isEmpty()) {
             System.out.println("⚠️ Không tìm thấy artworks!");
-            return ResponseEntity.noContent().build(); // Trả về HTTP 204 nếu không có dữ liệu
+            return ResponseEntity.noContent().build();
         }
 
         System.out.println("✅ Trả về " + artworks.size() + " artworks.");
@@ -132,7 +132,6 @@ public class ArtworkAPI {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteArtworkById(@PathVariable int id) throws Exception {
         System.out.println("�� Nhận yêu cầu xóa artwork với ID: " + id);
-
         Optional<Artwork> artwork = artworkService.getArtworkById(id);
         if (artwork.isPresent()) {
             artworkService.DeleteArtwork(id);
@@ -167,22 +166,14 @@ public class ArtworkAPI {
             @PathVariable int artworkId,
             @PathVariable int currentUserId
     ) {
-        // Lấy artwork theo ID
         Optional<Artwork> optionalArtwork = artworkService.getArtworkById(artworkId);
-
         if (!optionalArtwork.isPresent()) {
-            return ResponseEntity.notFound().build(); // Artwork không tồn tại
+            return ResponseEntity.notFound().build();
         }
-
         Artwork artwork = optionalArtwork.get();
-
-        // Kiểm tra nếu creatorID của artwork khác với currentUserId
         if (artwork.getCreatorID() != currentUserId) {
-            // Nếu khác, tăng view
             artworkService.incrementViewCount(artworkId);
         }
-        // Nếu giống nhau (chính chủ), không tăng view
-
         return ResponseEntity.noContent().build();
     }
 
