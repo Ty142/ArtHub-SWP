@@ -12,7 +12,7 @@ public class Report {
     private int status;
 
     public Report() {
-        this.createdDate = LocalDateTime.now(); // 🟢 Lấy thời gian hiện tại đúng cách
+        this.createdDate = LocalDateTime.now(); 
     }
 
     public Report(int reportId, int reporterId, int reportedId, Integer artworkId, String description, LocalDateTime createdDate, int status) {
