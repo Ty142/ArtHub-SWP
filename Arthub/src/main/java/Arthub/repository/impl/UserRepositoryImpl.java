@@ -321,6 +321,26 @@ public class UserRepositoryImpl implements UserRepository {
 
     }
 
+    @Override
+    public User getUserByUsername(String username) {
+        String sql = "SELECT * FROM [dbo].[User] WHERE Username = ?";
+        try{
+            ConnectUtils db = ConnectUtils.getInstance();
+            Connection connection = db.openConection();
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, username);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()){
+                return mapResultSetToUser(resultSet);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return null;
+    }
+
     public User getUserById(int id) {
         String sql = "SELECT * FROM [dbo].[User] WHERE UserID = ?";
         User user = null;

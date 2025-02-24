@@ -132,6 +132,23 @@ public class InteractRepositoryImpl implements InteractRepository {
         String sql = "SELECT * FROM Interact WHERE ArtworkID = ? AND UserID = ? AND ActivityID = ? AND DateOfInteract = ?";
         return jdbcTemplate.query(sql, new Object[]{artworkID, userID, activityID, date}, new BeanPropertyRowMapper<>(Interact.class));
     }
-}
+
+    @Override
+    public void deleteInteractByArtworkID(int artworkID) {
+        String sql = "DELETE FROM Interact WHERE artworkID = ?";
+            try  {
+                ConnectUtils db = ConnectUtils.getInstance();
+                Connection connection = db.openConection();
+                PreparedStatement statement = connection.prepareStatement(sql);
+                statement.setInt(1, artworkID);
+                statement.executeUpdate();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
 
 

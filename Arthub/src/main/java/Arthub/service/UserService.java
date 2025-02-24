@@ -17,7 +17,8 @@ import java.util.List;
 public interface UserService {
     boolean checkLogin(String username, String password);
     ArrayList<User> getAllUsers();
-    User getUserByAccountId(int accountId); // Định nghĩa phương thức để lấy User theo AccountID
+    User getUserByAccountId(int accountId);
+    // Định nghĩa phương thức để lấy User theo AccountID
 
     String uploadAvatar(byte[] imgByte, int type, String ole) throws IOException;
 

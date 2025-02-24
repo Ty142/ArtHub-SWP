@@ -1,5 +1,6 @@
 package Arthub.repository;
 
+import Arthub.entity.Artwork;
 import Arthub.entity.Tag;
 import Arthub.entity.TagArt;
 
@@ -15,4 +16,5 @@ public interface TagArtRepository {
     ArrayList<Tag> getAllTagArtByArtworkId(int artworkId);
 
     void deleteTagArtByArtId(int artworkId);
+
 }
