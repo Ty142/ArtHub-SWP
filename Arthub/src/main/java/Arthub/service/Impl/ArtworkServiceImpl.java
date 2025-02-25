@@ -2,8 +2,7 @@ package Arthub.service.Impl;
 
 import Arthub.entity.Artwork;
 import Arthub.entity.TagArt;
-import Arthub.repository.ArtworkRepository;
-import Arthub.repository.TagArtRepository;
+import Arthub.repository.*;
 import Arthub.service.ArtworkService;
 import Arthub.service.UserService;
 import com.cloudinary.Cloudinary;
@@ -26,6 +25,12 @@ public class ArtworkServiceImpl implements ArtworkService {
     TagArtRepository tagArtRepository;
     @Autowired
     UserService userService;
+    @Autowired
+    CommentRepository commentRepository;
+    @Autowired
+    InteractRepository interactRepository;
+    @Autowired
+    ReplyCommentRepository replyCommentRepository;
 
     utils.ImageUtils imageUtils = new utils.ImageUtils();
     @Override
@@ -64,6 +69,9 @@ public class ArtworkServiceImpl implements ArtworkService {
 
     @Override
     public void DeleteArtwork(int id) throws Exception {
+        replyCommentRepository.deleteReplyComments( replyCommentRepository.getReplyCommentsByArtworkID(id));
+        commentRepository.deleteCommentByArtworkID(id);
+        interactRepository.deleteInteractByArtworkID(id);
         String artworkPath = artworkRepository.findArtworkPictureByArtworkId(id);
         String idArtworks = imageUtils.extractPublicId(artworkPath);
         userService.deleteArtworkAtCloudinary(idArtworks);
@@ -88,6 +96,12 @@ public class ArtworkServiceImpl implements ArtworkService {
     @Override
     public void incrementViewCount(int artworkId) {
         artworkRepository.incrementViewCount(artworkId);
+    }
+
+    @Override
+    public List<Artwork> getArtworksByTagName(String tagName) throws IOException {
+        List<Artwork> result = artworkRepository.GetAllArtworksByTagName(tagName);
+        return result;
     }
 }
 

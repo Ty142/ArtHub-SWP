@@ -1,5 +1,7 @@
 package Arthub.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 
@@ -14,6 +16,8 @@ public class User {
     private String createdAt;
     private int rankId;
     private int roleId;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy/MM/dd")
     private Date dateOfBirth;
     private Date lastLogin;
     private int accountId;

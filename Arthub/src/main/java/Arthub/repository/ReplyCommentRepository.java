@@ -8,4 +8,6 @@ public interface ReplyCommentRepository {
     List<ReplyComment> getReplyCommentsByCommentID(int commentID);  // Lấy reply comment theo commentID
     ReplyComment save(ReplyComment replyComment);
     List<ReplyComment> findAll();
+    List<ReplyComment> getReplyCommentsByArtworkID(int ArtworkID);
+    void deleteReplyComments(List<ReplyComment> replyComments);
 }

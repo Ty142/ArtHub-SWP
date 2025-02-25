@@ -232,7 +232,7 @@ public class ArtworkRepositoryImpl implements ArtworkRepository {
                 ConnectUtils db = ConnectUtils.getInstance();
                 Connection connection = db.openConection();
                 PreparedStatement statement = connection.prepareStatement(sql);
-                statement.setInt(1, id);
+                statement.setInt(   1, id);
                 ResultSet resultSet = statement.executeQuery();
                 while (resultSet.next()) {
                     Artwork artwork = new Artwork();
@@ -277,6 +277,9 @@ public class ArtworkRepositoryImpl implements ArtworkRepository {
 
     @Override
     public void UpdateArtwork(Artwork artwork) throws SQLException {
+        if(artwork.getImageFile() == null) {
+            throw new SQLException("Artwork image file cannot be null");
+        }
         String sql = "UPDATE Artworks SET [ArtworkName]=?,[Description]=?, [Purchasable]=?,[Price]=?, [DateCreated]=?";
         String where = " WHERE artworkID = ?" ;
         sql += where;
@@ -313,6 +316,33 @@ public class ArtworkRepositoryImpl implements ArtworkRepository {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public List<Artwork> GetAllArtworksByTagName(String tagName) {
+        String sql = "  SELECT A.* FROM Artworks A JOIN TagArt AT ON A.ArtworkID = AT.ArtworkID JOIN Tag T ON AT.TagID = T.TagID WHERE T.TagName =?";
+        List<Artwork> artworks = new ArrayList<>();
+        try (Connection connection = ConnectUtils.getInstance().openConection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, tagName);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                Artwork artwork = new Artwork();
+                artwork.setArtworkID(resultSet.getInt("ArtworkID"));
+                artwork.setArtworkName(resultSet.getString("ArtworkName"));
+
+                artworks.add(artwork);
+            }
+            resultSet.close();
+            connection.close();
+            statement.close();
+        return artworks;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
 }

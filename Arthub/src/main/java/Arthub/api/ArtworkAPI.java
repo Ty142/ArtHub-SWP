@@ -39,6 +39,9 @@ public class ArtworkAPI {
     @PostMapping("/")
     public Artwork createArtImg(@RequestBody ArtworkDTO artworkDTO) {
         Artwork artwork = artworkConverter.convertArtworkDTOToArtworkEntity(artworkDTO);
+        if(artwork.getImageFile() == null) {
+            throw new RuntimeException("Bạn phải upload ảnh cho ảnh sự kiện!");
+        }
         try {
             byte[] imgByte = imageUtils.decodeBase64(artwork.getImageFile());
             artwork.setImageFile(userService.uploadAvatar(imgByte, 3,""));
@@ -143,7 +146,7 @@ public class ArtworkAPI {
 
     @PutMapping("/update")
     public ResponseEntity<Artwork> updateArtwork(@RequestBody ArtworkDTO artworkDTO) throws SQLException {
-            Artwork updatedArtwork = artworkConverter.convertArtworkDTOToArtworkEntity(artworkDTO);
+        Artwork updatedArtwork = artworkConverter.convertArtworkDTOToArtworkEntity(artworkDTO);
         tagArtRepository.deleteTagArtByArtId(updatedArtwork.getArtworkID());
         artworkRepository.UpdateArtwork(updatedArtwork);
             tagArtRepository.addTagArtUserIdAndTagId(updatedArtwork.getArtworkTags(), updatedArtwork.getArtworkID());
@@ -181,6 +184,13 @@ public class ArtworkAPI {
         // Nếu giống nhau (chính chủ), không tăng view
 
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/Tag")
+    public ResponseEntity<List<Artwork>> getAllArtworksByTagName(@RequestParam String TagName) throws IOException {
+        System.out.println("�� Nhận yêu cầu lấy artwork theo từ khóa: " + TagName);
+        List<Artwork> artworks = artworkService.getArtworksByTagName(TagName);
+        return ResponseEntity.ok(artworks);
     }
 
 }

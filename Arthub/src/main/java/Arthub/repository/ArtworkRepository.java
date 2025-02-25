@@ -28,4 +28,6 @@ public interface ArtworkRepository {
     void UpdateArtwork(Artwork artwork) throws SQLException;
 
     void incrementViewCount(int artworkId);
+
+    List<Artwork> GetAllArtworksByTagName(String tagName);
 }

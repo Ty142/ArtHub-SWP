@@ -321,6 +321,26 @@ public class UserRepositoryImpl implements UserRepository {
 
     }
 
+    @Override
+    public User getUserByUsername(String username) {
+        String sql = "SELECT * FROM [dbo].[User] WHERE Username = ?";
+        try{
+            ConnectUtils db = ConnectUtils.getInstance();
+            Connection connection = db.openConection();
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, username);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()){
+                return mapResultSetToUser(resultSet);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return null;
+    }
+
     public User getUserById(int id) {
         String sql = "SELECT * FROM [dbo].[User] WHERE UserID = ?";
         User user = null;
@@ -368,9 +388,9 @@ public class UserRepositoryImpl implements UserRepository {
         SELECT TOP 10 u.*,
         COALESCE((SELECT SUM(a.Likes)
         FROM Artworks a
-        WHERE a.CreatorID = u.UserID), 0) AS totalLikes,
+        WHERE a.UserID = u.UserID), 0) AS totalLikes,
         (CAST(u.FollowerCount AS FLOAT) * 0.5 +
-        COALESCE((SELECT SUM(a.Likes) FROM Artworks a WHERE a.CreatorID = u.UserID), 0) * 0.75) AS popularity
+        COALESCE((SELECT SUM(a.Likes) FROM Artworks a WHERE a.UserID = u.UserID), 0) * 0.75) AS popularity
         FROM [User] u
         ORDER BY popularity DESC;
     """;
