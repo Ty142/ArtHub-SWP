@@ -277,7 +277,7 @@ public class ArtworkRepositoryImpl implements ArtworkRepository {
 
     @Override
     public void UpdateArtwork(Artwork artwork) throws SQLException {
-        if(artwork.getImageFile() == null) {
+        if(artwork.getArtworkID() == 0) {
             throw new SQLException("Artwork image file cannot be null");
         }
         String sql = "UPDATE Artworks SET [ArtworkName]=?,[Description]=?, [Purchasable]=?,[Price]=?, [DateCreated]=?";
