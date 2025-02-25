@@ -1,11 +1,22 @@
 package utils;
 
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
 import java.util.Base64;
+import java.util.Map;
 
 @Component
 public class ImageUtils {
+
+    public  ImageUtils(Cloudinary cloudinary) {
+    }
+
+    public ImageUtils() {
+    }
+
     public byte[] decodeBase64(String base64){
         if(base64 == null || base64.isEmpty()) {
             throw new IllegalArgumentException("Base64 string cannot be null or empty");
@@ -32,4 +43,6 @@ public class ImageUtils {
         }
         return null;
     }
+
+
 }

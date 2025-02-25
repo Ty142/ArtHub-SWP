@@ -47,7 +47,7 @@ public class UserAPI {
         System.out.println("✅ User found: " + user);
         return ResponseEntity.ok(user); // Trả về HTTP 200 nếu tìm thấy
     }
-    @GetMapping
+    @GetMapping("/")
     public ArrayList<User> getAllUsers() {
         return userService.getAllUsers();
     }
@@ -103,5 +103,18 @@ public class UserAPI {
         List<User> users = userService.getTop10PopularUsers();
         return ResponseEntity.ok(users);
     }
+
+
+    @PutMapping("/update-user")
+    public ResponseEntity<String> updateUser(@RequestBody User user) throws IOException {
+        try {
+            boolean _res = userService.updateUser(user);
+            System.out.println("Update user: " + _res);
+            return ResponseEntity.ok("1");
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().body("2");
+        }
+    }
+
 
 }

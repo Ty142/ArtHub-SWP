@@ -14,10 +14,13 @@ public interface UserRepository {
     User getUserById(int id);
     void updateAvatar(int id, String avatar);
 
+    User getUserByUsername(String username);
+
     User getUserByAccountId(int accountId); // Định nghĩa phương thức lấy User theo AccountID
     User saveUser(Account account, User user) throws SQLException;
     void updateBackground(int accountId, String background);
     String findAvatarByAccountId(int AccountId);
     String findBackgroundByAccountId(int AccountId);
     List<User> getTop10PopularUsers();
+    boolean updateUser(User user);
 }

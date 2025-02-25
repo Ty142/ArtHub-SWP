@@ -17,7 +17,7 @@ import java.util.*;
 @Service
     public class UserServiceImpl implements UserService {
 
-    private Cloudinary cloudinary;
+    private final Cloudinary cloudinary;
 
     public UserServiceImpl(Cloudinary cloudinary) {
         this.cloudinary = cloudinary;
@@ -76,6 +76,18 @@ import java.util.*;
     @Override
     public List<User> getTop10PopularUsers() {
         return userRepository.getTop10PopularUsers();
+    }
+
+    public void deleteArtworkAtCloudinary(String idPicture) throws IOException {
+        if (idPicture != null && !idPicture.trim().isEmpty()) {
+            Map<String, Object> options = ObjectUtils.asMap("invalidate", true);
+            Map<?, ?> deleteResult = cloudinary.uploader().destroy(idPicture, options);
+            System.out.println("Delete result: " + deleteResult);
+        }
+    }
+    @Override
+    public boolean updateUser(User user){
+        return userRepository.updateUser(user);
     }
 
 }

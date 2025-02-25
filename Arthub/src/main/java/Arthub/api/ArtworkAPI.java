@@ -5,6 +5,7 @@ import Arthub.dto.ArtworkDTO;
 import Arthub.converter.ArtworkConverter;
 import Arthub.dto.ArtworkDTO;
 import Arthub.entity.Artwork;
+import Arthub.entity.Tag;
 import Arthub.repository.ArtworkRepository;
 import Arthub.repository.TagArtRepository;
 import Arthub.service.ArtworkService;
@@ -13,11 +14,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/artworks")
+@RequestMapping("/api/artworks") // Base URL cho API
 public class ArtworkAPI {
 
     @Autowired
@@ -36,6 +39,9 @@ public class ArtworkAPI {
     @PostMapping("/")
     public Artwork createArtImg(@RequestBody ArtworkDTO artworkDTO) {
         Artwork artwork = artworkConverter.convertArtworkDTOToArtworkEntity(artworkDTO);
+        if(artwork.getImageFile() == null) {
+            throw new RuntimeException("Bạn phải upload ảnh cho ảnh sự kiện!");
+        }
         try {
             byte[] imgByte = imageUtils.decodeBase64(artwork.getImageFile());
             artwork.setImageFile(userService.uploadAvatar(imgByte, 3,""));
@@ -51,6 +57,7 @@ public class ArtworkAPI {
             throw new RuntimeException("Lỗi khi upload ảnh: " + e.getMessage(), e);
         }
     }
+
     @GetMapping("/")
     public ResponseEntity<List<Artwork>> getAllArtworks() {
         System.out.println("📥 Nhận yêu cầu lấy tất cả artworks...");
@@ -85,6 +92,21 @@ public class ArtworkAPI {
 
     }
 
+    @GetMapping("/accountID/{id}")
+    public ResponseEntity<List<Artwork>> getArtworkByAccountId(@PathVariable int id) {
+        System.out.println("📥 Nhận yêu cầu lấy artwork với ID: " + id);
+
+        List<Artwork> artworks = artworkService.getArtworkByAccountId(id);
+        if (artworks.isEmpty()) {
+            System.out.println("⚠️ Không tìm thấy artworks!");
+            return ResponseEntity.noContent().build(); // Trả về HTTP 204 nếu không có dữ liệu
+        }
+
+        System.out.println("✅ Trả về " + artworks.size() + " artworks.");
+        return ResponseEntity.ok(artworks);
+    }
+
+
     @GetMapping("/Top10Liked")
     public ResponseEntity<List<Artwork>> getTop10LikedArtworks() {
         List<Artwork> artworks = artworkService.getTop10LikedArtworks();
@@ -95,4 +117,80 @@ public class ArtworkAPI {
         System.out.println("✅ Trả về " + artworks.size() + " artworks.");
         return ResponseEntity.ok(artworks);
     }
+
+    @GetMapping("/{id}/tags")
+    public ResponseEntity<List<Tag>> getAllTagArtByArtworkId(@PathVariable int id) {
+        List<Tag> tags = tagArtRepository.getAllTagArtByArtworkId(id);
+        if (tags.isEmpty()) {
+            System.out.println("⚠️ Không tìm thấy Tag");
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(tags);
+
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteArtworkById(@PathVariable int id) throws Exception {
+        System.out.println("�� Nhận yêu cầu xóa artwork với ID: " + id);
+
+        Optional<Artwork> artwork = artworkService.getArtworkById(id);
+        if (artwork.isPresent()) {
+            artworkService.DeleteArtwork(id);
+            System.out.println("�� Xóa artwork với ID: " + id + " thành công.");
+            return ResponseEntity.noContent().build();
+        } else {
+            System.out.println("�� Không tìm thấy artwork với ID: " + id);
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @PutMapping("/update")
+    public ResponseEntity<Artwork> updateArtwork(@RequestBody ArtworkDTO artworkDTO) throws SQLException {
+        Artwork updatedArtwork = artworkConverter.convertArtworkDTOToArtworkEntity(artworkDTO);
+        tagArtRepository.deleteTagArtByArtId(updatedArtwork.getArtworkID());
+        artworkRepository.UpdateArtwork(updatedArtwork);
+            tagArtRepository.addTagArtUserIdAndTagId(updatedArtwork.getArtworkTags(), updatedArtwork.getArtworkID());
+            return ResponseEntity.ok(updatedArtwork);
+
+    }
+
+
+
+    @PutMapping("/update-comments-count")
+    public ResponseEntity<String> updateCommentCount() {
+        artworkService.updateCommentCountForArtworks();
+        return ResponseEntity.ok("Comments count updated successfully.");
+    }
+
+    @PutMapping("/increment-views/{artworkId}/{currentUserId}")
+    public ResponseEntity<Void> incrementViews(
+            @PathVariable int artworkId,
+            @PathVariable int currentUserId
+    ) {
+        // Lấy artwork theo ID
+        Optional<Artwork> optionalArtwork = artworkService.getArtworkById(artworkId);
+
+        if (!optionalArtwork.isPresent()) {
+            return ResponseEntity.notFound().build(); // Artwork không tồn tại
+        }
+
+        Artwork artwork = optionalArtwork.get();
+
+        // Kiểm tra nếu creatorID của artwork khác với currentUserId
+        if (artwork.getCreatorID() != currentUserId) {
+            // Nếu khác, tăng view
+            artworkService.incrementViewCount(artworkId);
+        }
+        // Nếu giống nhau (chính chủ), không tăng view
+
+        return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/Tag")
+    public ResponseEntity<List<Artwork>> getAllArtworksByTagName(@RequestParam String TagName) throws IOException {
+        System.out.println("�� Nhận yêu cầu lấy artwork theo từ khóa: " + TagName);
+        List<Artwork> artworks = artworkService.getArtworksByTagName(TagName);
+        return ResponseEntity.ok(artworks);
+    }
+
 }

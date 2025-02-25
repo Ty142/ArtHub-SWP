@@ -8,12 +8,15 @@ import org.springframework.stereotype.Repository;
 import Arthub.repository.UserRepository;
 import utils.ConnectUtils;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import javax.swing.text.DateFormatter;
+import java.sql.*;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.time.LocalDate;
 
 @Repository
 public class UserRepositoryImpl implements UserRepository {
@@ -40,7 +43,9 @@ public class UserRepositoryImpl implements UserRepository {
                 user.setCreatedAt(resultSet.getString("CreatedAt"));
                 user.setRankId(resultSet.getInt("RankID"));
                 user.setRoleId(resultSet.getInt("RoleID"));
+
                 user.setDateOfBirth(resultSet.getDate("DateOfBirth"));
+
                 user.setLastLogin(resultSet.getTimestamp("LastLogin"));
                 user.setAccountId(resultSet.getInt("AccountID"));
                 user.setProfilePicture(resultSet.getString("ProfilePicture"));
@@ -102,7 +107,6 @@ public class UserRepositoryImpl implements UserRepository {
         return user;
     }
 
-    @Override
     public User saveUser(Account account, User user) throws SQLException {
         ConnectUtils db = ConnectUtils.getInstance();
 
@@ -238,6 +242,37 @@ public class UserRepositoryImpl implements UserRepository {
 
     }
 
+    @Override
+    public boolean updateUser(User user) {
+        String sql = "UPDATE [Arthub].[dbo].[User] SET " +
+                "    FirstName = ?, LastName = ?, [Address]= ?, Biography = ?, DateOfBirth = ?, " +
+                "    PhoneNumber = ? WHERE AccountID = ?";
+        ConnectUtils db = ConnectUtils.getInstance();
+        try {
+            Connection connection = db.openConection();
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, user.getFirstName());
+            statement.setString(2, user.getLastName());
+            statement.setString(3, user.getAddress());
+            statement.setString(4, user.getBiography());
+            if (user.getDateOfBirth() != null) {
+                statement.setDate(5, user.getDateOfBirth() != null ? new java.sql.Date(user.getDateOfBirth().getTime()) : null);  // DateOfBirth
+            } else {
+                statement.setNull(5, Types.DATE);
+            }
+
+            statement.setString(6, user.getPhoneNumber());
+            statement.setInt(7, user.getAccountId());
+            int rowAffected = statement.executeUpdate();
+
+            return rowAffected > 0;
+        } catch (Exception e) {
+            e.printStackTrace(); // In lỗi chi tiết ra console
+            return false; // Trả về false để báo lỗi
+        }
+    }
+
+
 
     /**
      * Hàm ánh xạ `ResultSet` sang đối tượng `User`.
@@ -254,7 +289,10 @@ public class UserRepositoryImpl implements UserRepository {
         user.setCreatedAt(resultSet.getString("CreatedAt"));
         user.setRankId(resultSet.getInt("RankID"));
         user.setRoleId(resultSet.getInt("RoleID"));
+
         user.setDateOfBirth(resultSet.getDate("DateOfBirth"));
+
+
         user.setLastLogin(resultSet.getDate("LastLogin"));
         user.setProfilePicture(resultSet.getString("ProfilePicture"));
         user.setBackgroundPicture(resultSet.getString("BackgroundPicture"));
@@ -283,6 +321,26 @@ public class UserRepositoryImpl implements UserRepository {
 
     }
 
+    @Override
+    public User getUserByUsername(String username) {
+        String sql = "SELECT * FROM [dbo].[User] WHERE Username = ?";
+        try{
+            ConnectUtils db = ConnectUtils.getInstance();
+            Connection connection = db.openConection();
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, username);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()){
+                return mapResultSetToUser(resultSet);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return null;
+    }
+
     public User getUserById(int id) {
         String sql = "SELECT * FROM [dbo].[User] WHERE UserID = ?";
         User user = null;
@@ -304,7 +362,9 @@ public class UserRepositoryImpl implements UserRepository {
                     user.setCreatedAt(resultSet.getString("CreatedAt"));
                     user.setRankId(resultSet.getInt("RankId"));
                     user.setRoleId(resultSet.getInt("RoleId"));
+//                    user.setDateOfBirth(resultSet.getDate("DateOfBirth").toLocalDate());
                     user.setDateOfBirth(resultSet.getDate("DateOfBirth"));
+
                     user.setLastLogin(resultSet.getDate("LastLogin"));
                     user.setAccountId(resultSet.getInt("AccountId"));
                     user.setProfilePicture(resultSet.getString("ProfilePicture"));
@@ -328,9 +388,9 @@ public class UserRepositoryImpl implements UserRepository {
         SELECT TOP 10 u.*,
         COALESCE((SELECT SUM(a.Likes)
         FROM Artworks a
-        WHERE a.CreatorID = u.UserID), 0) AS totalLikes,
+        WHERE a.UserID = u.UserID), 0) AS totalLikes,
         (CAST(u.FollowerCount AS FLOAT) * 0.5 +
-        COALESCE((SELECT SUM(a.Likes) FROM Artworks a WHERE a.CreatorID = u.UserID), 0) * 0.75) AS popularity
+        COALESCE((SELECT SUM(a.Likes) FROM Artworks a WHERE a.UserID = u.UserID), 0) * 0.75) AS popularity
         FROM [User] u
         ORDER BY popularity DESC;
     """;

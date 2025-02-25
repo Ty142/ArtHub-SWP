@@ -147,7 +147,7 @@ public class ArtworkRepositoryImpl implements ArtworkRepository {
 
     @Override
     public List<Artwork> getTop10LikedArtworks() {
-        String sql = "SELECT a.ArtworkID, a.CreatorID, a.ArtworkName, a.Description, " +
+        String sql = "SELECT a.ArtworkID, a.UserID, a.ArtworkName, a.Description, " +
                 "FORMAT(a.DateCreated, 'yyyy-MM-dd HH:mm:ss') AS DateCreated, a.Likes, " +
                 "a.Views, a.Comments, a.Favorites, a.Purchasable, a.Price, a.ImageFile, " +
                 "STUFF((SELECT ',' + CAST(ta.TagID AS VARCHAR) " +
@@ -168,7 +168,7 @@ public class ArtworkRepositoryImpl implements ArtworkRepository {
             while (resultSet.next()) {
                 Artwork artwork = new Artwork();
                 artwork.setArtworkID(resultSet.getInt("ArtworkID"));
-                artwork.setCreatorID(resultSet.getInt("CreatorID"));
+                artwork.setCreatorID(resultSet.getInt("UserID"));
                 artwork.setArtworkName(resultSet.getString("ArtworkName"));
                 artwork.setDescription(resultSet.getString("Description"));
                 artwork.setDateCreated(resultSet.getString("DateCreated"));
@@ -232,9 +232,9 @@ public class ArtworkRepositoryImpl implements ArtworkRepository {
                 ConnectUtils db = ConnectUtils.getInstance();
                 Connection connection = db.openConection();
                 PreparedStatement statement = connection.prepareStatement(sql);
-                statement.setInt(1, id);
+                statement.setInt(   1, id);
                 ResultSet resultSet = statement.executeQuery();
-                if (resultSet.next()) {
+                while (resultSet.next()) {
                     Artwork artwork = new Artwork();
                     artwork.setArtworkID(resultSet.getInt("ArtworkID"));
                     artwork.setArtworkName(resultSet.getString("ArtworkName"));
@@ -257,5 +257,92 @@ public class ArtworkRepositoryImpl implements ArtworkRepository {
             return artworks;
         }
 
+    @Override
+    public void deleteArtworkByArtworkId(int artworkId) {
+    String sql = "DELETE FROM Artworks WHERE ArtworkID =?";
+    try {
+        ConnectUtils db = ConnectUtils.getInstance();
+        Connection connection = db.openConection();
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setInt(1, artworkId);
+        statement.executeUpdate();
+        connection.close();
+        statement.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public void UpdateArtwork(Artwork artwork) throws SQLException {
+        if(artwork.getImageFile() == null) {
+            throw new SQLException("Artwork image file cannot be null");
+        }
+        String sql = "UPDATE Artworks SET [ArtworkName]=?,[Description]=?, [Purchasable]=?,[Price]=?, [DateCreated]=?";
+        String where = " WHERE artworkID = ?" ;
+        sql += where;
+        try (Connection connection = ConnectUtils.getInstance().openConection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, artwork.getArtworkName());
+            statement.setString(2, artwork.getDescription());
+            statement.setBoolean(3, artwork.isPurchasable());
+            statement.setDouble(4, artwork.getPrice());
+            statement.setString(5, artwork.getDateCreated());
+            statement.setInt(6, artwork.getArtworkID());
+            statement.executeUpdate();
+            statement.close();
+            connection.close();
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+    @Override
+    public void incrementViewCount(int artworkId) {
+        String sql = "UPDATE Artworks SET Views = Views + 1 WHERE ArtworkID = ?";
+        try {
+            ConnectUtils db = ConnectUtils.getInstance();
+            Connection connection = db.openConection();
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, artworkId);
+            statement.executeUpdate();
+
+            statement.close();
+            connection.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public List<Artwork> GetAllArtworksByTagName(String tagName) {
+        String sql = "  SELECT A.* FROM Artworks A JOIN TagArt AT ON A.ArtworkID = AT.ArtworkID JOIN Tag T ON AT.TagID = T.TagID WHERE T.TagName =?";
+        List<Artwork> artworks = new ArrayList<>();
+        try (Connection connection = ConnectUtils.getInstance().openConection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, tagName);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                Artwork artwork = new Artwork();
+                artwork.setArtworkID(resultSet.getInt("ArtworkID"));
+                artwork.setArtworkName(resultSet.getString("ArtworkName"));
+
+                artworks.add(artwork);
+            }
+            resultSet.close();
+            connection.close();
+            statement.close();
+        return artworks;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+    }
 
 }

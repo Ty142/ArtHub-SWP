@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.SQLException;
+import java.time.LocalDate;
 
 @RestController
 @RequestMapping("/api/Creator")
@@ -57,7 +58,9 @@ public class CreatorAPI {
             newUser.setFollowerCount(userDTO.getFollowerCount());
             newUser.setRankId(userDTO.getRankId());
             newUser.setRoleId(userDTO.getRoleId());
-            newUser.setDateOfBirth(userDTO.getDateOfBirth());
+            LocalDate localDate = userDTO.getDateOfBirth();
+            java.sql.Date sqlDate = (localDate != null) ? java.sql.Date.valueOf(localDate) : null;
+            newUser.setDateOfBirth(sqlDate);
             newUser.setCreatedAt(userDTO.getCreatedAt() != null ? userDTO.getCreatedAt().toString() : null);
 
             // Log dữ liệu của User trước khi lưu
@@ -105,7 +108,9 @@ public class CreatorAPI {
             newUser.setFollowerCount(userDTO.getFollowerCount());
             newUser.setRankId(userDTO.getRankId());
             newUser.setRoleId(userDTO.getRoleId());
-            newUser.setDateOfBirth(userDTO.getDateOfBirth());
+            LocalDate localDate = userDTO.getDateOfBirth();
+            java.sql.Date sqlDate = (localDate != null) ? java.sql.Date.valueOf(localDate) : null;
+            newUser.setDateOfBirth(sqlDate);
 
 
             // Log dữ liệu của User trước khi lưu

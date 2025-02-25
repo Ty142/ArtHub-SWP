@@ -2,6 +2,7 @@ package Arthub.api;
 
 import Arthub.entity.Artwork;
 import Arthub.service.InteractService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,7 +12,9 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/interact")
 public class InteractAPI {
-    private final InteractService interactService;
+    @Autowired
+    private InteractService interactService;
+
 
     public InteractAPI(InteractService interactService) {
         this.interactService = interactService;
@@ -42,5 +45,17 @@ public class InteractAPI {
         return ResponseEntity.ok(isFavourite);
     }
 
-
+    @PutMapping("/api/interact/update")
+    public String updateInteractData(@RequestBody Map<String, String> body) {
+        String message = body.get("message");
+        if (message == null) {
+            return "Error: Missing message parameter.";
+        }
+        try {
+            interactService.saveInteractions();
+            return "Interact data updated successfully!";
+        } catch (Exception e) {
+            return "Error updating interact data: " + e.getMessage();
+        }
+    }
 }

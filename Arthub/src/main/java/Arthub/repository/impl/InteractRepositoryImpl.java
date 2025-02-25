@@ -1,9 +1,13 @@
 package Arthub.repository.impl;
 
+import Arthub.entity.Interact;
 import Arthub.repository.InteractRepository;
 import Arthub.entity.Artwork;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.stereotype.Repository;
 import utils.ConnectUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -116,4 +120,35 @@ public class InteractRepositoryImpl implements InteractRepository {
         return favouriteArtworks;
     }
 
-}
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
+
+    public void save(Interact interact) {
+        String sql = "INSERT INTO Interact (ArtworkID, UserID, ActivityID, DateOfInteract) VALUES (?, ?, ?, ?)";
+        jdbcTemplate.update(sql, interact.getArtworkID(), interact.getUserID(), interact.getActivityID(), interact.getDateOfInteract());
+    }
+
+    public List<Interact> findByArtworkIDAndUserIDAndActivityID(int artworkID, int userID, int activityID, String date) {
+        String sql = "SELECT * FROM Interact WHERE ArtworkID = ? AND UserID = ? AND ActivityID = ? AND DateOfInteract = ?";
+        return jdbcTemplate.query(sql, new Object[]{artworkID, userID, activityID, date}, new BeanPropertyRowMapper<>(Interact.class));
+    }
+
+    @Override
+    public void deleteInteractByArtworkID(int artworkID) {
+        String sql = "DELETE FROM Interact WHERE artworkID = ?";
+            try  {
+                ConnectUtils db = ConnectUtils.getInstance();
+                Connection connection = db.openConection();
+                PreparedStatement statement = connection.prepareStatement(sql);
+                statement.setInt(1, artworkID);
+                statement.executeUpdate();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+
+

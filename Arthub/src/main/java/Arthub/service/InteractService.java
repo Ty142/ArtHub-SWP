@@ -9,4 +9,5 @@ public interface InteractService {
     boolean isFavourite(int userID, int artworkID);
     List<Artwork> getFavouriteArtworks(int userID);
 
+    void saveInteractions();
 }

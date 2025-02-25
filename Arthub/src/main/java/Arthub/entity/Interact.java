@@ -6,11 +6,13 @@ public class Interact {
     private int interactID;
     private int artworkID;
     private int userID;
-    private int activityID; // 1 = Favourite
+    private int activityID;
     private Date dateOfInteract;
 
+    // Constructor mặc định
     public Interact() {}
 
+    // Constructor với tham số
     public Interact(int artworkID, int userID, int activityID, Date dateOfInteract) {
         this.artworkID = artworkID;
         this.userID = userID;
@@ -18,6 +20,7 @@ public class Interact {
         this.dateOfInteract = dateOfInteract;
     }
 
+    // Getters và Setters
     public int getInteractID() { return interactID; }
     public void setInteractID(int interactID) { this.interactID = interactID; }
 
