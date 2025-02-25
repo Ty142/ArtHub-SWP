@@ -91,6 +91,7 @@ public class ArtworkRepositoryImpl implements ArtworkRepository {
                 artwork.setCreatorID(resultSet.getInt("UserID"));
                 artwork.setImageFile(resultSet.getString("ImageFile"));
                 artwork.setLikes(resultSet.getInt("Likes"));
+                artwork.setViews(resultSet.getInt("Views"));
                 artwork.setDateCreated(resultSet.getString("DateCreated"));
                 artworks.add(artwork);
             }
@@ -141,6 +142,7 @@ public class ArtworkRepositoryImpl implements ArtworkRepository {
         artwork.setImageFile(resultSet.getString("ImageFile"));
         artwork.setLikes(resultSet.getInt("Likes"));
         artwork.setStatus(resultSet.getInt("Status"));
+        artwork.setViews(resultSet.getInt("Views"));
         artwork.setDateCreated(resultSet.getString("DateCreated"));
         return artwork;
     }
@@ -244,6 +246,7 @@ public class ArtworkRepositoryImpl implements ArtworkRepository {
                     artwork.setCreatorID(resultSet.getInt("UserID"));
                     artwork.setImageFile(resultSet.getString("ImageFile"));
                     artwork.setLikes(resultSet.getInt("Likes"));
+                    artwork.setViews(resultSet.getInt("Views"));
                     artwork.setDateCreated(resultSet.getString("DateCreated"));
                     artworks.add(artwork);
                 }
