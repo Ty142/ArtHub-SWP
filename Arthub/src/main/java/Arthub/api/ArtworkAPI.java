@@ -187,9 +187,9 @@ public class ArtworkAPI {
     }
 
     @GetMapping("/Tag")
-    public ResponseEntity<List<Artwork>> getAllArtworksByTagName(@RequestParam String TagName) throws IOException {
-        System.out.println("�� Nhận yêu cầu lấy artwork theo từ khóa: " + TagName);
-        List<Artwork> artworks = artworkService.getArtworksByTagName(TagName);
+    public ResponseEntity<List<Artwork>> getAllArtworksByTagName(@RequestParam String tagName) throws IOException {
+        System.out.println("�� Nhận yêu cầu lấy artwork theo từ khóa: " + tagName);
+        List<Artwork> artworks = artworkService.getArtworksByTagName(tagName);
         return ResponseEntity.ok(artworks);
     }
 

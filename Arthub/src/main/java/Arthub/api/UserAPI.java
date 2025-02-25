@@ -2,15 +2,22 @@ package Arthub.api;
 
 import Arthub.dto.FileUploadDTO;
 import Arthub.dto.UserDTO;
+import Arthub.entity.Account;
 import Arthub.entity.User;
 import Arthub.repository.AccountRepository;
 import Arthub.repository.UserRepository;
+import Arthub.repository.impl.AccountRepositoryImpl;
 import Arthub.repository.impl.ArtworkRepositoryImpl;
 import Arthub.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import Arthub.service.AccountService;
+
+import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.io.IOException;
 import java.util.List;
@@ -33,6 +40,7 @@ public class UserAPI {
 
 
 
+
     public ResponseEntity<User> getUserByAccountId(@PathVariable("accountId") int accountId) {
         System.out.println("🔍 Received request for User with Account ID: " + accountId);
 
@@ -47,7 +55,7 @@ public class UserAPI {
         System.out.println("✅ User found: " + user);
         return ResponseEntity.ok(user); // Trả về HTTP 200 nếu tìm thấy
     }
-    @GetMapping("/")
+    @GetMapping("")
     public ArrayList<User> getAllUsers() {
         return userService.getAllUsers();
     }
