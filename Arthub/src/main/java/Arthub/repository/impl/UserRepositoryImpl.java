@@ -289,10 +289,7 @@ public class UserRepositoryImpl implements UserRepository {
         user.setCreatedAt(resultSet.getString("CreatedAt"));
         user.setRankId(resultSet.getInt("RankID"));
         user.setRoleId(resultSet.getInt("RoleID"));
-
         user.setDateOfBirth(resultSet.getDate("DateOfBirth").toLocalDate());
-
-
         user.setLastLogin(resultSet.getDate("LastLogin"));
         user.setProfilePicture(resultSet.getString("ProfilePicture"));
         user.setBackgroundPicture(resultSet.getString("BackgroundPicture"));
