@@ -5,8 +5,6 @@ import Arthub.entity.TagArt;
 import Arthub.repository.*;
 import Arthub.service.ArtworkService;
 import Arthub.service.UserService;
-import com.cloudinary.Cloudinary;
-import com.cloudinary.utils.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
@@ -20,7 +18,7 @@ public class ArtworkServiceImpl implements ArtworkService {
 
 
     @Autowired
-     ArtworkRepository artworkRepository;
+    ArtworkRepository artworkRepository;
     @Autowired
     TagArtRepository tagArtRepository;
     @Autowired
@@ -46,6 +44,16 @@ public class ArtworkServiceImpl implements ArtworkService {
     @Override
     public List<Artwork> getArtworks() {
         return artworkRepository.getArtworks();
+    }
+
+    @Override
+    public List<Artwork> getArtworksByPurchasable(int pageNumber, int pageSize) {
+        return artworkRepository.getArtworksByPurchasable(pageNumber, pageSize);
+    }
+
+    @Override
+    public List<Artwork> getArtworksByPurchasableAndNotCreator(int userId, int pageNumber, int pageSize) {
+        return artworkRepository.getArtworksByPurchasableAndNotCreator(userId, pageNumber, pageSize);
     }
 
     @Override

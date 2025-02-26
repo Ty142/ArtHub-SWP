@@ -20,11 +20,11 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/artworks") // Base URL cho API
+@RequestMapping("/api/artworks")
 public class ArtworkAPI {
 
     @Autowired
-     ArtworkService artworkService;
+    ArtworkService artworkService;
     @Autowired
     UserService userService;
     @Autowired
@@ -39,12 +39,12 @@ public class ArtworkAPI {
     @PostMapping("/")
     public Artwork createArtImg(@RequestBody ArtworkDTO artworkDTO) {
         Artwork artwork = artworkConverter.convertArtworkDTOToArtworkEntity(artworkDTO);
-        if(artwork.getImageFile() == null) {
+        if (artwork.getImageFile() == null) {
             throw new RuntimeException("Bạn phải upload ảnh cho ảnh sự kiện!");
         }
         try {
             byte[] imgByte = imageUtils.decodeBase64(artwork.getImageFile());
-            artwork.setImageFile(userService.uploadAvatar(imgByte, 3,""));
+            artwork.setImageFile(userService.uploadAvatar(imgByte, 3, ""));
             int id = artworkRepository.addArtwork(artwork);
             tagArtRepository.addTagArtUserIdAndTagId(artwork.getArtworkTags(), id);
             Optional<Artwork> artworkOpt = artworkRepository.getArtworkById(id);
@@ -72,8 +72,50 @@ public class ArtworkAPI {
         return ResponseEntity.ok(artworks);
     }
 
+    @GetMapping("/GetArtworksWithPaymentStatus/")
+    public ResponseEntity<List<Artwork>> getArtworksPurchasable(
+            @RequestParam Integer pageNumber,
+            @RequestParam Integer pageSize) {
+        System.out.println("📥 Nhận yêu cầu lấy tất cả artworks với purchasable = 1...");
+
+        List<Artwork> artworks = artworkService.getArtworksByPurchasable(pageNumber, pageSize);
+
+        if (artworks.isEmpty()) {
+            System.out.println("⚠️ Không tìm thấy artworks nào với purchasable = 1!");
+            return ResponseEntity.noContent().build();
+        }
+
+        System.out.println("✅ Trả về " + artworks.size() + " artworks.");
+        return ResponseEntity.ok(artworks);
+    }
+
+
+    @GetMapping("/GetArtworksWithPaymentStatus")
+    public ResponseEntity<List<Artwork>> getArtworksPurchasable(
+            @RequestParam(required = false) Integer userId,
+            @RequestParam(defaultValue = "1") Integer pageNumber,
+            @RequestParam(defaultValue = "8") Integer pageSize) {
+        System.out.println("📥 Nhận yêu cầu lấy tất cả artworks với purchasable = 1...");
+
+        List<Artwork> artworks;
+        if (userId == null) {
+            artworks = artworkService.getArtworksByPurchasable(pageNumber, pageSize);
+        } else {
+            artworks = artworkService.getArtworksByPurchasableAndNotCreator(userId, pageNumber, pageSize);
+        }
+
+        if (artworks.isEmpty()) {
+            System.out.println("⚠️ Không tìm thấy artworks nào với purchasable = 1!");
+            return ResponseEntity.noContent().build();
+        }
+
+        System.out.println("✅ Trả về " + artworks.size() + " artworks.");
+        return ResponseEntity.ok(artworks);
+    }
+
     /**
      * API lấy thông tin chi tiết của một artwork theo ID
+     *
      * @param id ID của artwork cần lấy thông tin
      * @return Thông tin artwork hoặc HTTP 404 nếu không tìm thấy
      */
@@ -148,11 +190,10 @@ public class ArtworkAPI {
         Artwork updatedArtwork = artworkConverter.convertArtworkDTOToArtworkEntity(artworkDTO);
         tagArtRepository.deleteTagArtByArtId(updatedArtwork.getArtworkID());
         artworkRepository.UpdateArtwork(updatedArtwork);
-            tagArtRepository.addTagArtUserIdAndTagId(updatedArtwork.getArtworkTags(), updatedArtwork.getArtworkID());
-            return ResponseEntity.ok(updatedArtwork);
+        tagArtRepository.addTagArtUserIdAndTagId(updatedArtwork.getArtworkTags(), updatedArtwork.getArtworkID());
+        return ResponseEntity.ok(updatedArtwork);
 
     }
-
 
 
     @PutMapping("/update-comments-count")
@@ -178,9 +219,9 @@ public class ArtworkAPI {
     }
 
     @GetMapping("/Tag")
-    public ResponseEntity<List<Artwork>> getAllArtworksByTagName(@RequestParam String TagName) throws IOException {
-        System.out.println("�� Nhận yêu cầu lấy artwork theo từ khóa: " + TagName);
-        List<Artwork> artworks = artworkService.getArtworksByTagName(TagName);
+    public ResponseEntity<List<Artwork>> getAllArtworksByTagName(@RequestParam String tagName) throws IOException {
+        System.out.println("�� Nhận yêu cầu lấy artwork theo từ khóa: " + tagName);
+        List<Artwork> artworks = artworkService.getArtworksByTagName(tagName);
         return ResponseEntity.ok(artworks);
     }
 

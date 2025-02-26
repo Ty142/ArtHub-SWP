@@ -45,7 +45,7 @@ public class InteractAPI {
         return ResponseEntity.ok(isFavourite);
     }
 
-    @PutMapping("/api/interact/update")
+    @PutMapping("/update")
     public String updateInteractData(@RequestBody Map<String, String> body) {
         String message = body.get("message");
         if (message == null) {
