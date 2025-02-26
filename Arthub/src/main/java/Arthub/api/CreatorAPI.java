@@ -59,8 +59,7 @@ public class CreatorAPI {
             newUser.setRankId(userDTO.getRankId());
             newUser.setRoleId(userDTO.getRoleId());
             LocalDate localDate = userDTO.getDateOfBirth();
-            java.sql.Date sqlDate = (localDate != null) ? java.sql.Date.valueOf(localDate) : null;
-            newUser.setDateOfBirth(sqlDate);
+            newUser.setDateOfBirth(localDate);
             newUser.setCreatedAt(userDTO.getCreatedAt() != null ? userDTO.getCreatedAt().toString() : null);
 
             // Log dữ liệu của User trước khi lưu
@@ -109,8 +108,7 @@ public class CreatorAPI {
             newUser.setRankId(userDTO.getRankId());
             newUser.setRoleId(userDTO.getRoleId());
             LocalDate localDate = userDTO.getDateOfBirth();
-            java.sql.Date sqlDate = (localDate != null) ? java.sql.Date.valueOf(localDate) : null;
-            newUser.setDateOfBirth(sqlDate);
+            newUser.setDateOfBirth(localDate);
 
 
             // Log dữ liệu của User trước khi lưu
