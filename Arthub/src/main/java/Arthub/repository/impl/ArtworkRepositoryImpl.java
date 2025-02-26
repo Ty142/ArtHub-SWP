@@ -333,7 +333,14 @@ public class ArtworkRepositoryImpl implements ArtworkRepository {
                 Artwork artwork = new Artwork();
                 artwork.setArtworkID(resultSet.getInt("ArtworkID"));
                 artwork.setArtworkName(resultSet.getString("ArtworkName"));
-
+                artwork.setDescription(resultSet.getString("Description"));
+                artwork.setPurchasable(resultSet.getBoolean("Purchasable"));
+                artwork.setPrice(resultSet.getDouble("Price"));
+                artwork.setCreatorID(resultSet.getInt("UserID"));
+                artwork.setImageFile(resultSet.getString("ImageFile"));
+                artwork.setLikes(resultSet.getInt("Likes"));
+                artwork.setViews(resultSet.getInt("Views"));
+                artwork.setDateCreated(resultSet.getString("DateCreated"));
                 artworks.add(artwork);
             }
             resultSet.close();

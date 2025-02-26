@@ -43,9 +43,13 @@ public class UserRepositoryImpl implements UserRepository {
                 user.setCreatedAt(resultSet.getString("CreatedAt"));
                 user.setRankId(resultSet.getInt("RankID"));
                 user.setRoleId(resultSet.getInt("RoleID"));
-
-                user.setDateOfBirth(resultSet.getDate("DateOfBirth").toLocalDate());
-
+//                user.setDateOfBirth(resultSet.getDate("DateOfBirth").toLocalDate());
+                Date sqlDate = resultSet.getDate("DateOfBirth");
+                if (sqlDate != null) {
+                    user.setDateOfBirth(((java.sql.Date) sqlDate).toLocalDate());
+                } else {
+                    user.setDateOfBirth(null);
+                }
                 user.setLastLogin(resultSet.getTimestamp("LastLogin"));
                 user.setAccountId(resultSet.getInt("AccountID"));
                 user.setProfilePicture(resultSet.getString("ProfilePicture"));
@@ -289,7 +293,13 @@ public class UserRepositoryImpl implements UserRepository {
         user.setCreatedAt(resultSet.getString("CreatedAt"));
         user.setRankId(resultSet.getInt("RankID"));
         user.setRoleId(resultSet.getInt("RoleID"));
-        user.setDateOfBirth(resultSet.getDate("DateOfBirth").toLocalDate());
+//        user.setDateOfBirth(resultSet.getDate("DateOfBirth").toLocalDate());
+        Date sqlDate = resultSet.getDate("DateOfBirth");
+        if (sqlDate != null) {
+            user.setDateOfBirth(((java.sql.Date) sqlDate).toLocalDate());
+        } else {
+            user.setDateOfBirth(null);
+        }
         user.setLastLogin(resultSet.getDate("LastLogin"));
         user.setProfilePicture(resultSet.getString("ProfilePicture"));
         user.setBackgroundPicture(resultSet.getString("BackgroundPicture"));
@@ -359,8 +369,14 @@ public class UserRepositoryImpl implements UserRepository {
                     user.setCreatedAt(resultSet.getString("CreatedAt"));
                     user.setRankId(resultSet.getInt("RankId"));
                     user.setRoleId(resultSet.getInt("RoleId"));
-                    user.setDateOfBirth(resultSet.getDate("DateOfBirth").toLocalDate());
+//                    user.setDateOfBirth(resultSet.getDate("DateOfBirth").toLocalDate());
 //                    user.setDateOfBirth(resultSet.getDate("DateOfBirth"));
+                    Date sqlDate = resultSet.getDate("DateOfBirth");
+                    if (sqlDate != null) {
+                        user.setDateOfBirth(((java.sql.Date) sqlDate).toLocalDate());
+                    } else {
+                        user.setDateOfBirth(null);
+                    }
 
                     user.setLastLogin(resultSet.getDate("LastLogin"));
                     user.setAccountId(resultSet.getInt("AccountId"));
@@ -415,7 +431,13 @@ public class UserRepositoryImpl implements UserRepository {
                 user.setBiography(resultSet.getString("Biography"));
                 user.setAddress(resultSet.getString("Address"));
                 user.setPhoneNumber(resultSet.getString("PhoneNumber"));
-                user.setDateOfBirth(resultSet.getDate("DateOfBirth").toLocalDate());
+//                user.setDateOfBirth(resultSet.getDate("DateOfBirth").toLocalDate());
+                Date sqlDate = resultSet.getDate("DateOfBirth");
+                if (sqlDate != null) {
+                    user.setDateOfBirth(((java.sql.Date) sqlDate).toLocalDate());
+                } else {
+                    user.setDateOfBirth(null);
+                }
                 user.setLastLogin(resultSet.getDate("LastLogin"));
                 user.setCreatedAt(resultSet.getString("CreatedAt"));
                 user.setTotalLikes(resultSet.getInt("totalLikes"));
