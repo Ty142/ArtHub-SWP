@@ -42,20 +42,28 @@ public class ReportRepositoryImpl implements ReportRepository {
              PreparedStatement statement = connection.prepareStatement(sql);
              ResultSet resultSet = statement.executeQuery()) {
 
-            while (resultSet.next()){
+            while (resultSet.next()) {
                 Report report = new Report();
-                report.setReportedId(resultSet.getInt("ReportID"));
+                report.setReportId(resultSet.getInt("ReportID"));
                 report.setReporterId(resultSet.getInt("ReporterID"));
                 report.setReportedId(resultSet.getInt("ReportedID"));
                 report.setArtworkId(resultSet.getInt("ArtworkID"));
                 report.setDescription(resultSet.getString("Description"));
+
+                // Fix lỗi chuyển đổi Date -> LocalDateTime
+                Timestamp timestamp = resultSet.getTimestamp("CreatedDate");
+                if (timestamp != null) {
+                    report.setCreatedDate(timestamp.toLocalDateTime());
+                }
+
                 report.setStatus(resultSet.getInt("Status"));
                 reports.add(report);
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return reports;
     }
+
 }
 
