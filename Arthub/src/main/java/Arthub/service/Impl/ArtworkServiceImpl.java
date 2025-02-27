@@ -31,6 +31,7 @@ public class ArtworkServiceImpl implements ArtworkService {
     ReplyCommentRepository replyCommentRepository;
 
     utils.ImageUtils imageUtils = new utils.ImageUtils();
+
     @Override
     public void PushArtwork(Artwork artwork, TagArt tagArt) {
 
@@ -38,8 +39,9 @@ public class ArtworkServiceImpl implements ArtworkService {
 
     @Override
     public void PushArtwork(Artwork artwork) {
-        // Chưa triển khai
+
     }
+
 
     @Override
     public List<Artwork> getArtworks() {

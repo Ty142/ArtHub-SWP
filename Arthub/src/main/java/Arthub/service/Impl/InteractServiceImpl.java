@@ -32,6 +32,7 @@ public class InteractServiceImpl implements InteractService {
         this.interactRepository = interactRepository;
     }
 
+    //-------- Start Favourites ----------
     @Override
     public boolean toggleFavourite(int userID, int artworkID) {
         return interactRepository.toggleFavourite(userID, artworkID);
@@ -46,6 +47,29 @@ public class InteractServiceImpl implements InteractService {
     public List<Artwork> getFavouriteArtworks(int userID) {
         return interactRepository.getFavouriteArtworks(userID);
     }
+    //-------- End Favourites ----------
+
+    //-------- Start Like ----------
+    @Override
+    public boolean toggleLike(int userID, int artworkID) {
+        return interactRepository.toggleLike(userID, artworkID);
+    }
+
+    @Override
+    public boolean isLike(int userID, int artworkID) {
+        return interactRepository.isLike(userID, artworkID);
+    }
+
+    @Override
+    public List<Artwork> getLikeArtworks(int userID) {
+        return interactRepository.getLikeArtworks(userID);
+    }
+
+    @Override
+    public int getLikeCount(int artworkID) {
+        return interactRepository.getLikeCount(artworkID);
+    }
+    //-------- End Like ----------
 
     public void saveInteractions() {
         List<Comment> comments = commentRepository.findAll();

@@ -19,7 +19,7 @@ public class UserDTO {
     private String phoneNumber;
     private Date lastLogin;
     private Date createdAt;
-    private LocalDate dateOfBirth;
+    private LocalDate  dateOfBirth;
     private String biography;
     private int followCounts;
     private String base64data;

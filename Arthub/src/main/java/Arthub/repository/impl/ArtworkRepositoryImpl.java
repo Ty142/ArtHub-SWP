@@ -1,10 +1,12 @@
 package Arthub.repository.impl;
 
 import Arthub.converter.ArtworkConverter;
+import Arthub.dto.ArtworkDTO;
 import Arthub.entity.Artwork;
 import Arthub.entity.TagArt;
 import Arthub.repository.ArtworkRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 import utils.ConnectUtils;
 
@@ -19,7 +21,7 @@ public class ArtworkRepositoryImpl implements ArtworkRepository {
     @Override
     public void saveArtPicture(int id, String Artwork) {
         String sql = "UPDATE Artworks SET ImageFile where id = ?";
-        try {
+        try{
             ConnectUtils db = ConnectUtils.getInstance();
             Connection connection = db.openConection();
             PreparedStatement statement = connection.prepareStatement(sql);
@@ -40,7 +42,7 @@ public class ArtworkRepositoryImpl implements ArtworkRepository {
     public int addArtwork(Artwork artwork) {
         String sql = "Insert into Artworks([ArtworkName],[Description],[Purchasable],[Price],[ImageFile],[UserID],[Status],[DateCreated]) values (?,?,?,?,?,?,?,?)";
         int generatedID = -1;
-        try {
+        try{
             ConnectUtils db = ConnectUtils.getInstance();
             Connection connection = db.openConection();
             PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -88,7 +90,6 @@ public class ArtworkRepositoryImpl implements ArtworkRepository {
                 artwork.setPrice(resultSet.getDouble("Price"));
                 artwork.setCreatorID(resultSet.getInt("UserID"));
                 artwork.setImageFile(resultSet.getString("ImageFile"));
-                artwork.setComments(resultSet.getInt("Comments"));
                 artwork.setLikes(resultSet.getInt("Likes"));
                 artwork.setViews(resultSet.getInt("Views"));
                 artwork.setDateCreated(resultSet.getString("DateCreated"));
@@ -193,6 +194,7 @@ public class ArtworkRepositoryImpl implements ArtworkRepository {
         return artworks;
     }
 
+
     @Override
     public Optional<Artwork> getArtworkById(int id) {
         String sql = "SELECT * FROM Artworks WHERE ArtworkID = ?";
@@ -208,7 +210,7 @@ public class ArtworkRepositoryImpl implements ArtworkRepository {
             connection.close();
             statement.close();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new    RuntimeException(e);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -225,7 +227,6 @@ public class ArtworkRepositoryImpl implements ArtworkRepository {
         artwork.setCreatorID(resultSet.getInt("UserID"));
         artwork.setImageFile(resultSet.getString("ImageFile"));
         artwork.setLikes(resultSet.getInt("Likes"));
-        artwork.setComments(resultSet.getInt("Comments"));
         artwork.setStatus(resultSet.getInt("Status"));
         artwork.setViews(resultSet.getInt("Views"));
         artwork.setDateCreated(resultSet.getString("DateCreated"));
@@ -366,11 +367,11 @@ public class ArtworkRepositoryImpl implements ArtworkRepository {
 
     @Override
     public void UpdateArtwork(Artwork artwork) throws SQLException {
-        if (artwork.getImageFile() == null) {
+        if(artwork.getArtworkID() == 0) {
             throw new SQLException("Artwork image file cannot be null");
         }
         String sql = "UPDATE Artworks SET [ArtworkName]=?,[Description]=?, [Purchasable]=?,[Price]=?, [DateCreated]=?";
-        String where = " WHERE artworkID = ?";
+        String where = " WHERE artworkID = ?" ;
         sql += where;
         try (Connection connection = ConnectUtils.getInstance().openConection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -420,13 +421,20 @@ public class ArtworkRepositoryImpl implements ArtworkRepository {
                 Artwork artwork = new Artwork();
                 artwork.setArtworkID(resultSet.getInt("ArtworkID"));
                 artwork.setArtworkName(resultSet.getString("ArtworkName"));
-
+                artwork.setDescription(resultSet.getString("Description"));
+                artwork.setPurchasable(resultSet.getBoolean("Purchasable"));
+                artwork.setPrice(resultSet.getDouble("Price"));
+                artwork.setCreatorID(resultSet.getInt("UserID"));
+                artwork.setImageFile(resultSet.getString("ImageFile"));
+                artwork.setLikes(resultSet.getInt("Likes"));
+                artwork.setViews(resultSet.getInt("Views"));
+                artwork.setDateCreated(resultSet.getString("DateCreated"));
                 artworks.add(artwork);
             }
             resultSet.close();
             connection.close();
             statement.close();
-            return artworks;
+        return artworks;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } catch (Exception e) {
