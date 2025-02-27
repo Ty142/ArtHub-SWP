@@ -47,7 +47,7 @@ public class UserAPI {
         System.out.println("✅ User found: " + user);
         return ResponseEntity.ok(user); // Trả về HTTP 200 nếu tìm thấy
     }
-    @GetMapping()
+    @GetMapping("")
     public ArrayList<User> getAllUsers() {
         return userService.getAllUsers();
     }

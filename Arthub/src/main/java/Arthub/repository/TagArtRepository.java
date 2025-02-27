@@ -17,4 +17,5 @@ public interface TagArtRepository {
 
     void deleteTagArtByArtId(int artworkId);
 
+
 }
