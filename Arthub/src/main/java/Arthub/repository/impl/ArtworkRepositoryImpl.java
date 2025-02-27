@@ -110,6 +110,92 @@ public class ArtworkRepositoryImpl implements ArtworkRepository {
     }
 
     @Override
+    public List<Artwork> getArtworksByPurchasable(int pageNumber, int pageSize) {
+        List<Artwork> artworks = new ArrayList<>();
+        String sql = "SELECT * FROM Artworks WHERE Purchasable = 1 " +
+                "ORDER BY ArtworkID OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
+        try {
+            ConnectUtils db = ConnectUtils.getInstance();
+            Connection connection = db.openConection();
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, (pageNumber - 1) * pageSize);
+            statement.setInt(2, pageSize);
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                Artwork artwork = new Artwork();
+                artwork.setArtworkID(resultSet.getInt("ArtworkID"));
+                artwork.setArtworkName(resultSet.getString("ArtworkName"));
+                artwork.setDescription(resultSet.getString("Description"));
+                artwork.setPurchasable(resultSet.getBoolean("Purchasable"));
+                artwork.setPrice(resultSet.getDouble("Price"));
+                artwork.setCreatorID(resultSet.getInt("UserID"));
+                artwork.setImageFile(resultSet.getString("ImageFile"));
+                artwork.setComments(resultSet.getInt("Comments"));
+                artwork.setLikes(resultSet.getInt("Likes"));
+                artwork.setViews(resultSet.getInt("Views"));
+                artwork.setDateCreated(resultSet.getString("DateCreated"));
+                artworks.add(artwork);
+            }
+
+            connection.close();
+            statement.close();
+            System.out.println("✅ Lấy thành công " + artworks.size() + " artworks từ database.");
+        } catch (SQLException e) {
+            System.err.println("❌ Lỗi SQL khi lấy artworks: " + e.getMessage());
+            e.printStackTrace();
+        } catch (Exception e) {
+            System.err.println("❌ Lỗi không xác định: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return artworks;
+    }
+
+    @Override
+    public List<Artwork> getArtworksByPurchasableAndNotCreator(int userId, int pageNumber, int pageSize) {
+        List<Artwork> artworks = new ArrayList<>();
+        String sql = "SELECT * FROM Artworks WHERE Purchasable = 1 AND UserID != ? " +
+                "ORDER BY ArtworkID OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
+        try {
+            ConnectUtils db = ConnectUtils.getInstance();
+            Connection connection = db.openConection();
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, userId);
+            statement.setInt(2, (pageNumber - 1) * pageSize);
+            statement.setInt(3, pageSize);
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                Artwork artwork = new Artwork();
+                artwork.setArtworkID(resultSet.getInt("ArtworkID"));
+                artwork.setArtworkName(resultSet.getString("ArtworkName"));
+                artwork.setDescription(resultSet.getString("Description"));
+                artwork.setPurchasable(resultSet.getBoolean("Purchasable"));
+                artwork.setPrice(resultSet.getDouble("Price"));
+                artwork.setCreatorID(resultSet.getInt("UserID"));
+                artwork.setImageFile(resultSet.getString("ImageFile"));
+                artwork.setComments(resultSet.getInt("Comments"));
+                artwork.setLikes(resultSet.getInt("Likes"));
+                artwork.setViews(resultSet.getInt("Views"));
+                artwork.setDateCreated(resultSet.getString("DateCreated"));
+                artworks.add(artwork);
+            }
+
+            connection.close();
+            statement.close();
+            System.out.println("✅ Lấy thành công " + artworks.size() + " artworks từ database.");
+        } catch (SQLException e) {
+            System.err.println("❌ Lỗi SQL khi lấy artworks: " + e.getMessage());
+            e.printStackTrace();
+        } catch (Exception e) {
+            System.err.println("❌ Lỗi không xác định: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return artworks;
+    }
+
+
+    @Override
     public Optional<Artwork> getArtworkById(int id) {
         String sql = "SELECT * FROM Artworks WHERE ArtworkID = ?";
         try {
@@ -228,49 +314,50 @@ public class ArtworkRepositoryImpl implements ArtworkRepository {
 
     @Override
     public List<Artwork> getArtworkByAccountId(int id) {
-            List<Artwork> artworks = new ArrayList<>();
-            String sql = "SELECT A.* FROM Artworks A JOIN [User] U ON A.UserID = U.UserID WHERE U.AccountID = ?";
-            try {
-                ConnectUtils db = ConnectUtils.getInstance();
-                Connection connection = db.openConection();
-                PreparedStatement statement = connection.prepareStatement(sql);
-                statement.setInt(   1, id);
-                ResultSet resultSet = statement.executeQuery();
-                while (resultSet.next()) {
-                    Artwork artwork = new Artwork();
-                    artwork.setArtworkID(resultSet.getInt("ArtworkID"));
-                    artwork.setArtworkName(resultSet.getString("ArtworkName"));
-                    artwork.setDescription(resultSet.getString("Description"));
-                    artwork.setPurchasable(resultSet.getBoolean("Purchasable"));
-                    artwork.setPrice(resultSet.getDouble("Price"));
-                    artwork.setCreatorID(resultSet.getInt("UserID"));
-                    artwork.setImageFile(resultSet.getString("ImageFile"));
-                    artwork.setLikes(resultSet.getInt("Likes"));
-                    artwork.setViews(resultSet.getInt("Views"));
-                    artwork.setDateCreated(resultSet.getString("DateCreated"));
-                    artworks.add(artwork);
-                }
-                connection.close();
-                statement.close();
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            } catch (Exception e) {
-                throw new RuntimeException(e);
+        List<Artwork> artworks = new ArrayList<>();
+        String sql = "SELECT A.* FROM Artworks A JOIN [User] U ON A.UserID = U.UserID WHERE U.AccountID = ?";
+        try {
+            ConnectUtils db = ConnectUtils.getInstance();
+            Connection connection = db.openConection();
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, id);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                Artwork artwork = new Artwork();
+                artwork.setArtworkID(resultSet.getInt("ArtworkID"));
+                artwork.setArtworkName(resultSet.getString("ArtworkName"));
+                artwork.setDescription(resultSet.getString("Description"));
+                artwork.setPurchasable(resultSet.getBoolean("Purchasable"));
+                artwork.setPrice(resultSet.getDouble("Price"));
+                artwork.setCreatorID(resultSet.getInt("UserID"));
+                artwork.setImageFile(resultSet.getString("ImageFile"));
+                artwork.setComments(resultSet.getInt("Comments"));
+                artwork.setLikes(resultSet.getInt("Likes"));
+                artwork.setViews(resultSet.getInt("Views"));
+                artwork.setDateCreated(resultSet.getString("DateCreated"));
+                artworks.add(artwork);
             }
-            return artworks;
+            connection.close();
+            statement.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
+        return artworks;
+    }
 
     @Override
     public void deleteArtworkByArtworkId(int artworkId) {
-    String sql = "DELETE FROM Artworks WHERE ArtworkID =?";
-    try {
-        ConnectUtils db = ConnectUtils.getInstance();
-        Connection connection = db.openConection();
-        PreparedStatement statement = connection.prepareStatement(sql);
-        statement.setInt(1, artworkId);
-        statement.executeUpdate();
-        connection.close();
-        statement.close();
+        String sql = "DELETE FROM Artworks WHERE ArtworkID =?";
+        try {
+            ConnectUtils db = ConnectUtils.getInstance();
+            Connection connection = db.openConection();
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, artworkId);
+            statement.executeUpdate();
+            connection.close();
+            statement.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } catch (Exception e) {
@@ -302,6 +389,7 @@ public class ArtworkRepositoryImpl implements ArtworkRepository {
             throw new RuntimeException(e);
         }
     }
+
     @Override
     public void incrementViewCount(int artworkId) {
         String sql = "UPDATE Artworks SET Views = Views + 1 WHERE ArtworkID = ?";

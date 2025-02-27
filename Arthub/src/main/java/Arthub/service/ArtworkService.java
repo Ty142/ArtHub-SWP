@@ -14,6 +14,10 @@ public interface ArtworkService {
 
     List<Artwork> getArtworks();
 
+    List<Artwork> getArtworksByPurchasable(int pageNumber, int pageSize);
+
+    List<Artwork> getArtworksByPurchasableAndNotCreator(int userId, int pageNumber, int pageSize);
+
     Optional<Artwork> getArtworkById(int id);
 
     List<Artwork> getArtworkByAccountId(int id);
