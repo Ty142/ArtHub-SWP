@@ -81,7 +81,7 @@ public class InteractAPI {
     }
     // ------- End Like API --------
 
-    @PutMapping("/api/interact/update")
+    @PutMapping("/update")
     public String updateInteractData(@RequestBody Map<String, String> body) {
         String message = body.get("message");
         if (message == null) {
