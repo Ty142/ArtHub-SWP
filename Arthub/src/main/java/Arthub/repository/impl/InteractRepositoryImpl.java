@@ -102,7 +102,7 @@ public class InteractRepositoryImpl implements InteractRepository {
             while (resultSet.next()) {
                 Artwork artwork = new Artwork();
                 artwork.setArtworkID(resultSet.getInt("ArtworkID"));
-                artwork.setCreatorID(resultSet.getInt("CreatorID"));
+                artwork.setCreatorID(resultSet.getInt("UserID"));
                 artwork.setArtworkName(resultSet.getString("ArtworkName"));
                 artwork.setDescription(resultSet.getString("Description"));
                 artwork.setDateCreated(resultSet.getString("DateCreated"));
@@ -236,7 +236,7 @@ public class InteractRepositoryImpl implements InteractRepository {
             while (resultSet.next()) {
                 Artwork artwork = new Artwork();
                 artwork.setArtworkID(resultSet.getInt("ArtworkID"));
-                artwork.setCreatorID(resultSet.getInt("CreatorID"));
+                artwork.setCreatorID(resultSet.getInt("UserID"));
                 artwork.setArtworkName(resultSet.getString("ArtworkName"));
                 artwork.setDescription(resultSet.getString("Description"));
                 artwork.setDateCreated(resultSet.getString("DateCreated"));
