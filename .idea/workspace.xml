@@ -4,25 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6d276f43-2b7c-4037-965e-bdcca837b8ed" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/api/PaymentAPI.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/dto/PaymentDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/repository/PaymentRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/repository/impl/PaymentRepositoryImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/service/Impl/PaymentServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/service/PaymentService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/entity/Payment.java" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/entity/Payment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/repository/UserRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/repository/impl/UserRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/repository/impl/UserRepositoryImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/service/Impl/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/service/Impl/UserServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/service/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/entity/Payment.class" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/target/classes/Arthub/entity/Payment.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/repository/UserRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/target/classes/Arthub/repository/UserRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/repository/impl/UserRepositoryImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/target/classes/Arthub/repository/impl/UserRepositoryImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/service/Impl/UserServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/target/classes/Arthub/service/Impl/UserServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/service/UserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/target/classes/Arthub/service/UserService.class" afterDir="false" />
-    </list>
+    <list default="true" id="6d276f43-2b7c-4037-965e-bdcca837b8ed" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -79,7 +61,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "Spring Boot.ArtHubApplication.executor": "Run",
-    "git-widget-placeholder": "Son",
+    "git-widget-placeholder": "main",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
     "node.js.detected.package.eslint": "true",
