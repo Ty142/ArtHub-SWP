@@ -43,13 +43,11 @@ public class UserRepositoryImpl implements UserRepository {
                 user.setCreatedAt(resultSet.getString("CreatedAt"));
                 user.setRankId(resultSet.getInt("RankID"));
                 user.setRoleId(resultSet.getInt("RoleID"));
-//                user.setDateOfBirth(resultSet.getDate("DateOfBirth").toLocalDate());
+
                 Date sqlDate = resultSet.getDate("DateOfBirth");
-                if (sqlDate != null) {
-                    user.setDateOfBirth(((java.sql.Date) sqlDate).toLocalDate());
-                } else {
-                    user.setDateOfBirth(null);
-                }
+                LocalDate localDate = (sqlDate != null) ? ((java.sql.Date) sqlDate).toLocalDate() : null;
+                user.setDateOfBirth(localDate);
+
                 user.setLastLogin(resultSet.getTimestamp("LastLogin"));
                 user.setAccountId(resultSet.getInt("AccountID"));
                 user.setProfilePicture(resultSet.getString("ProfilePicture"));
@@ -276,6 +274,20 @@ public class UserRepositoryImpl implements UserRepository {
         }
     }
 
+    @Override
+    public void updateCoinsAmount(int accountId, double amount) {
+        String sql = "EXEC AddCoinsToUser @UserID = ?, @Amount = ?";
+        utils.ConnectUtils db = utils.ConnectUtils.getInstance();
+
+        try (Connection connection = db.openConection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, accountId);
+            statement.setDouble(2, amount);
+            statement.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     /**
      * Hàm ánh xạ `ResultSet` sang đối tượng `User`.
@@ -292,13 +304,12 @@ public class UserRepositoryImpl implements UserRepository {
         user.setCreatedAt(resultSet.getString("CreatedAt"));
         user.setRankId(resultSet.getInt("RankID"));
         user.setRoleId(resultSet.getInt("RoleID"));
-//        user.setDateOfBirth(resultSet.getDate("DateOfBirth").toLocalDate());
+
         Date sqlDate = resultSet.getDate("DateOfBirth");
-        if (sqlDate != null) {
-            user.setDateOfBirth(((java.sql.Date) sqlDate).toLocalDate());
-        } else {
-            user.setDateOfBirth(null);
-        }
+        LocalDate localDate = (sqlDate != null) ? ((java.sql.Date) sqlDate).toLocalDate() : null;
+        user.setDateOfBirth(localDate);
+
+
         user.setLastLogin(resultSet.getDate("LastLogin"));
         user.setProfilePicture(resultSet.getString("ProfilePicture"));
         user.setBackgroundPicture(resultSet.getString("BackgroundPicture"));
@@ -368,14 +379,11 @@ public class UserRepositoryImpl implements UserRepository {
                     user.setCreatedAt(resultSet.getString("CreatedAt"));
                     user.setRankId(resultSet.getInt("RankId"));
                     user.setRoleId(resultSet.getInt("RoleId"));
-//                    user.setDateOfBirth(resultSet.getDate("DateOfBirth").toLocalDate());
-//                    user.setDateOfBirth(resultSet.getDate("DateOfBirth"));
+
                     Date sqlDate = resultSet.getDate("DateOfBirth");
-                    if (sqlDate != null) {
-                        user.setDateOfBirth(((java.sql.Date) sqlDate).toLocalDate());
-                    } else {
-                        user.setDateOfBirth(null);
-                    }
+                    LocalDate localDate = (sqlDate != null) ? ((java.sql.Date) sqlDate).toLocalDate() : null;
+                    user.setDateOfBirth(localDate);
+//                    user.setDateOfBirth(resultSet.getDate("DateOfBirth"));
 
                     user.setLastLogin(resultSet.getDate("LastLogin"));
                     user.setAccountId(resultSet.getInt("AccountId"));
@@ -430,13 +438,10 @@ public class UserRepositoryImpl implements UserRepository {
                 user.setBiography(resultSet.getString("Biography"));
                 user.setAddress(resultSet.getString("Address"));
                 user.setPhoneNumber(resultSet.getString("PhoneNumber"));
-//                user.setDateOfBirth(resultSet.getDate("DateOfBirth").toLocalDate());
+
                 Date sqlDate = resultSet.getDate("DateOfBirth");
-                if (sqlDate != null) {
-                    user.setDateOfBirth(((java.sql.Date) sqlDate).toLocalDate());
-                } else {
-                    user.setDateOfBirth(null);
-                }
+                LocalDate localDate = (sqlDate != null) ? ((java.sql.Date) sqlDate).toLocalDate() : null;
+                user.setDateOfBirth(localDate);
                 user.setLastLogin(resultSet.getDate("LastLogin"));
                 user.setCreatedAt(resultSet.getString("CreatedAt"));
                 user.setTotalLikes(resultSet.getInt("totalLikes"));
