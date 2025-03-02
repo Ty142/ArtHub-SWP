@@ -27,4 +27,6 @@ public interface UserService {
 
     List<User> getTop10PopularUsers();
     boolean updateUser(User user) throws SQLException;
+    void updateCoinsAmount(int accountId, double amount);
+
 }
