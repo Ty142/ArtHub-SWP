@@ -6,7 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="6d276f43-2b7c-4037-965e-bdcca837b8ed" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/repository/impl/InteractRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/repository/impl/InteractRepositoryImpl.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -100,6 +99,8 @@
       <workItem from="1740676604516" duration="690000" />
       <workItem from="1740721650907" duration="4758000" />
       <workItem from="1740738261646" duration="6444000" />
+      <workItem from="1740807853838" duration="9905000" />
+      <workItem from="1740854519321" duration="645000" />
     </task>
     <servers />
   </component>
