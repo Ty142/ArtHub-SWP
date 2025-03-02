@@ -90,6 +90,11 @@ import java.util.*;
         return userRepository.updateUser(user);
     }
 
+    @Override
+    public void updateCoinsAmount(int accountId, double amount) {
+        userRepository.updateCoinsAmount(accountId, amount);
+    }
+
 }
 
 

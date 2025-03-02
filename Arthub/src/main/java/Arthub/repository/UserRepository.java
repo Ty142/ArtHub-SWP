@@ -23,4 +23,5 @@ public interface UserRepository {
     String findBackgroundByAccountId(int AccountId);
     List<User> getTop10PopularUsers();
     boolean updateUser(User user);
+    void updateCoinsAmount(int accountId, double amount);
 }

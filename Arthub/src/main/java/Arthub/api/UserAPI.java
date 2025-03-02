@@ -1,11 +1,14 @@
 package Arthub.api;
 
 import Arthub.dto.FileUploadDTO;
+import Arthub.dto.FollowDTO;
 import Arthub.dto.UserDTO;
+import Arthub.entity.Follow;
 import Arthub.entity.User;
 import Arthub.repository.AccountRepository;
 import Arthub.repository.UserRepository;
 import Arthub.repository.impl.ArtworkRepositoryImpl;
+import Arthub.service.FollowService;
 import Arthub.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +18,7 @@ import java.util.ArrayList;
 import java.io.IOException;
 import java.util.List;
 
+import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 import utils.ImageUtils;
 
 @RestController
@@ -27,6 +31,9 @@ public class UserAPI {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    FollowService followService;
 
 
     ImageUtils imageUtils = new ImageUtils();
@@ -116,5 +123,26 @@ public class UserAPI {
         }
     }
 
+    @PostMapping("/followers")
+    public ResponseEntity<String> followUser(@RequestBody Follow follow) {
+        try {
+             followService.getFollowing(follow);
+            System.out.println("Follow user");
+            return ResponseEntity.ok("Success");
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().body("error");
+        }
+    }
+
+    @DeleteMapping("/followers")
+    public ResponseEntity<String> deleteFollow(@RequestBody FollowDTO followDTO) {
+        try {
+            followService.DeleteFollow(followDTO.getFollowerID(),followDTO.getFollowingID());
+            System.out.println("Follow user");
+            return ResponseEntity.ok("Success");
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().body("error");
+        }
+    }
 
 }
