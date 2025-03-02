@@ -289,7 +289,6 @@ public class UserRepositoryImpl implements UserRepository {
         }
     }
 
-
     /**
      * Hàm ánh xạ `ResultSet` sang đối tượng `User`.
      */
