@@ -274,6 +274,20 @@ public class UserRepositoryImpl implements UserRepository {
         }
     }
 
+    @Override
+    public void updateCoinsAmount(int accountId, double amount) {
+        String sql = "EXEC AddCoinsToUser @UserID = ?, @Amount = ?";
+        utils.ConnectUtils db = utils.ConnectUtils.getInstance();
+
+        try (Connection connection = db.openConection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, accountId);
+            statement.setDouble(2, amount);
+            statement.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
 
     /**
