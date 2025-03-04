@@ -5,12 +5,14 @@ public class RankDTO {
     private int accountID;
     private int typeID;
     private String dayToRentRankAt;
+    private double price;
 
-    public RankDTO(int rankID, int accountID, int typeID, String dayToRentRankAt) {
+    public RankDTO(int rankID, int accountID, int typeID, String dayToRentRankAt, double price) {
         this.rankID = rankID;
         this.accountID = accountID;
         this.typeID = typeID;
         this.dayToRentRankAt = dayToRentRankAt;
+        this.price = price;
     }
 
     public RankDTO(){
@@ -46,5 +48,13 @@ public class RankDTO {
 
     public void setDayToRentRankAt(String dayToRentRankAt) {
         this.dayToRentRankAt = dayToRentRankAt;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
     }
 }
