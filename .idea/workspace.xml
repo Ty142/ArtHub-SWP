@@ -5,40 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6d276f43-2b7c-4037-965e-bdcca837b8ed" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/api/TopicAPI.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/converter/RankConverter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/converter/ThreadConverter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/dto/TopicDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/entity/Thread.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/entity/Topic.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/repository/ThreadRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/repository/TopicRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/repository/TypeOfTopicRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/repository/impl/ThreadRepositoryImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/repository/impl/TopicRepositoryImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/repository/impl/TypeOfTopicRepositoryImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/service/Impl/RankServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/service/Impl/TopicServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/service/Impl/TypeOfTopicServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/service/RankService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/service/TopicService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/service/TypeOfTopicService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/api/RankAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/api/RankAPI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/dto/RankDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/dto/RankDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/repository/RankRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/repository/RankRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/repository/TypeOfRankRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/repository/TypeOfRankRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/repository/UserRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/repository/impl/RankRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/repository/impl/RankRepositoryImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/repository/impl/TypeOffRankRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/repository/impl/TypeOffRankRepositoryImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/repository/impl/UserRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/repository/impl/UserRepositoryImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/api/RankAPI.class" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/target/classes/Arthub/api/RankAPI.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/dto/RankDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/target/classes/Arthub/dto/RankDTO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/repository/RankRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/target/classes/Arthub/repository/RankRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/repository/UserRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/target/classes/Arthub/repository/UserRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/repository/impl/RankRepositoryImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/target/classes/Arthub/repository/impl/RankRepositoryImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/repository/impl/TypeOffRankRepositoryImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/target/classes/Arthub/repository/impl/TypeOffRankRepositoryImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/repository/impl/UserRepositoryImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/target/classes/Arthub/repository/impl/UserRepositoryImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/api/TopicAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/api/TopicAPI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/dto/ThreadDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/dto/ThreadDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/dto/TopicDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/dto/TopicDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/repository/TopicRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/repository/TopicRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/repository/impl/TopicRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/repository/impl/TopicRepositoryImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/service/Impl/TopicServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/service/Impl/TopicServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/api/TopicAPI.class" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/target/classes/Arthub/api/TopicAPI.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/dto/TopicDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/target/classes/Arthub/dto/TopicDTO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/repository/ThreadRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/target/classes/Arthub/repository/ThreadRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/repository/TopicRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/target/classes/Arthub/repository/TopicRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/repository/impl/ThreadRepositoryImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/target/classes/Arthub/repository/impl/ThreadRepositoryImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/repository/impl/TopicRepositoryImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/target/classes/Arthub/repository/impl/TopicRepositoryImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/service/Impl/TopicServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/target/classes/Arthub/service/Impl/TopicServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/service/TopicService.class" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/target/classes/Arthub/service/TopicService.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -168,6 +149,7 @@
       <workItem from="1741055348682" duration="9311000" />
       <workItem from="1741070633779" duration="98000" />
       <workItem from="1741071897305" duration="8590000" />
+      <workItem from="1741096709094" duration="142000" />
     </task>
     <servers />
   </component>
@@ -265,12 +247,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/Arthub/src/main/java/Arthub/repository/impl/TopicRepositoryImpl.java</url>
-          <line>18</line>
-          <option name="timeStamp" value="42" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/Arthub/src/main/java/Arthub/repository/impl/TopicRepositoryImpl.java</url>
-          <line>30</line>
+          <line>29</line>
           <option name="timeStamp" value="44" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -287,6 +264,46 @@
           <url>file://$PROJECT_DIR$/Arthub/src/main/java/Arthub/repository/impl/ThreadRepositoryImpl.java</url>
           <line>31</line>
           <option name="timeStamp" value="56" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Arthub/src/main/java/Arthub/api/TopicAPI.java</url>
+          <line>35</line>
+          <option name="timeStamp" value="57" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Arthub/src/main/java/Arthub/service/Impl/TopicServiceImpl.java</url>
+          <line>48</line>
+          <option name="timeStamp" value="61" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Arthub/src/main/java/Arthub/service/Impl/TopicServiceImpl.java</url>
+          <line>34</line>
+          <option name="timeStamp" value="62" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Arthub/src/main/java/Arthub/service/Impl/TopicServiceImpl.java</url>
+          <line>35</line>
+          <option name="timeStamp" value="63" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Arthub/src/main/java/Arthub/service/Impl/TopicServiceImpl.java</url>
+          <line>36</line>
+          <option name="timeStamp" value="65" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Arthub/src/main/java/Arthub/repository/impl/ThreadRepositoryImpl.java</url>
+          <line>89</line>
+          <option name="timeStamp" value="69" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Arthub/src/main/java/Arthub/repository/impl/ThreadRepositoryImpl.java</url>
+          <line>88</line>
+          <option name="timeStamp" value="70" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Arthub/src/main/java/Arthub/repository/impl/ThreadRepositoryImpl.java</url>
+          <line>92</line>
+          <option name="timeStamp" value="71" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/Arthub/src/main/java/Arthub/api/RankAPI.java</url>
@@ -314,6 +331,51 @@
             <option name="WATCH_EXIT" value="false" />
           </properties>
           <option name="timeStamp" value="38" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/Arthub/src/main/java/Arthub/service/TopicService.java</url>
+          <line>11</line>
+          <properties class="Arthub.service.TopicService" method="getAllTopics">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="58" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/Arthub/src/main/java/Arthub/service/TopicService.java</url>
+          <line>13</line>
+          <properties class="Arthub.service.TopicService" method="getAllThreads">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="59" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/Arthub/src/main/java/Arthub/service/Impl/TopicServiceImpl.java</url>
+          <line>30</line>
+          <properties class="Arthub.service.Impl.TopicServiceImpl" method="getAllTopics">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="60" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/Arthub/src/main/java/Arthub/api/TopicAPI.java</url>
+          <line>39</line>
+          <properties class="Arthub.api.TopicAPI" method="GetAllThread">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="67" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/Arthub/src/main/java/Arthub/api/TopicAPI.java</url>
+          <line>44</line>
+          <properties class="Arthub.api.TopicAPI" method="InsertThread">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="68" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

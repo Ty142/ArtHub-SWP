@@ -6,6 +6,8 @@ import Arthub.dto.TopicDTO;
 import Arthub.entity.Thread;
 import Arthub.entity.Topic;
 import Arthub.entity.TypeOfTopic;
+import Arthub.repository.ThreadRepository;
+import Arthub.repository.TopicRepository;
 import Arthub.service.TopicService;
 import Arthub.service.TypeOfTopicService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,8 @@ public class TopicAPI {
     TypeOfTopicService typeOfTopicService;
     @Autowired
     TopicService topicService;
+    @Autowired
+    TopicRepository topicRepository;
     @GetMapping("/typeTopic")
     public List<TypeOfTopic> getTypeTopics() {
             return typeOfTopicService.GetAllTypeOfTopics();
@@ -32,8 +36,8 @@ public class TopicAPI {
             return topicService.getAllTopics(typeID);
     }
 
-    @GetMapping("/{topicID}/GetThread")
-    public List<Thread> GetAllThread(@PathVariable("topicID") int topicID) {
+    @GetMapping("/{TopicID}/GetThread")
+    public List<Thread> GetAllThread(@PathVariable("TopicID") int topicID) {
             return topicService.getAllThreads(topicID);
     }
 

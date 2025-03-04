@@ -8,11 +8,7 @@ public class TopicDTO {
     private int TypeID;
     private int UserID;
     private String Description;
-    private String UserName;
-    private String AvatarURL;
     private int TotalThread;
-    private LocalDate DateCreated;
-
 
     public int getTopicID() {
         return TopicID;
@@ -54,33 +50,11 @@ public class TopicDTO {
         Description = description;
     }
 
-    public String getUserName() {
-        return UserName;
-    }
-
-    public void setUserName(String userName) {
-        UserName = userName;
-    }
-
-    public String getAvatarURL() {
-        return AvatarURL;
-    }
-
-    public void setAvatarURL(String avatarURL) {
-        AvatarURL = avatarURL;
-    }
-
     public int getTotalThread() {
         return TotalThread;
     }
 
     public void setTotalThread(int totalThread) {
         TotalThread = totalThread;
-    }
-    public LocalDate getDateCreated() {
-        return DateCreated;
-    }
-    public void setDateCreated(LocalDate dateCreated) {
-        DateCreated = dateCreated;
     }
 }

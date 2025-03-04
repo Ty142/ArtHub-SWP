@@ -1,15 +1,38 @@
 package Arthub.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonMerge;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.time.LocalDate;
 
+
 public class ThreadDTO {
+    @JsonProperty("ThreadID")
     private int ThreadID;
+
+    @JsonProperty("TitleThread")
     private String TitleThread;
+
+    @JsonProperty("ThreadDescription")
     private String ThreadDescription;
+
+    @JsonProperty("Likes")
     private int Likes;
+
+    @JsonProperty("Comments")
     private int Comments;
+
+    @JsonProperty("DateCreated")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate DateCreated;
+
+    @JsonProperty("TopicID")
     private int TopicID;
+
+    @JsonProperty("UserID")
     private int UserID;
 
     public int getThreadID() {
