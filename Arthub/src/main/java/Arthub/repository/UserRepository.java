@@ -24,4 +24,5 @@ public interface UserRepository {
     List<User> getTop10PopularUsers();
     boolean updateUser(User user);
     void updateCoinsAmount(int accountId, double amount);
+    double getCoinsAmount(int accountId);
 }
