@@ -17,7 +17,6 @@ import java.util.List;
 public class TopicRepositoryImpl implements TopicRepository {
 
 
-
     @Override
     public List<Topic> getAllTopicsPostByTypeTopicID(int TypeID) {
         String sql = "SELECT * FROM Topic WHERE TypeID =? ORDER BY TopicID DESC";
@@ -43,5 +42,50 @@ public class TopicRepositoryImpl implements TopicRepository {
         }
         return topics;
 
+    }
+
+    @Override
+    public int getIDTopicByNameTopic(String Name) {
+        String sql = "SELECT TopicID FROM Topic WHERE TitleTopic =?";
+        try {
+            utils.ConnectUtils db = utils.ConnectUtils.getInstance();
+            Connection conn = db.openConection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, Name);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("TopicID");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return 0;
+    }
+
+    @Override
+    public Topic getTopicByTopicID(int TopicID) {
+        String sql = "SELECT * FROM Topic WHERE TopicID =?";
+        try {
+            utils.ConnectUtils db = utils.ConnectUtils.getInstance();
+            Connection conn = db.openConection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, TopicID);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                Topic topic = new Topic();
+                topic.setTopicId(rs.getInt("TopicID"));
+                topic.setTitle(rs.getString("TitleTopic"));
+                topic.setDescription(rs.getString("Description"));
+                topic.setTypeId(rs.getInt("TypeID"));
+                return topic;
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return null;
     }
 }
