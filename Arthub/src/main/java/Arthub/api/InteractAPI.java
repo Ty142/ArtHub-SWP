@@ -79,7 +79,7 @@ public class InteractAPI {
         int likeCount = interactService.getLikeCount(artworkID);
         return ResponseEntity.ok(likeCount);
     }
-    // ------- End Like API --------
+    // ------- End Like API --------m
 
     @PutMapping("/update")
     public String updateInteractData(@RequestBody Map<String, String> body) {

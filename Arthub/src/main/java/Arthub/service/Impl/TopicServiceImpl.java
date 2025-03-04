@@ -39,7 +39,16 @@ public class TopicServiceImpl implements TopicService {
             topicDTO.setTypeID(topic.getTypeId());
             topicDTO.setTopicID(topic.getTopicId());
             topicDTO.setTotalThread(threadRepository.TotalThreadByTopicID(topic.getTopicId()));
-            topicDTO.setUserID(thread.getUserID());
+            if (thread != null) {
+                topicDTO.setUserID(thread.getUserID());
+                topicDTO.setDateCreated(thread.getDateCreated());
+
+            }
+            else {
+                topicDTO.setUserID(0);
+            topicDTO.setDateCreated(null); }
+
+            topicsDTO.add(topicDTO);
         }
         return topicsDTO;
     }
