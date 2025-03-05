@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="1d402a63-0540-4b85-8c34-bd5b7c258d71" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/repository/ThreadRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/repository/ThreadRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/repository/impl/ThreadRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/repository/impl/ThreadRepositoryImpl.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "git-widget-placeholder": "khang",
+    "node.js.selected.package.tslint": "(autodetect)"
+  }
+}]]></component>
+  <component name="TaskManager">
+    <servers />
+  </component>
+  <component name="XDebuggerManager">
+    <pin-to-top-manager>
+      <pinned-members>
+        <PinnedItemInfo parentTag="Arthub.entity.Artwork" memberName="artworkTags" />
+        <PinnedItemInfo parentTag="Arthub.dto.ArtworkDTO" memberName="status" />
+        <PinnedItemInfo parentTag="java.util.Optional" memberName="value" />
+        <PinnedItemInfo parentTag="Arthub.dto.ArtworkDTO" memberName="CreatorID" />
+      </pinned-members>
+    </pin-to-top-manager>
+  </component>
+</project>

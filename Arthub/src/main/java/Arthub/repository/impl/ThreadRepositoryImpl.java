@@ -105,4 +105,38 @@ public class ThreadRepositoryImpl implements ThreadRepository {
         }
     }
 
+    @Override
+    public List<Thread> GetThreadsByThreadId(int threadID) {
+        String sql = "SELECT * FROM Thread WHERE ThreadID = ? ORDER BY ThreadID DESC";
+        List<Thread> threads = new ArrayList<>();
+        try {
+            utils.ConnectUtils db = utils.ConnectUtils.getInstance();
+            Connection conn = db.openConection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, threadID);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Thread t = new Thread();
+                t.setThreadID(rs.getInt("ThreadID"));
+                t.setTitleThread(rs.getString("TitleThread"));
+                t.setThreadDescription(rs.getString("ThreadDescription"));
+                t.setLikes(rs.getInt("Likes"));
+                t.setComments(rs.getInt("Comments"));
+                Timestamp sqlTimestamp = rs.getTimestamp("DateCreated");
+                if (sqlTimestamp != null) {
+                    LocalDateTime localDateTime = sqlTimestamp.toLocalDateTime();
+                    t.setDateCreated(localDateTime);
+                }
+                t.setTopicID(rs.getInt("TopicID"));
+                t.setUserID(rs.getInt("UserID"));
+                threads.add(t);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return threads;
+    }
+
 }

@@ -14,4 +14,6 @@ public interface ThreadRepository {
     int TotalThreadByTopicID(int topicID);
 
     void InsertThread(Thread thread);
+
+    List<Thread> GetThreadsByThreadId(int threadID);
 }
