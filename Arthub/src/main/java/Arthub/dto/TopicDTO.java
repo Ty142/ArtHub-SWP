@@ -1,6 +1,7 @@
 package Arthub.dto;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class TopicDTO {
     private int TopicID;
@@ -8,6 +9,7 @@ public class TopicDTO {
     private int TypeID;
     private int UserID;
     private String Description;
+    private LocalDateTime DateCreated;
     private int TotalThread;
 
     public int getTopicID() {
@@ -56,5 +58,13 @@ public class TopicDTO {
 
     public void setTotalThread(int totalThread) {
         TotalThread = totalThread;
+    }
+
+    public LocalDateTime getDateCreated() {
+        return DateCreated;
+    }
+
+    public void setDateCreated(LocalDateTime dateCreated) {
+        DateCreated = dateCreated;
     }
 }
