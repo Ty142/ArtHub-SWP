@@ -4,27 +4,24 @@ import Arthub.entity.Follow;
 import Arthub.repository.FollowRepository;
 import org.springframework.stereotype.Repository;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.ResultSet;
+import java.sql.*;
 import java.time.LocalDate;
 
 @Repository
 public class FollowRepositoryImpl implements FollowRepository{
     @Override
     public void updateFollowing(Follow follow) {
-        String sql = "INSERT INTO Following values (?,?,?)";
+        String procedureCall = "{call UpdateOrInsertFollowing(?, ?, ?)}";
         try {
             utils.ConnectUtils db = utils.ConnectUtils.getInstance();
             Connection conn =  db.openConection();
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setInt(1, follow.getFollowerId());
-            ps.setInt(2, follow.getFollowingId());
+            CallableStatement cs = conn.prepareCall(procedureCall);
+            cs.setInt(1, follow.getFollowerId());
+            cs.setInt(2, follow.getFollowingId());
             LocalDate localDate = follow.getDateFollow();
             java.sql.Date sqlDate = java.sql.Date.valueOf(localDate);
-            ps.setDate(3, sqlDate);
-            ps.executeUpdate();
+            cs.setDate(3, sqlDate);
+            cs.executeUpdate();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -32,8 +29,7 @@ public class FollowRepositoryImpl implements FollowRepository{
 
     @Override
     public void deleteFollow(int FollowerID, int FollowingID) {
-        String sql ="DELETE FROM Following WHERE FollowerID = ? AND FollowingID = ?";
-
+        String sql = "UPDATE Following SET Status = 0 WHERE FollowerID = ? AND FollowingID = ?";
         try {
             utils.ConnectUtils db = utils.ConnectUtils.getInstance();
             Connection conn =  db.openConection();
@@ -50,7 +46,7 @@ public class FollowRepositoryImpl implements FollowRepository{
 
     @Override
     public boolean checkFollowExists(int followerId, int followingId) {
-        String sql = "SELECT COUNT(*) FROM Following WHERE followerID = ? AND followingID = ?";
+        String sql = "SELECT COUNT(*) FROM Following WHERE followerID = ? AND followingID = ? AND Status = 1";
         try {
             utils.ConnectUtils db = utils.ConnectUtils.getInstance();
             Connection conn = db.openConection();
