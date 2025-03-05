@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 
 public class ThreadDTO {
@@ -26,8 +27,8 @@ public class ThreadDTO {
     private int Comments;
 
     @JsonProperty("DateCreated")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    private LocalDate DateCreated;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssX")
+    private LocalDateTime DateCreated;
 
     @JsonProperty("TopicID")
     private int TopicID;
@@ -75,11 +76,11 @@ public class ThreadDTO {
         Comments = comments;
     }
 
-    public LocalDate getDateCreated() {
+    public LocalDateTime getDateCreated() {
         return DateCreated;
     }
 
-    public void setDateCreated(LocalDate dateCreated) {
+    public void setDateCreated(LocalDateTime dateCreated) {
         DateCreated = dateCreated;
     }
 

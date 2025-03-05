@@ -1,6 +1,6 @@
 package Arthub.entity;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class Thread {
         private int threadID;
@@ -8,7 +8,7 @@ public class Thread {
         private String threadDescription;
         private int likes;
         private int comments;
-        private LocalDate dateCreated;
+        private LocalDateTime dateCreated;
         private int topicID;
         private int userID;
 
@@ -33,8 +33,8 @@ public class Thread {
         public int getComments() { return comments; }
         public void setComments(int comments) { this.comments = comments; }
 
-        public LocalDate getDateCreated() { return dateCreated; }
-        public void setDateCreated(LocalDate dateCreated) { this.dateCreated = dateCreated; }
+        public LocalDateTime getDateCreated() { return dateCreated; }
+        public void setDateCreated(LocalDateTime dateCreated) { this.dateCreated = dateCreated; }
 
         public int getTopicID() { return topicID; }
         public void setTopicID(int topicID) { this.topicID = topicID; }
