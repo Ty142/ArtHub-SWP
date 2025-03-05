@@ -26,7 +26,7 @@ public class ThreadDTO {
     private int Comments;
 
     @JsonProperty("DateCreated")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDate DateCreated;
 
     @JsonProperty("TopicID")
