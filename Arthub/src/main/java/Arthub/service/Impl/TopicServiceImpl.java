@@ -63,4 +63,9 @@ public class TopicServiceImpl implements TopicService {
         threadRepository.InsertThread(thread);
     }
 
+    @Override
+    public Thread getThreadByThreadID(int ThreadID) {
+       return threadRepository.GetThreadsByThreadId(ThreadID);
+    }
+
 }

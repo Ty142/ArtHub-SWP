@@ -47,4 +47,10 @@ public class TopicAPI {
         return ResponseEntity.ok("Thread created successfully");
     }
 
+    @GetMapping("/Thread/{threadID}")
+    public Thread GetThread(@PathVariable("threadID") int threadID) {
+        return topicService.getThreadByThreadID(threadID);
+    }
+
+
 }

@@ -106,9 +106,8 @@ public class ThreadRepositoryImpl implements ThreadRepository {
     }
 
     @Override
-    public List<Thread> GetThreadsByThreadId(int threadID) {
-        String sql = "SELECT * FROM Thread WHERE ThreadID = ? ORDER BY ThreadID DESC";
-        List<Thread> threads = new ArrayList<>();
+    public Thread GetThreadsByThreadId(int threadID) {
+        String sql = "SELECT * FROM Thread WHERE ThreadID = ?";
         try {
             utils.ConnectUtils db = utils.ConnectUtils.getInstance();
             Connection conn = db.openConection();
@@ -129,14 +128,14 @@ public class ThreadRepositoryImpl implements ThreadRepository {
                 }
                 t.setTopicID(rs.getInt("TopicID"));
                 t.setUserID(rs.getInt("UserID"));
-                threads.add(t);
+                return t;
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        return threads;
+        return null;
     }
 
 }

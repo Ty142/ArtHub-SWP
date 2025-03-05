@@ -15,4 +15,6 @@ public interface    TopicService {
 
     void addTheThread(ThreadDTO threadDTO);
 
+    Thread getThreadByThreadID(int ThreadID);
+
 }
