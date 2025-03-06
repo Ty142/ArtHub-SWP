@@ -41,6 +41,11 @@ public class TopicAPI {
             return topicService.getAllThreads(topicID);
     }
 
+    @GetMapping("/topic/title/{topicID}")
+    public Topic GetTopic(@PathVariable("topicID") int topicID) {
+        return topicRepository.getTopicByTopicID(topicID);
+    }
+
     @PostMapping("/Thread")
     public ResponseEntity<String> InsertThread(@RequestBody ThreadDTO threadDTO){
         topicService.addTheThread(threadDTO);
