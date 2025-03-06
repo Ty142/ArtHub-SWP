@@ -5,6 +5,7 @@ import Arthub.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 
@@ -17,7 +18,7 @@ public class CommentAPI {
 
     // API để lấy tất cả các bình luận
     @GetMapping("/")
-    public List<Comment> getAllComments() {
+    public List<Comment> getAllComments() throws SQLException {
         return commentService.getAllComments();
     }
 
@@ -29,7 +30,7 @@ public class CommentAPI {
 
     // API để gửi bình luận
     @PostMapping("/")
-    public String postComment(@RequestBody Comment comment) {
+    public String postComment(@RequestBody Comment comment) throws Exception {
         // Lưu bình luận vào database
         comment.setCreatedDate(new Date());
         commentService.saveComment(comment);

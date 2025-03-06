@@ -6,6 +6,7 @@ import Arthub.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.SQLException;
 import java.util.List;
 
 @Service
@@ -16,13 +17,13 @@ public class CommentServiceImpl implements CommentService {
 
     // Lưu bình luận vào database
     @Override
-    public void saveComment(Comment comment) {
+    public void saveComment(Comment comment) throws Exception {
         commentRepository.save(comment);
     }
 
     // Các phương thức khác
     @Override
-    public List<Comment> getAllComments() {
+    public List<Comment> getAllComments() throws SQLException {
         return commentRepository.getAllComments();
     }
 
