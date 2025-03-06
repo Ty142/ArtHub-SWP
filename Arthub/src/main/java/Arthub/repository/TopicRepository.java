@@ -11,4 +11,6 @@ public interface TopicRepository {
     int getIDTopicByNameTopic(String Name);
 
     Topic getTopicByTopicID(int TopicID);
+
+
 }

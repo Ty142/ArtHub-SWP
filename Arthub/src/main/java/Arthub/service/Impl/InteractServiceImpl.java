@@ -95,6 +95,7 @@ public class InteractServiceImpl implements InteractService {
         }
     }
 
+
     private boolean interactExists(int artworkID, int userID, int activityID, Date date) {
         List<Interact> interacts = interactRepository.findByArtworkIDAndUserIDAndActivityID(artworkID, userID, activityID, String.valueOf(date));
         return !interacts.isEmpty();

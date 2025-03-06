@@ -3,12 +3,11 @@ package Arthub.service.Impl;
 import Arthub.converter.ThreadConverter;
 import Arthub.dto.ThreadDTO;
 import Arthub.dto.TopicDTO;
+import Arthub.entity.Comment;
 import Arthub.entity.Thread;
 import Arthub.entity.Topic;
 import Arthub.entity.User;
-import Arthub.repository.ThreadRepository;
-import Arthub.repository.TopicRepository;
-import Arthub.repository.UserRepository;
+import Arthub.repository.*;
 import Arthub.service.TopicService;
 import Arthub.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +25,10 @@ public class TopicServiceImpl implements TopicService {
     ThreadRepository threadRepository;
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    CommentRepository commentRepository;
+    @Autowired
+    InteractRepository interactRepository;
     ThreadConverter threadConverter = new ThreadConverter();
     @Override
     public List<TopicDTO> getAllTopics(int TypeID) {
@@ -67,5 +70,37 @@ public class TopicServiceImpl implements TopicService {
     public Thread getThreadByThreadID(int ThreadID) {
        return threadRepository.GetThreadsByThreadId(ThreadID);
     }
+
+    @Override
+    public List<Comment> getCommentByThreadID(int ThreadID) {
+        return commentRepository.getAllCommentsByThreadID(ThreadID);
+    }
+
+    @Override
+    public void addCommentToThread(Comment comment) {
+        commentRepository.saveCommentInThread(comment);
+    }
+
+    @Override
+    public boolean ToggleLikeThread(int userID, int ThreadID) {
+       return interactRepository.ToggleLikeThread(userID, ThreadID);
+
+    }
+
+    @Override
+    public boolean isThreadLiked(int userID, int threadID) {
+        return interactRepository.isThreadLiked(userID, threadID);
+    }
+
+    @Override
+    public List<Thread> getLikedThreads(int userID) {
+        return interactRepository.getLikedThreads(userID);
+    }
+
+    @Override
+    public int getThreadLikeCount(int threadID) {
+        return interactRepository.getThreadLikeCount(threadID);
+    }
+
 
 }
