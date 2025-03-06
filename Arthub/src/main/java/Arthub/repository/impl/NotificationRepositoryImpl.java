@@ -8,6 +8,8 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public class NotificationRepositoryImpl implements NotificationRepository {
 
@@ -27,5 +29,18 @@ public class NotificationRepositoryImpl implements NotificationRepository {
                 "WHERE f.FollowingID = ? AND f.FollowerID = ?";
         return jdbcTemplate.queryForObject(sql, new Object[]{followingID, followerID}, new BeanPropertyRowMapper<>(Notification.class));
     }
+
+    @Override
+    public List<Notification> getNotificationsOfTheUserFromUserId(int userId) {
+        String sql = "SELECT * FROM Notification WHERE ProfileNoti = ?";
+        return jdbcTemplate.query(sql, new Object[]{userId}, new BeanPropertyRowMapper<>(Notification.class));
+    }
+
+    @Override
+    public void readNotificationByUserId(int userId) {
+        String sql = "UPDATE Notification SET is_read = 1 WHERE ProfileNoti = ?";
+        jdbcTemplate.update(sql, new Object[]{userId});
+    }
+
 
 }

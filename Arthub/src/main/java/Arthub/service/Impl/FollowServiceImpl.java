@@ -1,6 +1,7 @@
 package Arthub.service.Impl;
 
 import Arthub.entity.Follow;
+import Arthub.entity.User;
 import Arthub.event.UserInteractionEvent;
 import Arthub.repository.FollowRepository;
 import Arthub.service.FollowService;
@@ -43,5 +44,10 @@ public class FollowServiceImpl implements FollowService{
         followRepository.deleteFollow(followerId,followingId);
         followRepository.deleteFollowerCountOfFollowerByFollowingId(followingId);
         followRepository.deleteFollowCountsOfFollowingByFollowerId(followerId);
+    }
+
+    @Override
+    public User getFollowingUserFromFollowID(int followerId) throws SQLException {
+        return followRepository.getFollowingUserFromFollowID(followerId);
     }
 }

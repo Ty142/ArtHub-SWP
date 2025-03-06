@@ -7,6 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/notification")
 public class NotificationAPI {
@@ -28,5 +30,24 @@ public class NotificationAPI {
         }
     }
 
+    @GetMapping("{userId}")
+    public ResponseEntity<List<Notification>> getNotificationsOfTheUserFromUserId(@PathVariable("userId") int userId) {
+        List<Notification> notifications = notificationService.getNotificationsOfTheUserFromUserId(userId);
+        if (notifications.isEmpty()) {
+            return ResponseEntity.notFound().build();
 
+        } else {
+            return ResponseEntity.ok(notifications);
+        }
+    }
+
+    @PutMapping("{userId}")
+    public ResponseEntity<Notification> makeReadNotificationByUserId(@PathVariable("userId") int userId) {
+        try {
+            notificationService.readNotificationByUserId(userId);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }

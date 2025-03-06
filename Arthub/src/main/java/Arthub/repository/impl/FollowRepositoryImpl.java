@@ -1,11 +1,13 @@
 package Arthub.repository.impl;
 
 import Arthub.entity.Follow;
+import Arthub.entity.User;
 import Arthub.repository.FollowRepository;
 import org.springframework.stereotype.Repository;
 
 import java.sql.*;
 import java.time.LocalDate;
+import java.util.Date;
 
 @Repository
 public class FollowRepositoryImpl implements FollowRepository{
@@ -185,6 +187,51 @@ public class FollowRepositoryImpl implements FollowRepository{
         }
 
 
+    }
+
+    @Override
+    public User getFollowingUserFromFollowID(int followerID) throws SQLException {
+        String sql = "SELECT * FROM [User] u inner join Following f on f.FollowerID = u.UserID where f.FollowID =? ";
+        User user = null;
+        utils.ConnectUtils db = utils.ConnectUtils.getInstance();
+        try {
+            Connection connection = db.openConection();
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, followerID);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    user = new User();
+                    user.setUserId(resultSet.getInt("UserId"));
+                    user.setFirstName(resultSet.getString("FirstName"));
+                    user.setLastName(resultSet.getString("LastName"));
+                    user.setPhoneNumber(resultSet.getString("PhoneNumber"));
+                    user.setAddress(resultSet.getString("Address"));
+                    user.setBiography(resultSet.getString("Biography"));
+                    user.setCoins(resultSet.getDouble("Coins"));
+                    user.setCreatedAt(resultSet.getString("CreatedAt"));
+                    user.setRankId(resultSet.getInt("RankId"));
+                    user.setRoleId(resultSet.getInt("RoleId"));
+
+                    Date sqlDate = resultSet.getDate("DateOfBirth");
+                    LocalDate localDate = (sqlDate != null) ? ((java.sql.Date) sqlDate).toLocalDate() : null;
+                    user.setDateOfBirth(localDate);
+//                    user.setDateOfBirth(resultSet.getDate("DateOfBirth"));
+
+                    user.setLastLogin(resultSet.getDate("LastLogin"));
+                    user.setAccountId(resultSet.getInt("AccountId"));
+                    user.setProfilePicture(resultSet.getString("ProfilePicture"));
+                    user.setBackgroundPicture(resultSet.getString("BackgroundPicture"));
+                    user.setFollowCounts(resultSet.getInt("FollowCounts"));
+                    user.setFollowerCount(resultSet.getInt("FollowerCount"));
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Error fetching user by id", e);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        return user;
     }
 
 

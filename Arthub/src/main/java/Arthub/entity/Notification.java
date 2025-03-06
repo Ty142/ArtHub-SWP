@@ -12,8 +12,9 @@ public class Notification {
     private Integer  profileNoti;
     private Integer  artworkNoti;
     private byte isRead;
+    private Integer followID;
 
-    public Notification(int notificationId, String message, LocalDate createdAt, int interactId, int profileNoti, int artworkNoti, byte isRead) {
+    public Notification(int notificationId, String message, LocalDate createdAt, Integer interactId, Integer profileNoti, Integer artworkNoti, byte isRead, Integer FollowID) {
         this.notificationId = notificationId;
         this.message = message;
         this.createdAt = createdAt;
@@ -21,6 +22,7 @@ public class Notification {
         this.profileNoti = profileNoti;
         this.artworkNoti = artworkNoti;
         this.isRead = isRead;
+        this.followID = FollowID;
     }
 
     public Notification() {
@@ -31,6 +33,15 @@ public class Notification {
         this.profileNoti = 0;
         this.artworkNoti = 0;
         this.isRead = 0;
+        this.followID = 0;
+    }
+
+    public Integer getFollowID() {
+        return followID;
+    }
+
+    public void setFollowID(Integer followID) {
+        this.followID = followID;
     }
 
     public int getNotificationId() {
@@ -99,6 +110,7 @@ public class Notification {
                 ", profileNoti=" + profileNoti +
                 ", artworkNoti=" + artworkNoti +
                 ", isRead=" + isRead +
+                ", FollowID=" + followID +
                 '}';
     }
 }
