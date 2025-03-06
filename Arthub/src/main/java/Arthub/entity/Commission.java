@@ -17,6 +17,8 @@ public class Commission {
     private String message;
 
     public Commission() {
+        this.creationDate = new Date();
+        this.progress = 0;
     }
 
     public Commission(int commissionID, Integer requestor, Integer receiver, String phoneNumber, String email,
