@@ -9,4 +9,6 @@ public interface CommissionService {
     List<Commission> getAllCommissions();
     void updateCommissionAccept(int commissionId, Boolean accept, String message, Timestamp acceptanceDate);
     void updateCommissionProgress(int commissionId, int progress, Timestamp completionDate);
+    boolean saveCommission(Commission commission);
+
 }

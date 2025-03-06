@@ -2,6 +2,8 @@ package Arthub.api;
 
 import Arthub.entity.Commission;
 import Arthub.service.CommissionService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
@@ -10,14 +12,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/commissions")
 public class CommissionAPI {
-
-    private final CommissionService commissionService;
-
-    // Constructor injection
-    public CommissionAPI(CommissionService commissionService) {
-        this.commissionService = commissionService;
-    }
-
+    @Autowired
+    private CommissionService commissionService;
     @GetMapping
     public List<Commission> getAllCommissions() {
         return commissionService.getAllCommissions();
@@ -52,6 +48,18 @@ public class CommissionAPI {
             commissionService.updateCommissionProgress(commissionId, progress, new Timestamp(System.currentTimeMillis()));
         } else {
             commissionService.updateCommissionProgress(commissionId, progress, null);
+        }
+    }
+
+    @PostMapping("/request")
+    public ResponseEntity<Boolean> createCommission(@RequestBody Commission commission) {
+        boolean success = commissionService.saveCommission(commission);
+        if (success) {
+            System.out.println("Yêu cầu commission đã được lưu thành công!");
+            return ResponseEntity.ok(true);
+        } else {
+            System.out.println("Lỗi khi lưu commission.");
+            return ResponseEntity.ok(false);
         }
     }
 }
