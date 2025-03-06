@@ -8,6 +8,7 @@ public class Interact {
     private int userID;
     private int activityID;
     private Date dateOfInteract;
+    private int ThreadID;
 
     // Constructor mặc định
     public Interact() {}
@@ -35,4 +36,12 @@ public class Interact {
 
     public Date getDateOfInteract() { return dateOfInteract; }
     public void setDateOfInteract(Date dateOfInteract) { this.dateOfInteract = dateOfInteract; }
+
+    public int getThreadID() {
+        return ThreadID;
+    }
+
+    public void setThreadID(int threadID) {
+        ThreadID = threadID;
+    }
 }

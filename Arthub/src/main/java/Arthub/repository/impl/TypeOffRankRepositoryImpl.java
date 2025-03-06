@@ -1,8 +1,6 @@
 package Arthub.repository.impl;
 
 import Arthub.dto.RankDTO;
-import Arthub.entity.Rank;
-import Arthub.entity.Tag;
 import Arthub.entity.TypeOfRank;
 import Arthub.repository.TypeOfRankRepository;
 
