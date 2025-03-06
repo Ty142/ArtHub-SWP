@@ -2,7 +2,6 @@ package Arthub.api;
 
 import Arthub.entity.Commission;
 import Arthub.service.CommissionService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,8 +11,14 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/commissions")
 public class CommissionAPI {
-    @Autowired
-    private CommissionService commissionService;
+
+    private final CommissionService commissionService;
+
+    // Constructor injection
+    public CommissionAPI(CommissionService commissionService) {
+        this.commissionService = commissionService;
+    }
+
     @GetMapping
     public List<Commission> getAllCommissions() {
         return commissionService.getAllCommissions();

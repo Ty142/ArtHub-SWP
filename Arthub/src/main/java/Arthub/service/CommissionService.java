@@ -10,5 +10,4 @@ public interface CommissionService {
     void updateCommissionAccept(int commissionId, Boolean accept, String message, Timestamp acceptanceDate);
     void updateCommissionProgress(int commissionId, int progress, Timestamp completionDate);
     boolean saveCommission(Commission commission);
-
 }

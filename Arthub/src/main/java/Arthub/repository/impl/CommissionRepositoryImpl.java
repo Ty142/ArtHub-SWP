@@ -3,19 +3,14 @@ package Arthub.repository.impl;
 import Arthub.entity.Commission;
 import Arthub.repository.CommissionRepository;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Repository
 public class CommissionRepositoryImpl implements CommissionRepository {
-    @Autowired
-    private JdbcTemplate jdbcTemplate;
 
     @Override
     public List<Commission> findAllCommissions() {
@@ -130,7 +125,6 @@ public class CommissionRepositoryImpl implements CommissionRepository {
         }
     }
 
-
     @Override
     public boolean save(Commission commission) {
         String sql = "INSERT INTO [Arthub].[dbo].[Commission] ([Requestor], [Receiver], [PhoneNumber], [Email], [Description], [Accept], [CreationDate], [AcceptanceDate], [CompletionDate], [Progress], [Message]) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -144,7 +138,7 @@ public class CommissionRepositoryImpl implements CommissionRepository {
             statement.setString(4, commission.getEmail());
             statement.setString(5, commission.getDescription());
             statement.setBoolean(6, false);
-            statement.setTimestamp(7, new Timestamp(new Date().getTime()));
+            statement.setDate(7, new java.sql.Date(System.currentTimeMillis()));
             statement.setNull(8, java.sql.Types.TIMESTAMP);
             statement.setNull(9, java.sql.Types.TIMESTAMP);
             statement.setInt(10, 0);
