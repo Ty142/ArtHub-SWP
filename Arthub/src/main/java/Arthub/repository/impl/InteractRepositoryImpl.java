@@ -50,7 +50,7 @@ public class InteractRepositoryImpl implements InteractRepository {
 
     @Override
     public boolean isFavourite(int userID, int artworkID) {
-        String checkExistSQL = "SELECT COUNT(*) FROM Interact WHERE UserID = ? AND ArtworkID = ? AND ActivityId = 1";
+        String checkExistSQL = "SELECT COUNT(*) FROM Interact WHERE UserID = ? AND ArtworkID = ? AND ActivityId = 1 AND Status = 1";
         ConnectUtils db = ConnectUtils.getInstance();
 
         try (Connection connection = db.openConection();
@@ -142,7 +142,7 @@ public class InteractRepositoryImpl implements InteractRepository {
 
     @Override
     public boolean isLike(int userID, int artworkID) {
-        String checkExistSQL = "SELECT COUNT(*) FROM Interact WHERE UserID = ? AND ArtworkID = ? AND ActivityId = 2";
+        String checkExistSQL = "SELECT COUNT(*) FROM Interact WHERE UserID = ? AND ArtworkID = ? AND ActivityId = 2 AND Status = 1";
         ConnectUtils db = ConnectUtils.getInstance();
 
         try (Connection connection = db.openConection();
