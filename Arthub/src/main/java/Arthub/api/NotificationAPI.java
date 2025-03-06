@@ -32,12 +32,15 @@ public class NotificationAPI {
 
     @GetMapping("{userId}")
     public ResponseEntity<List<Notification>> getNotificationsOfTheUserFromUserId(@PathVariable("userId") int userId) {
+        try {
         List<Notification> notifications = notificationService.getNotificationsOfTheUserFromUserId(userId);
         if (notifications.isEmpty()) {
             return ResponseEntity.notFound().build();
 
         } else {
             return ResponseEntity.ok(notifications);
+        }} catch (Exception e){
+            return ResponseEntity.notFound().build();
         }
     }
 
