@@ -49,41 +49,37 @@ public class TopicAPI {
         return topicRepository.getTopicByTopicID(topicID);
     }
 
-    @PostMapping("/Thread")
+    @PostMapping("/thread")
     public ResponseEntity<String> InsertThread(@RequestBody ThreadDTO threadDTO){
         topicService.addTheThread(threadDTO);
         return ResponseEntity.ok("Thread created successfully");
     }
 
-    @GetMapping("/Thread/{threadID}")
+    @GetMapping("/thread/{threadID}")
     public Thread GetThread(@PathVariable("threadID") int threadID) {
         return topicService.getThreadByThreadID(threadID);
     }
 
-    @GetMapping("/topic/title/{topicID}")
-    public Topic GetTopic(@PathVariable("topicID") int topicID) {
-        return topicRepository.getTopicByTopicID(topicID);
-    }
 
-    @GetMapping("/topic/comments/{ThreadID}")
-    public List<Comment> GetThreadComments(@PathVariable("ThreadID") int threadID) {
+    @GetMapping("/thread/comments/{threadID}")
+    public List<Comment> GetThreadComments(@PathVariable("threadID") int threadID) {
         return topicService.getCommentByThreadID(threadID);
     }
 
-    @PostMapping("/topic/comments/")
+    @PostMapping("/thread/comments/")
     public ResponseEntity<String> InsertComment(@RequestBody Comment comment){
         topicService.addCommentToThread(comment);
         return ResponseEntity.ok("Comment created successfully");
     }
     //Còn reply lấy trong replayCommentAPI nhé
 
-    @PostMapping("topic/likes/toggel")
+    @PostMapping("thread/like/toggle")
     public ResponseEntity<Map<String, Object>> toggleLike(@RequestBody Map<String, Integer> requestData) {
         int userID = requestData.get("userID");
-        int ThreadID = requestData.get("ThreadID");
+        int threadID = requestData.get("threadID");
 
-        boolean isLike = topicService.ToggleLikeThread(userID, ThreadID);
-        int newLikeCount = topicService.getThreadLikeCount(ThreadID);
+        boolean isLike = topicService.ToggleLikeThread(userID, threadID);
+        int newLikeCount = topicService.getThreadLikeCount(threadID);
 
         Map<String, Object> response = new HashMap<>();
         response.put("isLike", isLike);
@@ -91,18 +87,18 @@ public class TopicAPI {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("topic/likes/{userID}")
+    @GetMapping("thread/like/{userID}")
     public List<Thread> getLikedThreads(@PathVariable("userID") int userID) {
         return topicService.getLikedThreads(userID);
     }
 
-    @GetMapping("topic/likes/{userID}/{threadID}")
+    @GetMapping("thread/like/{userID}/{threadID}")
     public boolean checkLike(@PathVariable("userID") int userID, @PathVariable("threadID") int threadID) {
         return topicService.isThreadLiked(userID, threadID);
     }
 
-    @GetMapping("topic/likecount/{ThreadID}")
-    public int getLikeCount(@PathVariable("ThreadID") int threadID) {
+    @GetMapping("thread/likecount/{threadID}")
+    public int getLikeCount(@PathVariable("threadID") int threadID) {
         return topicService.getThreadLikeCount(threadID);
     }
 }
