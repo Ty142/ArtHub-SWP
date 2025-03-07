@@ -88,7 +88,7 @@ public class ThreadRepositoryImpl implements ThreadRepository {
             ps.setInt(3, thread.getLikes());
             ps.setInt(4, thread.getComments());
             if (thread.getDateCreated() != null) {
-                LocalDateTime utc7DateTime = thread.getDateCreated();
+                LocalDateTime utc7DateTime = thread.getDateCreated();`
                 Timestamp timestamp = Timestamp.valueOf(utc7DateTime);
                 ps.setTimestamp(5, timestamp);
             } else {
