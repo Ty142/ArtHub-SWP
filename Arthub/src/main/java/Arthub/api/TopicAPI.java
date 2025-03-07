@@ -7,8 +7,10 @@ import Arthub.entity.Comment;
 import Arthub.entity.Thread;
 import Arthub.entity.Topic;
 import Arthub.entity.TypeOfTopic;
+import Arthub.repository.InteractRepository;
 import Arthub.repository.ThreadRepository;
 import Arthub.repository.TopicRepository;
+import Arthub.service.InteractService;
 import Arthub.service.TopicService;
 import Arthub.service.TypeOfTopicService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +31,11 @@ public class TopicAPI {
     TopicService topicService;
     @Autowired
     TopicRepository topicRepository;
+    @Autowired
+    ThreadRepository threadRepository;
+
+    @Autowired
+    InteractService interactService;
     @GetMapping("/typeTopic")
     public List<TypeOfTopic> getTypeTopics() {
             return typeOfTopicService.GetAllTypeOfTopics();
@@ -101,4 +108,12 @@ public class TopicAPI {
     public int getLikeCount(@PathVariable("threadID") int threadID) {
         return topicService.getThreadLikeCount(threadID);
     }
+
+    @PutMapping("/update/{threadID} ")
+    public String UpdateInteractThread(@PathVariable("threadID") int threadID) {
+        interactService.saveInteractionsOfCommentsForum(threadID);
+        return "Interactions of comments forum updated successfully";
+    }
+
+            
 }
