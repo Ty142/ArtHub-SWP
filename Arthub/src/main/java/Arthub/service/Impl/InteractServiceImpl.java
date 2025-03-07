@@ -95,6 +95,36 @@ public class InteractServiceImpl implements InteractService {
         }
     }
 
+    @Override
+    public void saveInteractionsOfCommentsForum(int ThreadID) {
+        List<Comment> comments = commentRepository.getAllCommentsByThreadID(ThreadID);
+        List<ReplyComment> replyComments = replyCommentRepository.findAll();
+
+        for (Comment comment : comments) {
+            if (!comments.contains(comment)) {
+                Interact interact = new Interact();
+                interact.setUserID(comment.getUserID());
+                interact.setActivityID(3);
+                interact.setDateOfInteract(comment.getCreatedDate());
+                interact.setThreadID(comment.getThreadID());
+            }
+        }
+
+        // Lưu các reply comment vào bảng Interact
+        for (ReplyComment reply : replyComments) {
+            Integer threadID = GetThreadIDFromComment(reply.getCommentID());
+            if (threadID != null) {
+                Interact interact = new Interact();
+                interact.setUserID(reply.getReplierID());
+                interact.setActivityID(4);
+                interact.setDateOfInteract(reply.getDateOfInteract());
+                interact.setThreadID(threadID);
+                interactRepository.saveInteractCommentOfForum(interact);
+
+            }
+        }
+    }
+
 
     private boolean interactExists(int artworkID, int userID, int activityID, Date date) {
         List<Interact> interacts = interactRepository.findByArtworkIDAndUserIDAndActivityID(artworkID, userID, activityID, String.valueOf(date));
@@ -106,6 +136,11 @@ public class InteractServiceImpl implements InteractService {
 
     private Integer getArtworkIDFromComment(int commentID) {
         String sql = "SELECT ArtworkID FROM Comment WHERE CommentID = ?";
+        return jdbcTemplate.queryForObject(sql, Integer.class, commentID);
+    }
+
+    private Integer GetThreadIDFromComment(int commentID) {
+        String sql = "SELECT ThreadID FROM Comment WHERE CommentID = ?";
         return jdbcTemplate.queryForObject(sql, Integer.class, commentID);
     }
 }

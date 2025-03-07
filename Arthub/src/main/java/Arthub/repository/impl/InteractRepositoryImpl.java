@@ -322,6 +322,12 @@ public class InteractRepositoryImpl implements InteractRepository {
         jdbcTemplate.update(sql, interact.getArtworkID(), interact.getUserID(), interact.getActivityID(), interact.getDateOfInteract());
     }
 
+    @Override
+    public void saveInteractCommentOfForum(Interact interact) {
+        String sql = "INSERT INTO interact(UserID, ActivityID, DateOfInteract, ThreadID) VALUES (?, ?, ?, ?)";
+        jdbcTemplate.update(sql, interact.getUserID(), interact.getActivityID(), interact.getDateOfInteract(), interact.getThreadID());
+    }
+
     public List<Interact> findByArtworkIDAndUserIDAndActivityID(int artworkID, int userID, int activityID, String date) {
         String sql = "SELECT * FROM Interact WHERE ArtworkID = ? AND UserID = ? AND ActivityID = ? AND DateOfInteract = ?";
         return jdbcTemplate.query(sql, new Object[]{artworkID, userID, activityID, date}, new BeanPropertyRowMapper<>(Interact.class));
