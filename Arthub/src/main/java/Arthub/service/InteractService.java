@@ -13,7 +13,7 @@ public interface InteractService {
     boolean isLike(int userID, int artworkID);
     List<Artwork> getLikeArtworks(int userID);
     int getLikeCount(int artworkID);
+
     void saveInteractions();
     void saveInteractionsOfCommentsForum(int ThreadID);
-
 }

@@ -26,4 +26,5 @@ public interface    TopicService {
     boolean isThreadLiked(int userID, int threadID);
     List<Thread> getLikedThreads(int userID);
     int getThreadLikeCount(int threadID);
+    void countCommentInThread(int threadID);
 }

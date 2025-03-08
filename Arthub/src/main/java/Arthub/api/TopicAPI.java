@@ -109,10 +109,16 @@ public class TopicAPI {
         return topicService.getThreadLikeCount(threadID);
     }
 
-    @PutMapping("/update/{threadID} ")
+    @PutMapping("/update/{threadID}")
     public String UpdateInteractThread(@PathVariable("threadID") int threadID) {
         interactService.saveInteractionsOfCommentsForum(threadID);
         return "Interactions of comments forum updated successfully";
+    }
+
+    @PutMapping("/update-comment-count/{threadID}")
+    public String UpdateCommentCount(@PathVariable("threadID") int threadID) {
+        topicService.countCommentInThread(threadID);
+        return "Comment count updated successfully";
     }
 
             

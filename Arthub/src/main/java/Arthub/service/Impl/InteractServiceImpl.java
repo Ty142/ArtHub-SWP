@@ -101,12 +101,13 @@ public class InteractServiceImpl implements InteractService {
         List<ReplyComment> replyComments = replyCommentRepository.findAll();
 
         for (Comment comment : comments) {
-            if (!comments.contains(comment)) {
+            if(!interactExistsThreadID(ThreadID,comment.getUserID(), 3, comment.getCreatedDate())){
                 Interact interact = new Interact();
                 interact.setUserID(comment.getUserID());
                 interact.setActivityID(3);
                 interact.setDateOfInteract(comment.getCreatedDate());
-                interact.setThreadID(comment.getThreadID());
+                interact.setThreadID(ThreadID);
+                interactRepository.saveInteractCommentOfForum(interact);
             }
         }
 
@@ -125,9 +126,13 @@ public class InteractServiceImpl implements InteractService {
         }
     }
 
-
     private boolean interactExists(int artworkID, int userID, int activityID, Date date) {
         List<Interact> interacts = interactRepository.findByArtworkIDAndUserIDAndActivityID(artworkID, userID, activityID, String.valueOf(date));
+        return !interacts.isEmpty();
+    }
+
+    private boolean interactExistsThreadID(int ThreadID,int userID, int activityID, Date date) {
+        List<Interact> interacts = interactRepository.findByThreadIDAndUserIDAndActivityID(ThreadID, userID, activityID, String.valueOf(date));
         return !interacts.isEmpty();
     }
 

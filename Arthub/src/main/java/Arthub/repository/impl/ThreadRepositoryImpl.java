@@ -88,7 +88,7 @@ public class ThreadRepositoryImpl implements ThreadRepository {
             ps.setInt(3, thread.getLikes());
             ps.setInt(4, thread.getComments());
             if (thread.getDateCreated() != null) {
-                LocalDateTime utc7DateTime = thread.getDateCreated();`
+                LocalDateTime utc7DateTime = thread.getDateCreated();
                 Timestamp timestamp = Timestamp.valueOf(utc7DateTime);
                 ps.setTimestamp(5, timestamp);
             } else {
@@ -136,6 +136,32 @@ public class ThreadRepositoryImpl implements ThreadRepository {
             throw new RuntimeException(e);
         }
         return null;
+    }
+
+    @Override
+    public void countCommentInThread(int threadID) {
+        String sql = "UPDATE Thread " +
+                "SET Comments = ( " +
+                "    (SELECT COUNT(*) FROM Comment WHERE Comment.ThreadID = Thread.ThreadID) " +
+                "    + " +
+                "    (SELECT COUNT(*) FROM dbo.ReplyComment " +
+                "     WHERE ReplyComment.CommentID IN ( " +
+                "         SELECT CommentID FROM dbo.Comment WHERE Comment.ThreadID = Thread.ThreadID " +
+                "     ) " +
+                "    ) " +
+                ") " +
+                "WHERE ThreadID = ?";
+        try {
+            utils.ConnectUtils db = utils.ConnectUtils.getInstance();
+            Connection conn = db.openConection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, threadID); // Gán giá trị threadID vào dấu ?
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
 }

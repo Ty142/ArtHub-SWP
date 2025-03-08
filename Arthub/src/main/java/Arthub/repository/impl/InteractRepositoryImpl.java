@@ -334,6 +334,12 @@ public class InteractRepositoryImpl implements InteractRepository {
     }
 
     @Override
+    public List<Interact> findByThreadIDAndUserIDAndActivityID(int ThreadID, int userID, int activityID, String s) {
+        String sql = "SELECT * FROM Interact WHERE ThreadID = ? AND UserID = ? AND ActivityID = ?";
+        return jdbcTemplate.query(sql, new Object[]{ThreadID, userID, activityID}, new BeanPropertyRowMapper<>(Interact.class));
+    }
+
+    @Override
     public void deleteInteractByArtworkID(int artworkID) {
         String sql = "DELETE FROM Interact WHERE artworkID = ?";
             try  {

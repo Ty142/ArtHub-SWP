@@ -102,5 +102,10 @@ public class TopicServiceImpl implements TopicService {
         return interactRepository.getThreadLikeCount(threadID);
     }
 
+    @Override
+    public void countCommentInThread(int threadID) {
+        threadRepository.countCommentInThread(threadID);
+    }
+
 
 }
