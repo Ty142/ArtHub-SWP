@@ -230,6 +230,7 @@ public class ArtworkRepositoryImpl implements ArtworkRepository {
         artwork.setStatus(resultSet.getInt("Status"));
         artwork.setViews(resultSet.getInt("Views"));
         artwork.setDateCreated(resultSet.getString("DateCreated"));
+        artwork.setComments(resultSet.getInt("Comments"));
         return artwork;
     }
 
