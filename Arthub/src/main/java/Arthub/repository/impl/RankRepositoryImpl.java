@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.sql.*;
+import java.text.ParseException;
 
 @Repository
 public class RankRepositoryImpl implements RankRepository {
@@ -16,17 +17,18 @@ public class RankRepositoryImpl implements RankRepository {
     UserRepository userRepository;
 
     @Override
-    public int AddTypeRankToListRank(RankDTO rankDTO) {
+    public int AddTypeRankToListRank(RankDTO rankDTO) throws ParseException {
         RankConverter rankConverter = new RankConverter();
         Rank rank = rankConverter.ConvertRankDTOToRankEntity(rankDTO);
-        String sql = "INSERT INTO Rank values(?,?)";
+        String sql = "INSERT INTO Rank values(?,?,?)";
         int generated = -1;
         try {
             utils.ConnectUtils db = utils.ConnectUtils.getInstance();
             Connection conn = db.openConection();
             PreparedStatement ps = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
-            ps.setString(1, rank.getDayToRentRankAt());
+            ps.setDate(1, new java.sql.Date(rank.getDayToRentRankAt().getTime()));
             ps.setInt(2, rank.getTypeID());
+            ps.setDate(3, new java.sql.Date(rank.getDayToEndRank().getTime()));
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {

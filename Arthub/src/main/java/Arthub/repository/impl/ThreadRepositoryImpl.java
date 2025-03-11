@@ -138,4 +138,30 @@ public class ThreadRepositoryImpl implements ThreadRepository {
         return null;
     }
 
+    @Override
+    public void countCommentInThread(int threadID) {
+        String sql = "UPDATE Thread " +
+                "SET Comments = ( " +
+                "    (SELECT COUNT(*) FROM Comment WHERE Comment.ThreadID = Thread.ThreadID) " +
+                "    + " +
+                "    (SELECT COUNT(*) FROM dbo.ReplyComment " +
+                "     WHERE ReplyComment.CommentID IN ( " +
+                "         SELECT CommentID FROM dbo.Comment WHERE Comment.ThreadID = Thread.ThreadID " +
+                "     ) " +
+                "    ) " +
+                ") " +
+                "WHERE ThreadID = ?";
+        try {
+            utils.ConnectUtils db = utils.ConnectUtils.getInstance();
+            Connection conn = db.openConection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, threadID); // Gán giá trị threadID vào dấu ?
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }

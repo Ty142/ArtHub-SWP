@@ -16,4 +16,6 @@ public interface ThreadRepository {
     void InsertThread(Thread thread);
 
     Thread GetThreadsByThreadId(int threadID);
+
+    void countCommentInThread(int threadID);
 }

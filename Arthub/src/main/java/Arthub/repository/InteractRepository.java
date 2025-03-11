@@ -23,6 +23,8 @@ public interface InteractRepository {
     public int getThreadLikeCount(int threadID);
 
     void save(Interact interact);
+    void saveInteractCommentOfForum(Interact interact);
         List<Interact> findByArtworkIDAndUserIDAndActivityID(int artworkID, int userID, int activityID, String date);
+        List<Interact> findByThreadIDAndUserIDAndActivityID(int ThreadID, int userID, int activityID, String s);
         void deleteInteractByArtworkID(int artworkID);
     }

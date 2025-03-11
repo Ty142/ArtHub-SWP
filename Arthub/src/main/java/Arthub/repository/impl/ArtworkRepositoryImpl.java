@@ -229,6 +229,7 @@ public class ArtworkRepositoryImpl implements ArtworkRepository {
         artwork.setLikes(resultSet.getInt("Likes"));
         artwork.setStatus(resultSet.getInt("Status"));
         artwork.setViews(resultSet.getInt("Views"));
+        artwork.setComments(resultSet.getInt("Comments"));
         artwork.setDateCreated(resultSet.getString("DateCreated"));
         artwork.setComments(resultSet.getInt("Comments"));
         return artwork;
