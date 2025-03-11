@@ -63,7 +63,7 @@ public class TypeOffRankRepositoryImpl implements TypeOfRankRepository {
 
     @Override
     public RankDTO getCurrentRankByAccountId(int accountId) {
-        String sql = "SELECT u.RankID, u.AccountID, r.TypeID, r.DayToRentRankAt " +
+        String sql = "SELECT u.RankID, u.AccountID, r.TypeID, r.DayToRentRankAt, r.DayEndPackage " +
                 "FROM [Arthub].[dbo].[User] u " +
                 "JOIN [Arthub].[dbo].[Rank] r ON u.RankID = r.RankID " +
                 "WHERE u.AccountID = ?";  // Đặt giá trị cho tham số ?
@@ -80,6 +80,7 @@ public class TypeOffRankRepositoryImpl implements TypeOfRankRepository {
                     rankDTO.setAccountID(resultSet.getInt("AccountID"));
                     rankDTO.setDayToRentRankAt(resultSet.getString("DayToRentRankAt"));
                     rankDTO.setTypeID(resultSet.getInt("TypeID"));
+                    rankDTO.setDayToEndRank(resultSet.getString("DayEndPackage"));
                     return rankDTO;
                 }
             }
