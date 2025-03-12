@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
 import java.util.List;
 
 @RestController
@@ -50,7 +51,7 @@ public class RankAPI {
     }
 
     @PostMapping("Packages/")
-    public ResponseEntity<String> addRankToPackages(@RequestBody RankDTO rankDTO) {
+    public ResponseEntity<String> addRankToPackages(@RequestBody RankDTO rankDTO) throws ParseException {
         rankService.AddRankToUser(rankDTO);
         return ResponseEntity.ok("upgrade successfully");
     }
