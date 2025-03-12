@@ -66,5 +66,42 @@ public class RankRepositoryImpl implements RankRepository {
 
     }
 
+    @Override
+    public void ChangeRankToExpire(int UserID) {
+        String sql = "update User set RankID = ? where UserID = ?";
+        try {
+            utils.ConnectUtils db = utils.ConnectUtils.getInstance();
+            Connection conn = db.openConection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, 1);
+            ps.setInt(2, UserID);
+            ps.executeUpdate();
+             conn.close();
+             ps.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public void deleteRank(int RankID) {
+        String sql = "DELETE FROM Rank WHERE RankID =?";
+        try {
+            utils.ConnectUtils db = utils.ConnectUtils.getInstance();
+            Connection conn = db.openConection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, RankID);
+            ps.executeUpdate();
+             conn.close();
+             ps.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
 }

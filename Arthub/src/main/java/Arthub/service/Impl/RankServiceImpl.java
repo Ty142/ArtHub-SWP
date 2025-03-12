@@ -18,4 +18,10 @@ public class RankServiceImpl implements RankService {
         int typeId = rankRepository.AddTypeRankToListRank(rankDTO);
         rankRepository.AddRankToUserByRankID(typeId, rankDTO.getAccountID(),rankDTO.getPrice());
     }
+
+    @Override
+    public void removeRankToExpired(int RankID, int UserID) {
+        rankRepository.ChangeRankToExpire(UserID);
+        rankRepository.deleteRank(RankID);
+    }
 }

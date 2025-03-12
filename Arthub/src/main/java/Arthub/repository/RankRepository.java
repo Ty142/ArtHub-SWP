@@ -10,5 +10,9 @@ public interface RankRepository {
 
     void AddRankToUserByRankID(int rankID, int AccountID, double price);
 
+    void ChangeRankToExpire(int UserID);
+
+    void deleteRank(int RankID);
+
 
 }
