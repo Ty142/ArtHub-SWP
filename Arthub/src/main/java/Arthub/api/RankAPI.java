@@ -56,4 +56,10 @@ public class RankAPI {
         return ResponseEntity.ok("upgrade successfully");
     }
 
+    @DeleteMapping("Packages/Expired/{UserID}{RankID}")
+    public ResponseEntity<String> deleteExpiredRank(@PathVariable int UserID, @PathVariable int RankID) {
+        rankService.removeRankToExpired(UserID, RankID);
+        return ResponseEntity.ok("Rank deleted successfully");
+    }
+
 }
