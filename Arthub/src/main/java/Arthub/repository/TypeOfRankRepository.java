@@ -10,4 +10,9 @@ public interface TypeOfRankRepository {
     TypeOfRank getTypeOfRankById(int id);
 
     RankDTO getCurrentRankByAccountId(int accountId);
+
+    int getRankIDByUserID(int UserID);
+
+    int getTypeOfRankIDByRankID(int rankID);
+
 }
