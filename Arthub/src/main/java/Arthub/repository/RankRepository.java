@@ -1,11 +1,14 @@
 package Arthub.repository;
 
-import Arthub.entity.Rank;
+import Arthub.dto.RankDTO;
+
+import java.text.ParseException;
 
 public interface RankRepository {
 
-    int AddTypeRankToListRank(Rank rank);
+    int AddTypeRankToListRank(RankDTO rankDTO) throws ParseException;
 
-    void AddRankToUserByRankID(int rankID);
+    void AddRankToUserByRankID(int rankID, int AccountID, double price);
+
 
 }

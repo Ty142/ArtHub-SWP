@@ -9,6 +9,7 @@ public class Comment {
     private int artworkID;
     private int userID;
     private Date createdDate;
+    private int threadID;
 
     public Comment() {
     }
@@ -63,4 +64,11 @@ public class Comment {
         this.createdDate = createdDate;
     }
 
+    public int getThreadID() {
+        return threadID;
+    }
+
+    public void setThreadID(int threadID) {
+        this.threadID = threadID;
+    }
 }

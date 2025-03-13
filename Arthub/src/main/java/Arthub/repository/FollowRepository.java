@@ -1,6 +1,7 @@
 package Arthub.repository;
 
 import Arthub.entity.Follow;
+import Arthub.entity.User;
 
 import java.sql.SQLException;
 
@@ -22,4 +23,6 @@ public interface FollowRepository {
     void deleteFollowerCountOfFollowerByFollowingId(int followingID) throws SQLException;
 
     void deleteFollowCountsOfFollowingByFollowerId(int followerID);
+
+    User getFollowingUserFromFollowID(int followerID) throws SQLException;
 }

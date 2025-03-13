@@ -52,6 +52,8 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Application.NotificationRepositoryImpl.executor": "Run",
+    "Application.NotificationServiceImpl.executor": "Run",
     "Application.PaymentServiceImpl.executor": "Run",
     "Application.UserRepositoryImpl.executor": "Run",
     "RequestMappingsPanelOrder0": "0",
@@ -69,7 +71,7 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "advanced.settings",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -85,12 +87,15 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-fdfe4dae3a2d-intellij.indexing.shared.core-IU-243.22562.145" />
-        <option value="bundled-js-predefined-d6986cc7102b-deb605915726-JavaScript-IU-243.22562.145" />
+        <option value="bundled-jdk-9823dce3aa75-a94e463ab2e7-intellij.indexing.shared.core-IU-243.25659.39" />
+        <option value="bundled-js-predefined-d6986cc7102b-1632447f56bf-JavaScript-IU-243.25659.39" />
       </set>
     </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="StructureViewState">
+    <option name="selectedTab" value="Logical" />
+  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="6d276f43-2b7c-4037-965e-bdcca837b8ed" name="Changes" comment="" />
@@ -127,6 +132,22 @@
       <workItem from="1740764818590" duration="1344000" />
       <workItem from="1740814503147" duration="222000" />
       <workItem from="1740814735217" duration="7547000" />
+      <workItem from="1740920831880" duration="2328000" />
+      <workItem from="1740980900418" duration="1547000" />
+      <workItem from="1741000667170" duration="5994000" />
+      <workItem from="1741010100042" duration="74000" />
+      <workItem from="1741010179784" duration="4043000" />
+      <workItem from="1741067252245" duration="1027000" />
+      <workItem from="1741068856942" duration="4014000" />
+      <workItem from="1741086670298" duration="987000" />
+      <workItem from="1741089091018" duration="6412000" />
+      <workItem from="1741102722648" duration="2546000" />
+      <workItem from="1741111396912" duration="4162000" />
+      <workItem from="1741164576617" duration="13356000" />
+      <workItem from="1741240291608" duration="338000" />
+      <workItem from="1741246399985" duration="198000" />
+      <workItem from="1741288250271" duration="6000" />
+      <workItem from="1741288266163" duration="14000" />
     </task>
     <servers />
   </component>

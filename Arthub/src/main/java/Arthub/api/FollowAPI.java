@@ -1,13 +1,13 @@
 package Arthub.api;
 
+
+import Arthub.entity.User;
 import Arthub.repository.FollowRepository;
+import Arthub.service.FollowService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.bind.annotation.*;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,6 +16,9 @@ import java.util.Map;
 public class FollowAPI {
     @Autowired
     FollowRepository followRepository;
+
+    @Autowired
+    FollowService followService;
 
     @GetMapping("/checkFollow")
     public ResponseEntity<Map<String, Boolean>> checkFollowStatus(
@@ -26,5 +29,16 @@ public class FollowAPI {
         Map<String, Boolean> response = new HashMap<>();
         response.put("isFollowing", isFollowing);
         return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/user/{id}")
+    public ResponseEntity<User> getFollowingUserFromFollowID(@PathVariable int id) throws SQLException {
+        try {
+        User follower = followService.getFollowingUserFromFollowID(id);
+        return ResponseEntity.ok(follower);
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
+
     }
 }

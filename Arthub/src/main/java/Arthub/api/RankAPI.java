@@ -1,17 +1,14 @@
 package Arthub.api;
 
 import Arthub.dto.RankDTO;
-import Arthub.entity.Rank;
 import Arthub.entity.TypeOfRank;
 import Arthub.repository.TypeOfRankRepository;
+import Arthub.service.RankService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
+import java.text.ParseException;
 import java.util.List;
 
 @RestController
@@ -20,6 +17,9 @@ public class RankAPI {
 
     @Autowired
     TypeOfRankRepository typeOfRankRepository;
+
+    @Autowired
+    RankService rankService;
 
 
     @GetMapping
@@ -48,6 +48,12 @@ public class RankAPI {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(rankdto);
+    }
+
+    @PostMapping("Packages/")
+    public ResponseEntity<String> addRankToPackages(@RequestBody RankDTO rankDTO) throws ParseException {
+        rankService.AddRankToUser(rankDTO);
+        return ResponseEntity.ok("upgrade successfully");
     }
 
 }

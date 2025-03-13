@@ -1,6 +1,7 @@
 package Arthub.repository.impl;
 
 import Arthub.entity.Interact;
+import Arthub.entity.Thread;
 import Arthub.repository.InteractRepository;
 import Arthub.entity.Artwork;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -10,6 +11,7 @@ import utils.ConnectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,50 +23,34 @@ public class InteractRepositoryImpl implements InteractRepository {
     //-------- Start Favourites ----------
     @Override
     public boolean toggleFavourite(int userID, int artworkID) {
-        String deleteSQL = "DELETE FROM Interact WHERE UserID = ? AND ArtworkID = ? AND ActivityId = 1";
-        String insertSQL = "INSERT INTO Interact (UserID, ArtworkID, ActivityId, DateOfInteract) VALUES (?, ?, 1, GETDATE())";
-        String updateFavouriteSQL = "UPDATE Artworks SET Favorites = Favorites + ? WHERE ArtworkID = ?";
-
+        String sql = "{CALL ToggleFavouriteArtwork(?, ?, ?)}";
         ConnectUtils db = ConnectUtils.getInstance();
 
-        try (Connection connection = db.openConection()) {
-            if (isFavourite(userID, artworkID)) {
-                // Nếu đã favourite -> Unfavourite
-                try (PreparedStatement deleteStatement = connection.prepareStatement(deleteSQL);
-                     PreparedStatement updateFavouriteStatement = connection.prepareStatement(updateFavouriteSQL)) {
-                    deleteStatement.setInt(1, userID);
-                    deleteStatement.setInt(2, artworkID);
-                    deleteStatement.executeUpdate();
+        try (Connection connection = db.openConection();
+             CallableStatement callableStatement = connection.prepareCall(sql)) {
 
-                    updateFavouriteStatement.setInt(1, -1); // Giảm 1 Favourite
-                    updateFavouriteStatement.setInt(2, artworkID);
-                    updateFavouriteStatement.executeUpdate();
-                }
-                return false; // Đã Unfavourite
-            } else {
-                // Nếu chưa favourite -> Favourite
-                try (PreparedStatement insertStatement = connection.prepareStatement(insertSQL);
-                     PreparedStatement updateFavouriteStatement = connection.prepareStatement(updateFavouriteSQL)) {
-                    insertStatement.setInt(1, userID);
-                    insertStatement.setInt(2, artworkID);
-                    insertStatement.executeUpdate();
+            // Thiết lập tham số đầu vào
+            callableStatement.setInt(1, userID);
+            callableStatement.setInt(2, artworkID);
+            callableStatement.setTimestamp(3, new java.sql.Timestamp(System.currentTimeMillis()));
 
-                    updateFavouriteStatement.setInt(1, 1); // Tăng 1 Favourite
-                    updateFavouriteStatement.setInt(2, artworkID);
-                    updateFavouriteStatement.executeUpdate();
-                }
-                return true; // Đã Favourite
+            // Thực thi stored procedure và lấy kết quả
+            ResultSet rs = callableStatement.executeQuery();
+            if (rs.next()) {
+                boolean favouriteStatus = rs.getBoolean("FavouriteStatus");
+                System.out.println("Favourite status: " + (favouriteStatus ? "Favourited" : "Unfavourited"));
+                return favouriteStatus;
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return false;
+        return false; // Trả về false nếu có lỗi
     }
 
 
     @Override
     public boolean isFavourite(int userID, int artworkID) {
-        String checkExistSQL = "SELECT COUNT(*) FROM Interact WHERE UserID = ? AND ArtworkID = ? AND ActivityId = 1";
+        String checkExistSQL = "SELECT COUNT(*) FROM Interact WHERE UserID = ? AND ArtworkID = ? AND ActivityId = 1 AND Status = 1";
         ConnectUtils db = ConnectUtils.getInstance();
 
         try (Connection connection = db.openConection();
@@ -128,77 +114,35 @@ public class InteractRepositoryImpl implements InteractRepository {
 //
     @Override
     public boolean toggleLike(int userID, int artworkID) {
-        String deleteSQL = "DELETE FROM Interact WHERE UserID = ? AND ArtworkID = ? AND ActivityId = 2";
-        String insertSQL = "INSERT INTO Interact (UserID, ArtworkID, ActivityId, DateOfInteract) VALUES (?, ?, 2, GETDATE())";
-        String updateLikeSQL = "UPDATE Artworks SET Likes = COALESCE(Likes, 0) + ? WHERE ArtworkID = ?";
-        String selectLikeSQL = "SELECT Likes FROM Artworks WHERE ArtworkID = ?";
-
+        String sql = "{CALL ToggleLikeArtwork(?, ?, ?)}";
         ConnectUtils db = ConnectUtils.getInstance();
 
-        try (Connection connection = db.openConection()) {
-            if (isLike(userID, artworkID)) {
-                try (PreparedStatement deleteStatement = connection.prepareStatement(deleteSQL);
-                     PreparedStatement updateLikeStatement = connection.prepareStatement(updateLikeSQL);
-                     PreparedStatement selectStatement = connection.prepareStatement(selectLikeSQL)) {
-                    deleteStatement.setInt(1, userID);
-                    deleteStatement.setInt(2, artworkID);
-                    deleteStatement.executeUpdate();
+        try (Connection connection = db.openConection();
+             CallableStatement callableStatement = connection.prepareCall(sql)) {
 
-                    selectStatement.setInt(1, artworkID);
-                    ResultSet rs = selectStatement.executeQuery();
-                    int currentLikes = 0;
-                    if (rs.next()) {
-                        currentLikes = rs.getInt("Likes");
-                        System.out.println("Likes before unlike: " + currentLikes);
-                    }
+            // Thiết lập tham số đầu vào
+            callableStatement.setInt(1, userID);
+            callableStatement.setInt(2, artworkID);
+            callableStatement.setTimestamp(3, new java.sql.Timestamp(System.currentTimeMillis()));
 
-                    // Chỉ giảm Likes nếu hiện tại > 0
-                    if (currentLikes > 0) {
-                        updateLikeStatement.setInt(1, -1);
-                        updateLikeStatement.setInt(2, artworkID);
-                        updateLikeStatement.executeUpdate();
-                    }
-
-                    rs = selectStatement.executeQuery();
-                    if (rs.next()) {
-                        System.out.println("Likes after unlike: " + rs.getInt("Likes"));
-                    }
-                }
-                return false;
-            } else {
-                try (PreparedStatement insertStatement = connection.prepareStatement(insertSQL);
-                     PreparedStatement updateLikeStatement = connection.prepareStatement(updateLikeSQL);
-                     PreparedStatement selectStatement = connection.prepareStatement(selectLikeSQL)) {
-                    insertStatement.setInt(1, userID);
-                    insertStatement.setInt(2, artworkID);
-                    insertStatement.executeUpdate();
-
-                    selectStatement.setInt(1, artworkID);
-                    ResultSet rs = selectStatement.executeQuery();
-                    if (rs.next()) {
-                        System.out.println("Likes before like: " + rs.getInt("Likes"));
-                    }
-
-                    updateLikeStatement.setInt(1, 1);
-                    updateLikeStatement.setInt(2, artworkID);
-                    updateLikeStatement.executeUpdate();
-
-                    rs = selectStatement.executeQuery();
-                    if (rs.next()) {
-                        System.out.println("Likes after like: " + rs.getInt("Likes"));
-                    }
-                }
-                return true;
+            // Thực thi stored procedure và lấy kết quả
+            ResultSet rs = callableStatement.executeQuery();
+            if (rs.next()) {
+                boolean likeStatus = rs.getBoolean("LikeStatus"); // BIT được ánh xạ thành boolean
+                System.out.println("Like status: " + (likeStatus ? "Liked" : "Unliked"));
+                return likeStatus;
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
-        return false;
+        return false; // Trả về false nếu có lỗi
     }
 
     @Override
     public boolean isLike(int userID, int artworkID) {
-        String checkExistSQL = "SELECT COUNT(*) FROM Interact WHERE UserID = ? AND ArtworkID = ? AND ActivityId = 2";
+        String checkExistSQL = "SELECT COUNT(*) FROM Interact WHERE UserID = ? AND ArtworkID = ? AND ActivityId = 2 AND Status = 1";
         ConnectUtils db = ConnectUtils.getInstance();
 
         try (Connection connection = db.openConection();
@@ -273,7 +217,102 @@ public class InteractRepositoryImpl implements InteractRepository {
         return 0;
     }
 
+
+
     //-------- End Like ----------
+
+    public boolean ToggleLikeThread(int userID, int ThreadID) {
+        String sql = "{CALL ToggleLikeForum(?, ?, ?)}";
+        ConnectUtils db = ConnectUtils.getInstance();
+
+        try (Connection connection = db.openConection();
+             CallableStatement callableStatement = connection.prepareCall(sql)) {
+
+            // Thiết lập tham số đầu vào
+            callableStatement.setInt(1, userID);
+            callableStatement.setInt(2, ThreadID);
+            callableStatement.setTimestamp(3, new java.sql.Timestamp(System.currentTimeMillis()));
+
+            // Thực thi stored procedure và lấy kết quả
+            ResultSet rs = callableStatement.executeQuery();
+            if (rs.next()) {
+                boolean likeStatus = rs.getBoolean("LikeStatus"); // BIT được ánh xạ thành boolean
+                System.out.println("Like status: " + (likeStatus ? "Liked" : "Unliked"));
+                return likeStatus;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return false; // Trả về false nếu có lỗi
+    }
+    public boolean isThreadLiked(int userID, int threadID) {
+        String sql = "SELECT Status FROM Interact WHERE UserID = ? AND ThreadID = ? AND ActivityId = 2";
+        ConnectUtils db = ConnectUtils.getInstance();
+        try (Connection connection = db.openConection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, userID);
+            statement.setInt(2, threadID);
+            ResultSet rs = statement.executeQuery();
+            if (rs.next()) {
+                return rs.getBoolean("Status");
+            }
+            return false;
+        } catch (Exception e) {
+            System.err.println("SQL Error in isThreadLiked: " + e.getMessage());
+            return false;
+        }
+    }
+
+    public List<Thread> getLikedThreads(int userID) {
+        String sql = "SELECT t.* FROM Thread t " +
+                "JOIN Interact i ON t.ThreadID = i.ThreadID " +
+                "WHERE i.UserID = ? AND i.ActivityId = 2 AND i.Status = 1";
+        List<Thread> threads = new ArrayList<>();
+        ConnectUtils db = ConnectUtils.getInstance();
+        try (Connection connection = db.openConection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, userID);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                Thread thread = new Thread();
+                thread.setThreadID(rs.getInt("ThreadID"));
+                thread.setTitleThread(rs.getString("TitleThread"));
+                thread.setThreadDescription(rs.getString("ThreadDescription"));
+                thread.setLikes(rs.getInt("Likes"));
+                thread.setComments(rs.getInt("Comments"));
+                Timestamp sqlTimestamp = rs.getTimestamp("DateCreated");
+                if (sqlTimestamp != null) {
+                    LocalDateTime localDateTime = sqlTimestamp.toLocalDateTime();
+                    thread.setDateCreated(localDateTime);
+                }
+                thread.setTopicID(rs.getInt("TopicID"));
+                thread.setUserID(rs.getInt("UserID"));
+                threads.add(thread);
+            }
+        } catch (Exception e) {
+            System.err.println("SQL Error in getLikedThreads: " + e.getMessage());
+        }
+        return threads;
+    }
+
+    public int getThreadLikeCount(int threadID) {
+        String sql = "SELECT Likes FROM Thread WHERE ThreadID = ?";
+        ConnectUtils db = ConnectUtils.getInstance();
+        try (Connection connection = db.openConection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, threadID);
+            ResultSet rs = statement.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("Likes");
+            }
+            return 0;
+        } catch (Exception e) {
+            System.err.println("SQL Error in getThreadLikeCount: " + e.getMessage());
+            return 0;
+        }
+    }
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
@@ -283,9 +322,21 @@ public class InteractRepositoryImpl implements InteractRepository {
         jdbcTemplate.update(sql, interact.getArtworkID(), interact.getUserID(), interact.getActivityID(), interact.getDateOfInteract());
     }
 
+    @Override
+    public void saveInteractCommentOfForum(Interact interact) {
+        String sql = "INSERT INTO interact(UserID, ActivityID, DateOfInteract, ThreadID) VALUES (?, ?, ?, ?)";
+        jdbcTemplate.update(sql, interact.getUserID(), interact.getActivityID(), interact.getDateOfInteract(), interact.getThreadID());
+    }
+
     public List<Interact> findByArtworkIDAndUserIDAndActivityID(int artworkID, int userID, int activityID, String date) {
         String sql = "SELECT * FROM Interact WHERE ArtworkID = ? AND UserID = ? AND ActivityID = ? AND DateOfInteract = ?";
         return jdbcTemplate.query(sql, new Object[]{artworkID, userID, activityID, date}, new BeanPropertyRowMapper<>(Interact.class));
+    }
+
+    @Override
+    public List<Interact> findByThreadIDAndUserIDAndActivityID(int ThreadID, int userID, int activityID, String s) {
+        String sql = "SELECT * FROM Interact WHERE ThreadID = ? AND UserID = ? AND ActivityID = ?";
+        return jdbcTemplate.query(sql, new Object[]{ThreadID, userID, activityID}, new BeanPropertyRowMapper<>(Interact.class));
     }
 
     @Override
