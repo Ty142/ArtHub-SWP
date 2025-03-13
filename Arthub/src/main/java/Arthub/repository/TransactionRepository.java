@@ -12,7 +12,13 @@ public interface TransactionRepository {
 
     List<Transaction> getTransactionsBySellerID(int SellerID);
 
-    void saveTransaction(Transaction transaction);
+    Integer saveTransaction(Transaction transaction);
 
     boolean checkvalidTransaction(int BuyerID, int ArtworkID);
+
+    void addCoinsToSeller(int SellerID,int TransactionID, int TypeRankID);
+
+    void removeCoinsFromBuyer(int BuyerID,int TransactionID);
+
+    double getCoinsByTransactionID(int TransactionID);
 }

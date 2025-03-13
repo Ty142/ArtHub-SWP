@@ -3,7 +3,9 @@ package Arthub.service.Impl;
 import Arthub.converter.TransactionConverter;
 import Arthub.dto.TransactionDTO;
 import Arthub.entity.Transaction;
+import Arthub.repository.RankRepository;
 import Arthub.repository.TransactionRepository;
+import Arthub.service.RankService;
 import Arthub.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +18,8 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Autowired
     TransactionRepository transactionRepository;
+    @Autowired
+    RankService rankService;
     private TransactionConverter transactionConverter = new TransactionConverter();
     @Override
     public List<Transaction> getAllTransactions() {
@@ -35,7 +39,10 @@ public class TransactionServiceImpl implements TransactionService {
     @Override
     public void addTransaction(TransactionDTO transactionDTO) {
         Transaction transaction = transactionConverter.ConvertTransactionDTOToTransaction(transactionDTO);
-        transactionRepository.saveTransaction(transaction);
+        Integer transactionID =transactionRepository.saveTransaction(transaction);
+        transactionRepository.removeCoinsFromBuyer(transaction.getBuyerID(),transactionID);
+        int TypeOfRankID = rankService.getTypeOfRankIDByUserID(transaction.getSellerID());
+        transactionRepository.addCoinsToSeller(transaction.getSellerID(),transactionID, TypeOfRankID);
     }
 
     @Override

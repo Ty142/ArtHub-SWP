@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 @Repository
@@ -90,5 +91,45 @@ public class TypeOffRankRepositoryImpl implements TypeOfRankRepository {
         }
         return null;
 
+    }
+
+    @Override
+    public int getRankIDByUserID(int UserID) {
+        String sql = "SELECT RankID From [User] where UserID = ?";
+        try{
+            utils.ConnectUtils db = utils.ConnectUtils.getInstance();
+            Connection connection = db.openConection();
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, UserID);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()){
+                return resultSet.getInt("RankID");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return -1;
+    }
+
+    @Override
+    public int getTypeOfRankIDByRankID(int rankID) {
+        String sql = "SELECT TypeID From [Rank] where RankID = ?";
+        try {
+            utils.ConnectUtils db = utils.ConnectUtils.getInstance();
+            Connection connection = db.openConection();
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, rankID);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()){
+                return resultSet.getInt("TypeID");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return 0;
     }
 }

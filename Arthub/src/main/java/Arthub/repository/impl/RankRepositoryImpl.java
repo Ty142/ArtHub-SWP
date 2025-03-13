@@ -68,7 +68,7 @@ public class RankRepositoryImpl implements RankRepository {
 
     @Override
     public void ChangeRankToExpire(int UserID) {
-        String sql = "update User set RankID = ? where UserID = ?";
+        String sql = "update [User] set RankID = ? where UserID = ?";
         try {
             utils.ConnectUtils db = utils.ConnectUtils.getInstance();
             Connection conn = db.openConection();
