@@ -2,6 +2,7 @@ package Arthub.repository.impl;
 
 import Arthub.converter.UserConverter;
 import Arthub.dto.AccountDTO;
+import Arthub.dto.CreatorDTO;
 import Arthub.entity.Account;
 
 import java.security.MessageDigest;
@@ -9,6 +10,7 @@ import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Base64;
+import java.util.List;
 
 import org.springframework.stereotype.Repository;
 import Arthub.repository.AccountRepository;
@@ -274,5 +276,29 @@ public class AccountRepositoryImpl implements AccountRepository {
         return false;
     }
 
+    @Override
+    public List<CreatorDTO> geUsersForAdmin() {
+        String sql = "SELECT * FROM Account";
+        List<CreatorDTO> creators = new ArrayList<>();
+            ConnectUtils db = ConnectUtils.getInstance();
+            try (Connection connection = db.openConection();
+                 PreparedStatement statement = connection.prepareStatement(sql)) {
+                ResultSet resultSet = statement.executeQuery();
+                while (resultSet.next()) {
+                    CreatorDTO creator = new CreatorDTO();
+                    creator.setAccountID(resultSet.getInt("AccountID"));
+                    creator.setUserName(resultSet.getString("UserName"));
+                    creator.setEmail(resultSet.getString("Email"));
+                    creator.setPhoneNumber(resultSet.getString("PhoneNumber"));
+                    creator.setStatus(resultSet.getByte("Status"));
+                    creators.add(creator);
+                }
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+            return creators;
+        }
 
 }

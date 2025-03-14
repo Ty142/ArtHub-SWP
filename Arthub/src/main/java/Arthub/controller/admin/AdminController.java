@@ -3,14 +3,13 @@ package Arthub.controller.admin;
 
 import Arthub.dto.ActivityDTO;
 import Arthub.entity.Payment;
+import Arthub.entity.Report;
 import Arthub.entity.Transaction;
 import Arthub.repository.ArtworkRepository;
 import Arthub.repository.UserRepository;
 import Arthub.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -30,6 +29,8 @@ public class AdminController {
     TransactionService transactionService;
     @Autowired
     PaymentService paymentService;
+    @Autowired
+    ReportService reportService;
 
     @GetMapping("/numberofuser")
     public Integer getNumberOfUser() {
@@ -55,6 +56,27 @@ public class AdminController {
     public List<Payment> getListOfPayment() {
         return paymentService.getAllPayments();
     }
+
+    @GetMapping("/ListReports")
+    public List<Report> getListOfReports() {
+        return reportService.getAllReports();
+    }
+
+    @DeleteMapping("/Delete/{ArtworkID}")
+    public void deleteArtwork(@PathVariable("ArtworkID") int artworkID) throws Exception {
+        artworkService.DeleteArtwork(artworkID);
+    }
+
+    @PutMapping("/LockAccount/{AccountID}")
+    public void lockAccount(@PathVariable("AccountID") int accountID) throws Exception {
+        reportService.LockAccount(accountID);
+    }
+
+    @PutMapping("/UnlockAccount/{AccountID}")
+    public void unlockAccount(@PathVariable("AccountID") int accountID) throws Exception {
+        reportService.UnlockAccount(accountID);
+    }
+
 
 
 }
