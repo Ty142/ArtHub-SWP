@@ -302,6 +302,24 @@ public class UserRepositoryImpl implements UserRepository {
         return 0;
     }
 
+    @Override
+    public double getCoinsAmountByUserID(int UserID) {
+        String sql = "SELECT Coins FROM [dbo].[User] WHERE UserID = ?";
+        try (Connection connection = ConnectUtils.getInstance().openConection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, UserID);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getDouble("Coins");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return 0;
+    }
+
     /**
      * Hàm ánh xạ `ResultSet` sang đối tượng `User`.
      */

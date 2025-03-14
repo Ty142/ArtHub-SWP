@@ -25,4 +25,5 @@ public interface UserRepository {
     boolean updateUser(User user);
     void updateCoinsAmount(int accountId, double amount);
     double getCoinsAmount(int accountId);
+    double getCoinsAmountByUserID(int UserID);
 }
