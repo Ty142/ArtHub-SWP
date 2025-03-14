@@ -34,4 +34,6 @@ public interface ArtworkRepository {
     void incrementViewCount(int artworkId);
 
     List<Artwork> GetAllArtworksByTagName(String tagName);
+
+    int getTheNumberOfArtworks();
 }

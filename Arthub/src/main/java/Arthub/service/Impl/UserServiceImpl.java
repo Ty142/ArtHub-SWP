@@ -95,6 +95,11 @@ import java.util.*;
         userRepository.updateCoinsAmount(accountId, amount);
     }
 
+    @Override
+    public int getTheNumberOfUsers() {
+        return userRepository.getTheNumberOfUsers();
+    }
+
 }
 
 

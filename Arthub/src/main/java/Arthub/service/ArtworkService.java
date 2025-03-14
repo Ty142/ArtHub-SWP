@@ -29,4 +29,6 @@ public interface ArtworkService {
 
     void incrementViewCount(int artworkId);
     List<Artwork> getArtworksByTagName(String tagName) throws IOException;
+
+    int getTheNumberOfArtworks();
 }

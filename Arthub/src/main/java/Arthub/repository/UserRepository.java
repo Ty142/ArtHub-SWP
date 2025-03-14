@@ -26,4 +26,11 @@ public interface UserRepository {
     void updateCoinsAmount(int accountId, double amount);
     double getCoinsAmount(int accountId);
     double getCoinsAmountByUserID(int UserID);
+
+    int getTheNumberOfUsers();
+    String getUserNameByArtworkID(int ArtworkID, int ThreadID) throws SQLException;
+    String getUserNameByUserID(int UserID) throws Exception;
+
+    String getEmailByUserID(int UserID);
+    String getEmailByArtworkID(int ArtworkID);
 }

@@ -113,5 +113,10 @@ public class ArtworkServiceImpl implements ArtworkService {
         List<Artwork> result = artworkRepository.GetAllArtworksByTagName(tagName);
         return result;
     }
+
+    @Override
+    public int getTheNumberOfArtworks() {
+        return artworkRepository.getTheNumberOfArtworks();
+    }
 }
 
