@@ -1,8 +1,10 @@
 package Arthub.service.Impl;
 
 import Arthub.dto.RankDTO;
+import Arthub.entity.TypeOfRank;
 import Arthub.repository.RankRepository;
 import Arthub.repository.TypeOfRankRepository;
+import Arthub.repository.UserRepository;
 import Arthub.service.RankService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +18,9 @@ public class RankServiceImpl implements RankService {
     RankRepository rankRepository;
     @Autowired
     TypeOfRankRepository typeOfRankRepository;
+
+    @Autowired
+    UserRepository userRepository;
     @Override
     public void AddRankToUser(RankDTO rankDTO) throws ParseException {
         int typeId = rankRepository.AddTypeRankToListRank(rankDTO);
@@ -32,5 +37,12 @@ public class RankServiceImpl implements RankService {
     public int getTypeOfRankIDByUserID(int UserID) {
         int rankID = typeOfRankRepository.getRankIDByUserID(UserID);
         return typeOfRankRepository.getTypeOfRankIDByRankID(rankID);
+    }
+
+    @Override
+    public TypeOfRank getNameOfRankID(int accountID) {
+        int userID = userRepository.getUserByAccountId(accountID).getUserId();
+        int typeID = getTypeOfRankIDByUserID(userID);
+        return typeOfRankRepository.getTypeOfRankById(typeID);
     }
 }
