@@ -7,10 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Timestamp;
+import java.sql.*;
 import java.util.ArrayList;
 
 @Repository
@@ -63,6 +60,40 @@ public class ReportRepositoryImpl implements ReportRepository {
             e.printStackTrace();
         }
         return reports;
+    }
+
+    @Override
+    public void LockAccount(int AccountID) {
+        String sql = "UPDATE Account set Status =? WHERE AccountID = ?";
+         try{
+             utils.ConnectUtils dc = utils.ConnectUtils.getInstance();
+             Connection connection = dc.openConection();
+             PreparedStatement statement = connection.prepareStatement(sql);
+             statement.setInt(1, 0);
+             statement.setInt(2, AccountID);
+             statement.executeUpdate();
+         } catch (SQLException e) {
+             throw new RuntimeException(e);
+         } catch (Exception e) {
+             throw new RuntimeException(e);
+         }
+    }
+
+    @Override
+    public void UnlockAccount(int AccountID) {
+        String sql = "UPDATE Account set Status =? WHERE AccountID = ?";
+        try {
+            utils.ConnectUtils dc = utils.ConnectUtils.getInstance();
+            Connection connection = dc.openConection();
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, 1);
+            statement.setInt(2, AccountID);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
 }
