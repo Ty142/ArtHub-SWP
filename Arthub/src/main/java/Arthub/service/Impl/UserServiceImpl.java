@@ -3,6 +3,7 @@ package Arthub.service.Impl;
 import Arthub.dto.UserDTO;
 import Arthub.entity.Account;
 import Arthub.entity.User;
+import Arthub.repository.TypeOfRankRepository;
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +24,10 @@ import java.util.*;
         this.cloudinary = cloudinary;
     }
 
+    @Autowired
+    private TypeOfRankRepository typeOfRankRepository;
 
-    
+
     @Autowired
     private UserRepository userRepository;
 
@@ -38,9 +41,14 @@ import java.util.*;
         return userRepository.getAllUsers();
 
     }
+    @Override
     public User getUserByAccountId(int accountId) {
-        // Gọi UserRepository để lấy thông tin User
-        return userRepository.getUserByAccountId(accountId);
+        User user = userRepository.getUserByAccountId(accountId);
+        if (user != null) {
+            int typeId = typeOfRankRepository.getTypeOfRankIDByRankID(user.getRankId());
+            user.setTypeId(typeId);
+        }
+        return user;
     }
 
     @Override

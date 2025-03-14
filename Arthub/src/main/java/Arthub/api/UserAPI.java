@@ -58,10 +58,16 @@ public class UserAPI {
     public ArrayList<User> getAllUsers() {
         return userService.getAllUsers();
     }
+
     @GetMapping("/{id}")
-    public User getUserById(@PathVariable int id) {
-        return userService.getUserByAccountId(id);
+    public ResponseEntity<User> getUserById(@PathVariable int id) {
+        User user = userService.getUserByAccountId(id);
+        if (user == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(user);
     }
+
 
     @PutMapping("/{accountId}/avatar")
     public ResponseEntity<String> uploadAvatar(@PathVariable Integer accountId,@RequestBody FileUploadDTO uploadFileAvatar) throws IOException {

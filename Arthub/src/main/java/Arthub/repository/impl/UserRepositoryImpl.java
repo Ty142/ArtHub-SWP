@@ -8,15 +8,11 @@ import org.springframework.stereotype.Repository;
 import Arthub.repository.UserRepository;
 import utils.ConnectUtils;
 
-import javax.swing.text.DateFormatter;
 import java.sql.*;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.time.LocalDate;
 
 @Repository
 public class UserRepositoryImpl implements UserRepository {
@@ -64,7 +60,7 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public void addUserAccount(UserDTO userDTO) throws SQLException {
-        String sql ="Insert into users(firstname, lastname, address, phonenumber, biography) values (?, ?, ?, ?, ?)";
+        String sql = "Insert into users(firstname, lastname, address, phonenumber, biography) values (?, ?, ?, ?, ?)";
         User user = new UserConverter().ConvertUserDTOToUserEntity(userDTO);
         ConnectUtils db = ConnectUtils.getInstance();
         try {
@@ -80,34 +76,34 @@ public class UserRepositoryImpl implements UserRepository {
             if (generatedKeys.next()) {
                 user.setUserId(generatedKeys.getInt(1));
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
 
-
-
     public User getUserByAccountId(int accountId) {
-        String sql = "SELECT * FROM [User] WHERE AccountID = ?";
-        ConnectUtils db = ConnectUtils.getInstance();
+        String sql = "SELECT u.*, r.TypeID FROM [User] u " +
+                "JOIN [Rank] r ON u.RankID = r.RankID " +
+                "WHERE u.AccountID = ?";
+
         User user = null;
-
-        try (Connection connection = db.openConection();
+        try (Connection connection = ConnectUtils.getInstance().openConection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
-
             statement.setInt(1, accountId);
-            ResultSet resultSet = statement.executeQuery();
-
-            if (resultSet.next()) {
-                user = mapResultSetToUser(resultSet);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    user = mapResultSetToUser(resultSet);
+                    user.setTypeId(resultSet.getInt("TypeID"));
+                }
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }
         return user;
     }
+
+
 
     public User saveUser(Account account, User user) throws SQLException {
         ConnectUtils db = ConnectUtils.getInstance();
@@ -207,22 +203,22 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public String findAvatarByAccountId(int AccountId) {
-            String sql = "SELECT ProfilePicture FROM [dbo].[User] WHERE AccountID = ?";
-            try (Connection connection = ConnectUtils.getInstance().openConection();
-                 PreparedStatement statement = connection.prepareStatement(sql)) {
-                statement.setInt(1, AccountId);
-                ResultSet resultSet = statement.executeQuery();
-                if (resultSet.next()) {
-                    return resultSet.getString("ProfilePicture");
-                }
-
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            } catch (Exception e) {
-                throw new RuntimeException(e);
+        String sql = "SELECT ProfilePicture FROM [dbo].[User] WHERE AccountID = ?";
+        try (Connection connection = ConnectUtils.getInstance().openConection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, AccountId);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getString("ProfilePicture");
             }
-            return "";
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
+        return "";
+    }
 
     @Override
     public String findBackgroundByAccountId(int AccountId) {
@@ -492,13 +488,13 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public User getUserByUsername(String username) {
         String sql = "SELECT * FROM [dbo].[User] WHERE Username = ?";
-        try{
+        try {
             ConnectUtils db = ConnectUtils.getInstance();
             Connection connection = db.openConection();
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, username);
             ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()){
+            if (resultSet.next()) {
                 return mapResultSetToUser(resultSet);
             }
         } catch (SQLException e) {
@@ -556,15 +552,15 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public List<User> getTop10PopularUsers() {
         String sql = """
-        SELECT TOP 10 u.*,
-        COALESCE((SELECT SUM(a.Likes)
-        FROM Artworks a
-        WHERE a.UserID = u.UserID), 0) AS totalLikes,
-        (CAST(u.FollowerCount AS FLOAT) * 0.5 +
-        COALESCE((SELECT SUM(a.Likes) FROM Artworks a WHERE a.UserID = u.UserID), 0) * 0.75) AS popularity
-        FROM [User] u
-        ORDER BY popularity DESC;
-    """;
+                    SELECT TOP 10 u.*,
+                    COALESCE((SELECT SUM(a.Likes)
+                    FROM Artworks a
+                    WHERE a.UserID = u.UserID), 0) AS totalLikes,
+                    (CAST(u.FollowerCount AS FLOAT) * 0.5 +
+                    COALESCE((SELECT SUM(a.Likes) FROM Artworks a WHERE a.UserID = u.UserID), 0) * 0.75) AS popularity
+                    FROM [User] u
+                    ORDER BY popularity DESC;
+                """;
 
         List<User> users = new ArrayList<>();
         ConnectUtils db = ConnectUtils.getInstance();

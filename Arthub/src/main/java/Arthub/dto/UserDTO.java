@@ -26,6 +26,7 @@ public class UserDTO {
     private int followerCount;
     private String email;
     private int rankId;
+    private int typeId;
     private int roleId;
     private int totalLikes;
     private double popularity;
@@ -95,6 +96,9 @@ public class UserDTO {
 
     public int getRankId() { return rankId; }
     public void setRankId(int rankId) { this.rankId = rankId; }
+
+    public int getTypeId() { return typeId; }
+    public void setTypeId(int typeId) { this.typeId = typeId; }
 
     public int getRoleId() { return roleId; }
     public void setRoleId(int roleId) { this.roleId = roleId; }
