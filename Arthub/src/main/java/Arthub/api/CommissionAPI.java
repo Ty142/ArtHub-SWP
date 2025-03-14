@@ -48,13 +48,28 @@ public class CommissionAPI {
     @PutMapping("/{commissionId}/progress")
     public void updateCommissionProgress(
             @PathVariable int commissionId,
-            @RequestParam int progress) {
-        if (progress == 4) { // Giả sử progress = 4 tương ứng với "Commission Completed!"
-            commissionService.updateCommissionProgress(commissionId, progress, new Timestamp(System.currentTimeMillis()));
-        } else {
-            commissionService.updateCommissionProgress(commissionId, progress, null);
+            @RequestParam int progress,
+            @RequestParam(required = false) String artworkURL) {
+
+        // Nếu progress = 3, bắt buộc nhập ArtworkURL
+        if (progress == 3 && (artworkURL == null || artworkURL.isEmpty())) {
+            throw new IllegalArgumentException("Artwork URL is required when progress = 3.");
         }
+
+        // ✅ Nếu progress != 3, lấy ArtworkURL từ database để không làm mất dữ liệu
+        if (progress != 3) {
+            artworkURL = commissionService.getArtworkURL(commissionId);
+        }
+
+        commissionService.updateCommissionProgress(
+                commissionId,
+                progress,
+                progress == 4 ? new Timestamp(System.currentTimeMillis()) : null,
+                artworkURL
+        );
     }
+
+
 
     @PostMapping("/request")
     public ResponseEntity<Boolean> createCommission(@RequestBody Commission commission) {
