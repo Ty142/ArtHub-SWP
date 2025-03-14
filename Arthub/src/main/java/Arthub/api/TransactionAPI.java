@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/api/Transaction")
+@RequestMapping(value = "/api/transaction")
 public class TransactionAPI {
     @Autowired
     private TransactionService transactionService;

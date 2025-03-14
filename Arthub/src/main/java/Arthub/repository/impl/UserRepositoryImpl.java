@@ -325,6 +325,121 @@ public class UserRepositoryImpl implements UserRepository {
         return 0;
     }
 
+    @Override
+    public int getTheNumberOfUsers() {
+        String sql = "SELECT COUNT(*) FROM [dbo].[User]";
+        try (Connection connection = ConnectUtils.getInstance().openConection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getInt(1);
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return 0;
+    }
+
+    @Override
+    public String getUserNameByArtworkID(int artworkID, int threadID) throws SQLException {
+        // Validate input parameters
+        if (artworkID < 0 || threadID < 0) {
+            throw new IllegalArgumentException("IDs cannot be negative");
+        }
+
+        // Define SQL queries as constants
+        final String ARTWORK_QUERY =
+                "SELECT u.FirstName, u.LastName " +
+                        "FROM [dbo].[Artworks] a " +
+                        "JOIN [User] u ON u.UserID = a.UserID " +
+                        "WHERE a.ArtworkID = ?";
+
+        final String THREAD_QUERY =
+                "SELECT u.FirstName, u.LastName " +
+                        "FROM [dbo].[Thread] t " +
+                        "JOIN [User] u ON u.UserID = t.UserID " +
+                        "WHERE t.ThreadID = ?";
+
+        String sql = (threadID == 0) ? ARTWORK_QUERY : THREAD_QUERY;
+        int parameterValue = (threadID == 0) ? artworkID : threadID;
+
+        try (Connection connection = ConnectUtils.getInstance().openConection(); // Fixed typo in method name
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+
+            statement.setInt(1, parameterValue);
+
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    String firstName = resultSet.getString("FirstName");
+                    String lastName = resultSet.getString("LastName");
+                    return (firstName != null && lastName != null)
+                            ? firstName + " " + lastName
+                            : "";
+                }
+            }
+        } catch (SQLException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return "";
+    }
+
+    @Override
+    public String getUserNameByUserID(int UserID) throws Exception {
+        String sql = "SELECT FirstName, LastName FROM [dbo].[User] WHERE UserID = ?";
+        try (Connection connection = ConnectUtils.getInstance().openConection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+                statement.setInt(1, UserID);
+                ResultSet resultSet = statement.executeQuery();
+                if (resultSet.next()) {
+                    return resultSet.getString("FirstName") + " " + resultSet.getString("LastName");
+                }
+        }
+        return "";
+    }
+
+    @Override
+    public String getEmailByUserID(int UserID) {
+        String sql = "SELECT a.Email FROM [dbo].[User] e join Account a on a.AccountID = e.AccountID WHERE UserID = ?";
+        try (Connection connection = ConnectUtils.getInstance().openConection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, UserID);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                    return resultSet.getString("Email");
+                }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return "";
+    }
+
+    @Override
+    public String getEmailByArtworkID(int ArtworkID) {
+        String sql = "SELECT UserName FROM [dbo].Account ac \n" +
+                "  join [user] u on u.AccountID = ac.Accountid \n" +
+                "  join Artworks a on a.UserID = u.UserID \n" +
+                "  where a.ArtworkID = ?";
+        try (Connection connection = ConnectUtils.getInstance().openConection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, ArtworkID);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                    String s = resultSet.getString("UserName");
+                    return s;
+                }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return "";
+    }
+
+
     /**
      * Hàm ánh xạ `ResultSet` sang đối tượng `User`.
      */

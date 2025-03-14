@@ -4,7 +4,41 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6d276f43-2b7c-4037-965e-bdcca837b8ed" name="Changes" comment="" />
+    <list default="true" id="6d276f43-2b7c-4037-965e-bdcca837b8ed" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/dto/ActivityDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/repository/ActivityRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/repository/impl/ActivityRepositoryImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/api/TransactionAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/api/TransactionAPI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/controller/admin/AdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/controller/admin/AdminController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/repository/ArtworkRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/repository/ArtworkRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/repository/InteractRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/repository/InteractRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/repository/PaymentRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/repository/PaymentRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/repository/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/repository/impl/ArtworkRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/repository/impl/ArtworkRepositoryImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/repository/impl/InteractRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/repository/impl/InteractRepositoryImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/repository/impl/PaymentRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/repository/impl/PaymentRepositoryImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/repository/impl/UserRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/repository/impl/UserRepositoryImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/service/ArtworkService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/service/ArtworkService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/service/Impl/ArtworkServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/service/Impl/ArtworkServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/service/Impl/InteractServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/service/Impl/InteractServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/service/Impl/PaymentServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/service/Impl/PaymentServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/service/Impl/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/service/Impl/UserServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/service/InteractService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/service/InteractService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/service/PaymentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/service/PaymentService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/api/TransactionAPI.class" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/target/classes/Arthub/api/TransactionAPI.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/controller/admin/AdminController.class" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/target/classes/Arthub/controller/admin/AdminController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/repository/ArtworkRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/target/classes/Arthub/repository/ArtworkRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/repository/UserRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/target/classes/Arthub/repository/UserRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/repository/impl/ArtworkRepositoryImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/target/classes/Arthub/repository/impl/ArtworkRepositoryImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/repository/impl/UserRepositoryImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/target/classes/Arthub/repository/impl/UserRepositoryImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/service/ArtworkService.class" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/target/classes/Arthub/service/ArtworkService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/service/Impl/ArtworkServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/target/classes/Arthub/service/Impl/ArtworkServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/service/Impl/UserServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/target/classes/Arthub/service/Impl/UserServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/service/UserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/target/classes/Arthub/service/UserService.class" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -63,9 +97,10 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "Spring Boot.ArtHubApplication.executor": "Run",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "khang",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "E:/Course/Sp25/SWT/Junit_testing",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -87,8 +122,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-a94e463ab2e7-intellij.indexing.shared.core-IU-243.25659.39" />
-        <option value="bundled-js-predefined-d6986cc7102b-1632447f56bf-JavaScript-IU-243.25659.39" />
+        <option value="bundled-jdk-9f38398b9061-39b83d9b5494-intellij.indexing.shared.core-IU-241.15989.150" />
+        <option value="bundled-js-predefined-1d06a55b98c1-91d5c284f522-JavaScript-IU-241.15989.150" />
       </set>
     </attachedChunks>
   </component>
@@ -148,6 +183,8 @@
       <workItem from="1741246399985" duration="198000" />
       <workItem from="1741288250271" duration="6000" />
       <workItem from="1741288266163" duration="14000" />
+      <workItem from="1741889190324" duration="35000" />
+      <workItem from="1741965040884" duration="11137000" />
     </task>
     <servers />
   </component>
@@ -182,6 +219,21 @@
           <url>file://$PROJECT_DIR$/Arthub/src/main/java/Arthub/api/ReplyCommentAPI.java</url>
           <line>35</line>
           <option name="timeStamp" value="22" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Arthub/src/main/java/Arthub/repository/impl/UserRepositoryImpl.java</url>
+          <line>430</line>
+          <option name="timeStamp" value="29" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Arthub/src/main/java/Arthub/repository/impl/UserRepositoryImpl.java</url>
+          <line>431</line>
+          <option name="timeStamp" value="30" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Arthub/src/main/java/Arthub/repository/impl/InteractRepositoryImpl.java</url>
+          <line>387</line>
+          <option name="timeStamp" value="32" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

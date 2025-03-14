@@ -1,5 +1,6 @@
 package Arthub.service.Impl;
 
+import Arthub.dto.ActivityDTO;
 import Arthub.entity.Artwork;
 import Arthub.entity.Comment;
 import Arthub.entity.ReplyComment;
@@ -124,6 +125,11 @@ public class InteractServiceImpl implements InteractService {
 
             }
         }
+    }
+
+    @Override
+    public List<ActivityDTO> getListOfActivity() {
+        return interactRepository.getActivityList();
     }
 
     private boolean interactExists(int artworkID, int userID, int activityID, Date date) {

@@ -1,5 +1,6 @@
 package Arthub.service;
 
+import Arthub.dto.ActivityDTO;
 import Arthub.entity.Artwork;
 
 import java.util.List;
@@ -16,4 +17,6 @@ public interface InteractService {
 
     void saveInteractions();
     void saveInteractionsOfCommentsForum(int ThreadID);
+
+    List<ActivityDTO> getListOfActivity();
 }
