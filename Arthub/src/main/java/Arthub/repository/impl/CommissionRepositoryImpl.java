@@ -127,6 +127,7 @@ public class CommissionRepositoryImpl implements CommissionRepository {
 
     @Override
     public boolean save(Commission commission) {
+        //suly
         String sql = "INSERT INTO [Arthub].[dbo].[Commission] ([Requestor], [Receiver], [PhoneNumber], [Email], [Description], [Accept], [CreationDate], [AcceptanceDate], [CompletionDate], [Progress], [Message]) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         utils.ConnectUtils db = utils.ConnectUtils.getInstance();
 
