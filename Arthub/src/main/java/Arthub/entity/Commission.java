@@ -15,6 +15,7 @@ public class Commission {
     private Date completionDate;
     private Integer progress;
     private String message;
+    private String artworkURL;
 
     public Commission() {
         this.creationDate = new Date();
@@ -23,7 +24,7 @@ public class Commission {
 
     public Commission(int commissionID, Integer requestor, Integer receiver, String phoneNumber, String email,
                       String description, Boolean accept, Date creationDate, Date acceptanceDate,
-                      Date completionDate, Integer progress, String message) {
+                      Date completionDate, Integer progress, String message, String artworkURL) {
         this.commissionID = commissionID;
         this.requestor = requestor;
         this.receiver = receiver;
@@ -36,6 +37,15 @@ public class Commission {
         this.completionDate = completionDate;
         this.progress = progress;
         this.message = message;
+        this.artworkURL = artworkURL;
+    }
+
+    public String getArtworkURL() {
+        return artworkURL;
+    }
+
+    public void setArtworkURL(String artworkURL) {
+        this.artworkURL = artworkURL;
     }
 
     public String getMessage() {
