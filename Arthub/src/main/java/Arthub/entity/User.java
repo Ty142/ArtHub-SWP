@@ -17,6 +17,9 @@ public class User {
     private String createdAt;
     private int rankId;
     private int roleId;
+    private int typeId;
+
+
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy/MM/dd")
     private LocalDate dateOfBirth;
@@ -189,5 +192,13 @@ public class User {
 
     public void setPopularity(double popularity) {
         this.popularity = popularity;
+    }
+
+    public int getTypeId() {
+        return typeId;
+    }
+
+    public void setTypeId(int typeId) {
+        this.typeId = typeId;
     }
 }
