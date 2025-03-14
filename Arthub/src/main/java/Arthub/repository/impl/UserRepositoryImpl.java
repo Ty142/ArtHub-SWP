@@ -83,25 +83,26 @@ public class UserRepositoryImpl implements UserRepository {
 
 
     public User getUserByAccountId(int accountId) {
-        String sql = "SELECT * FROM [User] WHERE AccountID = ?";
-        ConnectUtils db = ConnectUtils.getInstance();
+        String sql = "SELECT u.*, r.TypeID FROM [User] u " +
+                "JOIN [Rank] r ON u.RankID = r.RankID " +
+                "WHERE u.AccountID = ?";
+
         User user = null;
-
-        try (Connection connection = db.openConection();
+        try (Connection connection = ConnectUtils.getInstance().openConection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
-
             statement.setInt(1, accountId);
-            ResultSet resultSet = statement.executeQuery();
-
-            if (resultSet.next()) {
-                user = mapResultSetToUser(resultSet);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    user = mapResultSetToUser(resultSet);
+                    user.setTypeId(resultSet.getInt("TypeID"));
+                }
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }
         return user;
     }
+
 
 
     public User saveUser(Account account, User user) throws SQLException {
