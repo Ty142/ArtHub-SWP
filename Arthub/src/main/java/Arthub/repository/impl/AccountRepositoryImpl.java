@@ -279,9 +279,8 @@ public class AccountRepositoryImpl implements AccountRepository {
     @Override
     public List<CreatorDTO> geUsersForAdmin() {
         String sql = "SELECT * FROM Account";
-        try{
+        List<CreatorDTO> creators = new ArrayList<>();
             ConnectUtils db = ConnectUtils.getInstance();
-            List<CreatorDTO> creators = new ArrayList<>();
             try (Connection connection = db.openConection();
                  PreparedStatement statement = connection.prepareStatement(sql)) {
                 ResultSet resultSet = statement.executeQuery();
@@ -301,8 +300,5 @@ public class AccountRepositoryImpl implements AccountRepository {
             }
             return creators;
         }
-        return List.of();
-    }
-
 
 }
