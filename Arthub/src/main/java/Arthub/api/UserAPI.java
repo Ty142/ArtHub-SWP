@@ -58,16 +58,10 @@ public class UserAPI {
     public ArrayList<User> getAllUsers() {
         return userService.getAllUsers();
     }
-
     @GetMapping("/{id}")
-    public ResponseEntity<User> getUserById(@PathVariable int id) {
-        User user = userService.getUserByAccountId(id);
-        if (user == null) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(user);
+    public User getUserById(@PathVariable int id) {
+        return userService.getUserByAccountId(id);
     }
-
 
     @PutMapping("/{accountId}/avatar")
     public ResponseEntity<String> uploadAvatar(@PathVariable Integer accountId,@RequestBody FileUploadDTO uploadFileAvatar) throws IOException {
@@ -113,6 +107,7 @@ public class UserAPI {
 
     @GetMapping("/top-popular")
     public ResponseEntity<List<User>> getTop10PopularUsers() {
+        //suly
         List<User> users = userService.getTop10PopularUsers();
         return ResponseEntity.ok(users);
     }
