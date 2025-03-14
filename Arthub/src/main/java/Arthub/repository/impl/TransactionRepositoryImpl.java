@@ -3,6 +3,8 @@ package Arthub.repository.impl;
 import Arthub.entity.Transaction;
 import Arthub.repository.TransactionRepository;
 import Arthub.repository.UserRepository;
+import Arthub.service.Impl.RankServiceImpl;
+import Arthub.service.RankService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -17,6 +19,8 @@ import java.util.Map;
 public class TransactionRepositoryImpl implements TransactionRepository {
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    RankService rankService;
     @Override
     public List<Transaction> getTransactions() {
         List<Transaction> transactions = new ArrayList<Transaction>();
@@ -84,6 +88,14 @@ public class TransactionRepositoryImpl implements TransactionRepository {
     public List<Transaction> getTransactionsBySellerID(int SellerID) {
         List<Transaction> transactions = new ArrayList<Transaction>();
         String sql = "SELECT * FROM [Transaction] WHERE SellerID =?";
+        int TypeRankID = rankService.getTypeOfRankIDByUserID(SellerID);
+        Map<Integer,Double> coinMap = new HashMap<Integer,Double>();
+        coinMap.put(1, 0.8);
+        coinMap.put(2, 0.85);
+        coinMap.put(3, 0.90);
+        coinMap.put(4, 0.95);
+        coinMap.put(5, 0.95);
+        double coinType = coinMap.get(TypeRankID);
         try{
             utils.ConnectUtils db = utils.ConnectUtils.getInstance();
             Connection conn = db.openConection();
@@ -98,7 +110,7 @@ public class TransactionRepositoryImpl implements TransactionRepository {
                     LocalDateTime localDateTime = sqlTimestamp.toLocalDateTime();
                     transaction.setBuyDate(localDateTime);
                 }
-                transaction.setPrice(rs.getDouble("Price"));
+                transaction.setPrice(rs.getDouble("Price")*coinType);
                 transaction.setArtworkID(rs.getInt("ArtworkID"));
                 transaction.setSellerID(rs.getInt("SellerID"));
                 transaction.setBuyerID(rs.getInt("BuyerID"));
