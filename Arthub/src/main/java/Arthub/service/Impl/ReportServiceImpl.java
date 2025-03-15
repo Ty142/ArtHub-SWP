@@ -19,8 +19,13 @@ public class ReportServiceImpl implements ReportService {
     }
 
     @Override
-    public ArrayList<Report> getAllReports() {
-        return reportRepository.getAllReports();
+    public ArrayList<Report> getAllReportsFinish() {
+        return reportRepository.getAllReportsFinish();
+    }
+
+    @Override
+    public ArrayList<Report> getAllReportsInProgress() {
+        return reportRepository.getAllReportsInProgress();
     }
 
     @Override
@@ -31,5 +36,14 @@ public class ReportServiceImpl implements ReportService {
     @Override
     public void UnlockAccount(int AccountID) {
         reportRepository.UnlockAccount(AccountID);
+    }
+
+    @Override
+    public void changeStatusCompletedProcess(int ReportID) {
+        reportRepository.changTheStatusToCompletedReport(ReportID);
+    }
+
+    public void changeStatusCompleted(int ArtworkID) {
+        reportRepository.changeStatusReportAfterDelete(ArtworkID);
     }
 }
