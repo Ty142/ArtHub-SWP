@@ -15,4 +15,6 @@ public interface TypeOfRankRepository {
 
     int getTypeOfRankIDByRankID(int rankID);
 
+
+
 }

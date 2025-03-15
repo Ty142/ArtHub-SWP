@@ -435,6 +435,24 @@ public class UserRepositoryImpl implements UserRepository {
         return "";
     }
 
+    @Override
+    public int getAccountIDByRankID(int rankID) {
+        String sql = "Select AccountID from [User] where RankID = ?";
+        try (Connection connection = ConnectUtils.getInstance().openConection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, rankID);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getInt("AccountID");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return 0;
+    }
+
 
     /**
      * Hàm ánh xạ `ResultSet` sang đối tượng `User`.

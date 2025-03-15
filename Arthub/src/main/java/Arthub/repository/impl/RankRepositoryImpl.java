@@ -3,6 +3,7 @@ package Arthub.repository.impl;
 import Arthub.converter.RankConverter;
 import Arthub.dto.RankDTO;
 import Arthub.entity.Rank;
+import Arthub.repository.AccountRepository;
 import Arthub.repository.RankRepository;
 import Arthub.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,8 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.*;
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Repository
 public class RankRepositoryImpl implements RankRepository {
@@ -102,6 +105,35 @@ public class RankRepositoryImpl implements RankRepository {
             throw new RuntimeException(e);
         }
     }
+
+    @Override
+    public List<RankDTO> GetRankList() {
+        String sql = "SELECT * FROM Rank";
+        List<RankDTO> rankList = new ArrayList<>();
+        try {
+            utils.ConnectUtils db = utils.ConnectUtils.getInstance();
+            Connection conn = db.openConection();
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next()) {
+                RankDTO rank = new RankDTO();
+                rank.setRankID(rs.getInt("RankID"));
+                rank.setPrice(rs.getInt("Price"));
+                rank.setDayToRentRankAt(rs.getString("DayToRentRankAt"));
+                rank.setDayToEndRank(rs.getString("DayToEndRank"));
+                rank.setTypeID(rs.getInt("TypeID"));
+                rankList.add(rank);
+            }
+            conn.close();
+            stmt.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return rankList;
+    }
+
 
 
 }

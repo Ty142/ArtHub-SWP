@@ -2,6 +2,7 @@ package Arthub.controller.admin;
 
 
 import Arthub.dto.ActivityDTO;
+import Arthub.dto.CreatorDTO;
 import Arthub.entity.Payment;
 import Arthub.entity.Report;
 import Arthub.entity.Transaction;
@@ -31,6 +32,9 @@ public class AdminController {
     PaymentService paymentService;
     @Autowired
     ReportService reportService;
+
+    @Autowired
+    AccountService accountService;
 
     @GetMapping("/numberofuser")
     public Integer getNumberOfUser() {
@@ -77,6 +81,10 @@ public class AdminController {
         reportService.UnlockAccount(accountID);
     }
 
+    @GetMapping("/GetListUserForAdmin")
+    public List<CreatorDTO> getListUserForAdmin() throws Exception {
+        return accountService.getAccountToAdmin();
+    }
 
 
 }

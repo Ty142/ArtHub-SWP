@@ -18,5 +18,6 @@ public interface AccountRepository {
      boolean resetPassword(String email,String newPassword);
      boolean isEmailExist(String email);
 
-     List<CreatorDTO> geUsersForAdmin();
+     List<CreatorDTO> getUsersForAdmin();
+
 }

@@ -12,6 +12,11 @@ import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 
+import Arthub.entity.TypeOfRank;
+import Arthub.entity.User;
+import Arthub.repository.UserRepository;
+import Arthub.service.RankService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import Arthub.repository.AccountRepository;
 import utils.ConnectUtils;
@@ -20,7 +25,11 @@ import utils.ConnectUtils;
 @Repository
 public class AccountRepositoryImpl implements AccountRepository {
 
+    @Autowired
+    RankService rankService;
 
+    @Autowired
+    UserRepository userRepository;
 
     @Override
     public ArrayList<Account> getAllAccounts() {
@@ -277,7 +286,7 @@ public class AccountRepositoryImpl implements AccountRepository {
     }
 
     @Override
-    public List<CreatorDTO> geUsersForAdmin() {
+    public List<CreatorDTO> getUsersForAdmin() {
         String sql = "SELECT * FROM Account";
         List<CreatorDTO> creators = new ArrayList<>();
             ConnectUtils db = ConnectUtils.getInstance();
@@ -286,11 +295,16 @@ public class AccountRepositoryImpl implements AccountRepository {
                 ResultSet resultSet = statement.executeQuery();
                 while (resultSet.next()) {
                     CreatorDTO creator = new CreatorDTO();
-                    creator.setAccountID(resultSet.getInt("AccountID"));
+                    creator.setAccountID(resultSet.getInt("Accountid"));
                     creator.setUserName(resultSet.getString("UserName"));
                     creator.setEmail(resultSet.getString("Email"));
-                    creator.setPhoneNumber(resultSet.getString("PhoneNumber"));
+                    User user = userRepository.getUserByAccountId(creator.getAccountID());
+                    String phoneNumber = (user != null) ? user.getPhoneNumber() : null;
+                    creator.setPhoneNumber(phoneNumber);
                     creator.setStatus(resultSet.getByte("Status"));
+                    TypeOfRank rank = rankService.getNameOfRankID(creator.getAccountID());
+                    String rankName = (rank != null) ? rank.getTypeRankName() : "Unranked";
+                    creator.setNameOfRank(rankName);
                     creators.add(creator);
                 }
             } catch (SQLException e) {
@@ -300,5 +314,7 @@ public class AccountRepositoryImpl implements AccountRepository {
             }
             return creators;
         }
+
+
 
 }
