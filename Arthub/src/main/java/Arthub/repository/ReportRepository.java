@@ -17,4 +17,8 @@ public interface ReportRepository {
     void ClearArtworkIDByReport(int ArtworkID);
 
     void changeStatusReportAfterDelete(int ArtworkID);
+
+    ArrayList<Report> getAllReports();
+
+
 }

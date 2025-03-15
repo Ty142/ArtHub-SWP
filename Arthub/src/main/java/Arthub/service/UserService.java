@@ -30,4 +30,6 @@ public interface UserService {
 
     int getTheNumberOfUsers();
 
+    User getUserByUserID(int userID);
+
 }

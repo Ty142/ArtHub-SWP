@@ -46,4 +46,9 @@ public class ReportServiceImpl implements ReportService {
     public void changeStatusCompleted(int ArtworkID) {
         reportRepository.changeStatusReportAfterDelete(ArtworkID);
     }
+
+    @Override
+    public ArrayList<Report> GetAllReports() {
+        return reportRepository.getAllReports();
+    }
 }

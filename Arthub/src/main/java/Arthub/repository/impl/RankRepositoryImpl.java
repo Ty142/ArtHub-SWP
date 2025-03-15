@@ -115,7 +115,10 @@ public class RankRepositoryImpl implements RankRepository {
     @Override
     public List<RankDTO> getAllRanksArtist() {
         List<RankDTO> ranks = new ArrayList<>();
-        String sql = "SELECT * FROM Rank WHERE TypeID = 5 AND status = 0";
+        String sql =
+                " Select r.RankID, r.DayToRentRankAt,r.DayEndPackage,r.TypeID, u.UserID, a.FormID From [User] u\n" +
+                " join Rank r on r.RankID = u.RankID\n" +
+                " join ArtistForm a on a.UserID = u.UserID\n";
         try {
             utils.ConnectUtils db = utils.ConnectUtils.getInstance();
             Connection conn = db.openConection();
@@ -125,10 +128,9 @@ public class RankRepositoryImpl implements RankRepository {
                 RankDTO rank = new RankDTO();
                 rank.setRankID(rs.getInt("RankID"));
                 rank.setDayToRentRankAt(rs.getString("DayToRentRankAt"));
-                rank.setDayToEndRank(rs.getString("DayEndPackage"));
                 rank.setFormID(rs.getInt("FormID"));
                 rank.setTypeID(rs.getInt("TypeID"));
-                rank.setUserID(userRepository.getUserByRankID(rank.getRankID()).getUserId());
+                rank.setUserID(rs.getInt("UserID"));
                 ranks.add(rank);
             }
              conn.close();
@@ -144,13 +146,12 @@ public class RankRepositoryImpl implements RankRepository {
 
     @Override
     public void AcceptRequestToUpgrade(int RankID) {
-        String sql = "Update Rank set status = ? where RankID = ?";
+        String sql = "Update Rank set TypeID = 5, DayEndPackage = null where RankID = ?";
         try{
             utils.ConnectUtils db = utils.ConnectUtils.getInstance();
             Connection conn = db.openConection();
             PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setInt(1, 1);
-            ps.setInt(2, RankID);
+            ps.setInt(1, RankID);
             ps.executeUpdate();
              conn.close();
              ps.close();
