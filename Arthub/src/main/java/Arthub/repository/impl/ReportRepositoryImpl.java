@@ -2,7 +2,9 @@ package Arthub.repository.impl;
 
 
 import Arthub.entity.Report;
+import Arthub.repository.AccountRepository;
 import Arthub.repository.ReportRepository;
+import Arthub.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -15,6 +17,11 @@ public class ReportRepositoryImpl implements ReportRepository {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
+
+    @Autowired
+    UserRepository userRepository;
+    @Autowired
+    AccountRepository accountRepository;
 
     @Override
     public void addReport(Report report) {
@@ -52,8 +59,9 @@ public class ReportRepositoryImpl implements ReportRepository {
                 if (timestamp != null) {
                     report.setCreatedDate(timestamp.toLocalDateTime());
                 }
-
-                report.setStatus(resultSet.getInt("Status"));
+                int AccountID = userRepository.getUserById(report.getReportedId()).getAccountId();
+                int status = accountRepository.getAccountById(AccountID).getStatus();
+                report.setStatus(status);
                 reports.add(report);
             }
         } catch (Exception e) {
