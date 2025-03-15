@@ -3,11 +3,10 @@ package Arthub.controller.admin;
 
 import Arthub.dto.ActivityDTO;
 import Arthub.dto.CreatorDTO;
+import Arthub.dto.RankDTO;
 import Arthub.entity.Payment;
 import Arthub.entity.Report;
 import Arthub.entity.Transaction;
-import Arthub.repository.ArtworkRepository;
-import Arthub.repository.UserRepository;
 import Arthub.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -36,6 +35,9 @@ public class AdminController {
     @Autowired
     AccountService accountService;
 
+    @Autowired
+    RankService rankService;
+
     @GetMapping("/numberofuser")
     public Integer getNumberOfUser() {
         return  userService.getTheNumberOfUsers();
@@ -61,14 +63,29 @@ public class AdminController {
         return paymentService.getAllPayments();
     }
 
-    @GetMapping("/ListReports")
-    public List<Report> getListOfReports() {
-        return reportService.getAllReports();
+    //Report
+    @GetMapping("/ListReportsFinished")
+    public List<Report> getListOfReportsFinish() {
+        return reportService.getAllReportsFinish();
     }
+
+    @GetMapping("/ListReportsUnfinished")
+    public List<Report> getListOfReportsInProgress() {
+        return reportService.getAllReportsInProgress();
+    }
+
+    @PutMapping("/updateStatus/{ReportID}")
+    public void updateStatusReport(@PathVariable("ReportID") int reportID)  {
+        reportService.changeStatusCompletedProcess(reportID);
+    }
+    //----------------------------------------------------------------
+
+
 
     @DeleteMapping("/Delete/{ArtworkID}")
     public void deleteArtwork(@PathVariable("ArtworkID") int artworkID) throws Exception {
         artworkService.DeleteArtwork(artworkID);
+        reportService.changeStatusCompleted(artworkID);
     }
 
     @PutMapping("/LockAccount/{AccountID}")
@@ -86,5 +103,14 @@ public class AdminController {
         return accountService.getAccountToAdmin();
     }
 
+    @GetMapping("/GetListArtist")
+    public List<RankDTO> getListArtist() throws Exception {
+        return rankService.getListArtistUpgrade();
+    }
+
+    @PutMapping("/AcceptToUpgrade/{rankID}")
+    public void acceptToUpgrade(@PathVariable("rankID") int rankID) throws Exception {
+        rankService.AcceptUpgradeArtist(rankID);
+    }
 
 }

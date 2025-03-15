@@ -112,4 +112,53 @@ public class RankRepositoryImpl implements RankRepository {
         }
     }
 
+    @Override
+    public List<RankDTO> getAllRanksArtist() {
+        List<RankDTO> ranks = new ArrayList<>();
+        String sql = "SELECT * FROM Rank WHERE TypeID = 5 AND status = 0";
+        try {
+            utils.ConnectUtils db = utils.ConnectUtils.getInstance();
+            Connection conn = db.openConection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                RankDTO rank = new RankDTO();
+                rank.setRankID(rs.getInt("RankID"));
+                rank.setDayToRentRankAt(rs.getString("DayToRentRankAt"));
+                rank.setDayToEndRank(rs.getString("DayEndPackage"));
+                rank.setFormID(rs.getInt("FormID"));
+                rank.setTypeID(rs.getInt("TypeID"));
+                rank.setUserID(userRepository.getUserByRankID(rank.getRankID()).getUserId());
+                ranks.add(rank);
+            }
+             conn.close();
+             ps.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        return ranks;
+    }
+
+    @Override
+    public void AcceptRequestToUpgrade(int RankID) {
+        String sql = "Update Rank set status = ? where RankID = ?";
+        try{
+            utils.ConnectUtils db = utils.ConnectUtils.getInstance();
+            Connection conn = db.openConection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, 1);
+            ps.setInt(2, RankID);
+            ps.executeUpdate();
+             conn.close();
+             ps.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }

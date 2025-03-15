@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
+import java.util.List;
 
 @Service
 public class RankServiceImpl implements RankService {
@@ -44,6 +45,16 @@ public class RankServiceImpl implements RankService {
         int userID = userRepository.getUserByAccountId(accountID).getUserId();
         int typeID = getTypeOfRankIDByUserID(userID);
         return typeOfRankRepository.getTypeOfRankById(typeID);
+    }
+
+    @Override
+    public List<RankDTO> getListArtistUpgrade() {
+        return rankRepository.getAllRanksArtist();
+    }
+
+    @Override
+    public void AcceptUpgradeArtist(int RankID) {
+        rankRepository.AcceptRequestToUpgrade(RankID);
     }
 
 }
