@@ -36,14 +36,14 @@ public class AdminController {
     @Autowired
     AccountService accountService;
 
-    @GetMapping("/numberofartwork")
+    @GetMapping("/numberofuser")
     public Integer getNumberOfUser() {
-        return artworkService.getTheNumberOfArtworks();
+        return  userService.getTheNumberOfUsers();
     }
 
-    @GetMapping("/numberofuser")
+    @GetMapping("/numberofartwork")
     public Integer getNumberOfArtwork() {
-        return userService.getTheNumberOfUsers();
+        return  artworkService.getTheNumberOfArtworks();
     }
 
     @GetMapping("/ListActivity")

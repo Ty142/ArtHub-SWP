@@ -19,4 +19,5 @@ public interface AccountRepository {
      boolean isEmailExist(String email);
 
      List<CreatorDTO> getUsersForAdmin();
+
 }

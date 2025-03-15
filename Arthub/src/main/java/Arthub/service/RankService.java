@@ -13,4 +13,6 @@ public interface RankService {
     int getTypeOfRankIDByUserID(int UserID);
 
     TypeOfRank getNameOfRankID(int accountID);
+
+
 }

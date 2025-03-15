@@ -33,4 +33,5 @@ public interface UserRepository {
 
     String getEmailByUserID(int UserID);
     String getEmailByArtworkID(int ArtworkID);
+    int getAccountIDByRankID(int rankID);
 }
