@@ -14,5 +14,5 @@ public interface RankService {
 
     TypeOfRank getNameOfRankID(int accountID);
 
-    void removeRankByAccountID(int accountID);
+
 }

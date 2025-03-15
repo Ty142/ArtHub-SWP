@@ -57,12 +57,6 @@ public class RankAPI {
 
     @PostMapping("Packages/")
     public ResponseEntity<String> addRankToPackages(@RequestBody RankDTO rankDTO) throws ParseException {
-        List<RankDTO> ranks = rankRepository.GetRankList();
-        for (RankDTO rank : ranks) {
-            if (rank.getAccountID() == rankDTO.getAccountID()) {
-                rankRepository.deleteRank(rank.getAccountID());
-            }
-        }
         rankService.AddRankToUser(rankDTO);
         return ResponseEntity.ok("upgrade successfully");
     }

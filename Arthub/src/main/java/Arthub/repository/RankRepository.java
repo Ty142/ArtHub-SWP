@@ -16,6 +16,6 @@ public interface RankRepository {
 
     void deleteRank(int RankID);
 
-    List<RankDTO> GetRankList();
+
 }
 

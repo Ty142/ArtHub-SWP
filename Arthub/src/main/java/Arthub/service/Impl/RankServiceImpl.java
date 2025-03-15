@@ -46,8 +46,4 @@ public class RankServiceImpl implements RankService {
         return typeOfRankRepository.getTypeOfRankById(typeID);
     }
 
-    @Override
-    public void removeRankByAccountID(int accountID) {
-//        rankRepository.deleteRankByAccountID(accountID);
-    }
 }
