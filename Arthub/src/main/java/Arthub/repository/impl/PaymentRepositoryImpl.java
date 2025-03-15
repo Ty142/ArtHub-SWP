@@ -1,9 +1,11 @@
 package Arthub.repository.impl;
 
+import Arthub.entity.Comment;
 import Arthub.entity.Payment;
 import Arthub.repository.PaymentRepository;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -11,6 +13,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.time.LocalDate;
+import java.util.List;
 
 @Repository
 public class PaymentRepositoryImpl implements PaymentRepository {
@@ -44,4 +47,21 @@ public class PaymentRepositoryImpl implements PaymentRepository {
         }
     }
 
+    @Override
+    public List<Payment> getPaymentsByUserId(int userId) {
+        String sql ="SELECT *  FROM Payment where UserId = ? ORDER BY PaymentID DESC;";
+        return jdbcTemplate.query(sql, new Object[]{userId}, new BeanPropertyRowMapper<>(Payment.class));
+    }
+
+    @Override
+    public boolean checkIfPaymentTransCodeExists(String transCode) {
+        String sql = "SELECT COUNT(*) FROM Payment  WHERE TransCode = ? ";
+        return jdbcTemplate.queryForObject(sql, new Object[]{transCode}, Integer.class) > 0;
+    }
+
+    @Override
+    public List<Payment> getAllPayments() {
+        String sql = "SELECT * FROM Payment ORDER BY PaymentID DESC;";
+        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Payment.class));
+    }
 }

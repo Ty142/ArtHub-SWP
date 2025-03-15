@@ -3,12 +3,16 @@ package Arthub.repository.impl;
 import Arthub.converter.RankConverter;
 import Arthub.dto.RankDTO;
 import Arthub.entity.Rank;
+import Arthub.repository.AccountRepository;
 import Arthub.repository.RankRepository;
 import Arthub.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.sql.*;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Repository
 public class RankRepositoryImpl implements RankRepository {
@@ -16,17 +20,24 @@ public class RankRepositoryImpl implements RankRepository {
     UserRepository userRepository;
 
     @Override
-    public int AddTypeRankToListRank(RankDTO rankDTO) {
+    public int AddTypeRankToListRank(RankDTO rankDTO) throws ParseException {
         RankConverter rankConverter = new RankConverter();
         Rank rank = rankConverter.ConvertRankDTOToRankEntity(rankDTO);
-        String sql = "INSERT INTO Rank values(?,?)";
+        String sql = "INSERT INTO Rank(DayToRentRankAt, TypeID, DayEndPackage,FormID, status) values(?,?,?,?,?)";
         int generated = -1;
         try {
             utils.ConnectUtils db = utils.ConnectUtils.getInstance();
             Connection conn = db.openConection();
             PreparedStatement ps = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
-            ps.setString(1, rank.getDayToRentRankAt());
+            ps.setDate(1, new java.sql.Date(rank.getDayToRentRankAt().getTime()));
             ps.setInt(2, rank.getTypeID());
+            ps.setDate(3, new java.sql.Date(rank.getDayToEndRank().getTime()));
+            if (rankDTO.getFormID() == 0) {
+                ps.setNull(4, java.sql.Types.INTEGER);
+            } else {
+                ps.setInt(4, rankDTO.getFormID());
+            }
+            ps.setInt(5, 0);
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {
@@ -64,5 +75,41 @@ public class RankRepositoryImpl implements RankRepository {
 
     }
 
+    @Override
+    public void ChangeRankToExpire(int UserID) {
+        String sql = "update [User] set RankID = ? where UserID = ?";
+        try {
+            utils.ConnectUtils db = utils.ConnectUtils.getInstance();
+            Connection conn = db.openConection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, 1);
+            ps.setInt(2, UserID);
+            ps.executeUpdate();
+             conn.close();
+             ps.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public void deleteRank(int RankID) {
+        String sql = "DELETE FROM Rank WHERE RankID =?";
+        try {
+            utils.ConnectUtils db = utils.ConnectUtils.getInstance();
+            Connection conn = db.openConection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, RankID);
+            ps.executeUpdate();
+             conn.close();
+             ps.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 }

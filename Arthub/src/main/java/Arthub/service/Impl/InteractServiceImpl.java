@@ -1,5 +1,6 @@
 package Arthub.service.Impl;
 
+import Arthub.dto.ActivityDTO;
 import Arthub.entity.Artwork;
 import Arthub.entity.Comment;
 import Arthub.entity.ReplyComment;
@@ -95,9 +96,49 @@ public class InteractServiceImpl implements InteractService {
         }
     }
 
+    @Override
+    public void saveInteractionsOfCommentsForum(int ThreadID) {
+        List<Comment> comments = commentRepository.getAllCommentsByThreadID(ThreadID);
+        List<ReplyComment> replyComments = replyCommentRepository.findAll();
+
+        for (Comment comment : comments) {
+            if(!interactExistsThreadID(ThreadID,comment.getUserID(), 3, comment.getCreatedDate())){
+                Interact interact = new Interact();
+                interact.setUserID(comment.getUserID());
+                interact.setActivityID(3);
+                interact.setDateOfInteract(comment.getCreatedDate());
+                interact.setThreadID(ThreadID);
+                interactRepository.saveInteractCommentOfForum(interact);
+            }
+        }
+
+        // Lưu các reply comment vào bảng Interact
+        for (ReplyComment reply : replyComments) {
+            Integer threadID = GetThreadIDFromComment(reply.getCommentID());
+            if (threadID != null) {
+                Interact interact = new Interact();
+                interact.setUserID(reply.getReplierID());
+                interact.setActivityID(4);
+                interact.setDateOfInteract(reply.getDateOfInteract());
+                interact.setThreadID(threadID);
+                interactRepository.saveInteractCommentOfForum(interact);
+
+            }
+        }
+    }
+
+    @Override
+    public List<ActivityDTO> getListOfActivity() {
+        return interactRepository.getActivityList();
+    }
 
     private boolean interactExists(int artworkID, int userID, int activityID, Date date) {
         List<Interact> interacts = interactRepository.findByArtworkIDAndUserIDAndActivityID(artworkID, userID, activityID, String.valueOf(date));
+        return !interacts.isEmpty();
+    }
+
+    private boolean interactExistsThreadID(int ThreadID,int userID, int activityID, Date date) {
+        List<Interact> interacts = interactRepository.findByThreadIDAndUserIDAndActivityID(ThreadID, userID, activityID, String.valueOf(date));
         return !interacts.isEmpty();
     }
 
@@ -106,6 +147,11 @@ public class InteractServiceImpl implements InteractService {
 
     private Integer getArtworkIDFromComment(int commentID) {
         String sql = "SELECT ArtworkID FROM Comment WHERE CommentID = ?";
+        return jdbcTemplate.queryForObject(sql, Integer.class, commentID);
+    }
+
+    private Integer GetThreadIDFromComment(int commentID) {
+        String sql = "SELECT ThreadID FROM Comment WHERE CommentID = ?";
         return jdbcTemplate.queryForObject(sql, Integer.class, commentID);
     }
 }

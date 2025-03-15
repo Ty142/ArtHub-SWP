@@ -229,7 +229,9 @@ public class ArtworkRepositoryImpl implements ArtworkRepository {
         artwork.setLikes(resultSet.getInt("Likes"));
         artwork.setStatus(resultSet.getInt("Status"));
         artwork.setViews(resultSet.getInt("Views"));
+        artwork.setComments(resultSet.getInt("Comments"));
         artwork.setDateCreated(resultSet.getString("DateCreated"));
+        artwork.setComments(resultSet.getInt("Comments"));
         return artwork;
     }
 
@@ -441,6 +443,24 @@ public class ArtworkRepositoryImpl implements ArtworkRepository {
             throw new RuntimeException(e);
         }
 
+    }
+
+    @Override
+    public int getTheNumberOfArtworks() {
+        String sql = "SELECT COUNT(*) FROM Artworks";
+        try (Connection connection = ConnectUtils.getInstance().openConection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getInt(1);
+            }
+            resultSet.close();
+            connection.close();
+            statement.close();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return 0;
     }
 
 }

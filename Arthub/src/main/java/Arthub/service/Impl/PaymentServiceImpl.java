@@ -12,6 +12,7 @@ import org.springframework.dao.DataAccessException;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class PaymentServiceImpl implements PaymentService {
@@ -34,6 +35,21 @@ public class PaymentServiceImpl implements PaymentService {
             System.out.println("Lỗi SQL khác: " + e.getMessage());
             return false;  // ❌ Trả về false nếu có lỗi khác
         }
+    }
+
+    @Override
+    public List<Payment> getPaymentsByUserId(int UserId) {
+        return paymentRepository.getPaymentsByUserId(UserId);
+    }
+
+    @Override
+    public boolean checkIfPaymentTransCodeExists(String transCode) {
+        return paymentRepository.checkIfPaymentTransCodeExists(transCode);
+    }
+
+    @Override
+    public List<Payment> getAllPayments() {
+        return paymentRepository.getAllPayments();
     }
 
 

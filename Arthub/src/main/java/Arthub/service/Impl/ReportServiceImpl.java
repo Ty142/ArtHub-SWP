@@ -22,4 +22,14 @@ public class ReportServiceImpl implements ReportService {
     public ArrayList<Report> getAllReports() {
         return reportRepository.getAllReports();
     }
+
+    @Override
+    public void LockAccount(int AccountID) {
+        reportRepository.LockAccount(AccountID);
+    }
+
+    @Override
+    public void UnlockAccount(int AccountID) {
+        reportRepository.UnlockAccount(AccountID);
+    }
 }
