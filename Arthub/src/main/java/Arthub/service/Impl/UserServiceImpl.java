@@ -108,6 +108,11 @@ import java.util.*;
         return userRepository.getTheNumberOfUsers();
     }
 
+    @Override
+    public User getUserByUserID(int userID) {
+        return userRepository.getUserById(userID);
+    }
+
 }
 
 

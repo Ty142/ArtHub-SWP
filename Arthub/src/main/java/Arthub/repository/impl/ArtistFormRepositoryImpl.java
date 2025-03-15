@@ -7,6 +7,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -43,6 +45,64 @@ public class ArtistFormRepositoryImpl implements ArtistFormRepository {
         } catch (Exception e) {
             logger.error("Lỗi khi lấy danh sách ArtistForm", e);
             throw new RuntimeException("Không thể lấy danh sách ArtistForm: " + e.getMessage());
+        }
+    }
+
+    @Override
+    public ArtistForm findById(Long id) {
+        String sql = "SELECT * FROM ArtistForm where [FormID] = ?";
+        try{
+            utils.ConnectUtils db = utils.ConnectUtils.getInstance();
+            Connection conn = db.openConection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setLong(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                ArtistForm artistForm = new ArtistForm();
+                artistForm.setFormId(rs.getInt("FormID"));
+                artistForm.setDescriptions(rs.getString("Descriptions"));
+                artistForm.setStatus(rs.getInt("Status"));
+                artistForm.setDateCreation(rs.getTimestamp("DateCreation"));
+                artistForm.setUserId(rs.getInt("UserID"));
+                return artistForm;
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }return null;
+
+    }
+
+    @Override
+    public void AcceptArtist(Long id) {
+        String sql = "Update ArtistForm set status = 1 where FormID =?";
+        try {
+            utils.ConnectUtils db = utils.ConnectUtils.getInstance();
+            Connection conn = db.openConection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setLong(1, id);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public void RejectArtist(Long id) {
+        String sql = "Update ArtistForm set status = 0 where FormID =?";
+        try {
+            utils.ConnectUtils db = utils.ConnectUtils.getInstance();
+            Connection conn = db.openConection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setLong(1, id);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 

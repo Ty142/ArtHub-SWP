@@ -195,6 +195,40 @@ public class ReportRepositoryImpl implements ReportRepository {
         }
     }
 
+    @Override
+    public ArrayList<Report> getAllReports() {
+        String sql = "SELECT * FROM Report";
+        ArrayList<Report> reports = new ArrayList<>();
+        try {
+            utils.ConnectUtils dc = utils.ConnectUtils.getInstance();
+            Connection connection = dc.openConection();
+            PreparedStatement statement = connection.prepareStatement(sql);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                Report report = new Report();
+                report.setReportId(resultSet.getInt("ReportID"));
+                report.setReporterId(resultSet.getInt("ReporterID"));
+                report.setReportedId(resultSet.getInt("ReportedID"));
+                report.setArtworkId(resultSet.getInt("ArtworkID"));
+                report.setDescription(resultSet.getString("Description"));
+                Timestamp timestamp = resultSet.getTimestamp("CreatedDate");
+                if (timestamp!= null) {
+                    report.setCreatedDate(timestamp.toLocalDateTime());
+                }
+                int AccountID = userRepository.getUserById(report.getReportedId()).getAccountId();
+                int status = accountRepository.getAccountById(AccountID).getStatus();
+                report.setStatusUser(status);
+                report.setStatus(resultSet.getInt("Status"));
+                reports.add(report);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return reports;
+    }
+
 
 }
 

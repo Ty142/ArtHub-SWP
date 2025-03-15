@@ -7,6 +7,8 @@ import Arthub.dto.RankDTO;
 import Arthub.entity.Payment;
 import Arthub.entity.Report;
 import Arthub.entity.Transaction;
+import Arthub.entity.User;
+import Arthub.repository.UserRepository;
 import Arthub.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -37,6 +39,9 @@ public class AdminController {
 
     @Autowired
     RankService rankService;
+
+    @Autowired
+    ArtistFormService artistFormService;
 
     @GetMapping("/numberofuser")
     public Integer getNumberOfUser() {
@@ -108,9 +113,17 @@ public class AdminController {
         return rankService.getListArtistUpgrade();
     }
 
-    @PutMapping("/AcceptToUpgrade/{rankID}")
-    public void acceptToUpgrade(@PathVariable("rankID") int rankID) throws Exception {
-        rankService.AcceptUpgradeArtist(rankID);
+    @PutMapping("/AcceptToUpgrade/{ArtistFormID}")
+    public void acceptToUpgrade(@PathVariable("ArtistFormID") Long ID) throws Exception {
+        int UserID = artistFormService.getArtistFormById(ID).getUserId();
+        int RankID = userService.getUserByUserID(UserID).getRankId();
+        rankService.AcceptUpgradeArtist(RankID);
+        artistFormService.AcceptArtistForm(ID);
+    }
+
+    @PutMapping("/RefuseToUpgrade/{ArtistFormID}")
+    public void refuseToUpgrade(@PathVariable("ArtistFormID") Long ID) throws Exception {
+        artistFormService.RejectArtistForm(ID);
     }
 
 }

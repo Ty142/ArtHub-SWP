@@ -41,4 +41,20 @@ public class ArtistFormServiceImpl implements ArtistFormService {
             throw new RuntimeException("Không thể lấy danh sách ArtistForm: " + e.getMessage());
         }
     }
+
+    @Override
+    public ArtistForm getArtistFormById(Long id) {
+        return artistFormRepository.findById(id);
+    }
+
+    @Override
+    public void AcceptArtistForm(Long id) {
+        artistFormRepository.AcceptArtist(id);
+    }
+
+    @Override
+    public void RejectArtistForm(Long id) {
+        artistFormRepository.RejectArtist(id);
+
+    }
 }

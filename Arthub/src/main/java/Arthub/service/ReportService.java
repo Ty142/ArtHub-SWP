@@ -14,4 +14,6 @@ public interface ReportService {
 
     void changeStatusCompletedProcess(int reportID);
     void changeStatusCompleted(int ArtworkID);
+
+    ArrayList<Report> GetAllReports();
 }
