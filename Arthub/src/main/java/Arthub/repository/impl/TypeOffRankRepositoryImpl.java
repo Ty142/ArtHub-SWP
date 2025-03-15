@@ -115,7 +115,7 @@ public class TypeOffRankRepositoryImpl implements TypeOfRankRepository {
 
     @Override
     public int getTypeOfRankIDByRankID(int rankID) {
-        String sql = "SELECT TypeID From [Rank] where RankID = ?";
+        String sql = "SELECT TypeID From [Rank] where RankID = ? ";
         try {
             utils.ConnectUtils db = utils.ConnectUtils.getInstance();
             Connection connection = db.openConection();

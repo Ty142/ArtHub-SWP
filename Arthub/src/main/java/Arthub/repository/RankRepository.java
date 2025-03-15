@@ -1,8 +1,10 @@
 package Arthub.repository;
 
 import Arthub.dto.RankDTO;
+import Arthub.entity.Rank;
 
 import java.text.ParseException;
+import java.util.List;
 
 public interface RankRepository {
 
@@ -16,3 +18,4 @@ public interface RankRepository {
 
 
 }
+

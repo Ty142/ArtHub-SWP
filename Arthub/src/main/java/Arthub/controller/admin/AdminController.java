@@ -38,12 +38,12 @@ public class AdminController {
 
     @GetMapping("/numberofuser")
     public Integer getNumberOfUser() {
-        return artworkService.getTheNumberOfArtworks();
+        return  userService.getTheNumberOfUsers();
     }
 
     @GetMapping("/numberofartwork")
     public Integer getNumberOfArtwork() {
-        return userService.getTheNumberOfUsers();
+        return  artworkService.getTheNumberOfArtworks();
     }
 
     @GetMapping("/ListActivity")

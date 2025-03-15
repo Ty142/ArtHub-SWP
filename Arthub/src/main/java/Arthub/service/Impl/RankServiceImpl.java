@@ -45,4 +45,5 @@ public class RankServiceImpl implements RankService {
         int typeID = getTypeOfRankIDByUserID(userID);
         return typeOfRankRepository.getTypeOfRankById(typeID);
     }
+
 }
