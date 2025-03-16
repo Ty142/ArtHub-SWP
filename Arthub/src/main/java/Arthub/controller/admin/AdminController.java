@@ -9,6 +9,7 @@ import Arthub.entity.Payment;
 import Arthub.entity.Report;
 import Arthub.entity.Transaction;
 import Arthub.entity.User;
+import Arthub.repository.RankRepository;
 import Arthub.repository.UserRepository;
 import Arthub.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +45,9 @@ public class AdminController {
 
     @Autowired
     ArtistFormService artistFormService;
+
+    @Autowired
+    RankRepository rankRepository;
 
     @GetMapping("/numberofuser")
     public Integer getNumberOfUser() {
@@ -113,9 +117,13 @@ public class AdminController {
 
     @PutMapping("/AcceptToUpgrade/")
     public void acceptToUpgrade(@RequestBody ArtistFormDTO dto) throws Exception {
-        int UserID = artistFormService.getArtistFormById(dto.getFormId()).getUserId();
-        int RankID = userService.getUserByUserID(UserID).getRankId();
-        rankService.AcceptUpgradeArtist(RankID);
+        if (dto.getRankID() == 1) {
+            int rankID = rankService.getTheNewRankID(dto);
+            rankService.AcceptUpgradeArtist(rankID);
+        }
+        else {
+            rankService.AcceptUpgradeArtist(dto.getRankID());
+        }
         artistFormService.AcceptArtistForm(dto.getFormId());
     }
 
