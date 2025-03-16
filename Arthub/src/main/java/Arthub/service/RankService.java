@@ -1,5 +1,6 @@
 package Arthub.service;
 
+import Arthub.dto.ArtistFormDTO;
 import Arthub.dto.RankDTO;
 import Arthub.entity.TypeOfRank;
 
@@ -18,4 +19,6 @@ public interface RankService {
     List<RankDTO> getListArtistUpgrade();
 
     void AcceptUpgradeArtist(int RankID);
+
+    int getTheNewRankID(ArtistFormDTO dto) throws ParseException;
 }

@@ -20,6 +20,8 @@ public interface RankRepository {
 
     void AcceptRequestToUpgrade(int RankID);
 
+    void updateNewRankToUser(int UserID,int RankID);
+
 
 }
 

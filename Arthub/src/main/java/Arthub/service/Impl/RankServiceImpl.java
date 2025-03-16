@@ -1,5 +1,6 @@
 package Arthub.service.Impl;
 
+import Arthub.dto.ArtistFormDTO;
 import Arthub.dto.RankDTO;
 import Arthub.entity.TypeOfRank;
 import Arthub.repository.RankRepository;
@@ -10,6 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -56,5 +60,21 @@ public class RankServiceImpl implements RankService {
     public void AcceptUpgradeArtist(int RankID) {
         rankRepository.AcceptRequestToUpgrade(RankID);
     }
+
+    @Override
+    public int getTheNewRankID(ArtistFormDTO dto) throws ParseException {
+        RankDTO r = new RankDTO();
+        r.setTypeID(1);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        r.setDayToRentRankAt(dateFormat.format(r.getDayToRentRankAt()));
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(dto.getDateCreation());
+        calendar.add(Calendar.DAY_OF_MONTH, 90);
+        r.setDayToEndRank(dateFormat.format(calendar.getTime()));
+        int newRankID = rankRepository.AddTypeRankToListRank(r);
+        rankRepository.updateNewRankToUser(dto.getUserId(), newRankID);
+        return newRankID;
+    }
+
 
 }

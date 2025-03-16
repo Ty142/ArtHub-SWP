@@ -2,12 +2,14 @@ package Arthub.controller.admin;
 
 
 import Arthub.dto.ActivityDTO;
+import Arthub.dto.ArtistFormDTO;
 import Arthub.dto.CreatorDTO;
 import Arthub.dto.RankDTO;
 import Arthub.entity.Payment;
 import Arthub.entity.Report;
 import Arthub.entity.Transaction;
 import Arthub.entity.User;
+import Arthub.repository.RankRepository;
 import Arthub.repository.UserRepository;
 import Arthub.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +45,9 @@ public class AdminController {
 
     @Autowired
     ArtistFormService artistFormService;
+
+    @Autowired
+    RankRepository rankRepository;
 
     @GetMapping("/numberofuser")
     public Integer getNumberOfUser() {
@@ -110,17 +115,16 @@ public class AdminController {
         return accountService.getAccountToAdmin();
     }
 
-    @GetMapping("/GetListArtistRequest")
-    public List<RankDTO> getListArtist() throws Exception {
-        return rankService.getListArtistUpgrade();
-    }
-
-    @PutMapping("/AcceptToUpgrade/{ArtistFormID}")
-    public void acceptToUpgrade(@PathVariable("ArtistFormID") Long ID) throws Exception {
-        int UserID = artistFormService.getArtistFormById(ID).getUserId();
-        int RankID = userService.getUserByUserID(UserID).getRankId();
-        rankService.AcceptUpgradeArtist(RankID);
-        artistFormService.AcceptArtistForm(ID);
+    @PutMapping("/AcceptToUpgrade/")
+    public void acceptToUpgrade(@RequestBody ArtistFormDTO dto) throws Exception {
+        if (dto.getRankID() == 1) {
+            int rankID = rankService.getTheNewRankID(dto);
+            rankService.AcceptUpgradeArtist(rankID);
+        }
+        else {
+            rankService.AcceptUpgradeArtist(dto.getRankID());
+        }
+        artistFormService.AcceptArtistForm(dto.getFormId());
     }
 
     @PutMapping("/RefuseToUpgrade/{ArtistFormID}")
@@ -129,7 +133,7 @@ public class AdminController {
     }
 
     @GetMapping("/GetListArtistForm")
-    public List<ArtistForm> getAllArtistForms() throws Exception{
-        return artistFormService.getAllArtistForms();
+    public List<ArtistFormDTO> getAllArtistForms() throws Exception{
+        return artistFormService.getArtistFormsUpgrade();
     }
 }
