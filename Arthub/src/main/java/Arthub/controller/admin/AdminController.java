@@ -12,6 +12,7 @@ import Arthub.repository.UserRepository;
 import Arthub.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import Arthub.entity.ArtistForm;
 
 import java.util.List;
 
@@ -102,13 +103,14 @@ public class AdminController {
     public void unlockAccount(@PathVariable("AccountID") int accountID) throws Exception {
         reportService.UnlockAccount(accountID);
     }
+    //----------------------------------------------------------------
 
     @GetMapping("/GetListUserForAdmin")
     public List<CreatorDTO> getListUserForAdmin() throws Exception {
         return accountService.getAccountToAdmin();
     }
 
-    @GetMapping("/GetListArtist")
+    @GetMapping("/GetListArtistRequest")
     public List<RankDTO> getListArtist() throws Exception {
         return rankService.getListArtistUpgrade();
     }
@@ -126,4 +128,8 @@ public class AdminController {
         artistFormService.RejectArtistForm(ID);
     }
 
+    @GetMapping("/GetListArtistForm")
+    public List<ArtistForm> getAllArtistForms() throws Exception{
+        return artistFormService.getAllArtistForms();
+    }
 }
