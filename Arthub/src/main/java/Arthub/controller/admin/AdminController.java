@@ -2,6 +2,7 @@ package Arthub.controller.admin;
 
 
 import Arthub.dto.ActivityDTO;
+import Arthub.dto.ArtistFormDTO;
 import Arthub.dto.CreatorDTO;
 import Arthub.dto.RankDTO;
 import Arthub.entity.Payment;
@@ -110,17 +111,12 @@ public class AdminController {
         return accountService.getAccountToAdmin();
     }
 
-    @GetMapping("/GetListArtistRequest")
-    public List<RankDTO> getListArtist() throws Exception {
-        return rankService.getListArtistUpgrade();
-    }
-
-    @PutMapping("/AcceptToUpgrade/{ArtistFormID}")
-    public void acceptToUpgrade(@PathVariable("ArtistFormID") Long ID) throws Exception {
-        int UserID = artistFormService.getArtistFormById(ID).getUserId();
+    @PutMapping("/AcceptToUpgrade/")
+    public void acceptToUpgrade(@RequestBody ArtistFormDTO dto) throws Exception {
+        int UserID = artistFormService.getArtistFormById(dto.getFormId()).getUserId();
         int RankID = userService.getUserByUserID(UserID).getRankId();
         rankService.AcceptUpgradeArtist(RankID);
-        artistFormService.AcceptArtistForm(ID);
+        artistFormService.AcceptArtistForm(dto.getFormId());
     }
 
     @PutMapping("/RefuseToUpgrade/{ArtistFormID}")
@@ -129,7 +125,7 @@ public class AdminController {
     }
 
     @GetMapping("/GetListArtistForm")
-    public List<ArtistForm> getAllArtistForms() throws Exception{
-        return artistFormService.getAllArtistForms();
+    public List<ArtistFormDTO> getAllArtistForms() throws Exception{
+        return artistFormService.getArtistFormsUpgrade();
     }
 }

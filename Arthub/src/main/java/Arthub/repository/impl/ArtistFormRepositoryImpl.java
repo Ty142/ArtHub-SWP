@@ -1,9 +1,12 @@
 package Arthub.repository.impl;
 
+import Arthub.dto.ArtistFormDTO;
 import Arthub.entity.ArtistForm;
 import Arthub.repository.ArtistFormRepository;
+import Arthub.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -11,10 +14,14 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
 public class ArtistFormRepositoryImpl implements ArtistFormRepository {
+
+    @Autowired
+    UserRepository userRepository;
 
     private static final Logger logger = LoggerFactory.getLogger(ArtistFormRepositoryImpl.class);
     private final JdbcTemplate jdbcTemplate;
@@ -49,7 +56,7 @@ public class ArtistFormRepositoryImpl implements ArtistFormRepository {
     }
 
     @Override
-    public ArtistForm findById(Long id) {
+    public ArtistForm findById(int id) {
         String sql = "SELECT * FROM ArtistForm where [FormID] = ?";
         try{
             utils.ConnectUtils db = utils.ConnectUtils.getInstance();
@@ -75,7 +82,7 @@ public class ArtistFormRepositoryImpl implements ArtistFormRepository {
     }
 
     @Override
-    public void AcceptArtist(Long id) {
+    public void AcceptArtist(int id) {
         String sql = "Update ArtistForm set status = 1 where FormID =?";
         try {
             utils.ConnectUtils db = utils.ConnectUtils.getInstance();
@@ -99,6 +106,35 @@ public class ArtistFormRepositoryImpl implements ArtistFormRepository {
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setLong(1, id);
             ps.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public List<ArtistFormDTO> findByToUpgrade() {
+        String sql = "SELECT * FROM ArtistForm";
+        List<ArtistFormDTO> artistFormDTOList = new ArrayList<>();
+
+        try {
+            utils.ConnectUtils db = utils.ConnectUtils.getInstance();
+            Connection conn = db.openConection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                ArtistFormDTO artistFormDTO = new ArtistFormDTO();
+                artistFormDTO.setFormId(rs.getInt("FormID"));
+                artistFormDTO.setDescriptions(rs.getString("Descriptions"));
+                artistFormDTO.setStatus(rs.getInt("Status"));
+                artistFormDTO.setDateCreation(rs.getTimestamp("DateCreation"));
+                artistFormDTO.setUserId(rs.getInt("UserID"));
+                int RankID = userRepository.getUserById(artistFormDTO.getUserId()).getRankId();
+                artistFormDTO.setRankID(RankID);
+                artistFormDTOList.add(artistFormDTO);
+            }
+            return artistFormDTOList;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } catch (Exception e) {

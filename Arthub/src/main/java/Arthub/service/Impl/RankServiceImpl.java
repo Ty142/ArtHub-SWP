@@ -57,4 +57,6 @@ public class RankServiceImpl implements RankService {
         rankRepository.AcceptRequestToUpgrade(RankID);
     }
 
+
+
 }

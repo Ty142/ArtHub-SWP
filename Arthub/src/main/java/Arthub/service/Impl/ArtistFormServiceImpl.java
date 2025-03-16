@@ -1,5 +1,6 @@
 package Arthub.service.Impl;
 
+import Arthub.dto.ArtistFormDTO;
 import Arthub.entity.ArtistForm;
 import Arthub.repository.ArtistFormRepository;
 import Arthub.service.ArtistFormService;
@@ -43,12 +44,12 @@ public class ArtistFormServiceImpl implements ArtistFormService {
     }
 
     @Override
-    public ArtistForm getArtistFormById(Long id) {
+    public ArtistForm getArtistFormById(int id) {
         return artistFormRepository.findById(id);
     }
 
     @Override
-    public void AcceptArtistForm(Long id) {
+    public void AcceptArtistForm(int id) {
         artistFormRepository.AcceptArtist(id);
     }
 
@@ -56,5 +57,10 @@ public class ArtistFormServiceImpl implements ArtistFormService {
     public void RejectArtistForm(Long id) {
         artistFormRepository.RejectArtist(id);
 
+    }
+
+    @Override
+    public List<ArtistFormDTO> getArtistFormsUpgrade() {
+        return artistFormRepository.findByToUpgrade();
     }
 }
