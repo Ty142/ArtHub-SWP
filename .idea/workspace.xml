@@ -4,11 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6d276f43-2b7c-4037-965e-bdcca837b8ed" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/controller/admin/AdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/controller/admin/AdminController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/controller/admin/AdminController.class" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/target/classes/Arthub/controller/admin/AdminController.class" afterDir="false" />
-    </list>
+    <list default="true" id="6d276f43-2b7c-4037-965e-bdcca837b8ed" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -154,7 +150,7 @@
       <workItem from="1741288266163" duration="14000" />
       <workItem from="1742030672967" duration="847000" />
       <workItem from="1742047123609" duration="1998000" />
-      <workItem from="1742118124251" duration="6301000" />
+      <workItem from="1742118124251" duration="6818000" />
     </task>
     <servers />
   </component>
