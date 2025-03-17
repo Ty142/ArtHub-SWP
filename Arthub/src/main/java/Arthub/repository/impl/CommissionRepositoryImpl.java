@@ -97,7 +97,7 @@ public class CommissionRepositoryImpl implements CommissionRepository {
     @Override
     public void updateCommissionProgress(int commissionId, int progress, Timestamp completionDate, String artworkURL) {
         String sql = "UPDATE Commission SET Progress = ?, CompletionDate = ?"
-                + (progress == 3 && artworkURL != null ? ", ArtworkURL = ?" : "") // Chỉ cập nhật ArtworkURL nếu progress = 3
+                + (progress == 3 && artworkURL != null ? ", ArtworkURL = ?" : "")
                 + " WHERE CommissionID = ?";
 
         try (Connection connection = utils.ConnectUtils.getInstance().openConection();
