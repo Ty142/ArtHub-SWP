@@ -127,7 +127,7 @@ public class AdminController {
         artistFormService.AcceptArtistForm(dto.getFormId());
     }
 
-    @PutMapping("/RefuseToUpgrade/{ArtistFormID}")
+    @DeleteMapping("/RefuseToUpgrade/{ArtistFormID}")
     public void refuseToUpgrade(@PathVariable("ArtistFormID") Long ID) throws Exception {
         artistFormService.RejectArtistForm(ID);
     }
