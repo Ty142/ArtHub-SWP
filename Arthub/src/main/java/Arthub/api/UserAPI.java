@@ -2,12 +2,9 @@ package Arthub.api;
 
 import Arthub.dto.FileUploadDTO;
 import Arthub.dto.FollowDTO;
-import Arthub.dto.UserDTO;
 import Arthub.entity.Follow;
 import Arthub.entity.User;
-import Arthub.repository.AccountRepository;
 import Arthub.repository.UserRepository;
-import Arthub.repository.impl.ArtworkRepositoryImpl;
 import Arthub.service.FollowService;
 import Arthub.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +15,6 @@ import java.util.ArrayList;
 import java.io.IOException;
 import java.util.List;
 
-import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 import utils.ImageUtils;
 
 @RestController
@@ -96,7 +92,7 @@ public class UserAPI {
 
     // API Lấy thông tin User
     @GetMapping("/userID/{userId}")
-    public ResponseEntity<User> getUser(@PathVariable Integer userId) {
+    public ResponseEntity<User> getUserByUserId(@PathVariable Integer userId) {
         try {
             User user = userRepository.getUserById(userId);
             return ResponseEntity.ok(user);
