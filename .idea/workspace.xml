@@ -5,16 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5f98fdf5-b8ec-4da6-a0a4-f28bafc73760" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/entity/MoneyTransfer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/repository/MoneyTransferRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/repository/impl/MoneyTransferRepositoryImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/service/Impl/MoneyTransferServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/service/MoneyTransferService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/api/PaymentAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/api/PaymentAPI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/entity/Notification.java" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/entity/Notification.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/repository/UserRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/repository/impl/UserRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/repository/impl/UserRepositoryImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/entity/Notification.class" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/target/classes/Arthub/entity/Notification.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
