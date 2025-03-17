@@ -17,7 +17,6 @@ public class User {
     private String createdAt;
     private int rankId;
     private int roleId;
-
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy/MM/dd")
     private LocalDate dateOfBirth;
     private Date lastLogin;
