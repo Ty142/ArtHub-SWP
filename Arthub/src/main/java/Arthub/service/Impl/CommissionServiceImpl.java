@@ -57,4 +57,10 @@ public class CommissionServiceImpl implements CommissionService {
                 return false;
             }
         }
+
+    @Override
+    public List<Commission> getCommissionsByRequestor(int requestorId) {
+        return commissionRepository.getCommissionsByRequestor(requestorId);
+    }
+
 }
