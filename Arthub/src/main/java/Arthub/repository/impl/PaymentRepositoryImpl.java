@@ -22,16 +22,15 @@ public class PaymentRepositoryImpl implements PaymentRepository {
 
 
     public boolean save(Payment payment) {
-        String sql = "INSERT INTO [Arthub].[dbo].[Payment] ([Amount], [CreatedAt], [UserID], [Status], [TransCode]) VALUES (?,?,?,?,?)";
+        String sql = "INSERT INTO [Arthub].[dbo].[Payment] ([Amount], [CreatedAt], [UserID], [Status], [TransCode]) VALUES (?,GETDATE(),?,?,?)";
         utils.ConnectUtils db = utils.ConnectUtils.getInstance();
 
         try (Connection connection = db.openConection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setDouble(1, payment.getAmount());
-            statement.setDate(2, java.sql.Date.valueOf(LocalDate.now()));
-            statement.setInt(3, payment.getUserId());
-            statement.setByte(4, (byte)1);
-            statement.setString(5, payment.getTransCode());
+            statement.setInt(2, payment.getUserId());
+            statement.setByte(3, (byte)1);
+            statement.setString(4, payment.getTransCode());
             statement.executeUpdate();
             return true;
         } catch (SQLServerException e) {

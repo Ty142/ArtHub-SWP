@@ -1,6 +1,7 @@
 package Arthub.service.Impl;
 
 import Arthub.entity.Notification;
+import Arthub.entity.Withdraw;
 import Arthub.repository.NotificationRepository;
 import Arthub.service.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,11 @@ public class NotificationServiceImpl implements NotificationService {
     @Override
     public void readNotificationByUserId(int userId) {
         notificationRepository.readNotificationByUserId(userId);
+    }
+
+    @Override
+    public Notification saveNotificationByWithdraw(Withdraw withdraw) {
+        return notificationRepository.saveNotificationByWithdraw(withdraw);
     }
 
 }

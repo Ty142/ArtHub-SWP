@@ -98,7 +98,7 @@ public class ArtistFormRepositoryImpl implements ArtistFormRepository {
 
     @Override
     public void RejectArtist(Long id) {
-            String sql = "Delete from ArtistForm where FormID = ?";
+        String sql = "Delete from ArtistForm where FormID = ?";
         try {
             utils.ConnectUtils db = utils.ConnectUtils.getInstance();
             Connection conn = db.openConection();
