@@ -1,6 +1,9 @@
 package Arthub.api;
 
+import Arthub.entity.MoneyTransfer;
+import Arthub.entity.Notification;
 import Arthub.entity.Payment;
+import Arthub.service.MoneyTransferService;
 import Arthub.service.PaymentService;
 import Arthub.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +22,9 @@ public class PaymentAPI {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private MoneyTransferService moneyTransferService;
+
     @PostMapping()
     public ResponseEntity<Boolean> savePayment(@RequestBody Payment paymentDTO) {
         paymentDTO.setAmount(paymentDTO.getAmount()/25000);
@@ -30,6 +36,16 @@ public class PaymentAPI {
         } else {
             System.out.println("Có vấn đề với Payment");
             return ResponseEntity.ok(false);
+        }
+    }
+
+    @PostMapping("/")
+    public ResponseEntity<Notification> saveNewMoneyTransfer(@RequestBody MoneyTransfer moneyTransfer) {
+        Notification notification = moneyTransferService.saveNewMoneyTransfer(moneyTransfer);
+        if (notification != null) {
+            return ResponseEntity.ok(notification);
+        } else {
+            return ResponseEntity.ok(null);
         }
     }
 
