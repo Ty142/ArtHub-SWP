@@ -1,5 +1,6 @@
 package Arthub.entity;
 
+import java.sql.Timestamp;
 import java.time.LocalDate;
 
 
@@ -14,6 +15,14 @@ public class Notification {
     private byte isRead;
     private Integer followID;
     private Double amount;
+
+    public Notification(int notificationId, String message, Timestamp createdAt, Integer profileNoti, Double amount) {
+        this.notificationId = notificationId;
+        this.message = message;
+        this.createdAt = createdAt.toLocalDateTime().toLocalDate();
+        this.profileNoti = profileNoti;
+        this.amount = amount;
+    }
 
     public Notification(int notificationId, String message, LocalDate createdAt, Integer interactId, Integer profileNoti, Integer artworkNoti, byte isRead, Integer FollowID) {
         this.notificationId = notificationId;

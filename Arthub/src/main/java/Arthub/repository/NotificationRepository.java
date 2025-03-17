@@ -11,6 +11,5 @@ public interface NotificationRepository {
     List<Notification> getNotificationsOfTheUserFromUserId(int userId);
     void readNotificationByUserId(int userId);
 
-    Notification saveNotificationByWithdraw(Withdraw withdraw);
 
 }

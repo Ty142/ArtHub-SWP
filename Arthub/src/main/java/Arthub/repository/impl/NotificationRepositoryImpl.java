@@ -45,33 +45,6 @@ public class NotificationRepositoryImpl implements NotificationRepository {
         jdbcTemplate.update(sql, new Object[]{userId});
     }
 
-    @Override
-    public Notification saveNotificationByWithdraw(Withdraw withdraw) {
-        String sql = "INSERT INTO Notification (Message,CreatedAt,ProfileNoti, Amount) " +
-                "VALUES (?,?,?,?)";
-        try{
-            utils.ConnectUtils db = utils.ConnectUtils.getInstance();
-            Connection connection = db.openConection();
-            PreparedStatement statement = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
-            statement.setString(1, "#2");
-            Timestamp timestamp = Timestamp.valueOf(withdraw.getDateRequest());
-            statement.setTimestamp(2, timestamp);
-            statement.setInt(3, withdraw.getUserID());
-            statement.setDouble(4, withdraw.getCoinWithdraw()*25000);
-            statement.executeUpdate();
-            ResultSet generatedKeys = statement.getGeneratedKeys();
-            if (generatedKeys.next()) {
-                return new Notification(generatedKeys.getInt(1), "#2", timestamp, withdraw.getUserID(), withdraw.getCoinWithdraw());
-            } else {
-                throw new SQLException("Creating user failed, no ID obtained.");
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-
-    }
 
 
 }

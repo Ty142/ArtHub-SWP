@@ -103,6 +103,7 @@ public class WithDrawRepositoryImpl implements WithDrawRepository {
                 return new Notification(
                         rs.getInt("NotificationID"),
                         rs.getString("Message"),
+
                         rs.getTimestamp("CreatedAt"),
                         rs.getInt("ProfileNoti"),
                         rs.getDouble("Amount")

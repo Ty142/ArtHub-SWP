@@ -30,9 +30,7 @@ public class NotificationServiceImpl implements NotificationService {
         notificationRepository.readNotificationByUserId(userId);
     }
 
-    @Override
-    public Notification saveNotificationByWithdraw(Withdraw withdraw) {
-        return notificationRepository.saveNotificationByWithdraw(withdraw);
-    }
+
+
 
 }
