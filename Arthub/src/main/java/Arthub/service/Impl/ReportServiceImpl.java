@@ -19,7 +19,36 @@ public class ReportServiceImpl implements ReportService {
     }
 
     @Override
-    public ArrayList<Report> getAllReports() {
+    public ArrayList<Report> getAllReportsFinish() {
+        return reportRepository.getAllReportsFinish();
+    }
+
+    @Override
+    public ArrayList<Report> getAllReportsInProgress() {
+        return reportRepository.getAllReportsInProgress();
+    }
+
+    @Override
+    public void LockAccount(int AccountID) {
+        reportRepository.LockAccount(AccountID);
+    }
+
+    @Override
+    public void UnlockAccount(int AccountID) {
+        reportRepository.UnlockAccount(AccountID);
+    }
+
+    @Override
+    public void changeStatusCompletedProcess(int ReportID) {
+        reportRepository.changTheStatusToCompletedReport(ReportID);
+    }
+
+    public void changeStatusCompleted(int ArtworkID) {
+        reportRepository.changeStatusReportAfterDelete(ArtworkID);
+    }
+
+    @Override
+    public ArrayList<Report> GetAllReports() {
         return reportRepository.getAllReports();
     }
 }

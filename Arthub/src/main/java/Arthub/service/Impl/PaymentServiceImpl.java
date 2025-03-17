@@ -47,5 +47,10 @@ public class PaymentServiceImpl implements PaymentService {
         return paymentRepository.checkIfPaymentTransCodeExists(transCode);
     }
 
+    @Override
+    public List<Payment> getAllPayments() {
+        return paymentRepository.getAllPayments();
+    }
+
 
 }

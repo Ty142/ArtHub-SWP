@@ -35,6 +35,7 @@ public class CommissionRepositoryImpl implements CommissionRepository {
                 commission.setCompletionDate(resultSet.getTimestamp("CompletionDate")); // Sử dụng Timestamp
                 commission.setProgress(resultSet.getInt("progress"));
                 commission.setMessage(resultSet.getString("Message")); // Lấy giá trị Message
+                commission.setArtworkURL(resultSet.getString("ArtworkURL"));
                 commissions.add(commission);
             }
 
@@ -94,39 +95,60 @@ public class CommissionRepositoryImpl implements CommissionRepository {
     }
 
     @Override
-    public void updateCommissionProgress(int commissionId, int progress, Timestamp completionDate) {
-        String sql = "UPDATE Commission SET Progress = ?, CompletionDate = ? WHERE CommissionID = ?";
+    public void updateCommissionProgress(int commissionId, int progress, Timestamp completionDate, String artworkURL) {
+        String sql = "UPDATE Commission SET Progress = ?, CompletionDate = ?"
+                + (progress == 3 && artworkURL != null ? ", ArtworkURL = ?" : "") // Chỉ cập nhật ArtworkURL nếu progress = 3
+                + " WHERE CommissionID = ?";
+
         try (Connection connection = utils.ConnectUtils.getInstance().openConection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
 
-            System.out.println("Updating commission progress - commissionId: " + commissionId + ", progress: " + progress + ", completionDate: " + completionDate);
             statement.setInt(1, progress);
-            if (completionDate != null) {
-                statement.setTimestamp(2, completionDate);
-            } else {
-                statement.setNull(2, Types.TIMESTAMP);
+            statement.setTimestamp(2, completionDate);
+
+            int index = 3;
+            if (progress == 3 && artworkURL != null) {
+                statement.setString(index++, artworkURL);
             }
-            statement.setInt(3, commissionId);
+
+            statement.setInt(index, commissionId);
 
             int rowsAffected = statement.executeUpdate();
             if (rowsAffected == 0) {
                 throw new RuntimeException("No commission found with ID: " + commissionId);
             }
-
-            System.out.println("✅ Cập nhật progress thành công với ID: " + commissionId + ", Progress: " + progress + ", CompletionDate: " + completionDate);
+            System.out.println("✅ Cập nhật progress thành công với ID: " + commissionId);
         } catch (SQLException e) {
             System.err.println("❌ Lỗi SQL khi cập nhật progress: " + e.getMessage());
-            e.printStackTrace();
-            throw new RuntimeException("Error updating commission progress in database: " + e.getMessage());
+            throw new RuntimeException("Error updating commission progress: " + e.getMessage());
         } catch (Exception e) {
-            System.err.println("❌ Lỗi không xác định: " + e.getMessage());
-            e.printStackTrace();
-            throw new RuntimeException("Error connecting to database: " + e.getMessage());
+            throw new RuntimeException(e);
         }
     }
 
     @Override
+    public String getArtworkURL(int commissionId) {
+        String sql = "SELECT ArtworkURL FROM Commission WHERE CommissionID = ?";
+        try (Connection connection = utils.ConnectUtils.getInstance().openConection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, commissionId);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getString("ArtworkURL");
+            }
+        } catch (SQLException e) {
+            System.err.println("❌ Lỗi SQL khi lấy ArtworkURL: " + e.getMessage());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return null; // Trả về null nếu không tìm thấy
+    }
+
+
+
+    @Override
     public boolean save(Commission commission) {
+        //suly
         String sql = "INSERT INTO [Arthub].[dbo].[Commission] ([Requestor], [Receiver], [PhoneNumber], [Email], [Description], [Accept], [CreationDate], [AcceptanceDate], [CompletionDate], [Progress], [Message]) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         utils.ConnectUtils db = utils.ConnectUtils.getInstance();
 
@@ -154,4 +176,41 @@ public class CommissionRepositoryImpl implements CommissionRepository {
             return false;
         }
     }
+
+    @Override
+    public List<Commission> getCommissionsByRequestor(int requestorId) {
+        String sql = "SELECT * FROM Commission WHERE Requestor = ?";
+        List<Commission> commissions = new ArrayList<>();
+
+        try (Connection connection = utils.ConnectUtils.getInstance().openConection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+
+            statement.setInt(1, requestorId);
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                Commission commission = new Commission();
+                commission.setCommissionID(resultSet.getInt("CommissionID"));
+                commission.setRequestor(resultSet.getInt("Requestor"));
+                commission.setReceiver(resultSet.getInt("Receiver"));
+                commission.setPhoneNumber(resultSet.getString("PhoneNumber"));
+                commission.setEmail(resultSet.getString("Email"));
+                commission.setDescription(resultSet.getString("Description"));
+                commission.setAccept(resultSet.getBoolean("Accept"));
+                commission.setProgress(resultSet.getInt("Progress"));
+                commission.setCreationDate(resultSet.getTimestamp("CreationDate"));
+                commission.setAcceptanceDate(resultSet.getTimestamp("AcceptanceDate"));
+                commission.setCompletionDate(resultSet.getTimestamp("CompletionDate"));
+                commission.setMessage(resultSet.getString("Message"));
+                commissions.add(commission);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return commissions;
+    }
+
+
 }

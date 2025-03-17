@@ -445,4 +445,22 @@ public class ArtworkRepositoryImpl implements ArtworkRepository {
 
     }
 
+    @Override
+    public int getTheNumberOfArtworks() {
+        String sql = "SELECT COUNT(*) FROM Artworks";
+        try (Connection connection = ConnectUtils.getInstance().openConection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getInt(1);
+            }
+            resultSet.close();
+            connection.close();
+            statement.close();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return 0;
+    }
+
 }

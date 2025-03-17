@@ -25,4 +25,8 @@ public interface UserService {
     boolean updateUser(User user) throws SQLException;
     void updateCoinsAmount(int accountId, double amount);
 
+    int getTheNumberOfUsers();
+
+    User getUserByUserID(int userID);
+
 }

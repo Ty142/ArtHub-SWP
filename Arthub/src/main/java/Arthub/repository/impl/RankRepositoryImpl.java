@@ -3,6 +3,7 @@ package Arthub.repository.impl;
 import Arthub.converter.RankConverter;
 import Arthub.dto.RankDTO;
 import Arthub.entity.Rank;
+import Arthub.repository.AccountRepository;
 import Arthub.repository.RankRepository;
 import Arthub.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,8 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.*;
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Repository
 public class RankRepositoryImpl implements RankRepository {
@@ -20,7 +23,7 @@ public class RankRepositoryImpl implements RankRepository {
     public int AddTypeRankToListRank(RankDTO rankDTO) throws ParseException {
         RankConverter rankConverter = new RankConverter();
         Rank rank = rankConverter.ConvertRankDTOToRankEntity(rankDTO);
-        String sql = "INSERT INTO Rank values(?,?,?)";
+        String sql = "INSERT INTO Rank(DayToRentRankAt, TypeID, DayEndPackage, status) values(?,?,?,?)";
         int generated = -1;
         try {
             utils.ConnectUtils db = utils.ConnectUtils.getInstance();
@@ -29,6 +32,7 @@ public class RankRepositoryImpl implements RankRepository {
             ps.setDate(1, new java.sql.Date(rank.getDayToRentRankAt().getTime()));
             ps.setInt(2, rank.getTypeID());
             ps.setDate(3, new java.sql.Date(rank.getDayToEndRank().getTime()));
+            ps.setInt(4, 0);
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {
@@ -103,5 +107,73 @@ public class RankRepositoryImpl implements RankRepository {
         }
     }
 
+    @Override
+    public List<RankDTO> getAllRanksArtist() {
+        List<RankDTO> ranks = new ArrayList<>();
+        String sql =
+                " Select r.RankID, r.DayToRentRankAt,r.DayEndPackage,r.TypeID, u.UserID, a.FormID From [User] u\n" +
+                " join Rank r on r.RankID = u.RankID\n" +
+                " join ArtistForm a on a.UserID = u.UserID\n";
+        try {
+            utils.ConnectUtils db = utils.ConnectUtils.getInstance();
+            Connection conn = db.openConection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                RankDTO rank = new RankDTO();
+                rank.setRankID(rs.getInt("RankID"));
+                rank.setDayToRentRankAt(rs.getString("DayToRentRankAt"));
+                rank.setFormID(rs.getInt("FormID"));
+                rank.setTypeID(rs.getInt("TypeID"));
+                rank.setUserID(rs.getInt("UserID"));
+                ranks.add(rank);
+            }
+             conn.close();
+             ps.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        return ranks;
+    }
+
+    @Override
+    public void AcceptRequestToUpgrade(int RankID) {
+        String sql = "Update Rank set TypeID = 5, DayEndPackage = null where RankID = ?";
+        try{
+            utils.ConnectUtils db = utils.ConnectUtils.getInstance();
+            Connection conn = db.openConection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, RankID);
+            ps.executeUpdate();
+             conn.close();
+             ps.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public void updateNewRankToUser(int UserID,int RankID){
+        String sql = "UPDATE [User] set RankID = ? where UserID =?";
+        try {
+            utils.ConnectUtils db = utils.ConnectUtils.getInstance();
+            Connection conn = db.openConection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, RankID);
+            ps.setInt(2, UserID);
+            ps.executeUpdate();
+             conn.close();
+             ps.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 }

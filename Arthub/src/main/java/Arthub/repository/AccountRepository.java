@@ -1,10 +1,12 @@
 package Arthub.repository;
 
 import Arthub.dto.AccountDTO;
+import Arthub.dto.CreatorDTO;
 import Arthub.entity.Account;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 public interface AccountRepository {
      ArrayList<Account> getAllAccounts();
@@ -15,5 +17,9 @@ public interface AccountRepository {
      boolean changePasswordByEmail(String email,String oldPassword ,String newPassword) throws SQLException;
      boolean resetPassword(String email,String newPassword);
      boolean isEmailExist(String email);
+
+     List<CreatorDTO> getUsersForAdmin();
+
+
 
 }

@@ -1,9 +1,12 @@
 package Arthub.repository.impl;
 
+import Arthub.dto.ActivityDTO;
 import Arthub.entity.Interact;
 import Arthub.entity.Thread;
+import Arthub.repository.ActivityRepository;
 import Arthub.repository.InteractRepository;
 import Arthub.entity.Artwork;
+import Arthub.repository.UserRepository;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.stereotype.Repository;
@@ -20,6 +23,11 @@ public class InteractRepositoryImpl implements InteractRepository {
     private static final int FAVOURITE_ACTIVITY_ID = 1;
     private static final int LIKE_ACTIVITY_ID = 2;
 
+    @Autowired
+    ActivityRepository repository;
+
+    @Autowired
+    UserRepository userRepository;
     //-------- Start Favourites ----------
     @Override
     public boolean toggleFavourite(int userID, int artworkID) {
@@ -354,7 +362,48 @@ public class InteractRepositoryImpl implements InteractRepository {
                 throw new RuntimeException(e);
             }
         }
+
+    @Override
+    public List<ActivityDTO> getActivityList() {
+        String sql = "Select * from [Interact]";
+        List<ActivityDTO> activityList = new ArrayList<>();
+        try {
+            ConnectUtils db = ConnectUtils.getInstance();
+            Connection connection = db.openConection();
+            PreparedStatement statement = connection.prepareStatement(sql);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                ActivityDTO activity = new ActivityDTO();
+                int ActivityID = (resultSet.getInt("ActivityId"));
+                activity.setActivityName(repository.getActivityNameByActivityID(ActivityID));
+                Timestamp sqlTimestamp = resultSet.getTimestamp("DateOfInteract");
+                if (sqlTimestamp != null) {
+                    LocalDateTime localDateTime = sqlTimestamp.toLocalDateTime();
+                    activity.setActivityDate(localDateTime);
+                }
+                String owner = userRepository.getUserNameByArtworkID(resultSet.getInt("ArtworkID"),resultSet.getInt("ThreadID"));
+                String UserInteraction = userRepository.getUserNameByUserID(resultSet.getInt("UserID"));
+                activity.setOwnerName(owner);
+                if (owner == "" ){
+                    activity.setOwnerName(userRepository.getEmailByArtworkID(resultSet.getInt("ArtworkID")));
+                }
+                activity.setUserInteract(UserInteraction);
+                if (UserInteraction == "") {
+                    activity.setUserInteract(userRepository.getEmailByUserID(resultSet.getInt("UserID")));
+                }
+                activityList.add(activity);
+            }
+            resultSet.close();
+            statement.close();
+            connection.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return activityList;
     }
+}
 
 
 

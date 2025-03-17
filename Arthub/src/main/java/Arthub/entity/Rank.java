@@ -8,6 +8,7 @@ public class Rank {
  private Date DayToRentRankAt;
  private int typeID;
  private Date dayToEndRank;
+ private int FormID;
 
     public Rank(){
 
@@ -50,5 +51,13 @@ public class Rank {
 
     public void setDayToEndRank(Date dayToEndRank) {
         this.dayToEndRank = dayToEndRank;
+    }
+
+    public int getFormID() {
+        return FormID;
+    }
+
+    public void setFormID(int formID) {
+        FormID = formID;
     }
 }

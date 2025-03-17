@@ -7,6 +7,8 @@ public class RankDTO {
     private String dayToRentRankAt;
     private double price;
     private String dayToEndRank;
+    private int FormID;
+    private int UserID;
 
     public RankDTO(int rankID, int accountID, int typeID, String dayToRentRankAt, double price) {
         this.rankID = rankID;
@@ -64,5 +66,20 @@ public class RankDTO {
     }
     public void setDayToEndRank(String dayToEndRank) {
         this.dayToEndRank = dayToEndRank;
+    }
+
+    public int getFormID() {
+        return FormID;
+    }
+
+    public void setFormID(int formID) {
+        FormID = formID;
+    }
+
+    public int getUserID() {
+        return UserID;
+    }
+    public void setUserID(int userID) {
+        UserID = userID;
     }
 }

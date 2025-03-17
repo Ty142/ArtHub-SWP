@@ -17,7 +17,7 @@ public class ReportAPI {
     @GetMapping
     public ResponseEntity<ArrayList<Report>> getAllReports() {
         System.out.println("📥 Nhận yêu cầu lấy tất cả Reports");
-        ArrayList<Report> reports = reportService.getAllReports();
+        ArrayList<Report> reports = reportService.GetAllReports();
         if (reports.isEmpty()) {
             System.out.println("⚠️ Không tìm thấy reports!");
             return ResponseEntity.noContent().build();
@@ -26,8 +26,6 @@ public class ReportAPI {
         System.out.println("✅ Trả về " + reports.size() + " artworks.");
         return ResponseEntity.ok(reports);
     }
-
-
 
 
 

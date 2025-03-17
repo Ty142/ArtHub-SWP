@@ -64,7 +64,7 @@ public class AccountAPI {
 
         if (account == null) {
             System.out.println("⚠️ Account not found for ID: " + accountId);
-            return ResponseEntity.notFound().build(); // Trả về HTTP 404 nếu không tìm thấy
+            return ResponseEntity.notFound().build();
         }
 
         System.out.println("✅ Found account: " + account);

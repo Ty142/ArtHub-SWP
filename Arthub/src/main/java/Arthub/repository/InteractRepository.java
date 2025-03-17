@@ -1,5 +1,6 @@
 package Arthub.repository;
 
+import Arthub.dto.ActivityDTO;
 import Arthub.entity.Artwork;
 import Arthub.entity.Interact;
 import Arthub.entity.Thread;
@@ -27,4 +28,9 @@ public interface InteractRepository {
         List<Interact> findByArtworkIDAndUserIDAndActivityID(int artworkID, int userID, int activityID, String date);
         List<Interact> findByThreadIDAndUserIDAndActivityID(int ThreadID, int userID, int activityID, String s);
         void deleteInteractByArtworkID(int artworkID);
-    }
+
+        List<ActivityDTO> getActivityList();
+
+
+
+}

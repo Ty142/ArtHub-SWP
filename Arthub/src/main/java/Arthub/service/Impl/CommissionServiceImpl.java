@@ -30,9 +30,15 @@ public class CommissionServiceImpl implements CommissionService {
     }
 
     @Override
-    public void updateCommissionProgress(int commissionId, int progress, Timestamp completionDate) {
-        commissionRepository.updateCommissionProgress(commissionId, progress, completionDate);
+    public void updateCommissionProgress(int commissionId, int progress, Timestamp completionDate, String artworkURL) {
+        commissionRepository.updateCommissionProgress(commissionId, progress, completionDate, artworkURL);
     }
+
+    @Override
+    public String getArtworkURL(int commissionId) {
+        return commissionRepository.getArtworkURL(commissionId);
+    }
+
 
     @Override
     public boolean saveCommission(Commission commission) {
@@ -51,4 +57,10 @@ public class CommissionServiceImpl implements CommissionService {
                 return false;
             }
         }
+
+    @Override
+    public List<Commission> getCommissionsByRequestor(int requestorId) {
+        return commissionRepository.getCommissionsByRequestor(requestorId);
+    }
+
 }

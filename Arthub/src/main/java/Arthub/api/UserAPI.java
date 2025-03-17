@@ -103,6 +103,7 @@ public class UserAPI {
 
     @GetMapping("/top-popular")
     public ResponseEntity<List<User>> getTop10PopularUsers() {
+        //suly
         List<User> users = userService.getTop10PopularUsers();
         return ResponseEntity.ok(users);
     }

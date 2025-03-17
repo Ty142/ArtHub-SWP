@@ -21,6 +21,18 @@ public class RankConverter {
         calendar.setTime(parsedDate);
         calendar.add(Calendar.DAY_OF_MONTH, 30);
         rank.setDayToEndRank(calendar.getTime());
+        rank.setFormID(rankDTO.getFormID());
         return rank;
+    }
+
+    public RankDTO ConvertRankEntityToRankDTO(Rank rank) {
+        RankDTO rankDTO = new RankDTO();
+        rankDTO.setRankID(rank.getRankID());
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        rankDTO.setDayToRentRankAt(dateFormat.format(rank.getDayToRentRankAt()));
+        rankDTO.setTypeID(rank.getTypeID());
+        rankDTO.setDayToEndRank(dateFormat.format(rank.getDayToEndRank()));
+        rankDTO.setFormID(rank.getFormID());
+        return rankDTO;
     }
 }

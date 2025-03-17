@@ -8,4 +8,6 @@ public interface PaymentRepository {
     boolean save(Payment payment);
     List<Payment> getPaymentsByUserId(int userId);
     boolean checkIfPaymentTransCodeExists(String transCode);
+
+    List<Payment> getAllPayments();
 }

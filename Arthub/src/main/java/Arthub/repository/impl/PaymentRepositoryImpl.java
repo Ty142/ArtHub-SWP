@@ -58,4 +58,10 @@ public class PaymentRepositoryImpl implements PaymentRepository {
         String sql = "SELECT COUNT(*) FROM Payment  WHERE TransCode = ? ";
         return jdbcTemplate.queryForObject(sql, new Object[]{transCode}, Integer.class) > 0;
     }
+
+    @Override
+    public List<Payment> getAllPayments() {
+        String sql = "SELECT * FROM Payment ORDER BY PaymentID DESC;";
+        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Payment.class));
+    }
 }

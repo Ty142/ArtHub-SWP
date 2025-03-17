@@ -29,6 +29,8 @@ public class ArtworkServiceImpl implements ArtworkService {
     InteractRepository interactRepository;
     @Autowired
     ReplyCommentRepository replyCommentRepository;
+    @Autowired
+    ReportRepository reportRepository;
 
     utils.ImageUtils imageUtils = new utils.ImageUtils();
 
@@ -79,6 +81,7 @@ public class ArtworkServiceImpl implements ArtworkService {
 
     @Override
     public void DeleteArtwork(int id) throws Exception {
+        reportRepository.ClearArtworkIDByReport(id);
         replyCommentRepository.deleteReplyComments( replyCommentRepository.getReplyCommentsByArtworkID(id));
         commentRepository.deleteCommentByArtworkID(id);
         interactRepository.deleteInteractByArtworkID(id);
@@ -112,6 +115,11 @@ public class ArtworkServiceImpl implements ArtworkService {
     public List<Artwork> getArtworksByTagName(String tagName) throws IOException {
         List<Artwork> result = artworkRepository.GetAllArtworksByTagName(tagName);
         return result;
+    }
+
+    @Override
+    public int getTheNumberOfArtworks() {
+        return artworkRepository.getTheNumberOfArtworks();
     }
 }
 

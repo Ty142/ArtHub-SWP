@@ -10,6 +10,7 @@ public class Report {
     private String description;
     private LocalDateTime createdDate;
     private int status;
+    private int statusUser;
 
     public Report() {
         this.createdDate = LocalDateTime.now(); 
@@ -79,5 +80,13 @@ public class Report {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public int getStatusUser() {
+        return statusUser;
+    }
+
+    public void setStatusUser(int statusUser) {
+        this.statusUser = statusUser;
     }
 }
