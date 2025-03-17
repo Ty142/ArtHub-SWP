@@ -38,7 +38,7 @@ public class ReportRepositoryImpl implements ReportRepository {
 
     @Override
     public ArrayList<Report> getAllReportsFinish() {
-        String sql = "SELECT * FROM Report where Status = 1";
+        String sql = "SELECT * FROM Report where Status = 1 ORDER BY ReportID DESC" ;
         ArrayList<Report> reports = new ArrayList<>();
         utils.ConnectUtils db = utils.ConnectUtils.getInstance();
 
@@ -71,7 +71,7 @@ public class ReportRepositoryImpl implements ReportRepository {
 
     @Override
     public ArrayList<Report> getAllReportsInProgress() {
-        String sql = "SELECT * FROM Report where Status = 0";
+        String sql = "SELECT * FROM Report where Status = 0 ORDER BY ReportID DESC";
         ArrayList<Report> reports = new ArrayList<>();
         utils.ConnectUtils db = utils.ConnectUtils.getInstance();
 
@@ -197,7 +197,7 @@ public class ReportRepositoryImpl implements ReportRepository {
 
     @Override
     public ArrayList<Report> getAllReports() {
-        String sql = "SELECT * FROM Report";
+        String sql = "SELECT * FROM Report ORDER BY ReportID DESC";
         ArrayList<Report> reports = new ArrayList<>();
         try {
             utils.ConnectUtils dc = utils.ConnectUtils.getInstance();

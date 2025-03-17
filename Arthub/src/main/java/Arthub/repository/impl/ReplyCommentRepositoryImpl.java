@@ -22,13 +22,13 @@ public class ReplyCommentRepositoryImpl implements ReplyCommentRepository {
 
     @Override
     public List<ReplyComment> getAllReplyComments() {
-        String sql = "SELECT * FROM ReplyComment";
+        String sql = "SELECT * FROM ReplyComment ORDER BY ReplyCommentID DESC";
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(ReplyComment.class));
     }
 
     @Override
     public List<ReplyComment> getReplyCommentsByCommentID(int commentID) {
-        String sql = "SELECT * FROM ReplyComment WHERE CommentID = ?";
+        String sql = "SELECT * FROM ReplyComment WHERE CommentID = ? ORDER BY ReplyCommentID DESC";
         return jdbcTemplate.query(sql, new Object[]{commentID}, new BeanPropertyRowMapper<>(ReplyComment.class));
     }
 

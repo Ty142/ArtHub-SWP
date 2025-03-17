@@ -15,7 +15,7 @@ public class CommissionRepositoryImpl implements CommissionRepository {
     @Override
     public List<Commission> findAllCommissions() {
         List<Commission> commissions = new ArrayList<>();
-        String sql = "SELECT * FROM Commission";
+        String sql = "SELECT * FROM Commission ORDER BY CommissionID DESC";
 
         try (Connection connection = utils.ConnectUtils.getInstance().openConection();
              PreparedStatement statement = connection.prepareStatement(sql);
@@ -179,7 +179,7 @@ public class CommissionRepositoryImpl implements CommissionRepository {
 
     @Override
     public List<Commission> getCommissionsByRequestor(int requestorId) {
-        String sql = "SELECT * FROM Commission WHERE Requestor = ?";
+        String sql = "SELECT * FROM Commission WHERE Requestor = ? ORDER BY CommissionID DESC";
         List<Commission> commissions = new ArrayList<>();
 
         try (Connection connection = utils.ConnectUtils.getInstance().openConection();
