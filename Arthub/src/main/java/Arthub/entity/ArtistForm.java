@@ -5,7 +5,7 @@ import java.util.Date;
 public class ArtistForm {
     private int formId;
     private String descriptions;
-    private Integer status; // Đổi thành Integer để xử lý NULL
+    private Integer status;
     private Date dateCreation;
     private int userId;
 

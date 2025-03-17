@@ -11,4 +11,6 @@ public interface CommissionRepository {
     void updateCommissionProgress(int commissionId, int progress, Timestamp completionDate, String artworkURL);
     String getArtworkURL(int commissionId);
     boolean save(Commission commission);
+    List<Commission> getCommissionsByRequestor(int requestorId);
+
 }

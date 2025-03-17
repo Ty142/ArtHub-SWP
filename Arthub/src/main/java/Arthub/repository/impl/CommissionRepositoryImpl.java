@@ -159,7 +159,7 @@ public class CommissionRepositoryImpl implements CommissionRepository {
             statement.setString(3, commission.getPhoneNumber());
             statement.setString(4, commission.getEmail());
             statement.setString(5, commission.getDescription());
-            statement.setBoolean(6, false);
+            statement.setNull(6, Types.BIT);
             statement.setDate(7, new java.sql.Date(System.currentTimeMillis()));
             statement.setNull(8, java.sql.Types.TIMESTAMP);
             statement.setNull(9, java.sql.Types.TIMESTAMP);
@@ -176,4 +176,42 @@ public class CommissionRepositoryImpl implements CommissionRepository {
             return false;
         }
     }
+
+    @Override
+    public List<Commission> getCommissionsByRequestor(int requestorId) {
+        String sql = "SELECT * FROM Commission WHERE Requestor = ?";
+        List<Commission> commissions = new ArrayList<>();
+
+        try (Connection connection = utils.ConnectUtils.getInstance().openConection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+
+            statement.setInt(1, requestorId);
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                Commission commission = new Commission();
+                commission.setCommissionID(resultSet.getInt("CommissionID"));
+                commission.setRequestor(resultSet.getInt("Requestor"));
+                commission.setReceiver(resultSet.getInt("Receiver"));
+                commission.setPhoneNumber(resultSet.getString("PhoneNumber"));
+                commission.setEmail(resultSet.getString("Email"));
+                commission.setDescription(resultSet.getString("Description"));
+                commission.setAccept(resultSet.getObject("Accept", Boolean.class));
+                commission.setProgress(resultSet.getInt("Progress"));
+                commission.setCreationDate(resultSet.getTimestamp("CreationDate"));
+                commission.setAcceptanceDate(resultSet.getTimestamp("AcceptanceDate"));
+                commission.setCompletionDate(resultSet.getTimestamp("CompletionDate"));
+                commission.setMessage(resultSet.getString("Message"));
+                commission.setArtworkURL(resultSet.getString("ArtworkURL"));
+                commissions.add(commission);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return commissions;
+    }
+
+
 }

@@ -67,4 +67,6 @@ public class RankAPI {
         return ResponseEntity.ok("Rank deleted successfully");
     }
 
+
+
 }

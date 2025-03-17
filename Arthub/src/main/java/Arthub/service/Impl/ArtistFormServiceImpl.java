@@ -1,5 +1,6 @@
 package Arthub.service.Impl;
 
+import Arthub.dto.ArtistFormDTO;
 import Arthub.entity.ArtistForm;
 import Arthub.repository.ArtistFormRepository;
 import Arthub.service.ArtistFormService;
@@ -40,5 +41,26 @@ public class ArtistFormServiceImpl implements ArtistFormService {
             logger.error("Lỗi khi lấy ArtistForm", e);
             throw new RuntimeException("Không thể lấy danh sách ArtistForm: " + e.getMessage());
         }
+    }
+
+    @Override
+    public ArtistForm getArtistFormById(int id) {
+        return artistFormRepository.findById(id);
+    }
+
+    @Override
+    public void AcceptArtistForm(int id) {
+        artistFormRepository.AcceptArtist(id);
+    }
+
+    @Override
+    public void RejectArtistForm(Long id) {
+        artistFormRepository.RejectArtist(id);
+
+    }
+
+    @Override
+    public List<ArtistFormDTO> getArtistFormsUpgrade() {
+        return artistFormRepository.findByToUpgrade();
     }
 }

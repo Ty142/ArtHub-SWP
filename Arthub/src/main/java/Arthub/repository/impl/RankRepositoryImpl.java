@@ -23,7 +23,7 @@ public class RankRepositoryImpl implements RankRepository {
     public int AddTypeRankToListRank(RankDTO rankDTO) throws ParseException {
         RankConverter rankConverter = new RankConverter();
         Rank rank = rankConverter.ConvertRankDTOToRankEntity(rankDTO);
-        String sql = "INSERT INTO Rank(DayToRentRankAt, TypeID, DayEndPackage,FormID, status) values(?,?,?,?,?)";
+        String sql = "INSERT INTO Rank(DayToRentRankAt, TypeID, DayEndPackage, status) values(?,?,?,?)";
         int generated = -1;
         try {
             utils.ConnectUtils db = utils.ConnectUtils.getInstance();
@@ -32,12 +32,7 @@ public class RankRepositoryImpl implements RankRepository {
             ps.setDate(1, new java.sql.Date(rank.getDayToRentRankAt().getTime()));
             ps.setInt(2, rank.getTypeID());
             ps.setDate(3, new java.sql.Date(rank.getDayToEndRank().getTime()));
-            if (rankDTO.getFormID() == 0) {
-                ps.setNull(4, java.sql.Types.INTEGER);
-            } else {
-                ps.setInt(4, rankDTO.getFormID());
-            }
-            ps.setInt(5, 0);
+            ps.setInt(4, 0);
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {
@@ -102,6 +97,75 @@ public class RankRepositoryImpl implements RankRepository {
             Connection conn = db.openConection();
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1, RankID);
+            ps.executeUpdate();
+             conn.close();
+             ps.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public List<RankDTO> getAllRanksArtist() {
+        List<RankDTO> ranks = new ArrayList<>();
+        String sql =
+                " Select r.RankID, r.DayToRentRankAt,r.DayEndPackage,r.TypeID, u.UserID, a.FormID From [User] u\n" +
+                " join Rank r on r.RankID = u.RankID\n" +
+                " join ArtistForm a on a.UserID = u.UserID\n";
+        try {
+            utils.ConnectUtils db = utils.ConnectUtils.getInstance();
+            Connection conn = db.openConection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                RankDTO rank = new RankDTO();
+                rank.setRankID(rs.getInt("RankID"));
+                rank.setDayToRentRankAt(rs.getString("DayToRentRankAt"));
+                rank.setFormID(rs.getInt("FormID"));
+                rank.setTypeID(rs.getInt("TypeID"));
+                rank.setUserID(rs.getInt("UserID"));
+                ranks.add(rank);
+            }
+             conn.close();
+             ps.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        return ranks;
+    }
+
+    @Override
+    public void AcceptRequestToUpgrade(int RankID) {
+        String sql = "Update Rank set TypeID = 5, DayEndPackage = null where RankID = ?";
+        try{
+            utils.ConnectUtils db = utils.ConnectUtils.getInstance();
+            Connection conn = db.openConection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, RankID);
+            ps.executeUpdate();
+             conn.close();
+             ps.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public void updateNewRankToUser(int UserID,int RankID){
+        String sql = "UPDATE [User] set RankID = ? where UserID =?";
+        try {
+            utils.ConnectUtils db = utils.ConnectUtils.getInstance();
+            Connection conn = db.openConection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, RankID);
+            ps.setInt(2, UserID);
             ps.executeUpdate();
              conn.close();
              ps.close();

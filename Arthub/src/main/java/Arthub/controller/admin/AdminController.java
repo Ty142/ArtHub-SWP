@@ -2,15 +2,19 @@ package Arthub.controller.admin;
 
 
 import Arthub.dto.ActivityDTO;
+import Arthub.dto.ArtistFormDTO;
 import Arthub.dto.CreatorDTO;
+import Arthub.dto.RankDTO;
 import Arthub.entity.Payment;
 import Arthub.entity.Report;
 import Arthub.entity.Transaction;
-import Arthub.repository.ArtworkRepository;
+import Arthub.entity.User;
+import Arthub.repository.RankRepository;
 import Arthub.repository.UserRepository;
 import Arthub.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import Arthub.entity.ArtistForm;
 
 import java.util.List;
 
@@ -35,6 +39,15 @@ public class AdminController {
 
     @Autowired
     AccountService accountService;
+
+    @Autowired
+    RankService rankService;
+
+    @Autowired
+    ArtistFormService artistFormService;
+
+    @Autowired
+    RankRepository rankRepository;
 
     @GetMapping("/numberofuser")
     public Integer getNumberOfUser() {
@@ -61,14 +74,29 @@ public class AdminController {
         return paymentService.getAllPayments();
     }
 
-    @GetMapping("/ListReports")
-    public List<Report> getListOfReports() {
-        return reportService.getAllReports();
+    //Report
+    @GetMapping("/ListReportsFinished")
+    public List<Report> getListOfReportsFinish() {
+        return reportService.getAllReportsFinish();
     }
+
+    @GetMapping("/ListReportsUnfinished")
+    public List<Report> getListOfReportsInProgress() {
+        return reportService.getAllReportsInProgress();
+    }
+
+    @PutMapping("/updateStatus/{ReportID}")
+    public void updateStatusReport(@PathVariable("ReportID") int reportID)  {
+        reportService.changeStatusCompletedProcess(reportID);
+    }
+    //----------------------------------------------------------------
+
+
 
     @DeleteMapping("/Delete/{ArtworkID}")
     public void deleteArtwork(@PathVariable("ArtworkID") int artworkID) throws Exception {
         artworkService.DeleteArtwork(artworkID);
+        reportService.changeStatusCompleted(artworkID);
     }
 
     @PutMapping("/LockAccount/{AccountID}")
@@ -80,11 +108,32 @@ public class AdminController {
     public void unlockAccount(@PathVariable("AccountID") int accountID) throws Exception {
         reportService.UnlockAccount(accountID);
     }
+    //----------------------------------------------------------------
 
     @GetMapping("/GetListUserForAdmin")
     public List<CreatorDTO> getListUserForAdmin() throws Exception {
         return accountService.getAccountToAdmin();
     }
 
+    @PutMapping("/AcceptToUpgrade/")
+    public void acceptToUpgrade(@RequestBody ArtistFormDTO dto) throws Exception {
+        if (dto.getRankID() == 1) {
+            int rankID = rankService.getTheNewRankID(dto);
+            rankService.AcceptUpgradeArtist(rankID);
+        }
+        else {
+            rankService.AcceptUpgradeArtist(dto.getRankID());
+        }
+        artistFormService.AcceptArtistForm(dto.getFormId());
+    }
 
+    @DeleteMapping("/RefuseToUpgrade/{ArtistFormID}")
+    public void refuseToUpgrade(@PathVariable("ArtistFormID") Long ID) throws Exception {
+        artistFormService.RejectArtistForm(ID);
+    }
+
+    @GetMapping("/GetListArtistForm")
+    public List<ArtistFormDTO> getAllArtistForms() throws Exception{
+        return artistFormService.getArtistFormsUpgrade();
+    }
 }

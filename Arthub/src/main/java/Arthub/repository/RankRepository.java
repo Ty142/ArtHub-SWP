@@ -16,6 +16,12 @@ public interface RankRepository {
 
     void deleteRank(int RankID);
 
+    List<RankDTO> getAllRanksArtist();
+
+    void AcceptRequestToUpgrade(int RankID);
+
+    void updateNewRankToUser(int UserID,int RankID);
+
 
 }
 

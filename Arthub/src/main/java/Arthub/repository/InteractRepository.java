@@ -30,4 +30,7 @@ public interface InteractRepository {
         void deleteInteractByArtworkID(int artworkID);
 
         List<ActivityDTO> getActivityList();
-    }
+
+
+
+}

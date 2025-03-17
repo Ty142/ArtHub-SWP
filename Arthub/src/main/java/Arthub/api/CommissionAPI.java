@@ -70,7 +70,6 @@ public class CommissionAPI {
     }
 
 
-
     @PostMapping("/request")
     public ResponseEntity<Boolean> createCommission(@RequestBody Commission commission) {
         //suly
@@ -83,4 +82,15 @@ public class CommissionAPI {
             return ResponseEntity.ok(false);
         }
     }
+
+    @GetMapping("/requestor/{requestorId}")
+    public ResponseEntity<List<Commission>> getCommissionsByRequestor(@PathVariable int requestorId) {
+        List<Commission> commissions = commissionService.getCommissionsByRequestor(requestorId);
+        if (commissions.isEmpty()) {
+            return ResponseEntity.noContent().build(); // Trả về 204 nếu không có dữ liệu
+        }
+        return ResponseEntity.ok(commissions);
+    }
+
+
 }
