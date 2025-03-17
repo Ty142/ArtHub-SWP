@@ -1,6 +1,7 @@
 package Arthub.repository.impl;
 
 import Arthub.dto.WithdrawDTO;
+import Arthub.entity.Notification;
 import Arthub.entity.Withdraw;
 import Arthub.repository.WithDrawRepository;
 import org.springframework.stereotype.Repository;
@@ -83,39 +84,43 @@ public class WithDrawRepositoryImpl implements WithDrawRepository {
     }
 
     @Override
-    public int saveWithdraw(Withdraw withdraw) {
-        String sql = "INSERT INTO WithdrawCoin (UserID, CoinWithdraw, DateRequest, BankName, BankNumber, Status) VALUES (?,?,?,?,?,?)";
-        int generated = -1;
+    public Notification saveWithdraw(Withdraw withdraw) {
+        String sql = "{CALL sp_InsertWithdrawAndNotification(?,?,?,?)}";
+
         try {
             utils.ConnectUtils db = utils.ConnectUtils.getInstance();
             Connection conn = db.openConection();
-            PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            ps.setInt(1,withdraw.getUserID());
-            ps.setDouble(2, withdraw.getCoinWithdraw()*0.9);
-            LocalDateTime dateTime = LocalDateTime.now();
-            Timestamp timestamp = Timestamp.valueOf(dateTime);
-            ps.setTimestamp(3, timestamp);
-            ps.setString(4, withdraw.getBankName());
-            ps.setString(5, withdraw.getBankNumber());
-            ps.setInt(6, 0);
-            ps.executeUpdate();
-            ResultSet rs = ps.getGeneratedKeys();
+            CallableStatement cs = conn.prepareCall(sql);
+
+            cs.setInt(1, withdraw.getUserID());
+            cs.setDouble(2, withdraw.getCoinWithdraw());
+            cs.setString(3, withdraw.getBankName());
+            cs.setString(4, withdraw.getBankNumber());
+
+            ResultSet rs = cs.executeQuery();
+
             if (rs.next()) {
-                generated = rs.getInt(1);
+                return new Notification(
+                        rs.getInt("NotificationID"),
+                        rs.getString("Message"),
+                        rs.getTimestamp("CreatedAt"),
+                        rs.getInt("ProfileNoti"),
+                        rs.getDouble("Amount")
+                );
             }
-            conn.close();
-            ps.close();
+
             rs.close();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+            cs.close();
+            conn.close();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        return generated;
+
+        return null;
     }
 
     @Override
-    public Withdraw findById(Long id) {
+    public Withdraw findById(int id) {
         String sql = "SELECT * FROM WithdrawCoin WHERE WithdrawID =?";
         try {
             utils.ConnectUtils db = utils.ConnectUtils.getInstance();

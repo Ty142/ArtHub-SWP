@@ -1,6 +1,8 @@
 package Arthub.api;
 
+import Arthub.entity.Notification;
 import Arthub.entity.Withdraw;
+import Arthub.service.NotificationService;
 import Arthub.service.WithdrawService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,9 +15,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class WithdrawAPI {
     @Autowired
     WithdrawService withdrawService;
-    @PostMapping("/SaveWithdraw/")
-    public String saveWithdraw(@RequestBody Withdraw withdraw) {
+
+    @Autowired
+    NotificationService notificationService;
+    @PostMapping()
+    public void saveWithdraw(@RequestBody Withdraw withdraw) {
         withdrawService.addWithdraw(withdraw);
-        return "Withdrawal saved successfully";
+
     }
 }

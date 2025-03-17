@@ -16,4 +16,6 @@ public interface TransactionService {
 
     boolean checkTransaction(int buyerId, int artworkId);
 
+
+
 }

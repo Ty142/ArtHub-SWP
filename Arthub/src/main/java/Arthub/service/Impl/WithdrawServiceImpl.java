@@ -1,5 +1,6 @@
 package Arthub.service.Impl;
 
+import Arthub.entity.Notification;
 import Arthub.entity.Withdraw;
 import Arthub.repository.WithDrawRepository;
 import Arthub.service.WithdrawService;
@@ -23,12 +24,17 @@ public class WithdrawServiceImpl implements WithdrawService {
     }
 
     @Override
-    public int addWithdraw(Withdraw withdraw) {
+    public Notification addWithdraw(Withdraw withdraw) {
         return repository.saveWithdraw(withdraw);
     }
 
     @Override
     public void AcceptWithdraw(int withdrawID) {
         repository.acceptWithdraw(withdrawID);
+    }
+
+    @Override
+    public Withdraw FindWithdrawByID(int withdrawID) {
+        return repository.findById(withdrawID);
     }
 }

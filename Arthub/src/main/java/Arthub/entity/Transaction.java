@@ -10,6 +10,8 @@ public class Transaction {
     private int buyerID;
     private int artworkID;
 
+
+
     public int getTransactionID() {
         return transactionID;
     }
