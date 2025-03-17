@@ -9,7 +9,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -99,7 +98,7 @@ public class ArtistFormRepositoryImpl implements ArtistFormRepository {
 
     @Override
     public void RejectArtist(Long id) {
-            String sql = "Delete from ArtistForm where FormID = ?";
+        String sql = "Delete from ArtistForm where FormID = ?";
         try {
             utils.ConnectUtils db = utils.ConnectUtils.getInstance();
             Connection conn = db.openConection();

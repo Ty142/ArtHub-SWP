@@ -1,5 +1,6 @@
 package Arthub.entity;
 
+import java.sql.Timestamp;
 import java.time.LocalDate;
 
 
@@ -14,9 +15,18 @@ public class Notification {
     private byte isRead;
     private Integer followID;
     private Double amount;
-    private Integer transferId;
+    private Integer transferID;
 
-    public Notification(int notificationId, String message, LocalDate createdAt, Integer interactId, Integer profileNoti, Integer artworkNoti, byte isRead, Integer FollowID , double amount , Integer transferId) {
+
+    public Notification(int notificationId, String message, Timestamp createdAt, Integer profileNoti, Double amount) {
+        this.notificationId = notificationId;
+        this.message = message;
+        this.createdAt = createdAt.toLocalDateTime().toLocalDate();
+        this.profileNoti = profileNoti;
+        this.amount = amount;
+    }
+
+    public Notification(int notificationId, String message, LocalDate createdAt, Integer interactId, Integer profileNoti, Integer artworkNoti, byte isRead, Integer followID, Double amount, Integer transferID) {
         this.notificationId = notificationId;
         this.message = message;
         this.createdAt = createdAt;
@@ -24,9 +34,9 @@ public class Notification {
         this.profileNoti = profileNoti;
         this.artworkNoti = artworkNoti;
         this.isRead = isRead;
-        this.followID = FollowID;
+        this.followID = followID;
         this.amount = amount;
-        this.transferId = transferId;
+        this.transferID = transferID;
     }
 
     public Notification() {
@@ -39,16 +49,14 @@ public class Notification {
         this.isRead = 0;
         this.followID = 0;
         this.amount = 0.0;
-        this.transferId = 0;
     }
 
-
-    public Integer getTransferId() {
-        return transferId;
+    public Integer getTransferID() {
+        return transferID;
     }
 
-    public void setTransferId(Integer transferId) {
-        this.transferId = transferId;
+    public void setTransferID(Integer transferID) {
+        this.transferID = transferID;
     }
 
     public Double getAmount() {

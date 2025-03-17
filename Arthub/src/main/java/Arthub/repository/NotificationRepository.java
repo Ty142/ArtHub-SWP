@@ -1,6 +1,7 @@
 package Arthub.repository;
 
 import Arthub.entity.Notification;
+import Arthub.entity.Withdraw;
 
 import java.util.List;
 
@@ -9,5 +10,6 @@ public interface NotificationRepository {
     Notification findByNotificationByFollowerIDAndFollowingID(int followerID, int followingID);
     List<Notification> getNotificationsOfTheUserFromUserId(int userId);
     void readNotificationByUserId(int userId);
+
 
 }

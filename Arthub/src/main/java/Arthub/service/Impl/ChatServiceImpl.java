@@ -2,8 +2,8 @@ package Arthub.service.Impl;
 
 import Arthub.entity.Chat;
 import Arthub.entity.Message;
-import Arthub.entity.User;
 import Arthub.event.ChatEvent;
+import Arthub.entity.User;
 import Arthub.event.UserInteractionEvent;
 import Arthub.repository.ChatRepository;
 import Arthub.service.ChatService;
