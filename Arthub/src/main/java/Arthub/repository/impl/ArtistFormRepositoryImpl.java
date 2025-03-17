@@ -95,7 +95,7 @@ public class ArtistFormRepositoryImpl implements ArtistFormRepository {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-    }
+    }   
 
     @Override
     public void RejectArtist(Long id) {

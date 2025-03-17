@@ -5,16 +5,12 @@ import Arthub.dto.ActivityDTO;
 import Arthub.dto.ArtistFormDTO;
 import Arthub.dto.CreatorDTO;
 import Arthub.dto.RankDTO;
-import Arthub.entity.Payment;
-import Arthub.entity.Report;
-import Arthub.entity.Transaction;
-import Arthub.entity.User;
+import Arthub.entity.*;
 import Arthub.repository.RankRepository;
 import Arthub.repository.UserRepository;
 import Arthub.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import Arthub.entity.ArtistForm;
 
 import java.util.List;
 
@@ -48,6 +44,9 @@ public class AdminController {
 
     @Autowired
     RankRepository rankRepository;
+
+    @Autowired
+    WithdrawService withdrawService;
 
     @GetMapping("/numberofuser")
     public Integer getNumberOfUser() {
@@ -135,5 +134,20 @@ public class AdminController {
     @GetMapping("/GetListArtistForm")
     public List<ArtistFormDTO> getAllArtistForms() throws Exception{
         return artistFormService.getArtistFormsUpgrade();
+    }
+
+    @GetMapping("/GetListWithdrawInProgress")
+    public List<Withdraw> getAllWithdrawInProgress() throws Exception {
+        return withdrawService.ListWithdrawInProgress();
+    }
+
+    @GetMapping("/GetListWithdrawBeAccept")
+    public List<Withdraw> getAllWithdrawAccept() throws Exception {
+        return withdrawService.ListWithdrawAccept();
+    }
+
+    @PutMapping("/AcceptWithdraw/{id}")
+    public void setAcceptWithdraw(@PathVariable("id") int id){
+        withdrawService.AcceptWithdraw(id);
     }
 }
