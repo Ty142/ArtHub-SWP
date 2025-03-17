@@ -34,12 +34,53 @@ public class User {
     private double popularity;
 
 
-    public String getEmail() {
-        return email;
+    public User(int userId, String firstName, String lastName, String phoneNumber, String address, String biography, double coins, String createdAt, int rankId, int roleId, int typeId, LocalDate dateOfBirth, Date lastLogin, int accountId, String profilePicture, String backgroundPicture, int followCounts, int followerCount, String email, int totalLikes, double popularity) {
+        this.userId = userId;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
+        this.biography = biography;
+        this.coins = coins;
+        this.createdAt = createdAt;
+        this.rankId = rankId;
+        this.roleId = roleId;
+        this.typeId = typeId;
+        this.dateOfBirth = dateOfBirth;
+        this.lastLogin = lastLogin;
+        this.accountId = accountId;
+        this.profilePicture = profilePicture;
+        this.backgroundPicture = backgroundPicture;
+        this.followCounts = followCounts;
+        this.followerCount = followerCount;
+        this.email = email;
+        this.totalLikes = totalLikes;
+        this.popularity = popularity;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+
+    public User () {
+        this.userId = 0;
+        this.firstName = "";
+        this.lastName = "";
+        this.phoneNumber = "";
+        this.address = "";
+        this.biography = "";
+        this.coins = 0;
+        this.createdAt = "";
+        this.rankId = 0;
+        this.roleId = 0;
+        this.typeId = 0;
+        this.dateOfBirth = null;
+        this.lastLogin = null;
+        this.accountId = 0;
+        this.profilePicture = "";
+        this.backgroundPicture = "";
+        this.followCounts = 0;
+        this.followerCount = 0;
+        this.email = "";
+        this.totalLikes = 0;
+        this.popularity = 0;
     }
 
     public int getUserId() {
@@ -122,6 +163,14 @@ public class User {
         this.roleId = roleId;
     }
 
+    public int getTypeId() {
+        return typeId;
+    }
+
+    public void setTypeId(int typeId) {
+        this.typeId = typeId;
+    }
+
     public LocalDate getDateOfBirth() {
         return dateOfBirth;
     }
@@ -178,6 +227,14 @@ public class User {
         this.followerCount = followerCount;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public int getTotalLikes() {
         return totalLikes;
     }
@@ -192,13 +249,5 @@ public class User {
 
     public void setPopularity(double popularity) {
         this.popularity = popularity;
-    }
-
-    public int getTypeId() {
-        return typeId;
-    }
-
-    public void setTypeId(int typeId) {
-        this.typeId = typeId;
     }
 }
