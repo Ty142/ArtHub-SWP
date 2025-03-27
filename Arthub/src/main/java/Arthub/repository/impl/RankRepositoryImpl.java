@@ -23,7 +23,7 @@ public class RankRepositoryImpl implements RankRepository {
     public int AddTypeRankToListRank(RankDTO rankDTO) throws ParseException {
         RankConverter rankConverter = new RankConverter();
         Rank rank = rankConverter.ConvertRankDTOToRankEntity(rankDTO);
-        String sql = "INSERT INTO Rank(DayToRentRankAt, TypeID, DayEndPackage, status) values(?,?,?,?)";
+        String sql = "INSERT INTO Rank(DayToRentRankAt, TypeID, DayEndPackage) values(?,?,?)";
         int generated = -1;
         try {
             utils.ConnectUtils db = utils.ConnectUtils.getInstance();
@@ -32,7 +32,6 @@ public class RankRepositoryImpl implements RankRepository {
             ps.setDate(1, new java.sql.Date(rank.getDayToRentRankAt().getTime()));
             ps.setInt(2, rank.getTypeID());
             ps.setDate(3, new java.sql.Date(rank.getDayToEndRank().getTime()));
-            ps.setInt(4, 0);
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {
