@@ -1,7 +1,5 @@
 package Arthub.entity;
 
-import Arthub.repository.impl.TypeOffRankRepositoryImpl;
-
 public class TypeOfRank {
     private int typeId;
     private String typeRankName;

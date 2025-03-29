@@ -37,7 +37,7 @@ public class AccountAPI {
     /**
      * API lấy tất cả tài khoản
      */
-    @GetMapping
+    @GetMapping()
     public ResponseEntity<List<Account>> getAccounts() {
         List<Account> accounts = accountService.getAccounts();
         if (accounts.isEmpty()) {
@@ -49,7 +49,6 @@ public class AccountAPI {
     @PostMapping("/send-token")
     public ResponseEntity<String> sendTokenToEmail(@RequestBody AccountDTO accountDTO) {
         String email = accountDTO.getEmail();
-
         if (email == null || email.isEmpty()) {
             return ResponseEntity.badRequest().body("Email cannot be null or empty.");
         }

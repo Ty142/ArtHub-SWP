@@ -83,7 +83,6 @@ public class InteractServiceImpl implements InteractService {
             }
         }
 
-        // Lưu các reply comment vào bảng Interact
         for (ReplyComment reply : replyComments) {
             Integer artworkID = getArtworkIDFromComment(reply.getCommentID());
 
@@ -112,7 +111,6 @@ public class InteractServiceImpl implements InteractService {
             }
         }
 
-        // Lưu các reply comment vào bảng Interact
         for (ReplyComment reply : replyComments) {
             Integer threadID = GetThreadIDFromComment(reply.getCommentID());
             if (threadID != null) {

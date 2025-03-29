@@ -12,6 +12,5 @@ public interface AccountService {
     Account getAccountByEmailAndPassword(String email, String password);
     boolean createAccount(AccountDTO accountDTO);
     public boolean isEmailExist(String email);
-
     List<CreatorDTO> getAccountToAdmin();
 }

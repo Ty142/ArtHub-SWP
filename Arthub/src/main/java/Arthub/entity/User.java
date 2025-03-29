@@ -35,7 +35,7 @@ public class User {
 
 
     public User(int userId, String firstName, String lastName, String phoneNumber, String address, String biography, double coins, String createdAt, int rankId, int roleId, int typeId, LocalDate dateOfBirth, Date lastLogin, int accountId, String profilePicture, String backgroundPicture, int followCounts, int followerCount, String email, int totalLikes, double popularity) {
-        this.userId = userId;
+        this.userId  = userId;
         this.firstName = firstName;
         this.lastName = lastName;
         this.phoneNumber = phoneNumber;

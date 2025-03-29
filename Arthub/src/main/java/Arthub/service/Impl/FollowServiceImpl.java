@@ -32,9 +32,7 @@ public class FollowServiceImpl implements FollowService{
          followRepository.updateFollowerCountOfFollowingByFollowingId(follow.getFollowingId());
 
 
-         UserInteractionEvent event = new UserInteractionEvent(this,
-                                            notificationService.findByNotificationByFollowerIDAndFollowingID
-                                                    (follow.getFollowerId(),follow.getFollowingId()));
+         UserInteractionEvent event = new UserInteractionEvent(this, notificationService.findByNotificationByFollowerIDAndFollowingID(follow.getFollowerId(),follow.getFollowingId()));
          eventPublisher.publishEvent(event);
 
     }

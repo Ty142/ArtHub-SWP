@@ -128,7 +128,6 @@ public class InteractRepositoryImpl implements InteractRepository {
         try (Connection connection = db.openConection();
              CallableStatement callableStatement = connection.prepareCall(sql)) {
 
-            // Thiết lập tham số đầu vào
             callableStatement.setInt(1, userID);
             callableStatement.setInt(2, artworkID);
             callableStatement.setTimestamp(3, new java.sql.Timestamp(System.currentTimeMillis()));

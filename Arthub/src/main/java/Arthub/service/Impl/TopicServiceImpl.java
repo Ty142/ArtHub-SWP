@@ -24,8 +24,6 @@ public class TopicServiceImpl implements TopicService {
     @Autowired
     ThreadRepository threadRepository;
     @Autowired
-    UserRepository userRepository;
-    @Autowired
     CommentRepository commentRepository;
     @Autowired
     InteractRepository interactRepository;

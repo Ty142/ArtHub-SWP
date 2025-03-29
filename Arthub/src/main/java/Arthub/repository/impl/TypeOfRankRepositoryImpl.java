@@ -13,7 +13,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 @Repository
-public class TypeOffRankRepositoryImpl implements TypeOfRankRepository {
+public class TypeOfRankRepositoryImpl implements TypeOfRankRepository {
     @Override
     public ArrayList<TypeOfRank> getAllTypeOfRanks() {
         String sql = "SELECT * FROM TypeOfRank";
