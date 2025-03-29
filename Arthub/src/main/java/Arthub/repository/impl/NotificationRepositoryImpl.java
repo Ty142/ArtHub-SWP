@@ -35,7 +35,7 @@ public class NotificationRepositoryImpl implements NotificationRepository {
 
     @Override
     public List<Notification> getNotificationsOfTheUserFromUserId(int userId) {
-        String sql = "SELECT * FROM Notification WHERE ProfileNoti = ?";
+        String sql = "SELECT * FROM Notification WHERE ProfileNoti = ? ORDER BY NotificationID DESC";
         return jdbcTemplate.query(sql, new Object[]{userId}, new BeanPropertyRowMapper<>(Notification.class));
     }
 

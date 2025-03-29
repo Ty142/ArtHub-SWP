@@ -2,6 +2,7 @@ package Arthub.service.Impl;
 
 import Arthub.entity.MoneyTransfer;
 import Arthub.entity.Notification;
+import Arthub.entity.User;
 import Arthub.event.UserInteractionEvent;
 import Arthub.repository.MoneyTransferRepository;
 import Arthub.service.MoneyTransferService;
@@ -38,4 +39,16 @@ public class MoneyTransferServiceImpl implements MoneyTransferService {
             return null;
         }
     }
+
+    @Override
+    public User getUserByMoneyTransferId(int id) {
+        try {
+            return moneyTransferRepository.getUserByMoneyTransferId(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+
 }

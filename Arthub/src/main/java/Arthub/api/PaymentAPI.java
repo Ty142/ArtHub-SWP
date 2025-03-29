@@ -3,6 +3,7 @@ package Arthub.api;
 import Arthub.entity.MoneyTransfer;
 import Arthub.entity.Notification;
 import Arthub.entity.Payment;
+import Arthub.entity.User;
 import Arthub.service.MoneyTransferService;
 import Arthub.service.PaymentService;
 import Arthub.service.UserService;
@@ -72,4 +73,16 @@ public class PaymentAPI {
 
         }
     }
+
+    @GetMapping("/trans/sender/{userId}")
+    public ResponseEntity<User> getUserByMoneyTransferId(@PathVariable String userId) {
+        User user = moneyTransferService.getUserByMoneyTransferId(Integer.parseInt(userId));
+        if (user != null) {
+            return ResponseEntity.ok(user);
+        } else {
+            return ResponseEntity.ok(null);
+
+        }
+    }
+
 }

@@ -15,6 +15,8 @@ public class Notification {
     private byte isRead;
     private Integer followID;
     private Double amount;
+    private Integer transferID;
+
 
     public Notification(int notificationId, String message, Timestamp createdAt, Integer profileNoti, Double amount) {
         this.notificationId = notificationId;
@@ -24,7 +26,7 @@ public class Notification {
         this.amount = amount;
     }
 
-    public Notification(int notificationId, String message, LocalDate createdAt, Integer interactId, Integer profileNoti, Integer artworkNoti, byte isRead, Integer FollowID) {
+    public Notification(int notificationId, String message, LocalDate createdAt, Integer interactId, Integer profileNoti, Integer artworkNoti, byte isRead, Integer followID, Double amount, Integer transferID) {
         this.notificationId = notificationId;
         this.message = message;
         this.createdAt = createdAt;
@@ -32,8 +34,9 @@ public class Notification {
         this.profileNoti = profileNoti;
         this.artworkNoti = artworkNoti;
         this.isRead = isRead;
-        this.followID = FollowID;
+        this.followID = followID;
         this.amount = amount;
+        this.transferID = transferID;
     }
 
     public Notification() {
@@ -46,6 +49,14 @@ public class Notification {
         this.isRead = 0;
         this.followID = 0;
         this.amount = 0.0;
+    }
+
+    public Integer getTransferID() {
+        return transferID;
+    }
+
+    public void setTransferID(Integer transferID) {
+        this.transferID = transferID;
     }
 
     public Double getAmount() {
@@ -119,8 +130,6 @@ public class Notification {
     public void setIsRead(byte isRead) {
         this.isRead = isRead;
     }
-
-
 
     @Override
     public String toString() {

@@ -33,7 +33,7 @@ public class CommentRepositoryImpl implements CommentRepository {
 
     @Override
     public List<Comment> getAllComments() throws SQLException {
-        String sql = "SELECT * FROM Comment";
+        String sql = "SELECT * FROM Comment ORDER BY CommentID DESC";
        List<Comment> comments = new ArrayList<Comment>();
         try(Connection connection = utils.ConnectUtils.getInstance().openConection();
             Statement statement = connection.createStatement();
@@ -55,13 +55,13 @@ public class CommentRepositoryImpl implements CommentRepository {
 
     @Override
     public List<Comment> getCommentsByArtworkID(int artworkID) {
-        String sql = "SELECT * FROM Comment WHERE artworkID = ?";
+        String sql = "SELECT * FROM Comment WHERE artworkID = ? ORDER BY CommentID DESC";
         return jdbcTemplate.query(sql, new Object[]{artworkID}, new BeanPropertyRowMapper<>(Comment.class));
     }
 
     // Hàm lấy tất cả comment
     public List<Comment> findAll() {
-        String sql = "SELECT * FROM Comment";
+        String sql = "SELECT * FROM Comment ORDER BY CommentID DESC";
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Comment.class));
     }
 
@@ -101,7 +101,7 @@ public class CommentRepositoryImpl implements CommentRepository {
 
     @Override
     public List<Comment> getAllCommentsByThreadID(int ThreadID) {
-        String sql = "SELECT * FROM Comment where ThreadID = " + ThreadID ;
+        String sql = "SELECT * FROM Comment where ThreadID = " + ThreadID  + " ORDER BY CommentID DESC";
         List<Comment> comments = new ArrayList<>();
         try(Connection connection = utils.ConnectUtils.getInstance().openConection();
             Statement statement = connection.createStatement();
