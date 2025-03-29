@@ -36,19 +36,14 @@ public class WithdrawServiceImpl implements WithdrawService {
     @Override
     public Notification addWithdraw(Withdraw withdraw) {
         userService.updateCoinsAmount(withdraw.getUserID(), withdraw.getCoinWithdraw()*(-1));
-
         Notification notification = repository.saveWithdraw(withdraw);
-
         UserInteractionEvent event = new UserInteractionEvent(this, notification);
         eventPublisher.publishEvent(event);
-
         return notification;
     }
 
     @Override
     public void AcceptWithdraw(int withdrawID) {
-
-
         repository.acceptWithdraw(withdrawID);
     }
 
