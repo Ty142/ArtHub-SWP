@@ -16,7 +16,7 @@ public interface FollowRepository {
 
     int getFollowerCountsByFollowingId(int followingID) throws SQLException;
 
-    void updateFollowCountOfFollowerByFollowerId( int followerID);
+        void updateFollowCountOfFollowerByFollowerId( int followerID);
 
     void updateFollowerCountOfFollowingByFollowingId(int followingID) throws SQLException;
 

@@ -122,7 +122,7 @@ public class AccountRepositoryImpl implements AccountRepository {
     }
 
     private void updateLastLogin(int accountId) {
-        String sql = "UPDATE [User] SET LastLogin = CURRENT_TIMESTAMP WHERE AccountID = ?";
+        String sql = "UPDATE User SET LastLogin = CURRENT_TIMESTAMP WHERE AccountID = ?";
         try (Connection connection = ConnectUtils.getInstance().openConection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
 

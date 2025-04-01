@@ -34,7 +34,7 @@ public class ChatRepositoryImpl implements ChatRepository {
                 new CallableStatementCreator() {
                     @Override
                     public CallableStatement createCallableStatement(Connection con) throws SQLException {
-                        CallableStatement cs = con.prepareCall("{? = call dbo.sp_InsertOrUpdateChat(?, ?)}");
+                        CallableStatement cs = con.prepareCall("{call sp_InsertOrUpdateChat(?, ?, ?)}");
                         // Đăng ký tham số trả về ở vị trí 1
                         cs.registerOutParameter(1, Types.INTEGER);
                         // Thiết lập tham số User1Id và User2Id
@@ -47,8 +47,7 @@ public class ChatRepositoryImpl implements ChatRepository {
                     @Override
                     public Boolean doInCallableStatement(CallableStatement cs) throws SQLException, DataAccessException {
                         cs.execute();
-                        int result = cs.getInt(1);
-                        return result == 1;
+                        return true; // Giả định thành công nếu không có lỗi
                     }
                 }
         ));
@@ -59,7 +58,7 @@ public class ChatRepositoryImpl implements ChatRepository {
     public List<User> getChatProfileByUserId(int userId) {
         String sql = "SELECT u.*\n" +
                 "FROM Chats c\n" +
-                "JOIN [User] u\n" +
+                "JOIN User u\n" +
                 "   ON (c.User1Id = ? AND u.UserID = c.User2Id)\n" +
                 "   OR (c.User2Id = ? AND u.UserID = c.User1Id)\n" +
                 "WHERE c.User1Id = ? OR c.User2Id = ?";
@@ -84,7 +83,7 @@ public class ChatRepositoryImpl implements ChatRepository {
 
     @Override
     public void updateStatusChatByUserId(int userId) {
-        String sql = "UPDATE [Arthub].[dbo].[Chats]\n" +
+        String sql = "UPDATE Chats\n" +
                 "SET Status = 1\n" +
                 "WHERE User1Id = ?\n" +
                 "   OR User2Id = ?";

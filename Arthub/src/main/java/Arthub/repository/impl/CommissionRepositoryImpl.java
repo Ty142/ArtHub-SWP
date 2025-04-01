@@ -2,7 +2,7 @@ package Arthub.repository.impl;
 
 import Arthub.entity.Commission;
 import Arthub.repository.CommissionRepository;
-import com.microsoft.sqlserver.jdbc.SQLServerException;
+
 import org.springframework.stereotype.Repository;
 
 import java.sql.*;
@@ -168,7 +168,7 @@ public class CommissionRepositoryImpl implements CommissionRepository {
 
             statement.executeUpdate();
             return true;
-        } catch (SQLServerException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
             return false;
         } catch (Exception e) {

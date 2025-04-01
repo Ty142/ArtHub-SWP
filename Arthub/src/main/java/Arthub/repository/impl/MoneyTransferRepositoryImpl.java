@@ -27,7 +27,7 @@ public class MoneyTransferRepositoryImpl implements MoneyTransferRepository {
     }
 
     public User getUserByMoneyTransferId(int id) {
-        String sql = "SELECT u.* FROM [User] u INNER JOIN MoneyTransfer m ON u.UserID = m.SenderUserID WHERE m.TransferID = ?";
+        String sql = "SELECT u.* FROM User u INNER JOIN MoneyTransfer m ON u.UserID = m.SenderUserID WHERE m.TransferID = ?";
 
         List<User> users = jdbcTemplate.query(sql, new Object[]{id}, new BeanPropertyRowMapper<>(User.class));
 

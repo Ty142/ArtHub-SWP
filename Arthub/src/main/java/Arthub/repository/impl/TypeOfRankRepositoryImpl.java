@@ -16,7 +16,7 @@ import java.util.ArrayList;
 public class TypeOfRankRepositoryImpl implements TypeOfRankRepository {
     @Override
     public ArrayList<TypeOfRank> getAllTypeOfRanks() {
-        String sql = "SELECT * FROM TypeOfRank";
+        String sql = "SELECT * FROM ranktype";
         ArrayList<TypeOfRank> typeOfRanks = new ArrayList<>();
         utils.ConnectUtils db = utils.ConnectUtils.getInstance();
 
@@ -27,7 +27,7 @@ public class TypeOfRankRepositoryImpl implements TypeOfRankRepository {
             while (resultSet.next()){
                 TypeOfRank typeOfRank = new TypeOfRank();
                 typeOfRank.setTypeId(resultSet.getInt("TypeId"));
-                typeOfRank.setTypeRankName(resultSet.getString("TypeRankName"));
+                typeOfRank.setTypeRankName(resultSet.getString("RankTypeName"));
                 typeOfRank.setPrice(resultSet.getDouble("Price"));
                 typeOfRanks.add(typeOfRank);
             }
@@ -39,7 +39,7 @@ public class TypeOfRankRepositoryImpl implements TypeOfRankRepository {
 
     @Override
     public TypeOfRank getTypeOfRankById(int id) {
-        String sql = "SELECT * FROM TypeOfRank WHERE TypeID = ?";
+        String sql = "SELECT * FROM ranktype WHERE TypeID = ?";
         utils.ConnectUtils db = utils.ConnectUtils.getInstance();
 
         try (Connection connection = db.openConection();
@@ -49,7 +49,7 @@ public class TypeOfRankRepositoryImpl implements TypeOfRankRepository {
                 if (resultSet.next()){
                     TypeOfRank typeOfRank = new TypeOfRank();
                     typeOfRank.setTypeId(resultSet.getInt("TypeID"));
-                    typeOfRank.setTypeRankName(resultSet.getString("TypeRankName"));
+                    typeOfRank.setTypeRankName(resultSet.getString("RankTypeName"));
                     typeOfRank.setPrice(resultSet.getDouble("Price"));
                     return typeOfRank;
                 }
@@ -64,9 +64,9 @@ public class TypeOfRankRepositoryImpl implements TypeOfRankRepository {
 
     @Override
     public RankDTO getCurrentRankByAccountId(int accountId) {
-        String sql = "SELECT u.RankID, u.AccountID, r.TypeID, r.DayToRentRankAt, r.DayEndPackage " +
-                "FROM [Arthub].[dbo].[User] u " +
-                "JOIN [Arthub].[dbo].[Rank] r ON u.RankID = r.RankID " +
+        String sql = "SELECT u.UserRankID, u.AccountID, r.TypeID, r.RankStartDate, r.DayEndPackage " +
+                "FROM User u " +
+                "JOIN UserRank r ON u.UserRankID = r.UserRankID " +
                 "WHERE u.AccountID = ?";  // Đặt giá trị cho tham số ?
 
         utils.ConnectUtils db = utils.ConnectUtils.getInstance();
@@ -77,9 +77,9 @@ public class TypeOfRankRepositoryImpl implements TypeOfRankRepository {
             try (ResultSet resultSet = statement.executeQuery()){
                 if (resultSet.next()){
                     RankDTO rankDTO = new RankDTO();
-                    rankDTO.setRankID(resultSet.getInt("RankID"));
+                    rankDTO.setRankID(resultSet.getInt("UserRankID"));
                     rankDTO.setAccountID(resultSet.getInt("AccountID"));
-                    rankDTO.setDayToRentRankAt(resultSet.getString("DayToRentRankAt"));
+                    rankDTO.setDayToRentRankAt(resultSet.getString("RankStartDate"));
                     rankDTO.setTypeID(resultSet.getInt("TypeID"));
                     rankDTO.setDayToEndRank(resultSet.getString("DayEndPackage"));
                     return rankDTO;
@@ -115,7 +115,7 @@ public class TypeOfRankRepositoryImpl implements TypeOfRankRepository {
 
     @Override
     public int getTypeOfRankIDByRankID(int rankID) {
-        String sql = "SELECT TypeID From [Rank] where RankID = ? ";
+        String sql = "SELECT TypeID From UserRank where UserRankID = ? ";
         try {
             utils.ConnectUtils db = utils.ConnectUtils.getInstance();
             Connection connection = db.openConection();

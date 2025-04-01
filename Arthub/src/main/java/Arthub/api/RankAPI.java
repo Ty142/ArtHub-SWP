@@ -23,8 +23,6 @@ public class RankAPI {
     @Autowired
     RankService rankService;
 
-    @Autowired
-    RankRepository rankRepository;
 
 
     @GetMapping

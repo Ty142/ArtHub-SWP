@@ -155,7 +155,7 @@ public class ArtworkRepositoryImpl implements ArtworkRepository {
     public List<Artwork> getArtworksByPurchasableAndNotCreator(int userId, int pageNumber, int pageSize) {
         List<Artwork> artworks = new ArrayList<>();
         String sql = "SELECT * FROM Artworks WHERE Purchasable = 1 AND UserID != ? " +
-                "ORDER BY ArtworkID OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
+                "ORDER BY ArtworkID LIMIT ? OFFSET ?";
         try {
             ConnectUtils db = ConnectUtils.getInstance();
             Connection connection = db.openConection();
@@ -317,7 +317,7 @@ public class ArtworkRepositoryImpl implements ArtworkRepository {
     @Override
     public List<Artwork> getArtworkByAccountId(int id) {
         List<Artwork> artworks = new ArrayList<>();
-        String sql = "SELECT A.* FROM Artworks A JOIN [User] U ON A.UserID = U.UserID WHERE U.AccountID = ?";
+        String sql = "SELECT A.* FROM Artworks A JOIN User U ON A.UserID = U.UserID WHERE U.AccountID = ?";
         try {
             ConnectUtils db = ConnectUtils.getInstance();
             Connection connection = db.openConection();

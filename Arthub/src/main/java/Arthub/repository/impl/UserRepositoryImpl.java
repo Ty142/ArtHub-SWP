@@ -20,7 +20,7 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public ArrayList<User> getAllUsers() {
-        String sql = "SELECT * FROM [User]";
+        String sql = "SELECT * FROM User";
         List<User> users = new ArrayList<>();
         ConnectUtils db = ConnectUtils.getInstance();
         try {
@@ -37,7 +37,7 @@ public class UserRepositoryImpl implements UserRepository {
                 user.setBiography(resultSet.getString("Biography"));
                 user.setCoins(resultSet.getDouble("Coins"));
                 user.setCreatedAt(resultSet.getString("CreatedAt"));
-                user.setRankId(resultSet.getInt("RankID"));
+                user.setRankId(resultSet.getInt("UserRankID"));
                 user.setRoleId(resultSet.getInt("RoleID"));
 
                 Date sqlDate = resultSet.getDate("DateOfBirth");
@@ -83,8 +83,8 @@ public class UserRepositoryImpl implements UserRepository {
 
 
     public User getUserByAccountId(int accountId) {
-        String sql = "SELECT u.*, r.TypeID FROM [User] u " +
-                "JOIN [Rank] r ON u.RankID = r.RankID " +
+        String sql = "SELECT u.*, r.TypeID FROM User u " +
+                "JOIN userrank r ON u.UserRankID = r.UserRankID " +
                 "WHERE u.AccountID = ?";
 
         User user = null;
@@ -109,7 +109,7 @@ public class UserRepositoryImpl implements UserRepository {
         ConnectUtils db = ConnectUtils.getInstance();
 
         // 1️⃣ Kiểm tra xem AccountID có tồn tại trong bảng Account không
-        String checkAccountSql = "SELECT COUNT(*) FROM [Account] WHERE AccountID = ?";
+        String checkAccountSql = "SELECT COUNT(*) FROM Account WHERE AccountID = ?";
         try (Connection connection = db.openConection();
              PreparedStatement checkAccountStmt = connection.prepareStatement(checkAccountSql)) {
 
@@ -135,7 +135,7 @@ public class UserRepositoryImpl implements UserRepository {
         }
 
         // 3️⃣ Nếu AccountID hợp lệ và User chưa tồn tại, tiến hành thêm mới vào database
-        String sql = "INSERT INTO [User] (FirstName, LastName, PhoneNumber, Address, Biography, Coins, CreatedAt, RankID, RoleID, " +
+        String sql = "INSERT INTO User (FirstName, LastName, PhoneNumber, Address, Biography, Coins, CreatedAt, RankID, RoleID, " +
                 "DateOfBirth, LastLogin, AccountID, ProfilePicture, BackgroundPicture, FollowCounts, FollowerCount) " +
                 "VALUES (?, ?, ?, ?, ?, ?, GETDATE(), ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
@@ -186,7 +186,7 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public void updateBackground(int accountId, String background) {
-        String sql = "UPDATE [dbo].[User] set BackgroundPicture = ?  WHERE AccountID = ? ";
+        String sql = "UPDATE User set BackgroundPicture = ?  WHERE AccountID = ? ";
         try {
             ConnectUtils db = ConnectUtils.getInstance();
             Connection connection = db.openConection();
@@ -203,7 +203,7 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public String findAvatarByAccountId(int AccountId) {
-        String sql = "SELECT ProfilePicture FROM [dbo].[User] WHERE AccountID = ?";
+        String sql = "SELECT ProfilePicture FROM User WHERE AccountID = ?";
         try (Connection connection = ConnectUtils.getInstance().openConection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, AccountId);
@@ -222,7 +222,7 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public String findBackgroundByAccountId(int AccountId) {
-        String sql = "SELECT BackgroundPicture FROM [dbo].[User] WHERE AccountID = ?";
+        String sql = "SELECT BackgroundPicture FROM User WHERE AccountID = ?";
         try (Connection connection = ConnectUtils.getInstance().openConection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, AccountId);
@@ -242,8 +242,8 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public boolean updateUser(User user) {
-        String sql = "UPDATE [Arthub].[dbo].[User] SET " +
-                "    FirstName = ?, LastName = ?, [Address]= ?, Biography = ?, DateOfBirth = ?, " +
+        String sql = "UPDATE User SET " +
+                "    FirstName = ?, LastName = ?, Address= ?, Biography = ?, DateOfBirth = ?, " +
                 "    PhoneNumber = ? WHERE AccountID = ?";
         ConnectUtils db = ConnectUtils.getInstance();
         try {
@@ -287,7 +287,7 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public double getCoinsAmount(int accountId) {
-        String sql = "SELECT Coins FROM [dbo].[User] WHERE AccountID = ?";
+        String sql = "SELECT Coins FROM User WHERE AccountID = ?";
         try (Connection connection = ConnectUtils.getInstance().openConection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, accountId);
@@ -305,7 +305,7 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public double getCoinsAmountByUserID(int UserID) {
-        String sql = "SELECT Coins FROM [dbo].[User] WHERE UserID = ?";
+        String sql = "SELECT Coins FROM User WHERE UserID = ?";
         try (Connection connection = ConnectUtils.getInstance().openConection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, UserID);
@@ -323,7 +323,7 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public int getTheNumberOfUsers() {
-        String sql = "SELECT COUNT(*) FROM [dbo].[User]";
+        String sql = "SELECT COUNT(*) FROM User";
         try (Connection connection = ConnectUtils.getInstance().openConection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
             ResultSet resultSet = statement.executeQuery();
@@ -346,14 +346,14 @@ public class UserRepositoryImpl implements UserRepository {
         // Define SQL queries as constants
         final String ARTWORK_QUERY =
                 "SELECT u.FirstName, u.LastName " +
-                        "FROM [dbo].[Artworks] a " +
-                        "JOIN [User] u ON u.UserID = a.UserID " +
+                        "FROM Artworks a " +
+                        "JOIN User u ON u.UserID = a.UserID " +
                         "WHERE a.ArtworkID = ?";
 
         final String THREAD_QUERY =
                 "SELECT u.FirstName, u.LastName " +
-                        "FROM [dbo].[Thread] t " +
-                        "JOIN [User] u ON u.UserID = t.UserID " +
+                        "FROM Thread t " +
+                        "JOIN User u ON u.UserID = t.UserID " +
                         "WHERE t.ThreadID = ?";
 
         String sql = (threadID == 0) ? ARTWORK_QUERY : THREAD_QUERY;
@@ -383,7 +383,7 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public String getUserNameByUserID(int UserID) throws Exception {
-        String sql = "SELECT FirstName, LastName FROM [dbo].[User] WHERE UserID = ?";
+        String sql = "SELECT FirstName, LastName FROM User WHERE UserID = ?";
         try (Connection connection = ConnectUtils.getInstance().openConection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
                 statement.setInt(1, UserID);
@@ -397,7 +397,7 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public String getEmailByUserID(int UserID) {
-        String sql = "SELECT a.Email FROM [dbo].[User] e join Account a on a.AccountID = e.AccountID WHERE UserID = ?";
+        String sql = "SELECT a.Email FROM User e join Account a on a.AccountID = e.AccountID WHERE UserID = ?";
         try (Connection connection = ConnectUtils.getInstance().openConection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, UserID);
@@ -415,8 +415,8 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public String getEmailByArtworkID(int ArtworkID) {
-        String sql = "SELECT UserName FROM [dbo].Account ac \n" +
-                "  join [user] u on u.AccountID = ac.Accountid \n" +
+        String sql = "SELECT UserName FROM Account ac \n" +
+                "  join user u on u.AccountID = ac.Accountid \n" +
                 "  join Artworks a on a.UserID = u.UserID \n" +
                 "  where a.ArtworkID = ?";
         try (Connection connection = ConnectUtils.getInstance().openConection();
@@ -437,7 +437,7 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public User getUserByRankID(int rankID) {
-        String sql = "Select * from [User] where RankID = ?";
+        String sql = "Select * from User where RankID = ?";
         try (Connection connection = ConnectUtils.getInstance().openConection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, rankID);
@@ -467,7 +467,7 @@ public class UserRepositoryImpl implements UserRepository {
         user.setBiography(resultSet.getString("Biography"));
         user.setCoins(resultSet.getDouble("Coins"));
         user.setCreatedAt(resultSet.getString("CreatedAt"));
-        user.setRankId(resultSet.getInt("RankID"));
+        user.setRankId(resultSet.getInt("UserRankID"));
         user.setRoleId(resultSet.getInt("RoleID"));
 
         Date sqlDate = resultSet.getDate("DateOfBirth");
@@ -485,7 +485,7 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     public void updateAvatar(int accountId, String avatar) {
-        String sql = "UPDATE [dbo].[User] set ProfilePicture = ?  WHERE AccountID = ?";
+        String sql = "UPDATE User set ProfilePicture = ?  WHERE AccountID = ?";
         try {
             ConnectUtils db = ConnectUtils.getInstance();
             Connection connection = db.openConection();
@@ -505,7 +505,7 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public User getUserByUsername(String username) {
-        String sql = "SELECT * FROM [dbo].[User] WHERE Username = ?";
+        String sql = "SELECT * FROM User WHERE Username = ?";
         try {
             ConnectUtils db = ConnectUtils.getInstance();
             Connection connection = db.openConection();
@@ -524,7 +524,7 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     public User getUserById(int id) {
-        String sql = "SELECT * FROM [dbo].[User] WHERE UserID = ?";
+        String sql = "SELECT * FROM User WHERE UserID = ?";
         User user = null;
         ConnectUtils db = ConnectUtils.getInstance();
         try {
@@ -570,14 +570,15 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public List<User> getTop10PopularUsers() {
         String sql = """
-                    SELECT TOP 10 u.*,
+                    SELECT u.*,
                     COALESCE((SELECT SUM(a.Likes)
                     FROM Artworks a
                     WHERE a.UserID = u.UserID), 0) AS totalLikes,
                     (CAST(u.FollowerCount AS FLOAT) * 0.5 +
                     COALESCE((SELECT SUM(a.Likes) FROM Artworks a WHERE a.UserID = u.UserID), 0) * 0.75) AS popularity
-                    FROM [User] u
-                    ORDER BY popularity DESC;
+                    FROM User u
+                    ORDER BY popularity DESC
+                    LIMIT 10;
                 """;
 
         List<User> users = new ArrayList<>();
@@ -598,7 +599,7 @@ public class UserRepositoryImpl implements UserRepository {
                 user.setCoins(resultSet.getDouble("Coins"));
                 user.setProfilePicture(resultSet.getString("ProfilePicture"));
                 user.setBackgroundPicture(resultSet.getString("BackgroundPicture"));
-                user.setRankId(resultSet.getInt("RankId"));
+                user.setRankId(resultSet.getInt("UserRankID"));
                 user.setRoleId(resultSet.getInt("RoleId"));
                 user.setBiography(resultSet.getString("Biography"));
                 user.setAddress(resultSet.getString("Address"));

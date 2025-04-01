@@ -330,7 +330,7 @@ public class InteractRepositoryImpl implements InteractRepository {
     }
 
     @Override
-    public void saveInteractCommentOfForum(Interact interact) {
+    public void     saveInteractCommentOfForum(Interact interact) {
         String sql = "INSERT INTO interact(UserID, ActivityID, DateOfInteract, ThreadID) VALUES (?, ?, ?, ?)";
         jdbcTemplate.update(sql, interact.getUserID(), interact.getActivityID(), interact.getDateOfInteract(), interact.getThreadID());
     }

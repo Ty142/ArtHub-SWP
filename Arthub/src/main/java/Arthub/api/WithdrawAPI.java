@@ -16,8 +16,6 @@ public class WithdrawAPI {
     @Autowired
     WithdrawService withdrawService;
 
-    @Autowired
-    NotificationService notificationService;
     @PostMapping()
     public void saveWithdraw(@RequestBody Withdraw withdraw) {
         withdrawService.addWithdraw(withdraw);

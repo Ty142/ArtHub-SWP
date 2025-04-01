@@ -3,7 +3,7 @@ package Arthub.repository.impl;
 import Arthub.entity.Comment;
 import Arthub.entity.Payment;
 import Arthub.repository.PaymentRepository;
-import com.microsoft.sqlserver.jdbc.SQLServerException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -33,7 +34,7 @@ public class PaymentRepositoryImpl implements PaymentRepository {
             statement.setString(4, payment.getTransCode());
             statement.executeUpdate();
             return true;
-        } catch (SQLServerException e) {
+        } catch (SQLException e) {
             if (e.getMessage().contains("UQ__Payment")) { // Kiểm tra lỗi vi phạm UNIQUE KEY
                 System.out.println("Lỗi: Mã giao dịch đã tồn tại!");
             } else {

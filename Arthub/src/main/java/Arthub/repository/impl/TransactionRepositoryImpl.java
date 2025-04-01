@@ -159,7 +159,7 @@ public class TransactionRepositoryImpl implements TransactionRepository {
 
     @Override
     public boolean checkvalidTransaction(int BuyerID, int ArtworkID) {
-        String sql = "SELECT COUNT(*) FROM [Transaction] WHERE BuyerID = ? AND ArtworkID =?";
+        String sql = "SELECT COUNT(*) FROM Transaction WHERE BuyerID = ? AND ArtworkID =?";
         try{
             utils.ConnectUtils db = utils.ConnectUtils.getInstance();
             Connection conn = db.openConection();

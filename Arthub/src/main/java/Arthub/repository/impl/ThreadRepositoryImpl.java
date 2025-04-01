@@ -146,7 +146,7 @@ public class ThreadRepositoryImpl implements ThreadRepository {
                 "    + " +
                 "    (SELECT COUNT(*) FROM dbo.ReplyComment " +
                 "     WHERE ReplyComment.CommentID IN ( " +
-                "         SELECT CommentID FROM dbo.Comment WHERE Comment.ThreadID = Thread.ThreadID " +
+                "         SELECT CommentID FROM Comment WHERE Comment.ThreadID = Thread.ThreadID " +
                 "     ) " +
                 "    ) " +
                 ") " +
