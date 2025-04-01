@@ -6,11 +6,11 @@ public class MoneyTransfer {
     private int transferId;
     private int senderUserId;
     private int receiverUserId;
-    private int amount;
+    private double amount;
     private Date transferDate;
 
 
-    public MoneyTransfer(int transferId, int senderUserId, int receiverUserId, int amount, Date transferDate) {
+    public MoneyTransfer(int transferId, int senderUserId, int receiverUserId, double amount, Date transferDate) {
         this.transferId = transferId;
         this.senderUserId = senderUserId;
         this.receiverUserId = receiverUserId;
@@ -50,11 +50,11 @@ public class MoneyTransfer {
         this.receiverUserId = receiverUserId;
     }
 
-    public int getAmount() {
+    public double getAmount() {
         return amount;
     }
-
-    public void setAmount(int amount) {
+    
+    public void setAmount(double amount) {
         this.amount = amount;
     }
 
