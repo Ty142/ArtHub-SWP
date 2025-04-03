@@ -9,10 +9,9 @@ import Arthub.repository.UserRepository;
 import utils.ConnectUtils;
 
 import java.sql.*;
+import java.sql.Date;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Repository
 public class UserRepositoryImpl implements UserRepository {
@@ -50,6 +49,7 @@ public class UserRepositoryImpl implements UserRepository {
                 user.setBackgroundPicture(resultSet.getString("BackgroundPicture"));
                 user.setFollowCounts(resultSet.getInt("FollowCounts"));
                 user.setFollowerCount(resultSet.getInt("FollowerCount"));
+                user.setAmountArtworks(resultSet.getInt("limit"));
                 users.add(user);
             }
         } catch (Exception e) {
@@ -149,7 +149,7 @@ public class UserRepositoryImpl implements UserRepository {
             statement.setString(3, user.getPhoneNumber());                 // PhoneNumber
             statement.setString(4, user.getAddress());                     // Address
             statement.setString(5, user.getBiography());                   // Biography
-            statement.setDouble(6, user.getCoins());                       // Coins
+            statement.setDouble(6, user.getCoins());
             statement.setInt(7, 1);                         // RankID
             statement.setInt(8, account.getRoleID());                         // RoleID
             statement.setDate(9, user.getDateOfBirth() != null ? java.sql.Date.valueOf(user.getDateOfBirth()) : null);
@@ -343,7 +343,6 @@ public class UserRepositoryImpl implements UserRepository {
             throw new IllegalArgumentException("IDs cannot be negative");
         }
 
-        // Define SQL queries as constants
         final String ARTWORK_QUERY =
                 "SELECT u.FirstName, u.LastName " +
                         "FROM [dbo].[Artworks] a " +
@@ -453,6 +452,85 @@ public class UserRepositoryImpl implements UserRepository {
         return null;
     }
 
+    @Override
+    public void updateLimitOfPushArtworks(int UserID, int amount) throws SQLException {
+        String sql = "UPDATE [User] SET limit =? where UserID = ?";
+        try (Connection connection = ConnectUtils.getInstance().openConection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, amount-1);
+            statement.setInt(2, UserID);
+            statement.executeUpdate();
+            statement.close();
+            connection.commit();
+            System.out.println("Update limit of push artworks successfully");
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public void resetLimitEachMonth(int UserID) throws SQLException {
+        String sql = "UPDATE [User] SET limit = 1 where UserID = ";
+        try (Connection connection = ConnectUtils.getInstance().openConection();
+             PreparedStatement statement = connection.prepareStatement(sql + UserID)) {
+            statement.executeUpdate();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public List<Integer> getAllUsersIsMember() {
+        String sql = "SELECT From [User] u join Rank r on u.RankID = r.RankID where r.TypeID = 1";
+        List<Integer> list = new ArrayList<>();
+        try (Connection connection = ConnectUtils.getInstance().openConection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                list.add(resultSet.getInt("UserID"));
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return list;
+    }
+
+    @Override
+    public void updateLimitByTypeID(int TypeID, int userID) throws SQLException {
+        Map<Integer, Integer> map = new HashMap<>();
+        map.put(1,1);
+        map.put(2,2);
+        map.put(3,3);
+        map.put(4,4);
+        map.put(5,5);
+        int limit = map.getOrDefault(TypeID, 0);
+        String sql = "UPDATE [User] SET limit =? where UserID = ?";
+        try (Connection connection = ConnectUtils.getInstance().openConection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, limit);
+            statement.setInt(2, userID);
+            statement.executeUpdate();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public void updateLimitByExpired(int UserID) {
+        String sql = "UPDATE [User] SET limit =1 WHERE UserID =?";
+        try (Connection connection = ConnectUtils.getInstance().openConection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, UserID);
+            statement.executeUpdate();
+            statement.close();
+            connection.commit();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
     /**
      * Hàm ánh xạ `ResultSet` sang đối tượng `User`.
@@ -473,14 +551,13 @@ public class UserRepositoryImpl implements UserRepository {
         Date sqlDate = resultSet.getDate("DateOfBirth");
         LocalDate localDate = (sqlDate != null) ? ((java.sql.Date) sqlDate).toLocalDate() : null;
         user.setDateOfBirth(localDate);
-
-
         user.setLastLogin(resultSet.getDate("LastLogin"));
         user.setProfilePicture(resultSet.getString("ProfilePicture"));
         user.setBackgroundPicture(resultSet.getString("BackgroundPicture"));
         user.setFollowCounts(resultSet.getInt("FollowCounts"));
         user.setFollowerCount(resultSet.getInt("FollowerCount"));
         user.setAccountId(resultSet.getInt("AccountID"));
+        user.setAmountArtworks(resultSet.getInt("limit"));
         return user;
     }
 
@@ -556,6 +633,8 @@ public class UserRepositoryImpl implements UserRepository {
                     user.setBackgroundPicture(resultSet.getString("BackgroundPicture"));
                     user.setFollowCounts(resultSet.getInt("FollowCounts"));
                     user.setFollowerCount(resultSet.getInt("FollowerCount"));
+                    user.setAmountArtworks(resultSet.getInt("limit"));
+
                 }
             }
         } catch (SQLException e) {

@@ -48,14 +48,14 @@ public class RankRepositoryImpl implements RankRepository {
     }
 
     @Override
-    public void     AddRankToUserByRankID(int rankID,int AccountID, double price) {
+    public void  AddRankToUserByRankID(int rankID,int AccountID, double price) {
         String sql = "Update [User] set RankID = ?, Coins =? where AccountID = ?";
         double amountCoins = userRepository.getCoinsAmount(AccountID);
         double newAmountCoins = amountCoins - price;
          try {
             utils.ConnectUtils db = utils.ConnectUtils.getInstance();
             Connection conn = db.openConection();
-            PreparedStatement ps = conn.prepareStatement(sql);
+            PreparedStatement ps = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
             ps.setInt(1, rankID);
             ps.setDouble(2, newAmountCoins);
             ps.setInt(3, AccountID);

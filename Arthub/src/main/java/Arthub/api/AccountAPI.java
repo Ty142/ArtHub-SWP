@@ -54,7 +54,7 @@ public class AccountAPI {
             return ResponseEntity.badRequest().body("Email cannot be null or empty.");
         }
         String token = emailTokenService.generateAndSendToken(email);
-        return ResponseEntity.ok(token);
+            return ResponseEntity.ok(token);
     }
 
     @GetMapping("/{id}")
@@ -171,6 +171,11 @@ public class AccountAPI {
         public void setOldPassword(String oldPassword) { this.oldPassword = oldPassword; }
 
 
+    }
+
+    @GetMapping("/checkExistEmail/{email}")
+    public boolean checkExistEmail(@PathVariable ("email") String email) {
+        return accountRepository.isEmailExist(email);
     }
 
 }

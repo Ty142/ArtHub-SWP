@@ -48,6 +48,7 @@ public class ArtworkAPI {
             int id = artworkRepository.addArtwork(artwork);
             tagArtRepository.addTagArtUserIdAndTagId(artwork.getArtworkTags(), id);
             Optional<Artwork> artworkOpt = artworkRepository.getArtworkById(id);
+            userService.setLimitToPostArtwork(artworkDTO.getCreatorID());
             if (artworkOpt.isPresent()) {
                 return artworkOpt.get();
             } else {

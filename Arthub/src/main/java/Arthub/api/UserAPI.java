@@ -65,6 +65,11 @@ public class UserAPI {
         try {
             byte[] imgByte = imageUtils.decodeBase64(uploadFileAvatar.getImageFile());
             String avatar = userRepository.findAvatarByAccountId(accountId);
+            String avatarUrlcheck = "https://res.cloudinary.com/djprssm3o/image/upload/v1743701818/background/352d1352-e996-419a-999e-cf8978d98837.jpg";
+            if (avatar.equals(avatarUrlcheck)){
+                String avatarUrl = userService.uploadAvatar(imgByte, 1, null);
+                userRepository.updateAvatar(accountId, avatarUrl);
+            }
             String idAvatar = imageUtils.extractPublicId(avatar);
             String avatarUrl = userService.uploadAvatar(imgByte, 1, idAvatar);
             userRepository.updateAvatar(accountId, avatarUrl);

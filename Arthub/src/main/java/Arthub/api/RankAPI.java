@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.List;
 
@@ -56,7 +57,7 @@ public class RankAPI {
     }
 
     @PostMapping("Packages/")
-    public ResponseEntity<String> addRankToPackages(@RequestBody RankDTO rankDTO) throws ParseException {
+    public ResponseEntity<String> addRankToPackages(@RequestBody RankDTO rankDTO) throws ParseException, SQLException {
         rankService.AddRankToUser(rankDTO);
         return ResponseEntity.ok("upgrade successfully");
     }

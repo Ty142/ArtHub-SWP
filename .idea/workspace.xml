@@ -6,9 +6,57 @@
   <component name="ChangeListManager">
     <list default="true" id="5f98fdf5-b8ec-4da6-a0a4-f28bafc73760" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/service/Impl/WithdrawServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/service/Impl/WithdrawServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/ArtHubApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/ArtHubApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/api/AccountAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/api/AccountAPI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/api/ArtworkAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/api/ArtworkAPI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/api/RankAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/api/RankAPI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/api/UserAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/api/UserAPI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/entity/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/entity/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/repository/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/repository/impl/RankRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/repository/impl/RankRepositoryImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/repository/impl/UserRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/repository/impl/UserRepositoryImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/service/Impl/RankServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/service/Impl/RankServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/service/Impl/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/service/Impl/UserServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/service/RankService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/service/RankService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/src/main/java/Arthub/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arthub/target/ArtHub-0.0.1-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/target/ArtHub-0.0.1-SNAPSHOT.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arthub/target/ArtHub-0.0.1-SNAPSHOT.jar.original" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/target/ArtHub-0.0.1-SNAPSHOT.jar.original" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/api/AccountAPI.class" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/target/classes/Arthub/api/AccountAPI.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/api/ArtistFormAPI.class" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/target/classes/Arthub/api/ArtistFormAPI.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/api/ArtworkAPI.class" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/target/classes/Arthub/api/ArtworkAPI.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/api/CheckAccountAPI.class" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/target/classes/Arthub/api/CheckAccountAPI.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/api/CommissionAPI.class" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/target/classes/Arthub/api/CommissionAPI.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/api/InteractAPI.class" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/target/classes/Arthub/api/InteractAPI.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/api/ReportAPI.class" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/target/classes/Arthub/api/ReportAPI.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/component/ChatEventListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/target/classes/Arthub/component/ChatEventListener.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/component/NotificationEventListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/target/classes/Arthub/component/NotificationEventListener.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/config/CorsConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/target/classes/Arthub/config/CorsConfig.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/entity/Account.class" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/target/classes/Arthub/entity/Account.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/entity/Chat.class" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/target/classes/Arthub/entity/Chat.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/entity/Message.class" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/target/classes/Arthub/entity/Message.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/entity/Payment.class" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/target/classes/Arthub/entity/Payment.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/entity/Tag.class" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/target/classes/Arthub/entity/Tag.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/entity/TypeOfRank.class" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/target/classes/Arthub/entity/TypeOfRank.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/entity/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/target/classes/Arthub/entity/User.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/repository/UserRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/target/classes/Arthub/repository/UserRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/repository/impl/ArtworkRepositoryImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/target/classes/Arthub/repository/impl/ArtworkRepositoryImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/repository/impl/ChatRepositoryImpl$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/target/classes/Arthub/repository/impl/ChatRepositoryImpl$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/repository/impl/InteractRepositoryImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/target/classes/Arthub/repository/impl/InteractRepositoryImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/repository/impl/UserRepositoryImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/target/classes/Arthub/repository/impl/UserRepositoryImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/security/AuthInterceptor.class" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/target/classes/Arthub/security/AuthInterceptor.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/service/Impl/ArtistFormServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/target/classes/Arthub/service/Impl/ArtistFormServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/service/Impl/CommissionServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/target/classes/Arthub/service/Impl/CommissionServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/service/Impl/EmailTokenServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/target/classes/Arthub/service/Impl/EmailTokenServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/service/Impl/PaymentServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/target/classes/Arthub/service/Impl/PaymentServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/service/Impl/UserServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/target/classes/Arthub/service/Impl/UserServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/service/Impl/WithdrawServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/target/classes/Arthub/service/Impl/WithdrawServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/service/UserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/target/classes/Arthub/service/UserService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/Arthub/utils/APIException.class" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/target/classes/Arthub/utils/APIException.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arthub/target/classes/utils/ImageUtils.class" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/target/classes/utils/ImageUtils.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arthub/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arthub/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/Arthub/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arthub/target/surefire-reports/2025-03-17T20-53-19_896.dumpstream" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,8 +105,8 @@
     "RequestMappingsPanelWidth1": "75",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "Spring Boot.ArtHubApplication.executor": "Run",
-    "git-widget-placeholder": "Backend",
+    "Spring Boot.ArtHubApplication.executor": "Debug",
+    "git-widget-placeholder": "Ty142",
     "kotlin-language-version-configured": "true",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -91,8 +139,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-a94e463ab2e7-intellij.indexing.shared.core-IU-243.25659.39" />
-        <option value="bundled-js-predefined-d6986cc7102b-1632447f56bf-JavaScript-IU-243.25659.39" />
+        <option value="bundled-jdk-9f38398b9061-39b83d9b5494-intellij.indexing.shared.core-IU-241.15989.150" />
+        <option value="bundled-js-predefined-1d06a55b98c1-91d5c284f522-JavaScript-IU-241.15989.150" />
       </set>
     </attachedChunks>
   </component>
@@ -109,6 +157,10 @@
       <workItem from="1742215473303" duration="5740000" />
       <workItem from="1742246713023" duration="2154000" />
       <workItem from="1742276070808" duration="2422000" />
+      <workItem from="1743520736230" duration="1662000" />
+      <workItem from="1743592583878" duration="2931000" />
+      <workItem from="1743675166521" duration="5656000" />
+      <workItem from="1743683498710" duration="15375000" />
     </task>
     <servers />
   </component>
@@ -116,6 +168,118 @@
     <option name="version" value="3" />
   </component>
   <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Arthub/src/main/java/Arthub/api/AccountAPI.java</url>
+          <line>48</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Arthub/src/main/java/Arthub/api/AccountAPI.java</url>
+          <line>55</line>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Arthub/src/main/java/Arthub/api/AccountAPI.java</url>
+          <line>56</line>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Arthub/src/main/java/Arthub/api/AccountAPI.java</url>
+          <line>177</line>
+          <option name="timeStamp" value="9" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Arthub/src/main/java/Arthub/repository/impl/AccountRepositoryImpl.java</url>
+          <line>279</line>
+          <option name="timeStamp" value="10" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Arthub/src/main/java/Arthub/repository/impl/AccountRepositoryImpl.java</url>
+          <line>284</line>
+          <option name="timeStamp" value="11" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Arthub/src/main/java/Arthub/service/Impl/RankServiceImpl.java</url>
+          <line>34</line>
+          <option name="timeStamp" value="13" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Arthub/src/main/java/Arthub/service/Impl/RankServiceImpl.java</url>
+          <line>32</line>
+          <option name="timeStamp" value="14" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Arthub/src/main/java/Arthub/service/Impl/RankServiceImpl.java</url>
+          <line>31</line>
+          <option name="timeStamp" value="15" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Arthub/src/main/java/Arthub/repository/impl/UserRepositoryImpl.java</url>
+          <line>505</line>
+          <option name="timeStamp" value="17" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Arthub/src/main/java/Arthub/repository/impl/UserRepositoryImpl.java</url>
+          <line>504</line>
+          <option name="timeStamp" value="18" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Arthub/src/main/java/Arthub/repository/impl/UserRepositoryImpl.java</url>
+          <line>506</line>
+          <option name="timeStamp" value="19" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Arthub/src/main/java/Arthub/repository/impl/UserRepositoryImpl.java</url>
+          <line>509</line>
+          <option name="timeStamp" value="20" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Arthub/src/main/java/Arthub/repository/impl/UserRepositoryImpl.java</url>
+          <line>137</line>
+          <option name="timeStamp" value="27" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Arthub/src/main/java/Arthub/repository/impl/UserRepositoryImpl.java</url>
+          <line>139</line>
+          <option name="timeStamp" value="29" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Arthub/src/main/java/Arthub/repository/impl/UserRepositoryImpl.java</url>
+          <line>138</line>
+          <option name="timeStamp" value="30" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Arthub/src/main/java/Arthub/repository/impl/UserRepositoryImpl.java</url>
+          <line>157</line>
+          <option name="timeStamp" value="32" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Arthub/src/main/java/Arthub/repository/impl/UserRepositoryImpl.java</url>
+          <line>158</line>
+          <option name="timeStamp" value="33" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/Arthub/src/main/java/Arthub/api/AccountAPI.java</url>
+          <line>176</line>
+          <properties class="Arthub.api.AccountAPI" method="checkExistEmail">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/Arthub/src/main/java/Arthub/repository/impl/UserRepositoryImpl.java</url>
+          <line>498</line>
+          <properties class="Arthub.repository.impl.UserRepositoryImpl" method="updateLimitByTypeID">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="16" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
     <pin-to-top-manager>
       <pinned-members>
         <PinnedItemInfo parentTag="Arthub.entity.Artwork" memberName="artworkTags" />

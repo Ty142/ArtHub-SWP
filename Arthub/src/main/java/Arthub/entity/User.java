@@ -18,9 +18,6 @@ public class User {
     private int rankId;
     private int roleId;
     private int typeId;
-
-
-
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy/MM/dd")
     private LocalDate dateOfBirth;
     private Date lastLogin;
@@ -32,6 +29,8 @@ public class User {
     private String email;
     private int totalLikes;
     private double popularity;
+    private int amountArtworks;
+
 
 
     public User(int userId, String firstName, String lastName, String phoneNumber, String address, String biography, double coins, String createdAt, int rankId, int roleId, int typeId, LocalDate dateOfBirth, Date lastLogin, int accountId, String profilePicture, String backgroundPicture, int followCounts, int followerCount, String email, int totalLikes, double popularity) {
@@ -249,5 +248,13 @@ public class User {
 
     public void setPopularity(double popularity) {
         this.popularity = popularity;
+    }
+
+    public int getAmountArtworks() {
+        return amountArtworks;
+    }
+
+    public void setAmountArtworks(int amountArtworks) {
+        this.amountArtworks = amountArtworks;
     }
 }

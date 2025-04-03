@@ -10,6 +10,7 @@ import Arthub.service.RankService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -27,15 +28,18 @@ public class RankServiceImpl implements RankService {
     @Autowired
     UserRepository userRepository;
     @Override
-    public void AddRankToUser(RankDTO rankDTO) throws ParseException {
+    public void AddRankToUser(RankDTO rankDTO) throws ParseException, SQLException {
         int typeId = rankRepository.AddTypeRankToListRank(rankDTO);
         rankRepository.AddRankToUserByRankID(typeId, rankDTO.getAccountID(),rankDTO.getPrice());
+        int userID = userRepository.getUserByAccountId(rankDTO.getAccountID()).getUserId();
+        userRepository.updateLimitByTypeID(rankDTO.getTypeID(), userID);
     }
 
     @Override
     public void removeRankToExpired(int RankID, int UserID) {
         rankRepository.ChangeRankToExpire(UserID);
         rankRepository.deleteRank(RankID);
+        userRepository.updateLimitByExpired(UserID);
     }
 
     @Override

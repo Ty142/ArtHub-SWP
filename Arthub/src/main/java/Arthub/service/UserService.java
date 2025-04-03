@@ -16,17 +16,29 @@ import java.util.List;
 
 public interface UserService {
     boolean checkLogin(String username, String password);
+
     ArrayList<User> getAllUsers();
+
     User getUserByAccountId(int accountId);
+
     String uploadAvatar(byte[] imgByte, int type, String ole) throws IOException;
+
     User saveUser(Account account, User user) throws SQLException;
+
     void deleteArtworkAtCloudinary(String idPicture) throws IOException;
+
     List<User> getTop10PopularUsers();
+
     boolean updateUser(User user) throws SQLException;
+
     void updateCoinsAmount(int accountId, double amount);
 
     int getTheNumberOfUsers();
 
     User getUserByUserID(int userID);
 
+    void setLimitToPostArtwork(int UserID) throws SQLException;
+
+    void resetMonthlyValues() throws SQLException;
 }
+

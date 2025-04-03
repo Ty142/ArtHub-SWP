@@ -34,6 +34,14 @@ public interface UserRepository {
     String getEmailByUserID(int UserID);
     String getEmailByArtworkID(int ArtworkID);
     User getUserByRankID(int rankID);
+    void updateLimitOfPushArtworks(int UserID, int amount) throws SQLException;
 
+    void resetLimitEachMonth(int userID) throws SQLException;
+
+    List<Integer> getAllUsersIsMember();
+
+    void updateLimitByTypeID(int TypeID, int userID) throws SQLException;
+
+    void updateLimitByExpired(int UserID);
 
 }

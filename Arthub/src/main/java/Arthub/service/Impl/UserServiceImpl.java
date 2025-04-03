@@ -7,9 +7,11 @@ import Arthub.repository.TypeOfRankRepository;
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import Arthub.repository.UserRepository;
 import Arthub.service.UserService;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.SQLException;
 import java.io.IOException;
@@ -111,6 +113,23 @@ import java.util.*;
     @Override
     public User getUserByUserID(int userID) {
         return userRepository.getUserById(userID);
+    }
+
+    @Override
+    public void setLimitToPostArtwork(int UserID) throws SQLException {
+        int limit = userRepository.getUserById(UserID).getAmountArtworks();
+        userRepository.updateLimitOfPushArtworks(UserID, limit);
+    }
+
+    @Scheduled(cron = "0 0 0 1 * ?")
+    @Transactional
+    @Override
+    public void resetMonthlyValues() throws SQLException {
+        List<Integer> List = userRepository.getAllUsersIsMember();
+        for (Integer userId : List) {
+            userRepository.resetLimitEachMonth(userId);
+        }
+
     }
 
 }

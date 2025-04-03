@@ -4,11 +4,12 @@ import Arthub.dto.ArtistFormDTO;
 import Arthub.dto.RankDTO;
 import Arthub.entity.TypeOfRank;
 
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.List;
 
 public interface RankService {
-    void AddRankToUser(RankDTO rankDTO) throws ParseException;
+    void AddRankToUser(RankDTO rankDTO) throws ParseException, SQLException;
 
     void removeRankToExpired(int RankID, int UserID);
 
