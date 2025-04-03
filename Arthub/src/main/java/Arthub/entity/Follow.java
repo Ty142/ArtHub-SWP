@@ -1,5 +1,6 @@
 package Arthub.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,27 +11,31 @@ import java.util.Date;
 @Setter
 @Getter
 public class Follow {
-    private int followerId;
-    private int followingId;
+
+    @JsonProperty("followerID")
+    private int followerID;
+
+    @JsonProperty("followingID")
+    private int followingID;
     private LocalDate dateFollow;
 
     public Follow(){}
 
 
     public int getFollowerId() {
-        return followerId;
+        return followerID;
     }
 
     public void setFollowerId(int followerId) {
-        this.followerId = followerId;
+        this.followerID = followerId;
     }
 
     public int getFollowingId() {
-        return followingId;
+        return followingID;
     }
 
     public void setFollowingId(int followingId) {
-        this.followingId = followingId;
+        this.followingID = followingId;
     }
 
     public LocalDate getDateFollow() {
